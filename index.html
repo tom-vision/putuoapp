@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+		<script src="https://cdn.bootcss.com/vue/2.4.2/vue.min.js"></script>
+		<script src="plugins/mui.min.js"></script>
+		<link href="plugins/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="plugins/iconfont.css" />
+		<link rel="stylesheet" href="css/style.css" />
+	</head>
+
+	<body>
+		<!-- 导航栏 -->
+		<header class="mui-bar mui-bar-nav">
+		    <h1 class="mui-title">掌上普陀</h1>
+		    <a class="mui-icon iconfont icon-icon1460187848267 mui-pull-right go-search"></a>
+		</header>
+		
+		<footer class="footer-tab">
+			<a class="active go-index">
+				<i class="iconfont icon-shouye"></i> 首页
+			</a>
+			<a class="go-news">
+				<i class="iconfont icon-xinwen1"></i> 新闻
+			</a>
+			<a>
+				<i class="iconfont icon-hudong"></i> 互动
+			</a>
+			<a class="go-ucenter">
+				<i class="iconfont icon-wode"></i> 我的
+			</a>
+		</footer>
+		
+		<div id="index" class="have-footer main">
+			<!-- 选项卡 -->	
+			<div class="sub-bar">
+				<ul>
+					<li @click="goHotNews" class="active go-hotnews"><a>新闻</a></li>
+					<li @click="goLive" class="go-live"><a>直播</a></li>
+					<li @click="goPaper"><a>报纸</a></li>
+					<li @click="goVod" class="go-vod"><a>视频</a></li>
+					<li @click="goLife" class="go-life"><a>服务</a></li>
+				</ul>
+			</div>
+			
+			<div class="index-tab index-tab-1">
+				<!-- 滚动图 -->
+				<div id="slider" class="mui-slider" >
+				  <div class="mui-slider-group mui-slider-loop">
+				    <div class="mui-slider-item mui-slider-item-duplicate">
+				      <a href="#">
+				        <img src="http://placehold.it/400x200">
+				      </a>
+				    </div>
+				    <div class="mui-slider-item">
+				      <a href="#">
+				        <img src="http://placehold.it/400x200">
+				      </a>
+				    </div>
+				    <div class="mui-slider-item">
+				      <a href="#">
+				        <img src="http://placehold.it/400x200">
+				      </a>
+				    </div>
+				    <div class="mui-slider-item">
+				      <a href="#">
+				        <img src="http://placehold.it/400x200">
+				      </a>
+				    </div>
+				    <div class="mui-slider-item mui-slider-item-duplicate">
+				      <a href="#">
+				        <img src="http://placehold.it/400x200">
+				      </a>
+				    </div>
+				  </div>
+				  <div class="mui-slider-text">
+				  	<p v-text="activeSlideText"></p>
+				  </div>
+				  <div class="mui-slider-indicator">
+				    <div class="mui-indicator mui-active"></div>
+				    <div class="mui-indicator"></div>
+				    <div class="mui-indicator"></div>
+				  </div>
+				</div>
+				
+				<div class="hotnews news-list">
+					<ul class="mui-table-view">
+					    <li class="mui-table-view-cell mui-media" @click="goNewsDetail">
+					        <a href="javascript:;">
+					            <img class="mui-media-object mui-pull-left" src="http://placehold.it/120x80">
+					            <div class="mui-media-body">副区长李莉到普陀广播电视台调研</div>
+					        </a>
+					    </li>
+					    <li class="mui-table-view-cell mui-media">
+					        <a href="javascript:;">
+					            <img class="mui-media-object mui-pull-left" src="http://placehold.it/120x80">
+					            <div class="mui-media-body">木屋</div>
+					        </a>
+					    </li>
+					</ul>
+				</div>
+				
+				<div class="news-list">
+					<header @click="goNews(0)">即时新闻</header>
+					<ul class="mui-table-view">
+					    <li class="mui-table-view-cell mui-media">
+					        <a href="javascript:;">
+					            <img class="mui-media-object mui-pull-left" src="http://placehold.it/120x80">
+					            <div class="mui-media-body">副区长李莉到普陀广播电视台调研</div>
+					        </a>
+					    </li>
+					    <li class="mui-table-view-cell mui-media">
+					        <a href="javascript:;">
+					            <img class="mui-media-object mui-pull-left" src="http://placehold.it/120x80">
+					            <div class="mui-media-body">木屋</div>
+					        </a>
+					    </li>
+					    <li class="multiple-media mui-content" @click="goNewsGraphic">
+					    	<div class="multiple-imgs mui-row">
+					    		<div class="mui-col-xs-4 mui-col-sm-4">
+					    			<img src="http://placehold.it/120x85" width="100%"/>
+					    		</div>
+								<div class="mui-col-xs-4 mui-col-sm-4">
+					    			<img src="http://placehold.it/120x85" width="100%"/>
+					    		</div>
+					    		<div class="mui-col-xs-4 mui-col-sm-4">
+					    			<img src="http://placehold.it/120x85" width="100%"/>
+					    		</div>
+					    	</div>
+					    	<p>今日开捕，鲁家峙大桥一片繁忙景象</p>
+					    </li>
+					    <li class="mui-table-view-cell mui-media">
+					        <a href="javascript:;">
+					            <img class="mui-media-object mui-pull-left" src="http://placehold.it/120x80">
+					            <div class="mui-media-body">木屋</div>
+					        </a>
+					    </li>
+					</ul>
+				</div>
+				
+				<div class="ad">
+					<a href="#"><img src="imgs/ad.jpg" width="100%"/></a>
+				</div>
+				
+				<div class="news-list">
+					<header @click="goNews(1)">普陀新闻</header>
+					<ul class="mui-table-view">
+					    <li class="mui-table-view-cell mui-media">
+					        <a href="javascript:;">
+					            <img class="mui-media-object mui-pull-left" src="http://placehold.it/120x80">
+					            <div class="mui-media-body">副区长李莉到普陀广播电视台调研</div>
+					        </a>
+					    </li>
+					    <li class="mui-table-view-cell mui-media">
+					        <a href="javascript:;">
+					            <img class="mui-media-object mui-pull-left" src="http://placehold.it/120x80">
+					            <div class="mui-media-body">木屋</div>
+					        </a>
+					    </li>
+					    <li class="mui-table-view-cell mui-media">
+					        <a href="javascript:;">
+					            <img class="mui-media-object mui-pull-left" src="http://placehold.it/120x80">
+					            <div class="mui-media-body">木屋</div>
+					        </a>
+					    </li>
+					</ul>
+				</div>
+				
+				<div class="video-list news-list">
+					<header @click="goNews(2)">视频新闻</header>
+					<ul class="mui-row">
+						<li>
+							<a class="video-item">
+					           <div style="background-image:url(http://placehold.it/240x150)">
+									<i class="iconfont icon-shipin"></i>
+					            </div>
+								<p>宁波舟山港六横港举行大马力海拖防台</p>
+							</a>		
+							<a class="video-item">
+					           <div style="background-image:url(http://placehold.it/240x150)">
+									<i class="iconfont icon-shipin"></i>
+					            </div>
+								<p>宁波舟山港六横港举行大马力海拖防台</p>
+							</a>	
+						</li>
+						<li>
+							<a class="video-item">
+					           <div style="background-image:url(http://placehold.it/240x150)">
+									<i class="iconfont icon-shipin"></i>
+					            </div>
+								<p>宁波舟山港六横港举行大马力海拖防台</p>
+							</a>	
+							<a class="video-item">
+					           <div style="background-image:url(http://placehold.it/240x150)">
+									<i class="iconfont icon-shipin"></i>
+					            </div>
+								<p>宁波舟山港六横港举行大马力海拖防台</p>
+							</a>	
+						</li>
+					</ul>
+				</div>
+				
+				<div class="news-list topic-list">
+				<header @click="goTopic">专题节目</header>
+				<ul class="mui-table-view">
+				    <li class="mui-table-view-cell mui-media">
+				        <a href="javascript:;">
+				            <img class="mui-media-object mui-pull-left" src="http://placehold.it/120x80">
+				            <div class="mui-media-body"><h1>平安鱼都</h1><p>首播：周二 20:20<br/>重播：周三 00:20 12:20</p></div>
+				        </a>
+				    </li>
+				    <li class="mui-table-view-cell mui-media">
+				        <a href="javascript:;">
+				            <img class="mui-media-object mui-pull-left" src="http://placehold.it/120x80">
+				            <div class="mui-media-body"><h1>平安鱼都</h1><p>首播：周二 20:20<br/>重播：周三 00:20 12:20</p></div>
+				        </a>
+				    </li>
+				</ul>
+			</div>
+			</div>
+			
+			<div class="index-tab index-tab-2">
+				<iframe src="http://app.zsputuo.com/zb/" frameborder="0" width="100%" :height="frameHeight"></iframe>
+			</div>
+
+			<div id="life" class="have-sub-header index-tab index-tab-3">
+				<div class="life">
+					<header>热门查询</header>
+					<div class="mui-row">
+					    <div class="mui-col-sm-6 mui-col-xs-6">
+					    	<div class="item">
+						    	<img src="http://placehold.it/120x120" />
+						    	<div class="info">
+						    		<h1>天气</h1>
+						    		<p>晴雨表、温度等</p>
+						    	</div>
+					    	</div>
+					    	<div class="item">
+						    	<img src="http://placehold.it/120x120" />
+						    	<div class="info">
+						    		<h1>天气</h1>
+						    		<p>晴雨表、温度等</p>
+						    	</div>
+					    	</div>
+					    </div>
+					    <div class="mui-col-sm-6 mui-col-xs-6">
+					    	<div class="item">
+						    	<img src="http://placehold.it/120x120" />
+						    	<div class="info">
+						    		<h1>天气</h1>
+						    		<p>晴雨表、温度等</p>
+						    	</div>
+					    	</div>
+					    	<div class="item">
+						    	<img src="http://placehold.it/120x120" />
+						    	<div class="info">
+						    		<h1>天气</h1>
+						    		<p>晴雨表、温度等</p>
+						    	</div>
+					    	</div>
+					    </div>
+					</div>
+				</div>
+				
+				<div class="life">
+					<header>热门查询</header>
+					<div class="mui-row">
+					    <div class="mui-col-sm-6 mui-col-xs-6">
+					    	<div class="item">
+						    	<img src="http://placehold.it/120x120" />
+						    	<div class="info">
+						    		<h1>天气</h1>
+						    		<p>晴雨表、温度等</p>
+						    	</div>
+					    	</div>
+					    	<div class="item">
+						    	<img src="http://placehold.it/120x120" />
+						    	<div class="info">
+						    		<h1>天气</h1>
+						    		<p>晴雨表、温度等</p>
+						    	</div>
+					    	</div>
+					    </div>
+					    <div class="mui-col-sm-6 mui-col-xs-6">
+					    	<div class="item">
+						    	<img src="http://placehold.it/120x120" />
+						    	<div class="info">
+						    		<h1>天气</h1>
+						    		<p>晴雨表、温度等</p>
+						    	</div>
+					    	</div>
+					    	<div class="item">
+						    	<img src="http://placehold.it/120x120" />
+						    	<div class="info">
+						    		<h1>天气</h1>
+						    		<p>晴雨表、温度等</p>
+						    	</div>
+					    	</div>
+					    </div>
+					</div>
+				</div>
+			</div>
+			
+			<div id="vod" class="have-sub-header index-tab index-tab-4">
+				<div class="video-list news-list">
+					<ul class="mui-row">
+						<li>
+							<a class="video-item">
+								<img src="http://placehold.it/240x150" width="100%"/>
+								<p>宁波舟山港六横港举行大马力海拖防台</p>
+							</a>		
+							<a class="video-item">
+								<img src="http://placehold.it/240x150" width="100%"/>
+								<p>宁波舟山港六横港举行大马力海拖防台</p>
+							</a>	
+						</li>
+						<li>
+							<a class="video-item">
+								<img src="http://placehold.it/240x150" width="100%"/>
+								<p>宁波舟山港六横港举行大马力海拖防台</p>
+							</a>	
+							<a class="video-item">
+								<img src="http://placehold.it/240x150" width="100%"/>
+								<p>宁波舟山港六横港举行大马力海拖防台</p>
+							</a>	
+						</li>
+					</ul>
+				</div>
+				<a class="load-more">点击加载更多</a>
+			</div>
+
+		</div>
+		
+		<div id="news" class="have-footer main">
+			<!-- 选项卡 -->
+			<div class="sub-bar news-sub-bar">
+				<ul>
+					<li v-for="s, i in newsSorts" :class="{ 'active' : activeSort == i }" @click="changeSort(i)">
+						<a v-text="s"></a>
+					</li>
+				</ul>
+			</div>
+
+			<div class="tab-content tab-content-width-fixed-sub-bar" v-show="activeSort == 0">
+				<div class="news-list">
+					<ul class="mui-table-view">
+						<li class="mui-table-view-cell mui-media">
+							<a href="javascript:;">
+								<img class="mui-media-object mui-pull-left" src="http://placehold.it/120x80">
+								<div class="mui-media-body">副区长李莉到普陀广播电视台调研</div>
+							</a>
+						</li>
+						<li class="mui-table-view-cell mui-media">
+							<a href="javascript:;">
+								<img class="mui-media-object mui-pull-left" src="http://placehold.it/120x80">
+								<div class="mui-media-body">木屋</div>
+							</a>
+						</li>
+						<li class="mui-table-view-cell mui-media">
+							<a href="javascript:;">
+								<img class="mui-media-object mui-pull-left" src="http://placehold.it/120x80">
+								<div class="mui-media-body">副区长李莉到普陀广播电视台调研</div>
+							</a>
+						</li>
+						<li class="mui-table-view-cell mui-media">
+							<a href="javascript:;">
+								<img class="mui-media-object mui-pull-left" src="http://placehold.it/120x80">
+								<div class="mui-media-body">木屋</div>
+							</a>
+						</li>
+						<li class="mui-table-view-cell mui-media">
+							<a href="javascript:;">
+								<img class="mui-media-object mui-pull-left" src="http://placehold.it/120x80">
+								<div class="mui-media-body">副区长李莉到普陀广播电视台调研</div>
+							</a>
+						</li>
+						<li class="mui-table-view-cell mui-media">
+							<a href="javascript:;">
+								<img class="mui-media-object mui-pull-left" src="http://placehold.it/120x80">
+								<div class="mui-media-body">木屋</div>
+							</a>
+						</li>
+						<li class="mui-table-view-cell mui-media">
+							<a href="javascript:;">
+								<img class="mui-media-object mui-pull-left" src="http://placehold.it/120x80">
+								<div class="mui-media-body">副区长李莉到普陀广播电视台调研</div>
+							</a>
+						</li>
+						<li class="mui-table-view-cell mui-media">
+							<a href="javascript:;">
+								<img class="mui-media-object mui-pull-left" src="http://placehold.it/120x80">
+								<div class="mui-media-body">木屋</div>
+							</a>
+						</li>
+						<li class="mui-table-view-cell mui-media">
+							<a href="javascript:;">
+								<img class="mui-media-object mui-pull-left" src="http://placehold.it/120x80">
+								<div class="mui-media-body">副区长李莉到普陀广播电视台调研</div>
+							</a>
+						</li>
+						<li class="mui-table-view-cell mui-media">
+							<a href="javascript:;">
+								<img class="mui-media-object mui-pull-left" src="http://placehold.it/120x80">
+								<div class="mui-media-body">木屋</div>
+							</a>
+						</li>
+						<li class="mui-table-view-cell mui-media">
+							<a href="javascript:;">
+								<img class="mui-media-object mui-pull-left" src="http://placehold.it/120x80">
+								<div class="mui-media-body">副区长李莉到普陀广播电视台调研</div>
+							</a>
+						</li>
+						<li class="mui-table-view-cell mui-media">
+							<a href="javascript:;">
+								<img class="mui-media-object mui-pull-left" src="http://placehold.it/120x80">
+								<div class="mui-media-body">木屋</div>
+							</a>
+						</li>
+						<li class="mui-table-view-cell mui-media">
+							<a href="javascript:;">
+								<img class="mui-media-object mui-pull-left" src="http://placehold.it/120x80">
+								<div class="mui-media-body">副区长李莉到普陀广播电视台调研</div>
+							</a>
+						</li>
+						<li class="mui-table-view-cell mui-media">
+							<a href="javascript:;">
+								<img class="mui-media-object mui-pull-left" src="http://placehold.it/120x80">
+								<div class="mui-media-body">木屋</div>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="tab-content tab-content-width-fixed-sub-bar" v-show="activeSort == 1">
+				<div class="news-list">
+					<ul class="mui-table-view">
+						<li class="mui-table-view-cell mui-media">
+							<a href="javascript:;">
+								<img class="mui-media-object mui-pull-left" src="http://placehold.it/120x80">
+								<div class="mui-media-body">副区长李莉到普陀广播电视台调研1</div>
+							</a>
+						</li>
+						<li class="mui-table-view-cell mui-media">
+							<a href="javascript:;">
+								<img class="mui-media-object mui-pull-left" src="http://placehold.it/120x80">
+								<div class="mui-media-body">木屋</div>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="tab-content tab-content-width-fixed-sub-bar" v-show="activeSort == 2">
+				<div class="video-list news-list">
+					<ul class="mui-row">
+						<li>
+							<a class="video-item">
+					           <div style="background-image:url(http://placehold.it/240x150)">
+									<i class="iconfont icon-shipin"></i>
+					            </div>
+								<p>宁波舟山港六横港举行大马力海拖防台</p>
+							</a>		
+							<a class="video-item">
+					           <div style="background-image:url(http://placehold.it/240x150)">
+									<i class="iconfont icon-shipin"></i>
+					            </div>
+								<p>宁波舟山港六横港举行大马力海拖防台</p>
+							</a>	
+						</li>
+						<li>
+							<a class="video-item">
+					           <div style="background-image:url(http://placehold.it/240x150)">
+									<i class="iconfont icon-shipin"></i>
+					            </div>
+								<p>宁波舟山港六横港举行大马力海拖防台</p>
+							</a>	
+							<a class="video-item">
+					           <div style="background-image:url(http://placehold.it/240x150)">
+									<i class="iconfont icon-shipin"></i>
+					            </div>
+								<p>宁波舟山港六横港举行大马力海拖防台</p>
+							</a>	
+						</li>
+					</ul>
+				</div>
+			</div>
+			
+			<a class="load-more">点击加载更多</a>
+			
+		</div>
+		
+		<div id="ucenter" class="have-footer have-header main ucenter">
+			<div class="user" @click="goLogin">
+				<div class="user-img iconfont">
+					<img src="http://placehold.it/80x80" v-show="isLogin"/>	
+				</div>
+				<p v-text="isLogin ? 'username' : '登陆/注册'"></p>
+			</div>
+			
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell">
+					<a class="mui-navigate-right">
+						<i class="iconfont icon-zan"></i>我的点赞
+					</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a class="mui-navigate-right">
+						<i class="iconfont icon-icon-test"></i>我的消息
+					</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a class="mui-navigate-right">
+						<i class="iconfont icon-hudong"></i>我的互动
+					</a>
+				</li>
+			</ul>
+
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell" @click="goSuggest">
+					<a class="mui-navigate-right">
+						<i class="iconfont icon-yijianfankui"></i>意见反馈
+					</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a class="mui-navigate-right">
+						<i class="iconfont icon-shengji"></i>退出登陆
+					</a>
+				</li>
+			</ul>
+		</div>		
+	</body>
+
+</html>
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/vue/2.4.2/vue.min.js"></script>
+<script src="js/global.js"></script>
+<script src="js/index.js"></script>

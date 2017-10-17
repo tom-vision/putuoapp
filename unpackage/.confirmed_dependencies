@@ -1,0 +1,205 @@
+{
+	"index.html": {
+		"resources": [
+			"plugins/mui.min.js",
+			"css/style.css",
+			"plugins/mui.min.css",
+			"js/index.js",
+			"imgs/ad.jpg",
+			"plugins/iconfont.css",
+			"js/global.js",
+			"views/newsDetail.html",
+			"fonts/mui.ttf",
+			"imgs/uBg.jpg"
+		],
+		"refer": [
+			"search.html",
+			"views/search.html",
+			"views/news.html",
+			"views/topic.html",
+			"views/newsDetail.html",
+			"views/life.html",
+			"views/vod.html",
+			"views/newsGraphic.html",
+			"views/live.html",
+			"views/suggest.html",
+			"views/login.html",
+			"views/userInfo.html"
+		]
+	},
+	"views/search.html": {
+		"resources": [
+			"plugins/mui.min.js",
+			"css/style.css",
+			"plugins/mui.min.css",
+			"plugins/iconfont.css",
+			"fonts/mui.ttf",
+			"js/search.js",
+			"js/global.js"
+		]
+	},
+	"views/news.html": {
+		"resources": [
+			"fonts/mui.ttf",
+			"plugins/mui.min.js",
+			"css/style.css",
+			"js/global.js",
+			"plugins/mui.min.css",
+			"plugins/iconfont.css",
+			"js/news.js"
+		]
+	},
+	"views/topic.html": {
+		"resources": [
+			"fonts/mui.ttf",
+			"plugins/mui.min.js",
+			"css/style.css",
+			"js/global.js",
+			"plugins/mui.min.css",
+			"plugins/iconfont.css",
+			"js/topic.js"
+		],
+		"refer": [
+			"views/topic-list.html"
+		]
+	},
+	"views/topic-list.html": {
+		"resources": [
+			"plugins/mui.min.js",
+			"fonts/mui.ttf",
+			"css/style.css",
+			"js/global.js",
+			"plugins/mui.min.css",
+			"plugins/iconfont.css"
+		]
+	},
+	"views/newsDetail.html": {
+		"resources": [
+			"fonts/mui.ttf",
+			"index.html",
+			"imgs/ad.jpg",
+			"plugins/mui.min.js",
+			"css/style.css",
+			"js/global.js",
+			"plugins/mui.min.css",
+			"js/search.js",
+			"plugins/iconfont.css",
+			"js/newsDetail.js"
+		],
+		"refer": [
+			"index.html",
+			"views/comment.html"
+		]
+	},
+	"views/comment.html": {
+		"resources": [
+			"plugins/mui.min.js",
+			"fonts/mui.ttf",
+			"css/style.css",
+			"js/global.js",
+			"plugins/mui.min.css",
+			"js/comment.js",
+			"plugins/iconfont.css"
+		]
+	},
+	"views/life.html": {
+		"resources": [
+			"fonts/mui.ttf",
+			"plugins/mui.min.js",
+			"css/style.css",
+			"js/global.js",
+			"plugins/mui.min.css",
+			"plugins/iconfont.css"
+		]
+	},
+	"views/vod.html": {
+		"resources": [
+			"fonts/mui.ttf",
+			"plugins/mui.min.js",
+			"css/style.css",
+			"js/global.js",
+			"plugins/mui.min.css",
+			"plugins/iconfont.css"
+		]
+	},
+	"views/newsGraphic.html": {
+		"resources": [
+			"plugins/mui.min.js",
+			"fonts/mui.ttf",
+			"css/style.css",
+			"js/global.js",
+			"plugins/mui.min.css",
+			"plugins/iconfont.css",
+			"js/newsGraphic.js"
+		],
+		"refer": [
+			"views/comment.html"
+		]
+	},
+	"views/live.html": {
+		"resources": [
+			"plugins/mui.min.js",
+			"fonts/mui.ttf",
+			"css/style.css",
+			"js/global.js",
+			"plugins/mui.min.css",
+			"plugins/iconfont.css"
+		]
+	},
+	"views/suggest.html": {
+		"resources": [
+			"fonts/mui.ttf",
+			"plugins/mui.min.js",
+			"css/style.css",
+			"js/global.js",
+			"plugins/mui.min.css",
+			"plugins/iconfont.css"
+		]
+	},
+	"views/login.html": {
+		"resources": [
+			"fonts/mui.ttf",
+			"plugins/mui.min.js",
+			"css/style.css",
+			"js/global.js",
+			"plugins/mui.min.css",
+			"plugins/iconfont.css",
+			"js/login.js"
+		],
+		"refer": [
+			"views/register.html",
+			"views/forgetPassword.html"
+		]
+	},
+	"views/register.html": {
+		"resources": [
+			"plugins/mui.min.js",
+			"css/style.css",
+			"js/global.js",
+			"plugins/mui.min.css",
+			"plugins/iconfont.css",
+			"fonts/mui.ttf"
+		]
+	},
+	"views/forgetPassword.html": {
+		"resources": [
+			"plugins/mui.min.js",
+			"fonts/mui.ttf",
+			"css/style.css",
+			"js/global.js",
+			"plugins/mui.min.css",
+			"plugins/iconfont.css"
+		]
+	},
+	"views/userInfo.html": {
+		"resources": [
+			"plugins/mui.min.js",
+			"fonts/mui.ttf",
+			"css/style.css",
+			"js/global.js",
+			"plugins/mui.min.css",
+			"plugins/iconfont.css",
+			"js/userInfo.js"
+		]
+	}
+}

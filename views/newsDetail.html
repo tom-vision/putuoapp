@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<script src="../plugins/mui.min.js"></script>
+		<link href="../plugins/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../plugins/iconfont.css" />
+		<link rel="stylesheet" href="../css/style.css" />
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+		<script src="https://cdn.bootcss.com/vue/2.4.2/vue.min.js"></script>
+	</head>
+
+	<body>
+		<!-- 导航栏 -->
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">文章</h1>
+		</header>
+		
+		<div id="detail" class="have-header news-detail">
+			<header>大岙车渡码头 趸船安装完成<p>2017-09-13 10:55:49&nbsp;&nbsp;&nbsp;&nbsp;来源：普陀新闻网</p></header>	
+			<article>
+				<img src="../imgs/ad.jpg" width="100%" />
+				<p>经过近一吉他的人安装 ，门框大岙车渡码头改扩建工程主趸船（俗称“浮码头”）昨天顺利安装完成。该主趸船长60米、宽15.5米，是迄今为止六横岛最大的客运 交通趸船。</p>
+			</article>
+			<div class="like" :class="{ active : like }" @click="changeLike"><i class="iconfont icon-heart-copy"></i>251个人喜欢 </div>		
+			<div class="share">
+				<div class="line"></div>
+				<div class="share-item">
+					<i class="iconfont icon-weixin"></i>
+					<i class="iconfont icon-pengyouquan"></i>
+				</div>
+			</div>
+		</div>
+		
+		<div id="comment" class="have-footer">
+			<div class="comment-list">
+				<header>热门评论</header>
+				<!--没有评论时显示以下tips-->
+				<!--<div class="tips">目测没有评论，欢迎您发表观点。</div>-->
+				<dl>
+					<dt>
+						<img src="http://placehold.it/80x80" width="30px" height="30px" />
+						<strong>刘宝琴</strong>
+						<time>24小时前</time>
+					</dt>
+					<dd>习主席强调，文艺是时代前进的号角。希望广大文艺工作者坚持以人民为中心的创作导向，坚持“二为”方向、“双百”方针，坚持创造性转化、创新性发展，精益求精、潜心磨砺，以传世之心打造传世之作，不断创作生产优秀作品，书写和记录人民的伟大实践、时代的进步要求，唱响主旋律、传递正能量，塑造中国形象、弘扬中国精神，坚定人民信心、振奋人民精神，为实现“两个一百年”奋斗目标、实现中华民族伟大复兴的中国梦提供强大精神力量。</dd>
+				</dl>
+				<footer @click="goComment">全部320条评论</footer>
+			</div>
+			
+			<div class="comment-bar" @click="goComment">
+				<span><i class="iconfont icon-xie"></i><em>写评论</em></span>
+				<span><i class="iconfont icon-pinglun1"></i><em>25</em></span>
+			</div>
+		</div>
+	</body>
+
+</html>
+<script src="../js/global.js"></script>
+<script src="../js/newsDetail.js"></script>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<script src="../plugins/mui.min.js"></script>
+		<link href="../plugins/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../plugins/iconfont.css" />
+		<link rel="stylesheet" href="../css/style.css" />
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+		<script src="https://cdn.bootcss.com/vue/2.4.2/vue.min.js"></script>
+	</head>
+
+	<body>
+		<!-- 导航栏 -->
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">专题节目</h1>
+		</header>
+		
+		<div id="topic" class="have-header">
+			
+			<div class="news-list topic-list">
+				<ul class="mui-table-view">
+				    <li class="mui-table-view-cell mui-media" @click="goTopicList">
+				        <a href="javascript:;">
+				            <img class="mui-media-object mui-pull-left" src="http://placehold.it/120x80">
+				            <div class="mui-media-body">
+				            	<h1>平安鱼都</h1>
+				            	<p>首播：周二 20:20<br/>重播：周三 00:20 12:20</p>
+				            	<i class="iconfont icon-shipin"></i>
+				            </div>
+				        </a>
+				    </li>
+				    <li class="mui-table-view-cell mui-media" @click="goTopicList">
+				        <a href="javascript:;">
+				            <img class="mui-media-object mui-pull-left" src="http://placehold.it/120x80">
+				            <div class="mui-media-body">
+				            	<h1>平安鱼都</h1>
+				            	<p>首播：周二 20:20<br/>重播：周三 00:20 12:20</p>
+				            	<i class="iconfont icon-shipin"></i>
+				            </div>
+				        </a>
+				    </li>
+				</ul>
+			</div>
+			
+		</div>
+	</body>
+
+</html>
+<script src="../js/global.js"></script>
+<script src="../js/topic.js"></script>
