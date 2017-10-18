@@ -1175,3 +1175,60 @@ body {
   -webkit-transform: scaleY(0.5);
   bottom: 0;
 }
+.interact-list {
+  margin-top: 94px;
+}
+.interact-list .mu-flex {
+  background-color: #fff;
+  padding: 10px;
+  display: flex;
+}
+.interact-list .mu-flex .mu-card-avatar {
+  width: 50px;
+  height: 50px;
+  display: block;
+  margin-right: 10px;
+}
+.interact-list .mu-flex .mu-card {
+  flex: 1;
+}
+.interact-list .mu-flex .mu-card .mu-card-header {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 50px;
+  margin-bottom: 10px;
+}
+.interact-list .mu-flex .mu-card .mu-card-header .mu-card-title {
+  font-size: 16px;
+}
+.interact-list .mu-flex .mu-card .mu-card-header .mu-card-time {
+  font-size: 14px;
+  color: #999;
+}
+.interact-list .mu-flex .mu-card .mu-card-text {
+  font-size: 16px;
+  line-height: 24px;
+}
+.interact-list .mu-flex .mu-card .mu-card-imgs {
+  margin-top: 10px;
+}
+.interact-list .mu-flex .mu-card .mu-card-imgs.mu-card-imgs-1 img {
+  max-height: 200px;
+  width: auto;
+}
+.interact-list .mu-flex .mu-card .mu-card-imgs.mu-card-imgs-3 ul {
+  display: flex;
+}
+.interact-list .mu-flex .mu-card .mu-card-imgs.mu-card-imgs-3 ul li {
+  width: 33.3%;
+  padding: 0 5px;
+}
+.interact-list .mu-flex .mu-card .mu-card-imgs.mu-card-imgs-3 ul li div {
+  padding-bottom: 100%;
+  width: 100%;
+  height: 0;
+  -webkit-background-size: cover;
+  background-size: cover;
+  background-position: center;
+}

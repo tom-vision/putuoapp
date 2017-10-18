@@ -1158,3 +1158,65 @@ body {
         }
     }
 }
+
+.interact-list {
+    margin-top: 94px;
+    .mu-flex {
+        background-color: #fff;
+        padding: 10px;
+        display: flex;
+        .mu-card-avatar {
+            width: 50px;
+            height: 50px;
+            display: block;
+            margin-right: 10px;
+        }
+        .mu-card {
+            flex: 1;
+            .mu-card-header {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                height: 50px;
+                margin-bottom: 10px;
+                .mu-card-title {
+                    font-size: 16px;
+                }
+                .mu-card-time {
+                    font-size: 14px;
+                    color: #999;
+                }
+            }
+            .mu-card-text {
+                font-size: 16px;
+                line-height: 24px;
+            }
+            .mu-card-imgs {
+                margin-top: 10px;
+                &.mu-card-imgs-1 {
+                    img {
+                        max-height: 200px;
+                        width: auto;
+                    }
+                }
+                &.mu-card-imgs-3 {
+                    ul {
+                        display: flex;
+                        li {
+                            width: 33.3%;
+                            padding: 0 5px;
+                            div {
+                                padding-bottom: 100%;
+                                width: 100%;
+                                height: 0;
+                                -webkit-background-size: cover;
+                                background-size: cover;
+                                background-position: center;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

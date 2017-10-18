@@ -24,6 +24,9 @@ mui.init({
 	}, {
 		url: 'views/userInfo.html',
 		id: 'userInfo'
+	}, {
+		url: 'views/interact.html',
+		id: 'interact'
 	}],
 });
 
@@ -133,6 +136,12 @@ $('.go-index').on('click', function() {
 $('.go-news').on('click', function() {
 	changeTab('news', $(this))
 })
+
+//跳转至互动
+$('.go-interact').on('click', function() {
+	openWindow('views/interact.html', 'interact');
+})
+
 
 //跳转至个人中心
 $('.go-ucenter').on('click', function() {

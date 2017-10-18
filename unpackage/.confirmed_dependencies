@@ -24,7 +24,8 @@
 			"views/live.html",
 			"views/suggest.html",
 			"views/login.html",
-			"views/userInfo.html"
+			"views/userInfo.html",
+			"views/interact.html"
 		]
 	},
 	"views/search.html": {
@@ -200,6 +201,11 @@
 			"plugins/mui.min.css",
 			"plugins/iconfont.css",
 			"js/userInfo.js"
+		]
+	},
+	"views/interact.html": {
+		"resources": [
+			"fonts/mui.ttf"
 		]
 	}
 }
