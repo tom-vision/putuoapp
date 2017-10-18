@@ -142,7 +142,6 @@ $('.go-interact').on('click', function() {
 	openWindow('views/interact.html', 'interact');
 })
 
-
 //跳转至个人中心
 $('.go-ucenter').on('click', function() {
 	changeTab('ucenter', $(this))

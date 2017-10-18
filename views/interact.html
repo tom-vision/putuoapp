@@ -45,26 +45,99 @@
 							<img src="http://placehold.it/200x200"/>
 						</div>
 						<!-- 2 张图时使用 -->
-						<div class="mu-card-imgs mu-card-imgs-2">
-							<div style="background:url('http://placehold.it/200x200')"></div>
-							<div style="background:url('http://placehold.it/200x200')"></div>
-						</div>
-						<!-- 3 张图时使用 -->
-						<div class="mu-card-imgs mu-card-imgs-3">
+						<div class="mu-card-imgs">
 							<ul>
 								<li>
-									<div style="background:url('http://placehold.it/200x200')"></div>
+									<div style="background-image:url('https://placeimg.com/200/200')"></div>
 								</li>
 								<li>
-									<div style="background:url('http://placehold.it/200x200')"></div>
-								</li>
-								<li>
-									<div style="background:url('http://placehold.it/200x200')"></div>
+									<div style="background-image:url('https://placeimg.com/144/332')"></div>
 								</li>
 							</ul>
 						</div>
-						<!-- 4 张图时使用 -->
+						<div class="mu-footer">
+							<span><i class="iconfont icon-zan"></i> 3</span>
+							<span><i class="iconfont icon-icon-test"></i> 5</span>
+							<span><i class="iconfont icon-fenxiang"></i></span>
+						</div>
 					</div>
+				</div>
+				
+				<div class="mu-flex">
+					<img src="http://placehold.it/60x60" class="mu-card-avatar"/>
+					<div class="mu-card">
+						<div class="mu-card-header">
+							<div class="mu-card-title"> 芒果橙</div>
+							<div class="mu-card-time">34秒前</div>
+						</div>
+						<div class="mu-card-text">测试内容测试内容测试内容测试内容测试内容测试内容</div>
+						<!-- 3 张图时使用 -->
+						<div class="mu-card-imgs">
+							<ul>
+								<li @click="openGallery">
+									<div style="background-image:url('https://placeimg.com/200/200')"></div>
+								</li>
+								<li>
+									<div style="background-image:url('https://placeimg.com/144/332')"></div>
+								</li>
+								<li>
+									<div style="background-image:url('https://placeimg.com/444/132')"></div>
+								</li>
+							</ul>
+						</div>
+						<div class="mu-footer">
+							<span class="active"><i class="iconfont icon-zan"></i> 3</span>
+							<span><i class="iconfont icon-icon-test"></i> 5</span>
+							<span><i class="iconfont icon-fenxiang"></i></span>
+						</div>
+					</div>
+				</div>
+				<a class="load-more">点击加载更多</a>
+			</div>
+		</div>
+		
+		<div id="interactGraphic" class="news-graphic interact-graphic" v-show="show">
+			<header class="mui-bar mui-bar-nav">
+				<a class="mui-icon mui-icon-left-nav mui-pull-left" @click="close"></a>
+			</header>
+			<div id="slider" class="mui-slider" >
+				<div class="mui-slider-group mui-slider-loop">
+					<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+					<div class="mui-slider-item mui-slider-item-duplicate">
+						<a href="#">
+							<img src="http://placehold.it/400x200">
+						</a>
+					</div>
+					<!-- 第一张 -->
+					<div class="mui-slider-item">
+						<a href="#">
+							<img src="http://placehold.it/400x200">
+						</a>
+					</div>
+					<!-- 第二张 -->
+					<div class="mui-slider-item">
+						<a href="#">
+							<img src="http://placehold.it/400x600">
+						</a>
+					</div>
+					<!-- 第三张 -->
+					<div class="mui-slider-item">
+						<a href="#">
+							<img src="http://placehold.it/750x800">
+						</a>
+					</div>
+					<!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
+					<div class="mui-slider-item mui-slider-item-duplicate">
+						<a href="#">
+							<img src="http://placehold.it/750x800">
+						</a>
+					</div>
+				</div>
+				<div class="mui-slider-indicator" style="display:block">
+					<div class="mui-indicator mui-active"></div>
+					<div class="mui-indicator"></div>
+					<div class="mui-indicator"></div>
+					<div class="mui-indicator"></div>
 				</div>
 			</div>
 		</div>

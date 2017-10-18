@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<script src="../plugins/mui.min.js"></script>
+		<link href="../plugins/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../plugins/iconfont.css" />
+		<link rel="stylesheet" href="../css/style.css" />
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+		<script src="https://cdn.bootcss.com/vue/2.4.2/vue.min.js"></script>
+	</head>
+
+	<body>
+		<!-- 导航栏 -->
+		<header class="mui-bar mui-bar-nav">
+			<button class="mui-action-back mui-btn mui-btn-link mui-pull-left">取消</button>
+			<h1 class="mui-title">互动</h1>
+			<button class="mui-btn mui-btn-link mui-pull-right">发布</button>
+		</header>
+
+		<div id="release" class="have-header">
+			<textarea class="release-text" placeholder="发表你的动态..."></textarea>
+			<div class="release-imgs">
+				<div style="background-image: url('https://placeimg.com/200/200')" @click="removeImg"></div>
+				<div style="background-image: url('https://placeimg.com/200/200')" @click="removeImg"></div>
+				<div class="add-img" v-show="showAdd" @click="addImg"><i class="iconfont icon-iconfont7"></i></div>
+			</div>
+		</div>
+	</body>
+
+</html>
+<script src="../js/global.js"></script>
+<script src="../js/release.js"></script>

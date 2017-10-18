@@ -784,11 +784,20 @@ body {
 .news-graphic .mui-slider-indicator {
   display: none;
 }
+.news-graphic .mui-slider-group {
+  height: 100%;
+}
 .news-graphic .mui-slider {
   height: 100%;
 }
 .news-graphic .mui-slider-item {
   vertical-align: middle!important;
+  height: 100%;
+}
+.news-graphic .mui-slider-item a {
+  display: flex!important;
+  align-items: center;
+  height: 100%;
 }
 .news-graphic .detail {
   position: absolute;
@@ -1182,6 +1191,7 @@ body {
   background-color: #fff;
   padding: 10px;
   display: flex;
+  margin-bottom: 10px;
 }
 .interact-list .mu-flex .mu-card-avatar {
   width: 50px;
@@ -1217,18 +1227,79 @@ body {
   max-height: 200px;
   width: auto;
 }
-.interact-list .mu-flex .mu-card .mu-card-imgs.mu-card-imgs-3 ul {
+.interact-list .mu-flex .mu-card .mu-card-imgs ul {
   display: flex;
 }
-.interact-list .mu-flex .mu-card .mu-card-imgs.mu-card-imgs-3 ul li {
+.interact-list .mu-flex .mu-card .mu-card-imgs ul li {
   width: 33.3%;
   padding: 0 5px;
 }
-.interact-list .mu-flex .mu-card .mu-card-imgs.mu-card-imgs-3 ul li div {
+.interact-list .mu-flex .mu-card .mu-card-imgs ul li div {
   padding-bottom: 100%;
   width: 100%;
   height: 0;
   -webkit-background-size: cover;
   background-size: cover;
   background-position: center;
+}
+.interact-list .mu-flex .mu-card .mu-footer {
+  padding-top: 10px;
+  display: flex;
+}
+.interact-list .mu-flex .mu-card .mu-footer span {
+  flex: 1;
+  text-align: center;
+  align-items: center;
+  font-size: 14px;
+  color: #666;
+}
+.interact-list .mu-flex .mu-card .mu-footer span.active {
+  color: #009cff;
+}
+.interact-list .mu-flex .mu-card .mu-footer span.active i {
+  color: #009cff;
+}
+.interact-list .mu-flex .mu-card .mu-footer span i {
+  font-size: 20px;
+  display: inline-block;
+}
+.interact-graphic {
+  background-color: #000;
+  z-index: 11;
+}
+.interact-graphic header {
+  background-color: rgba(0, 0, 0, 0);
+}
+.no-scroll {
+  overflow: hidden;
+}
+.release-text {
+  width: 100%;
+  border: none;
+  background-color: #fff;
+  height: 300px;
+  font-size: 16px;
+  display: block;
+  margin-bottom: 0;
+}
+.release-imgs {
+  padding: 10px;
+  display: flex;
+}
+.release-imgs div {
+  width: 100px;
+  height: 100px;
+  display: inline-block;
+  margin-right: 10px;
+}
+.release-imgs div.add-img {
+  border: 1px solid #999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 100px;
+}
+.release-imgs div.add-img i {
+  color: #999;
+  font-size: 60px;
 }

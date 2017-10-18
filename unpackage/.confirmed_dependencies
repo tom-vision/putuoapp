@@ -205,7 +205,12 @@
 	},
 	"views/interact.html": {
 		"resources": [
-			"fonts/mui.ttf"
+			"fonts/mui.ttf",
+			"plugins/mui.min.js",
+			"css/style.css",
+			"js/global.js",
+			"plugins/mui.min.css",
+			"plugins/iconfont.css"
 		]
 	}
 }
