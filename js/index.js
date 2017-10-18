@@ -30,7 +30,7 @@ mui.init({
 var index = new Vue({
 	el: '#index',
 	data: {
-		activeSlideText: '我是标题我是标题我是标题我是标题我是标题我是标题我是标题我是标题',
+		activeSlideText: '我是标题我是标题',
 		frameHeight: '300px'
 	},
 	created: function() {
