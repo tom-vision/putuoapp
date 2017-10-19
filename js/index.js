@@ -168,6 +168,7 @@ $('.go-search').on('click', function() {
 	openWindow('views/search.html', 'search');
 })
 
+
 //跳转至首页tab
 $('.go-index').on('click', function() {
 	changeTab('index', $(this))
