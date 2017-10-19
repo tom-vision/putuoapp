@@ -22,7 +22,7 @@ ul {
   color: #fff;
 }
 .mui-slider {
-  min-height: 150px;
+  height: 150px;
 }
 .mui-slider-text {
   position: absolute;
