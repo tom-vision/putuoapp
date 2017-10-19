@@ -151,8 +151,16 @@
 				<div class="video-list news-list">
 					<header @click="goNews(2)">视频新闻</header>					
 					<ul class="mui-row">
-						<li v-for="i in videoNews.slice(0,2)">
-							<a class="video-item" >
+						<li >
+							<a class="video-item" v-for="i in videoNews.slice(0,2)">
+					           	<div :style="'background-image:url('+ i.img +')'">
+									<i class="iconfont icon-shipin"></i>
+					            </div>
+								<p v-text = "i.title"></p>
+							</a>								
+						</li>
+						<li >
+							<a class="video-item" v-for="i in videoNews.slice(-2)">
 					           	<div :style="'background-image:url('+ i.img +')'">
 									<i class="iconfont icon-shipin"></i>
 					            </div>
@@ -160,16 +168,7 @@
 							</a>								
 						</li>
 					</ul>
-					<ul class="mui-row">
-						<li v-for="i in videoNews.slice(-2)">
-							<a class="video-item" >
-					           	<div :style="'background-image:url('+ i.img +')'">
-									<i class="iconfont icon-shipin"></i>
-					            </div>
-								<p v-text = "i.title"></p>
-							</a>								
-						</li>
-					</ul>
+					
 				</div>
 				
 				<div class="news-list topic-list">
