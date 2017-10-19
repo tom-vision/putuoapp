@@ -145,6 +145,7 @@ var ucenter = new Vue({
 	}
 })
 
+//合并
 // banner滚动时更换标题
 document.querySelector('.mui-slider').addEventListener('slide', function(event) {
 	
