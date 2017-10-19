@@ -17,7 +17,7 @@ ul {
   color: #fff;
 }
 .mui-slider {
-  min-height: 150px;
+  height: 150px;
 }
 .mui-slider-text {
   position: absolute;
@@ -1184,7 +1184,7 @@ body {
   -webkit-transform: scaleY(0.5);
   bottom: 0;
 }
-.interact-list {
+#interact .interact-list {
   margin-top: 94px;
 }
 .interact-list .mu-flex {
@@ -1198,6 +1198,9 @@ body {
   height: 50px;
   display: block;
   margin-right: 10px;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
 }
 .interact-list .mu-flex .mu-card {
   flex: 1;
@@ -1211,6 +1214,11 @@ body {
 }
 .interact-list .mu-flex .mu-card .mu-card-header .mu-card-title {
   font-size: 16px;
+}
+.interact-list .mu-flex .mu-card .mu-card-header .mu-card-title span {
+  margin-left: 10px;
+  font-size: 14px;
+  color: #999;
 }
 .interact-list .mu-flex .mu-card .mu-card-header .mu-card-time {
   font-size: 14px;
@@ -1302,4 +1310,130 @@ body {
 .release-imgs div.add-img i {
   color: #999;
   font-size: 60px;
+}
+.cmt-list {
+  position: relative;
+  background-color: #fff;
+}
+.cmt-list:before {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  content: '';
+  background-color: #c8c7cc;
+  transform: scaleY(0.5);
+  -webkit-transform: scaleY(0.5);
+  top: 0;
+}
+.cmt-list:after {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  content: '';
+  background-color: #c8c7cc;
+  transform: scaleY(0.5);
+  -webkit-transform: scaleY(0.5);
+  bottom: 0;
+}
+.cmt-list ul li {
+  padding: 15px;
+  display: flex;
+  position: relative;
+}
+.cmt-list ul li:active {
+  background-color: #eee;
+}
+.cmt-list ul li:after {
+  position: absolute;
+  left: 15px;
+  right: 0;
+  height: 1px;
+  content: '';
+  background-color: #c8c7cc;
+  transform: scaleY(0.5);
+  -webkit-transform: scaleY(0.5);
+  bottom: 0;
+}
+.cmt-list ul li img {
+  width: 50px;
+  height: 50px;
+  display: block;
+  margin-right: 10px;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+}
+.cmt-list ul li .cmt-info {
+  flex: 1;
+}
+.cmt-list ul li .cmt-info header {
+  display: flex;
+  justify-content: space-between;
+}
+.cmt-list ul li .cmt-info header h1 {
+  font-size: 16px;
+  color: #333;
+  font-weight: normal;
+}
+.cmt-list ul li .cmt-info header time {
+  font-size: 14px;
+  color: #999;
+}
+.cmt-list ul li .cmt-info p {
+  font-size: 16px;
+  color: #333;
+  line-height: 24px;
+  margin: 0;
+}
+.comment-area {
+  height: 50px;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  display: flex;
+  z-index: 11;
+  background-color: #eee;
+}
+.comment-area input {
+  flex: 1;
+  font-size: 14px;
+  height: 30px;
+  padding: 5px;
+  box-sizing: border-box;
+  margin-bottom: 0;
+}
+.comment-area a {
+  margin-left: 15px;
+  font-size: 14px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  height: 30px;
+  line-height: 30px;
+  width: 70px;
+  text-align: center;
+  background-color: #eee;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  color: #333;
+}
+.comment-area a.active {
+  background-color: #009cff;
+  color: #fff;
+}
+.comment-area:before {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  content: '';
+  background-color: #c8c7cc;
+  transform: scaleY(0.5);
+  -webkit-transform: scaleY(0.5);
+  top: 0;
 }

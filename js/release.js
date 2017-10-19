@@ -17,6 +17,7 @@ function plusReady() {
 				});
 			},
 			removeImg: function(e) {
+				console.log(e)
 				e.srcElement.remove();
 			}
 		},

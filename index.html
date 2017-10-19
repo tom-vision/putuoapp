@@ -82,7 +82,7 @@
 				<div class="hotnews news-list">
 					<ul class="mui-table-view">
 					    <li class="mui-table-view-cell mui-media"  v-for="i in headNews">
-					        <a @click="goNewsDetail(i)">
+					        <a @click="gotoDetail(i)">
 					            <img class="mui-media-object mui-pull-left" :src="i.img" v-show="i.img!=''">
 					            <div class="mui-media-body" v-text="i.title"></div>
 					        </a>
@@ -99,36 +99,26 @@
 				<div class="news-list">
 					<header @click="gotoInstantNews">即时新闻</header>
 					<ul class="mui-table-view">
-						<li v-for = "i in instantNews">
-							<div class="mui-table-view-cell mui-media" v-if="i.img.length <=1">
-					        	<a @click="gotoDetail(i)">
-					            	<img class="mui-media-object mui-pull-left" :src="i.img">
-					            	<div class="mui-media-body" v-text="i.title"></div>
-					        	</a>
-					    	</div>
-					    
-					    	<div class="multiple-media mui-content" @click="goNewsGraphic" v-else>
-					    		<div class="multiple-imgs mui-row">
-					    			<div class="mui-col-xs-4 mui-col-sm-4" v-for="item in i.img">
-					    				<img :src="item" width="100%"/>
-					    			</div>
-									<!--<div class="mui-col-xs-4 mui-col-sm-4">
-					    				<img src="http://placehold.it/120x85" width="100%"/>
-					    			</div>
-					    			<div class="mui-col-xs-4 mui-col-sm-4">
-					    				<img src="http://placehold.it/120x85" width="100%"/>
-					    			</div>-->
-					    		</div>
-					    		<p v-text = "i.title"></p>
-					    	</div>
+						<li v-for="i in instantNews" class="mui-table-view-cell mui-media" v-if="i.img.length <=1">
+				        	<a @click="gotoDetail(i)">
+				            	<img class="mui-media-object mui-pull-left" :src="i.img">
+				            	<div class="mui-media-body" v-text="i.title"></div>
+				        	</a>
 						</li>
-					    
-					    <!--<li class="mui-table-view-cell mui-media">
-					        <a href="javascript:;">
-					            <img class="mui-media-object mui-pull-left" src="http://placehold.it/120x80">
-					            <div class="mui-media-body">木屋</div>
-					        </a>
-					    </li>-->
+						<li class="multiple-media mui-content" @click="goNewsGraphic" v-else>
+							<div class="multiple-imgs mui-row">
+				    			<div class="mui-col-xs-4 mui-col-sm-4" v-for="item in i.img">
+				    				<img :src="item" width="100%"/>
+				    			</div>
+								<!--<div class="mui-col-xs-4 mui-col-sm-4">
+				    				<img src="http://placehold.it/120x85" width="100%"/>
+				    			</div>
+				    			<div class="mui-col-xs-4 mui-col-sm-4">
+				    				<img src="http://placehold.it/120x85" width="100%"/>
+				    			</div>-->
+				    		</div>
+				    		<p v-text = "i.title"></p>
+						</li>
 					</ul>
 				</div>
 				
@@ -151,20 +141,21 @@
 				<div class="video-list news-list">
 					<header @click="goNews(2)">视频新闻</header>					
 					<ul class="mui-row">
-						<li >
+						<li>
 							<a class="video-item" v-for="i in videoNews.slice(0,2)">
 					           	<div :style="'background-image:url('+ i.img +')'">
 									<i class="iconfont icon-shipin"></i>
 					            </div>
-								<p v-text = "i.title"></p>
+								<p v-text="i.title"></p>
 							</a>								
 						</li>
-						<li >
+
+						<li>
 							<a class="video-item" v-for="i in videoNews.slice(-2)">
 					           	<div :style="'background-image:url('+ i.img +')'">
 									<i class="iconfont icon-shipin"></i>
 					            </div>
-								<p v-text = "i.title"></p>
+								<p v-text="i.title"></p>
 							</a>								
 						</li>
 					</ul>
@@ -490,7 +481,7 @@
 				</li>
 				<li class="mui-table-view-cell">
 					<a class="mui-navigate-right">
-						<i class="iconfont icon-shengji"></i>版本更新
+						<i class="iconfont icon-shengji"></i>退出登陆
 					</a>
 				</li>
 			</ul>

@@ -1168,8 +1168,11 @@ body {
     }
 }
 
-.interact-list {
+#interact .interact-list {
     margin-top: 94px;
+}
+
+.interact-list {
     .mu-flex {
         background-color: #fff;
         padding: 10px;
@@ -1180,6 +1183,9 @@ body {
             height: 50px;
             display: block;
             margin-right: 10px;
+            -webkit-border-radius: 50%;
+            -moz-border-radius: 50%;
+            border-radius: 50%;
         }
         .mu-card {
             flex: 1;
@@ -1191,6 +1197,11 @@ body {
                 margin-bottom: 10px;
                 .mu-card-title {
                     font-size: 16px;
+                    span {
+                        margin-left: 10px;
+                        font-size: 14px;
+                        color: #999;
+                    }
                 }
                 .mu-card-time {
                     font-size: 14px;
@@ -1291,5 +1302,135 @@ body {
                 font-size: 60px;
             }
         }
+    }
+}
+
+.cmt-list {
+    position: relative;
+    background-color: #fff;
+    &:before {
+        position: absolute;
+        left: 0;
+        right: 0;
+        height: 1px;
+        content: '';
+        background-color: #c8c7cc;
+        transform: scaleY(.5);
+        -webkit-transform: scaleY(.5);
+        top: 0;
+    }
+    &:after {
+        position: absolute;
+        left: 0;
+        right: 0;
+        height: 1px;
+        content: '';
+        background-color: #c8c7cc;
+        transform: scaleY(.5);
+        -webkit-transform: scaleY(.5);
+        bottom: 0;
+    }
+    ul {
+        li {
+            padding: 15px;
+            display: flex;
+            position: relative;
+            &:active {
+                background-color: #eee;
+            }
+            &:after {
+                position: absolute;
+                left: 15px;
+                right: 0;
+                height: 1px;
+                content: '';
+                background-color: #c8c7cc;
+                transform: scaleY(.5);
+                -webkit-transform: scaleY(.5);
+                bottom: 0;
+            }
+            img {
+                width: 50px;
+                height: 50px;
+                display: block;
+                margin-right: 10px;
+                -webkit-border-radius: 50%;
+                -moz-border-radius: 50%;
+                border-radius: 50%;
+            }
+            .cmt-info {
+                flex: 1;
+                header {
+                    display: flex;
+                    justify-content: space-between;
+                    h1 {
+                        font-size: 16px;
+                        color: #333;
+                        font-weight: normal;
+                    }
+                    time {
+                        font-size: 14px;
+                        color: #999;
+                    }
+                }
+                p {
+                    font-size: 16px;
+                    color: #333;
+                    line-height: 24px;
+                    margin: 0;
+                }
+            }
+        }
+    }
+}
+
+.comment-area {
+    height: 50px;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    display: flex;
+    z-index: 11;
+    background-color: #eee;
+    input {
+        flex: 1;
+        font-size: 14px;
+        height: 30px;
+        padding: 5px;
+        box-sizing: border-box;
+        margin-bottom: 0;
+    }  
+    a {
+        margin-left: 15px;
+        font-size: 14px;
+        -webkit-border-radius: 3px;
+        -moz-border-radius: 3px;
+        border-radius: 3px;
+        height: 30px;
+        line-height: 30px;
+        width: 70px;
+        text-align: center;
+        background-color: #eee;
+        border: 1px solid rgba(0,0,0,.2);   
+        color: #333;  
+        &.active {
+            background-color: @base;
+            color: #fff;
+        }   
+    }
+    &:before {
+        position: absolute;
+        left: 0;
+        right: 0;
+        height: 1px;
+        content: '';
+        background-color: #c8c7cc;
+        transform: scaleY(.5);
+        -webkit-transform: scaleY(.5);
+        top: 0;
     }
 }

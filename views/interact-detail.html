@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<script src="../plugins/mui.min.js"></script>
+		<link href="../plugins/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../plugins/iconfont.css" />
+		<link rel="stylesheet" href="../css/style.css" />
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+		<script src="https://cdn.bootcss.com/vue/2.4.2/vue.min.js"></script>
+	</head>
+
+	<body>
+		<!-- 导航栏 -->
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">互动详情</h1>
+		</header>
+		
+		<div id="interactDetail" class="have-header have-footer">
+			<div class="comment-area">
+				<input type="text" :placeholder="placeholder" v-model="comment"/>
+				<a :class="{ active : haveComment }">发送</a>
+			</div>
+			
+			<div class="interact-list">
+				<div class="mu-flex">
+					<img src="http://placehold.it/60x60" class="mu-card-avatar"/>
+					<div class="mu-card">
+						<div class="mu-card-header">
+							<div class="mu-card-title"> 芒果橙</div>
+							<div class="mu-card-time">34秒前</div>
+						</div>
+						<div class="mu-card-text">测试内容测试内容测试内容测试内容测试内容测试内容</div>
+						<!-- 1 张图时使用 -->
+						<div class="mu-card-imgs mu-card-imgs-1">
+							<img src="http://placehold.it/200x200"/>
+						</div>
+						<!-- 2 张图时使用 -->
+						<div class="mu-card-imgs">
+							<ul>
+								<li>
+									<div style="background-image:url('https://placeimg.com/200/200')"></div>
+								</li>
+								<li>
+									<div style="background-image:url('https://placeimg.com/144/332')"></div>
+								</li>
+							</ul>
+						</div>
+						<div class="mu-footer">
+							<span><i class="iconfont icon-zan"></i> 3</span>
+							<span><i class="iconfont icon-icon-test"></i> 5</span>
+							<span><i class="iconfont icon-fenxiang"></i></span>
+						</div>
+					</div>
+				</div>
+				
+				<div class="cmt-list">
+					<ul>
+						<li>
+							<img src="http://placehold.it/60x60" class="mu-card-avatar"/>
+							<div class="cmt-info">
+								<header>
+									<h1>吉吉32123</h1>
+									<time>5分钟前</time>
+								</header>
+								<p>测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容</p>
+							</div>
+						</li>
+						<li>
+							<img src="http://placehold.it/60x60" class="mu-card-avatar"/>
+							<div class="cmt-info">
+								<header>
+									<h1>吉吉32123</h1>
+									<time>5分钟前</time>
+								</header>
+								<p>测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容</p>
+							</div>
+						</li>
+					</ul>
+				</div>
+				
+				<a class="load-more">更多评论</a>
+			</div>
+		</div>
+	</body>
+
+</html>
+<script src="../js/global.js"></script>
+<script src="../js/interactDetail.js"></script>
