@@ -53,9 +53,9 @@ var index = new Vue({
 			changeTab('news', $('.go-news'));
 			news.activeSort = i;
 		},
-		goNewsDetail: function() {
-			openWindow('views/newsDetail.html', 'newsDetail');
-		},
+//		goNewsDetail: function() {
+//			openWindow('views/newsDetail.html', 'newsDetail');
+//		},
 		goLife: function() {
 			changeIndexTab('index-tab-3', $('.go-life'));
 		},
@@ -76,7 +76,18 @@ var index = new Vue({
 		},
 		//跳转到文章详情
 		gotoDetail: function(i){
-			
+			console.log("8888");
+			var detailPage = null;
+			//获得详情页面
+ 			if(!detailPage) {
+ 				detailPage = plus.webview.getWebviewById('newsDetail');
+ 			}
+ 			//触发详情页面的newsId事件
+ 			mui.fire(detailPage, 'newsId', {
+ 				id: i.id
+ 			});
+ 
+ 			mui.openWindow('views/newsDetail.html','newsDetail');
 		},
 		//查看更多即时新闻
 		gotoInstantNews: function(){
