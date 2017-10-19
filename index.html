@@ -175,18 +175,13 @@
 				<div class="news-list topic-list">
 				<header @click="goTopic">专题节目</header>
 				<ul class="mui-table-view">
-				    <li class="mui-table-view-cell mui-media">
-				        <a href="javascript:;">
-				            <img class="mui-media-object mui-pull-left" src="http://placehold.it/120x80">
-				            <div class="mui-media-body"><h1>平安鱼都</h1><p>首播：周二 20:20<br/>重播：周三 00:20 12:20</p></div>
+				    <li class="mui-table-view-cell mui-media" v-for="i in topicNews">
+				        <a @click="gotoTopic(i)">
+				            <img class="mui-media-object mui-pull-left" :src="i.img">
+				            <div class="mui-media-body"><h1 v-text="i.title"></h1><p v-text="i.brief"></p><p v-text="i.brief2"></p></div>
 				        </a>
 				    </li>
-				    <li class="mui-table-view-cell mui-media">
-				        <a href="javascript:;">
-				            <img class="mui-media-object mui-pull-left" src="http://placehold.it/120x80">
-				            <div class="mui-media-body"><h1>平安鱼都</h1><p>首播：周二 20:20<br/>重播：周三 00:20 12:20</p></div>
-				        </a>
-				    </li>
+	 
 				</ul>
 			</div>
 			</div>
@@ -290,7 +285,7 @@
 							<a class="video-item">
 								<img src="http://placehold.it/240x150" width="100%"/>
 								<p>宁波舟山港六横港举行大马力海拖防台</p>
-							</a>	
+							</a>								
 							<a class="video-item">
 								<img src="http://placehold.it/240x150" width="100%"/>
 								<p>宁波舟山港六横港举行大马力海拖防台</p>
