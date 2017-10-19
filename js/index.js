@@ -108,6 +108,7 @@ var index = new Vue({
 	}
 })
 
+//测试分支合并
 //选项卡
 var news = new Vue({
 	el: '#news',
