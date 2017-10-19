@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 
 	<head>
@@ -14,7 +14,7 @@
 	</head>
 
 	<body>
-		<!--  -->
+		<!-- 导航栏 -->
 		<header class="mui-bar mui-bar-nav">
 		    <h1 class="mui-title">掌上普陀</h1>
 		    <a class="mui-icon iconfont icon-icon1460187848267 mui-pull-right go-search"></a>
@@ -27,7 +27,7 @@
 			<a class="go-news">
 				<i class="iconfont icon-xinwen1"></i> 新闻
 			</a>
-			<a class="go-interact">
+			<a>
 				<i class="iconfont icon-hudong"></i> 互动
 			</a>
 			<a class="go-ucenter">
@@ -52,93 +52,83 @@
 				<div id="slider" class="mui-slider" >
 				  <div class="mui-slider-group mui-slider-loop">
 				    <div class="mui-slider-item mui-slider-item-duplicate">
-				      <a href="#">
-				        <img src="http://placehold.it/400x200">
+				      <a @click = "gotoDetail(scrollNews.slice(-1))">
+				        <img :src="scrollNews.slice(-1).img">
 				      </a>
 				    </div>
-				    <div class="mui-slider-item">
-				      <a href="#">
-				        <img src="http://placehold.it/400x200">
+				    <div class="mui-slider-item" v-for="i in scrollNews">
+				      <a @click="gotoDetail(i)">
+				        <img :src="i.img">
 				      </a>
 				    </div>
-				    <div class="mui-slider-item">
-				      <a href="#">
-				        <img src="http://placehold.it/400x200">
-				      </a>
-				    </div>
-				    <div class="mui-slider-item">
-				      <a href="#">
-				        <img src="http://placehold.it/400x200">
-				      </a>
-				    </div>
+				 
 				    <div class="mui-slider-item mui-slider-item-duplicate">
-				      <a href="#">
-				        <img src="http://placehold.it/400x200">
+				      <a @click = "gotoDetail(scrollNews.slice(1,2))">
+				        <img :src="scrollNews.slice(1,2).img">
 				      </a>
 				    </div>
 				  </div>
 				  <div class="mui-slider-text">
 				  	<p v-text="activeSlideText"></p>
 				  </div>
-				  <div class="mui-slider-indicator">
-				    <div class="mui-indicator mui-active"></div>
-				    <div class="mui-indicator"></div>
-				    <div class="mui-indicator"></div>
+				  <div class="mui-slider-indicator">			    
+				    <a v-for="i in scrollNews.length">
+				    	<div class="mui-indicator mui-active" v-if="i==1"></div>
+				    	<div class="mui-indicator" v-else></div>
+				    </a>
 				  </div>
 				</div>
 				
 				<div class="hotnews news-list">
 					<ul class="mui-table-view">
-					    <li class="mui-table-view-cell mui-media" @click="goNewsDetail">
-					        <a href="javascript:;">
-					            <img class="mui-media-object mui-pull-left" src="http://placehold.it/120x80">
-					            <div class="mui-media-body">副区长李莉到普陀广播电视台调研</div>
+					    <li class="mui-table-view-cell mui-media"  v-for="i in headNews">
+					        <a @click="goNewsDetail(i)">
+					            <img class="mui-media-object mui-pull-left" :src="i.img" v-show="i.img!=''">
+					            <div class="mui-media-body" v-text="i.title"></div>
 					        </a>
 					    </li>
-					    <li class="mui-table-view-cell mui-media">
+					    <!--<li class="mui-table-view-cell mui-media">
 					        <a href="javascript:;">
 					            <img class="mui-media-object mui-pull-left" src="http://placehold.it/120x80">
 					            <div class="mui-media-body">木屋</div>
 					        </a>
-					    </li>
+					    </li>-->
 					</ul>
 				</div>
 				
 				<div class="news-list">
-					<header @click="goNews(0)">即时新闻</header>
+					<header @click="gotoInstantNews">即时新闻</header>
 					<ul class="mui-table-view">
-					    <li class="mui-table-view-cell mui-media">
-					        <a href="javascript:;">
-					            <img class="mui-media-object mui-pull-left" src="http://placehold.it/120x80">
-					            <div class="mui-media-body">副区长李莉到普陀广播电视台调研</div>
-					        </a>
-					    </li>
-					    <li class="mui-table-view-cell mui-media">
-					        <a href="javascript:;">
-					            <img class="mui-media-object mui-pull-left" src="http://placehold.it/120x80">
-					            <div class="mui-media-body">木屋</div>
-					        </a>
-					    </li>
-					    <li class="multiple-media mui-content" @click="goNewsGraphic">
-					    	<div class="multiple-imgs mui-row">
-					    		<div class="mui-col-xs-4 mui-col-sm-4">
-					    			<img src="http://placehold.it/120x85" width="100%"/>
-					    		</div>
-								<div class="mui-col-xs-4 mui-col-sm-4">
-					    			<img src="http://placehold.it/120x85" width="100%"/>
-					    		</div>
-					    		<div class="mui-col-xs-4 mui-col-sm-4">
-					    			<img src="http://placehold.it/120x85" width="100%"/>
-					    		</div>
+						<li v-for = "i in instantNews">
+							<div class="mui-table-view-cell mui-media" v-if="i.img.length <=1">
+					        	<a @click="gotoDetail(i)">
+					            	<img class="mui-media-object mui-pull-left" :src="i.img">
+					            	<div class="mui-media-body" v-text="i.title"></div>
+					        	</a>
 					    	</div>
-					    	<p>今日开捕，鲁家峙大桥一片繁忙景象</p>
-					    </li>
-					    <li class="mui-table-view-cell mui-media">
+					    
+					    	<div class="multiple-media mui-content" @click="goNewsGraphic" v-else>
+					    		<div class="multiple-imgs mui-row">
+					    			<div class="mui-col-xs-4 mui-col-sm-4" v-for="item in i.img">
+					    				<img :src="item" width="100%"/>
+					    			</div>
+									<!--<div class="mui-col-xs-4 mui-col-sm-4">
+					    				<img src="http://placehold.it/120x85" width="100%"/>
+					    			</div>
+					    			<div class="mui-col-xs-4 mui-col-sm-4">
+					    				<img src="http://placehold.it/120x85" width="100%"/>
+					    			</div>-->
+					    		</div>
+					    		<p v-text = "i.title"></p>
+					    	</div>
+						</li>
+					    
+					    <!--<li class="mui-table-view-cell mui-media">
 					        <a href="javascript:;">
 					            <img class="mui-media-object mui-pull-left" src="http://placehold.it/120x80">
 					            <div class="mui-media-body">木屋</div>
 					        </a>
-					    </li>
+					    </li>-->
 					</ul>
 				</div>
 				
@@ -149,58 +139,29 @@
 				<div class="news-list">
 					<header @click="goNews(1)">普陀新闻</header>
 					<ul class="mui-table-view">
-					    <li class="mui-table-view-cell mui-media">
-					        <a href="javascript:;">
-					            <img class="mui-media-object mui-pull-left" src="http://placehold.it/120x80">
-					            <div class="mui-media-body">副区长李莉到普陀广播电视台调研</div>
-					        </a>
-					    </li>
-					    <li class="mui-table-view-cell mui-media">
-					        <a href="javascript:;">
-					            <img class="mui-media-object mui-pull-left" src="http://placehold.it/120x80">
-					            <div class="mui-media-body">木屋</div>
-					        </a>
-					    </li>
-					    <li class="mui-table-view-cell mui-media">
-					        <a href="javascript:;">
-					            <img class="mui-media-object mui-pull-left" src="http://placehold.it/120x80">
-					            <div class="mui-media-body">木屋</div>
+					    <li class="mui-table-view-cell mui-media" v-for="i in putuoNews">
+					        <a @click="gotoDetail(i)">
+					            <img class="mui-media-object mui-pull-left" :src="i.img">
+					            <div class="mui-media-body" v-text = "i.title"></div>
 					        </a>
 					    </li>
 					</ul>
 				</div>
 				
 				<div class="video-list news-list">
-					<header @click="goNews(2)">视频新闻</header>
+					<header @click="goNews(2)">视频新闻</header>					
 					<ul class="mui-row">
-						<li>
+						<div class="mui-col-xs-6">
+						<li v-for="i in videoNews">
 							<a class="video-item">
-					           <div style="background-image:url(http://placehold.it/240x150)">
+					           	<div :style="'background-image:url('+ i.img +')'">
 									<i class="iconfont icon-shipin"></i>
 					            </div>
-								<p>宁波舟山港六横港举行大马力海拖防台</p>
-							</a>		
-							<a class="video-item">
-					           <div style="background-image:url(http://placehold.it/240x150)">
-									<i class="iconfont icon-shipin"></i>
-					            </div>
-								<p>宁波舟山港六横港举行大马力海拖防台</p>
+								<p v-text = "i.title"></p>
 							</a>	
+							
 						</li>
-						<li>
-							<a class="video-item">
-					           <div style="background-image:url(http://placehold.it/240x150)">
-									<i class="iconfont icon-shipin"></i>
-					            </div>
-								<p>宁波舟山港六横港举行大马力海拖防台</p>
-							</a>	
-							<a class="video-item">
-					           <div style="background-image:url(http://placehold.it/240x150)">
-									<i class="iconfont icon-shipin"></i>
-					            </div>
-								<p>宁波舟山港六横港举行大马力海拖防台</p>
-							</a>	
-						</li>
+						</div>	
 					</ul>
 				</div>
 				
@@ -528,7 +489,7 @@
 				</li>
 				<li class="mui-table-view-cell">
 					<a class="mui-navigate-right">
-						<i class="iconfont icon-shengji"></i>退出登陆
+						<i class="iconfont icon-shengji"></i>版本更新
 					</a>
 				</li>
 			</ul>
