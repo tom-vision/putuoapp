@@ -17,20 +17,29 @@
 		<!-- 导航栏 -->
 		<header class="mui-bar mui-bar-nav">
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-		    <h1 class="mui-title">基本资料</h1>
-		    <button class="mui-btn mui-btn-link mui-pull-right">保存</button>
+		    <h1 class="mui-title">收到的评论</h1>
 		</header>
 		
-		<div id="userInfo" class="have-header">
-			<ul class="userinfo-list">
-				<li @click="changeAvatar"><label>头像</label><span><img :src="avatar" alt="" /></span></li>
-				<li @click="changeName"><label>用户名</label><span v-text="name"></span></li>
-				<li><label>手机号</label><span v-text="tel"></span></li>
-				<li @click="changeSex"><label>性别</label><span v-text="sex"></span></li>
-			</ul>
+		<div id="cmt" class="have-header">
+			<div class="cmt-list">
+				<ul>
+					<li>
+						<img src="http://placehold.it/60x60" class="mu-card-avatar"/>
+						<div class="cmt-info">
+							<header>
+								<h1>理想行间 <span>评论了你的互动</span></h1>
+								<time>5分钟前</time>
+							</header>
+							<p>测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容</p>
+						</div>
+					</li>
+				</ul>
+			</div>
+			
+			<a class="load-more">查看更多</a>
 		</div>
 	</body>
 
 </html>
 <script src="../js/global.js"></script>
-<script src="../js/userInfo.js"></script>
+<script src="../js/cmt.js"></script>

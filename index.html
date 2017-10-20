@@ -5,10 +5,11 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<title></title>
-		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
-		<script src="https://cdn.bootcss.com/vue/2.4.2/vue.min.js"></script>
+		<script src="plugins/jquery.min.js"></script>
+		<script src="plugins/vue.min.js"></script>
 		<script src="plugins/mui.min.js"></script>
 		<link href="plugins/mui.min.css" rel="stylesheet" />
+		<link href="plugins/swiper.min.css" rel="stylesheet" />
 		<link rel="stylesheet" href="plugins/iconfont.css" />
 		<link rel="stylesheet" href="css/style.css" />
 	</head>
@@ -454,12 +455,12 @@
 			</div>
 			
 			<ul class="mui-table-view">
-				<li class="mui-table-view-cell">
+				<li class="mui-table-view-cell" @click="goZan">
 					<a class="mui-navigate-right">
 						<i class="iconfont icon-zan"></i>收到的赞
 					</a>
 				</li>
-				<li class="mui-table-view-cell">
+				<li class="mui-table-view-cell" @click="goCmt">
 					<a class="mui-navigate-right">
 						<i class="iconfont icon-icon-test"></i>收到的消息
 					</a>
@@ -487,7 +488,5 @@
 	</body>
 
 </html>
-<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
-<script src="https://cdn.bootcss.com/vue/2.4.2/vue.min.js"></script>
 <script src="js/global.js"></script>
 <script src="js/index.js"></script>

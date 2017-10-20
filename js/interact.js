@@ -3,6 +3,9 @@ mui.init({
 	preloadPages: [{
 		url: 'release.html',
 		id: 'release',
+	},{
+		url: 'interact-detail.html',
+		id: 'interact-detail',
 	}, ],
 });
 
@@ -14,6 +17,9 @@ var interact = new Vue({
 		openGallery: function() {
 			interactGraphic.show = true;
 			$('body').addClass('no-scroll');
+		},
+		openInteractDetail: function() {
+			openWindow('interact-detail.html', 'interact-detail');
 		}
 	}
 })

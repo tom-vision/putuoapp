@@ -17,22 +17,12 @@
 		<!-- 导航栏 -->
 		<header class="mui-bar mui-bar-nav">
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-		    <h1 class="mui-title">互动交流</h1>
-			<a class="mui-icon iconfont icon-xiangji mui-pull-right"></a>
+		    <h1 class="mui-title">我的互动</h1>
 		</header>
 		
-		<div id="interact">
-			<div class="sub-bar">
-				<ul>
-					<li class="active"><a>最新</a></li>
-					<li><a>报料</a></li>
-					<li><a>摄影</a></li>
-					<li><a>美食</a></li>
-				</ul>
-			</div>
-			
+		<div id="myInteract" class="have-header">
 			<div class="interact-list">
-				<div class="mu-flex" @click="openInteractDetail">
+				<div class="mu-flex">
 					<img src="http://placehold.it/60x60" class="mu-card-avatar"/>
 					<div class="mu-card">
 						<div class="mu-card-header">
@@ -63,7 +53,7 @@
 					</div>
 				</div>
 				
-				<div class="mu-flex" @click="openInteractDetail">
+				<div class="mu-flex">
 					<img src="http://placehold.it/60x60" class="mu-card-avatar"/>
 					<div class="mu-card">
 						<div class="mu-card-header">
@@ -94,55 +84,10 @@
 				</div>
 				<a class="load-more">点击加载更多</a>
 			</div>
-		</div>
 		
-		<div id="interactGraphic" class="news-graphic interact-graphic" v-show="show">
-			<header class="mui-bar mui-bar-nav">
-				<a class="mui-icon mui-icon-left-nav mui-pull-left" @click="close"></a>
-			</header>
-			<div id="slider" class="mui-slider" >
-				<div class="mui-slider-group mui-slider-loop">
-					<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
-					<div class="mui-slider-item mui-slider-item-duplicate">
-						<a href="#">
-							<img src="http://placehold.it/400x200">
-						</a>
-					</div>
-					<!-- 第一张 -->
-					<div class="mui-slider-item">
-						<a href="#">
-							<img src="http://placehold.it/400x200">
-						</a>
-					</div>
-					<!-- 第二张 -->
-					<div class="mui-slider-item">
-						<a href="#">
-							<img src="http://placehold.it/400x600">
-						</a>
-					</div>
-					<!-- 第三张 -->
-					<div class="mui-slider-item">
-						<a href="#">
-							<img src="http://placehold.it/750x800">
-						</a>
-					</div>
-					<!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
-					<div class="mui-slider-item mui-slider-item-duplicate">
-						<a href="#">
-							<img src="http://placehold.it/750x800">
-						</a>
-					</div>
-				</div>
-				<div class="mui-slider-indicator" style="display:block">
-					<div class="mui-indicator mui-active"></div>
-					<div class="mui-indicator"></div>
-					<div class="mui-indicator"></div>
-					<div class="mui-indicator"></div>
-				</div>
-			</div>
 		</div>
 	</body>
 
 </html>
 <script src="../js/global.js"></script>
-<script src="../js/interact.js"></script>
+<script src="../js/myInteract.js"></script>

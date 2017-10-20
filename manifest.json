@@ -218,7 +218,9 @@
 					"views/login.html",
 					"views/userInfo.html",
 					"views/interact.html",
-					"views/iframe.html"
+					"views/iframe.html",
+					"views/zan.html",
+					"views/cmt.html"
 				],
 				"priority": 0
 			},
@@ -432,12 +434,33 @@
 					"plugins/iconfont.css",
 					"js/interact.js"
 				],
-				"refer": [],
+				"refer": [
+					"views/release.html"
+				],
 				"priority": 0
 			},
 			"views/iframe.html": {
 				"resources": [
-					"js/iframe.js"
+					"js/iframe.js",
+					"fonts/mui.ttf"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"views/zan.html": {
+				"resources": [
+					"plugins/mui.min.js",
+					"css/style.css",
+					"js/global.js",
+					"plugins/mui.min.css",
+					"plugins/iconfont.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"views/release.html": {
+				"resources": [
+					"js/release.js"
 				],
 				"refer": [],
 				"priority": 0

@@ -27,6 +27,12 @@ mui.init({
 	}, {
 		url: 'views/interact.html',
 		id: 'interact'
+	}, {
+		url: 'views/zan.html',
+		id: 'zan'
+	}, {
+		url: 'views/cmt.html',
+		id: 'cmt'
 	}],
 });
 
@@ -178,7 +184,6 @@ $('.go-news').on('click', function() {
 //跳转至互动
 $('.go-interact').on('click', function() {
 	openWindow('views/interact.html', 'interact');
-
 })
 
 //跳转至个人中心
@@ -209,6 +214,12 @@ function plusReady() {
 				// 判断是否已登陆
 				if(!this.isLogin) return openWindow('views/login.html', 'login')
 				openWindow('views/userInfo.html', 'userInfo')
+			},
+			goZan: function() {
+				openWindow('views/zan.html', 'zan');
+			},
+			goCmt: function() {
+				openWindow('views/cmt.html', 'cmt');
 			}
 		}
 	})

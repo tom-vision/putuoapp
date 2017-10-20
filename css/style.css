@@ -1437,3 +1437,18 @@ body {
   -webkit-transform: scaleY(0.5);
   top: 0;
 }
+#zan .cmt-list h1,
+#cmt .cmt-list h1 {
+  color: #009cff;
+}
+#zan .cmt-list h1 span,
+#cmt .cmt-list h1 span {
+  color: #333;
+}
+#zan .cmt-list p,
+#cmt .cmt-list p {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: 200px;
+}
