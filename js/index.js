@@ -16,8 +16,8 @@ mui.init({
 		url: 'views/digitalNewsPaper.html',
 		id: 'digitalNewsPaper'
 	}, {
-		url: 'views/suggest.html',
-		id: 'suggest'
+		url: 'views/iframe.html',
+		id: 'iframe'
 	}, {
 		url: 'views/login.html',
 		id: 'login'
@@ -125,7 +125,6 @@ var index = new Vue({
 	}
 })
 
-//测试分支合并
 //选项卡
 var news = new Vue({
 	el: '#news',
@@ -143,27 +142,6 @@ var news = new Vue({
 	},
 	
 })
-
-var ucenter = new Vue({
-	el: '#ucenter',
-	data: {
-		isLogin: true
-	},
-	beforeCreate: function() {
-	},
-	methods: {
-		goSuggest: function(i) {
-			openWindow('views/suggest.html', 'suggest')
-		},
-		goLogin: function() {
-			// 判断是否已登陆
-			if(!this.isLogin) return openWindow('views/login.html', 'login')
-			openWindow('views/userInfo.html', 'userInfo')
-		}
-	}
-})
-
-//合并
 // banner滚动时更换标题
 document.querySelector('.mui-slider').addEventListener('slide', function(event) {
 	
@@ -211,6 +189,29 @@ $('.go-ucenter').on('click', function() {
 // 扩展API加载完毕，现在可以正常调用扩展API 
 function plusReady() {
 	pullToRefresh();
+	
+	var ucenter = new Vue({
+		el: '#ucenter',
+		data: {
+			isLogin: true
+		},
+		beforeCreate: function() {
+		},
+		methods: {
+			goSuggest: function(i) {
+				openWindow('views/iframe.html', 'iframe');
+				mui.fire(plus.webview.getWebviewById('iframe'), 'getInfo', {
+					title: '意见反馈',
+					url: 'http://www.baidu.com/'
+				})
+			},
+			goLogin: function() {
+				// 判断是否已登陆
+				if(!this.isLogin) return openWindow('views/login.html', 'login')
+				openWindow('views/userInfo.html', 'userInfo')
+			}
+		}
+	})
 }
 
 // 判断扩展API是否准备，否则监听'plusready'事件

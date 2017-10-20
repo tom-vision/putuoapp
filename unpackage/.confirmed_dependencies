@@ -25,7 +25,8 @@
 			"views/suggest.html",
 			"views/login.html",
 			"views/userInfo.html",
-			"views/interact.html"
+			"views/interact.html",
+			"views/iframe.html"
 		]
 	},
 	"views/search.html": {
@@ -210,7 +211,13 @@
 			"css/style.css",
 			"js/global.js",
 			"plugins/mui.min.css",
-			"plugins/iconfont.css"
+			"plugins/iconfont.css",
+			"js/interact.js"
+		]
+	},
+	"views/iframe.html": {
+		"resources": [
+			"js/iframe.js"
 		]
 	}
 }
