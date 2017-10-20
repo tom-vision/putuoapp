@@ -1,3 +1,7 @@
+var linkerId = {
+	
+};
+
 var pullToRefresh = function() {
 	var ws = plus.webview.currentWebview();
 	// 下拉刷新事件
@@ -21,3 +25,7 @@ var openWindow = function(u, i, s) {
 		},
 	})
 }
+
+
+
+

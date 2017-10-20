@@ -52,8 +52,9 @@ if(window.plus) {
 
 //添加newId自定义事件监听
 window.addEventListener('newsId',function(event){
-  //获得事件参数
+  	//获得事件参数
   	var id = event.detail.id;
-  //根据id向服务器请求新闻详情
- 	console.log(id);
+  	//根据id向服务器请求新闻详情
+  	console.log(id);
+  	
 });

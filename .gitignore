@@ -1,3 +1,8 @@
 
 css/style(1).css
 css/less-components/_reset(1).css
+*.go
+*.exe
+*.db
+*.db-shm
+*.db-wal

@@ -128,6 +128,22 @@ var index = new Vue({
 		self.topicNews = [{'title':'幸福普陀','img':'http://ptnews.zjol.com.cn/images/19.jpg','brief':'首播：周二20:30','brief2':'重播：周三00:20 12:20', 'url':''},
 		{'title':'平安渔都','img':'http://ptnews.zjol.com.cn/images/tv4.jpg','brief':'首播：周二20:30','brief2':'重播：周三00:20 12:20', 'url':''}];
 		self.activeSlideText = self.scrollNews[0].title;
+		
+		 _callAjax({
+                        cmd: "multiFetch",
+                        multi: _dump([{
+                        		key:"scroll",
+                        		sql:"select * from articles where linkerId = "
+                        },{
+                        	
+                        },{
+                        	
+                        }]) 
+                    }, function(d) {
+                    	
+                        
+                        
+                    });
 	}
 })
 
