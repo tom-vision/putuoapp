@@ -19,27 +19,27 @@ var _genCallAjax = function(url){
 //      if (!notLoading) _loading();
         cb = cb ? cb : function() {};
         data.callback = "_echo";
-        
-        mui.ajax({
-                type: "get",
-                url: url,
-                async: true,
-                data: data,
-                dataType: "jsonp",
-                jsonp: "jsoncallback",
-                timeout: 10000,
-                success: function(data) {
-                	
-                	d = eval(data);
-                	_tell(d);
-                    cb(d);
-                },
-                error: function(xhr, type, errorThrown) {
-                	console.log(xhr + type + errorThrown);
-					
-                    plus.nativeUI.toast(errorThrown);
-                }
-            });
+
+        $.ajax({
+            type: "get",
+            url: url,
+            async: true,
+            data: data,
+            dataType: "jsonp",
+            jsonp: "jsoncallback",
+            timeout: 10000,
+            success: function(data) {
+            	
+            	d = eval(data);
+            	_tell(d);
+                cb(d);
+            },
+            error: function(xhr, type, errorThrown) {
+            	console.log(xhr + type + errorThrown);
+				
+                plus.nativeUI.toast(errorThrown);
+            }
+        });
         
 //      mui.ajax(url,{
 //      	crossDomain:true,
