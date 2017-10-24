@@ -24,7 +24,18 @@
 			
 			<div class="news-list topic-list">
 				<ul class="mui-table-view">
-				    <li class="mui-table-view-cell mui-media" @click="goTopicList">
+				    <li class="mui-table-view-cell mui-media" v-for="i in topicNews" @click="gotoTopicList(i)">
+				        <a href="javascript:;">
+				            <img class="mui-media-object mui-pull-left" :src="i.img">
+				            <div class="mui-media-body">
+				            	<h1 v-text="i.name"></h1>
+								<p v-text="i.brief"></p>
+								<p v-text="i.brief2"></p>
+				            	<i class="iconfont icon-shipin"></i>
+				            </div>
+				        </a>
+				    </li>
+				    <!--<li class="mui-table-view-cell mui-media" @click="goTopicList">
 				        <a href="javascript:;">
 				            <img class="mui-media-object mui-pull-left" src="http://placehold.it/120x80">
 				            <div class="mui-media-body">
@@ -33,17 +44,7 @@
 				            	<i class="iconfont icon-shipin"></i>
 				            </div>
 				        </a>
-				    </li>
-				    <li class="mui-table-view-cell mui-media" @click="goTopicList">
-				        <a href="javascript:;">
-				            <img class="mui-media-object mui-pull-left" src="http://placehold.it/120x80">
-				            <div class="mui-media-body">
-				            	<h1>平安鱼都</h1>
-				            	<p>首播：周二 20:20<br/>重播：周三 00:20 12:20</p>
-				            	<i class="iconfont icon-shipin"></i>
-				            </div>
-				        </a>
-				    </li>
+				    </li>-->
 				</ul>
 			</div>
 			
@@ -52,4 +53,5 @@
 
 </html>
 <script src="../js/global.js"></script>
+<script src="../js/a_ref.js"></script>
 <script src="../js/topic.js"></script>

@@ -7,6 +7,9 @@ mui.init({
 		url: 'views/topic.html',
 		id: 'topic'
 	}, {
+		url: 'views/topic-list.html',
+		id: 'topic-list'
+	}, {
 		url: 'views/newsDetail.html',
 		id: 'newsDetail'
 	}, {
@@ -36,6 +39,159 @@ mui.init({
 	}],
 });
 
+//新闻选项卡
+var news = new Vue({
+	el: '#news',
+	data: {
+		newsSorts: ['即时新闻', '普陀新闻', '视频新闻'],
+		activeSort: 0,
+		instantNews: [],
+		putuoNews: [],
+		videoNews: [],
+		bHaveMore_instant: true,
+		bHaveMore_putuo: true,
+		bHaveMore_video: true
+	},
+	beforeCreate: function() {},
+	methods: {
+		changeSort: function(i) {
+			this.activeSort = i
+		},
+		//跳转到文章详情
+		gotoDetail: function(i) {
+			var detailPage = null;
+			//获得详情页面
+			if(!detailPage) {
+				detailPage = plus.webview.getWebviewById('newsDetail');
+			}
+			//触发详情页面的newsId事件
+			mui.fire(detailPage, 'newsId', {
+				id: i.id
+			});
+
+			openWindow('views/newsDetail.html', 'newsDetail');
+		},
+		goNewsGraphic: function(i) {
+			console.log(i.title);
+			var detailPage = null;
+			//获得详情页面
+			if(!detailPage) {
+				detailPage = plus.webview.getWebviewById('newsGraphic');
+			}
+			//触发详情页面的newsId事件
+			mui.fire(detailPage, 'newsId', {
+				id: i.id
+			});
+			openWindow('views/newsGraphic.html', 'newsGraphic');
+		},
+		//获取即时新闻
+		getInstantNews: function() {
+			var self = this;
+
+			var f = 10e5;
+			if(self.instantNews.length) {
+				f = _at(self.instantNews, -1).id;
+			}
+
+			//获取即时新闻
+			_callAjax({
+				cmd: "fetch",
+				sql: "select * from articles where ifValid =1 and id<? and linkerId = ? order by id desc limit 5",
+				vals: _dump([f, linkerId.instantNews])
+			}, function(d) {
+				if(!d.success || !d.data) {
+					self.bHaveMore_instant = false;
+					mui.toast("没有更多数据了");
+					return;
+				} else {
+					self.bHaveMore_instant = true;
+					
+					d.data.forEach(function(r) {
+						var arrImg = r.img.split(',');
+						r.imgs = arrImg;
+						self.instantNews.push(r);
+					});
+				}
+
+			});
+
+		},
+
+		getPutuoNews: function() {
+			var self = this;
+
+			var f = 10e5;
+			if(self.putuoNews.length) {
+				f = _at(self.putuoNews, -1).id;
+			}
+			
+			//获取普陀新闻
+			_callAjax({
+				cmd: "fetch",
+				sql: "select * from articles where ifValid =1 and id<? and linkerId = ? order by id desc limit 5",
+				vals: _dump([f, linkerId.putuoNews])
+
+			}, function(d) {
+				if(!d.success || !d.data) {
+					self.bHaveMore_putuo = false;
+					mui.toast("没有更多数据了");
+					return;
+				} else {
+					self.bHaveMore_putuo = true;
+					
+					d.data.forEach(function(r) {
+						var arrImg = r.img.split(',');
+						r.imgs = arrImg;
+						self.putuoNews.push(r);
+					});
+				}
+				
+			});
+
+		},
+
+		getVideoNews: function() {
+			var self = this;
+
+			var f = 10e5;
+			if(self.videoNews.length) {
+				f = _at(self.videoNews, -1).id;
+			}
+			
+			//获取视频新闻
+			_callAjax({
+				cmd: "fetch",
+				sql: "select * from articles where ifValid =1 and id<? and linkerId = ? order by id desc limit 5",
+				vals: _dump([f, linkerId.videoNews])
+
+			}, function(d) {
+				if(!d.success || !d.data) {
+					self.bHaveMore_video = false;
+					mui.toast("没有更多数据了");
+					return;
+				} else {
+					self.bHaveMore_video = true;
+					
+					d.data.forEach(function(r) {
+						var arrImg = r.img.split(',');
+						r.imgs = arrImg;
+						self.videoNews.push(r);
+					});
+				}
+				
+			});
+		}
+	},
+	mounted: function(){
+		var self = this;
+		
+		self.getInstantNews();
+		self.getPutuoNews();
+		self.getVideoNews();
+	}
+})
+
+//首页
 var index = new Vue({
 	el: '#index',
 	data: {
@@ -52,6 +208,7 @@ var index = new Vue({
 		this.frameHeight = window.outerHeight - 150 + 'px';
 	},
 	methods: {
+		//跳转到专题分类页面
 		goTopic: function() {
 			openWindow('views/topic.html', 'topic');
 		},
@@ -102,150 +259,59 @@ var index = new Vue({
 				id: i.id
 			});
 
-			mui.openWindow('views/newsDetail.html', 'newsDetail');
+			openWindow('views/newsDetail.html', 'newsDetail');
 		},
 		//查看更多即时新闻
 		gotoInstantNews: function() {
 
 		},
-		//跳转到专题节目
-		gotoTopic: function() {
+		//跳转到某个具体专题节目列表
+		gotoTopicList: function(i) {
+			var detailPage = null;
+			//获得主题页面
+			if(!detailPage) {
+				detailPage = plus.webview.getWebviewById('topic-list');
+			}
+			//触发详情页面的newsId事件
+			mui.fire(detailPage, 'topicId', {
+				id: i.id,
+				title: i.name
+			});
 
+			openWindow('views/topic-list.html', 'topic-list');
 		}
 	},
 	mounted: function() {
 		//获取新闻数据
 		var self = this;
-		//		self.scrollNews = [{
-		//				'title': '风雨中，我们一起坚守 ——来自我区各地防汛救灾工作一线的报道',
-		//				'img': 'http://img2.zjolcdn.com/pic/003/001/803/00300180326_cac32f05.jpg',
-		//				'content': '大雨倾盆，狂风肆虐……昨天凌晨3点40分，区气象台发布暴雨橙色预警信号，受南海台风“卡努”外围环流和冷空气共同影响，我区普降大雨。区气象部门数据显示，10月14日8时至10月16日下午4时，东港南岙雨量达到540毫米，位列全省最高，展茅雨量428毫米，位列全省第二。面对来势汹汹的雨情汛情，全区各地广大干部群众全力投入，严阵以待，切实做好防汛救灾工作，努力把灾害带来的损失降到最低。'
-		//			},
-		//			{
-		//				'title': '防汛拧紧发条 救灾争分夺秒',
-		//				'img': 'http://img2.zjolcdn.com/pic/003/001/803/00300180319_a8953918.jpg',
-		//				'content': '暴雨如注，水位高涨，连日来的强降水，致使普陀多地出现险情，全区上下打响防汛抢险攻坚战。昨天上午8时，区防指启动防汛三级应急响应。'
-		//			},
-		//			{
-		//				'title': '村社法律顾问走村入企',
-		//				'img': 'http://img2.zjolcdn.com/pic/003/001/803/00300180323_880740e7.jpg',
-		//				'content': '近日，展茅司法所组织开展村(社区)法律顾问集中走村入企法律服务活动，对各村(社区)和相关企业送去法律体检、法律咨询、法律援助、人民调解等一系列法律服务。'
-		//			}
-		//		];
-		//		self.headNews = [{
-		//			'title': '温暖：坚决打赢救灾硬仗 严防次生灾害发生',
-		//			'img': 'http://img2.zjolcdn.com/pic/003/001/803/00300180323_880740e7.jpg',
-		//			'content': '15日起我市普降暴雨，其中局部大暴雨，展茅一带汛情严峻。昨天上午，市委副书记、新区党工委副书记、市长温暖赴展茅检查指导防汛救灾工作。他强调，各地各部门要充分认识这次灾情的严重性，众志成城，不畏艰险，采取有力举措，坚决打赢救灾硬仗，严防次生灾害发生，尽快恢复受灾区域正常生产生活。副市长姜建明，区委副书记、区长潘晓辉，副区长杨海滨等陪同检查。'
-		//		}];
-		//		self.instantNews = [{
-		//				'title': '我区社会各界收听收看十九大开幕盛况',
-		//				'img': ['http://img2.zjolcdn.com/pic/003/001/819/00300181996_032a6c38.jpg'],
-		//				'content': '今天，我区多条公交线路已恢复运营，岛际交通部分航班恢复正常。'
-		//			},
-		//			{
-		//				'title': '我区部分公交航班恢复运营',
-		//				'img': ['http://img2.zjolcdn.com/pic/003/001/811/00300181115_bcaeda35.jpg'],
-		//				'content': '今天，我区多条公交线路已恢复运营，岛际交通部分航班恢复正常。'
-		//			},
-		//			{
-		//				'title': '区卫计部门开展灾后防疫消杀工作',
-		//				'img': ['http://img2.zjolcdn.com/pic/003/001/819/00300181995_c6c3e069.jpg'],
-		//				'content': '今天，我区多条公交线路已恢复运营，岛际交通部分航班恢复正常。'
-		//			},
-		//			{
-		//				'title': '我区社会各界收听收看十九大开幕盛况',
-		//				'img': ['http://img2.zjolcdn.com/pic/003/001/820/00300182039_4c1a9d96.jpg', 'http://img2.zjolcdn.com/pic/003/001/820/00300182040_988566f2.jpg', 'http://img2.zjolcdn.com/pic/003/001/819/00300181965_7dc34932.jpg'],
-		//				'content': '今天，我区多条公交线路已恢复运营，岛际交通部分航班恢复正常。'
-		//			}
-		//		];
-		//		self.putuoNews = [{
-		//				'title': '我区社会各界收听收看十九大开幕盛况',
-		//				'img': ['http://img2.zjolcdn.com/pic/003/001/819/00300181996_032a6c38.jpg'],
-		//				'content': '今天，我区多条公交线路已恢复运营，岛际交通部分航班恢复正常。'
-		//			},
-		//			{
-		//				'title': '我区部分公交航班恢复运营',
-		//				'img': ['http://img2.zjolcdn.com/pic/003/001/811/00300181115_bcaeda35.jpg'],
-		//				'content': '今天，我区多条公交线路已恢复运营，岛际交通部分航班恢复正常。'
-		//			},
-		//			{
-		//				'title': '区卫计部门开展灾后防疫消杀工作',
-		//				'img': ['http://img2.zjolcdn.com/pic/003/001/819/00300181995_c6c3e069.jpg'],
-		//				'content': '今天，我区多条公交线路已恢复运营，岛际交通部分航班恢复正常。'
-		//			}
-		//		];
-		//		self.videoNews = [{
-		//				'title': '东港城市河道：以最美的“素颜”喜迎十九大',
-		//				'img': 'http://1251569943.vod2.myqcloud.com/4ab5ad14vodtransgzp1251569943/38d1b1b79031868223375796919/snapshot/1508236176_3272203678.100_54400.jpg',
-		//				'url': 'http://1251569943.vod2.myqcloud.com/4ab5ad14vodtransgzp1251569943/38d1b1b79031868223375796919/v.f20.mp4'
-		//			},
-		//			{
-		//				'title': '板桥路积水退去 市民恢复正常生活',
-		//				'img': 'http://1251569943.vod2.myqcloud.com/4ab5ad14vodtransgzp1251569943/38d1a5979031868223375796667/snapshot/1508235990_176719669.100_7100.jpg',
-		//				'url': 'http://1251569943.vod2.myqcloud.com/4ab5ad14vodtransgzp1251569943/38d1a5979031868223375796667/v.f20.mp4'
-		//			},
-		//			{
-		//				'title': '东港城市河道：以最美的“素颜”喜迎十九大',
-		//				'img': 'http://1251569943.vod2.myqcloud.com/4ab5ad14vodtransgzp1251569943/38d1b1b79031868223375796919/snapshot/1508236176_3272203678.100_54400.jpg',
-		//				'url': 'http://1251569943.vod2.myqcloud.com/4ab5ad14vodtransgzp1251569943/38d1b1b79031868223375796919/v.f20.mp4'
-		//			},
-		//			{
-		//				'title': '板桥路积水退去 市民恢复正常生活',
-		//				'img': 'http://1251569943.vod2.myqcloud.com/4ab5ad14vodtransgzp1251569943/38d1a5979031868223375796667/snapshot/1508235990_176719669.100_7100.jpg',
-		//				'url': 'http://1251569943.vod2.myqcloud.com/4ab5ad14vodtransgzp1251569943/38d1a5979031868223375796667/v.f20.mp4'
-		//			}
-		//		];
-		//		self.topicNews = [{
-		//				'title': '幸福普陀',
-		//				'img': 'http://ptnews.zjol.com.cn/images/19.jpg',
-		//				'brief': '首播：周二20:30',
-		//				'brief2': '重播：周三00:20 12:20',
-		//				'url': ''
-		//			},
-		//			{
-		//				'title': '平安渔都',
-		//				'img': 'http://ptnews.zjol.com.cn/images/tv4.jpg',
-		//				'brief': '首播：周二20:30',
-		//				'brief2': '重播：周三00:20 12:20',
-		//				'url': ''
-		//			}
-		//		];
-
-//		_callAjax({
-//			cmd: "fetch",
-//			sql: "select * from articles"
-//
-//		}, function(d) {
-//
-//		});
 
 		_callAjax({
 			cmd: "multiFetch",
 			multi: _dump([{
 					key: "scrollNews",
-					sql: "select * from articles where ifValid =1 and linkerId = " + linkerId.scrollNews + " limit 5"
+					sql: "select * from articles where ifValid =1 and linkerId = " + linkerId.scrollNews + " order by id desc limit 5"
 				},
 				{
 					key: "headNews",
-					sql: "select * from articles where ifValid =1 and linkerId = " + linkerId.headNews + " limit 5"
+					sql: "select * from articles where ifValid =1 and linkerId = " + linkerId.headNews + " order by id desc limit 3"
 				},
 				{
 					key: "instantNews",
-					sql: "select * from articles where ifValid =1 and linkerId = " + linkerId.instantNews + " limit 5"
+					sql: "select * from articles where ifValid =1 and linkerId = " + linkerId.instantNews + " order by id desc limit 3"
 				},
 				{
 					key: "putuoNews",
-					sql: "select * from articles where ifValid =1 and linkerId = " + linkerId.putuoNews + " limit 5"
+					sql: "select * from articles where ifValid =1 and linkerId = " + linkerId.putuoNews + " order by id desc limit 3"
 				},
 				{
 					key: "videoNews",
-					sql: "select * from articles where ifValid =1 and linkerId = " + linkerId.videoNews + " limit 5"
+					sql: "select * from articles where ifValid =1 and linkerId = " + linkerId.videoNews + " order by id desc limit 4"
 				}
 			])
 		}, function(d) {
 			if(d.success && d.data && d.data.scrollNews) {
 				d.data.scrollNews.forEach(function(r) {
-					var arrImg = r.img.split(','); 
+					var arrImg = r.img.split(',');
 					r.imgs = arrImg;
 					self.scrollNews.push(r);
 				});
@@ -255,37 +321,37 @@ var index = new Vue({
 			}
 			if(d.success && d.data && d.data.headNews) {
 				d.data.headNews.forEach(function(r) {
-					var arrImg = r.img.split(','); 
+					var arrImg = r.img.split(',');
 					r.imgs = arrImg;
 					self.headNews.push(r);
 				});
+
 			}
 			if(d.success && d.data && d.data.instantNews) {
 				d.data.instantNews.forEach(function(r) {
-					var arrImg = r.img.split(','); 
+					var arrImg = r.img.split(',');
 					r.imgs = arrImg;
 					self.instantNews.push(r);
 				});
+
 			}
 			if(d.success && d.data && d.data.putuoNews) {
 				d.data.putuoNews.forEach(function(r) {
-					var arrImg = r.img.split(','); 
+					var arrImg = r.img.split(',');
 					r.imgs = arrImg;
 					self.putuoNews.push(r);
 				});
 			}
 			if(d.success && d.data && d.data.videoNews) {
-
 				d.data.videoNews.forEach(function(r) {
-					var arrImg = r.img.split(','); 
+					var arrImg = r.img.split(',');
 					r.imgs = arrImg;
 					self.videoNews.push(r);
-					
 				});
 			}
 		});
-		
-		//获取主题新闻
+
+		//获取专题节目
 		_callAjax({
 			cmd: "fetch",
 			sql: "select * from linkers where linkerType = 'theme'"
@@ -299,22 +365,6 @@ var index = new Vue({
 	}
 })
 
-//选项卡
-var news = new Vue({
-	el: '#news',
-	data: {
-		newsSorts: ['即时新闻', '普陀新闻', '视频新闻'],
-		activeSort: 0,
-
-	},
-	beforeCreate: function() {},
-	methods: {
-		changeSort: function(i) {
-			this.activeSort = i
-		}
-	},
-
-})
 // banner滚动时更换标题
 document.querySelector('.mui-slider').addEventListener('slide', function(event) {
 

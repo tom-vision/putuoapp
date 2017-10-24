@@ -26,8 +26,8 @@
 			</header>
 			<article>
 				<img src="../imgs/ad.jpg" width="100%" />
-				
 				<video controls :poster="newsData.img" width="100%" :src="newsData.url" v-show="newsData.url!=''"></video>
+
 				<!--<img :src="newsData.img" />-->
 				<p v-text="newsData.content"></p>
 			</article>

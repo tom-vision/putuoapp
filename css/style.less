@@ -155,6 +155,7 @@ body {
 
 .clearfix {
     zoom:1;
+    overflow: auto;
     &:before,&:after{
         content:"\0020";
         overflow:hidden;
@@ -167,19 +168,18 @@ body {
 }
 
 .video-list {
-    .mui-row {
+    background-color: #fff;
+    ul {
         position: relative;
-        display: flex;
         padding: 11px 15px 0 15px;
-        background-color: #fff;
         li {
             background-color: #fff;
             padding-right: 7.5px;
-            flex: 1;
-            &:last-child {
-                padding-left: 7.5px;
-                padding-right: 0;
-            }
+            float: left;
+            width: 48%;
+            &:nth-child(2n) {
+                margin-left: 4%;
+            }  
         }
         &:after {
             content: '';
@@ -398,6 +398,9 @@ body {
             margin: 10px 0;
             text-indent: 2em;
             color: #333;
+        }
+        video {
+            margin-top: 20px;
         }
     }
     .like {
