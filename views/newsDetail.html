@@ -25,8 +25,10 @@
 				<p v-text="newsData.reporter"></p>
 			</header>
 			<article>
-				<!--<video :src="i.content" controls style="display: none;"></video><a class="play_button"><i class="iconfont icon-video"></i></a>-->				
 				<img src="../imgs/ad.jpg" width="100%" />
+				
+				<video controls :poster="newsData.img" width="100%" :src="newsData.url" v-show="newsData.url!=''"></video>
+				<!--<img :src="newsData.img" />-->
 				<p v-text="newsData.content"></p>
 			</article>
 			<div class="like" :class="{ active : like }" @click="changeLike"><i class="iconfont icon-heart-copy"></i>{{likeNum}}个人喜欢 </div>
