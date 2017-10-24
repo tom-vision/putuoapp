@@ -26,46 +26,34 @@
 					<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
 					<div class="mui-slider-item mui-slider-item-duplicate">
 						<a href="#">
-							<img src="http://placehold.it/400x200">
+							<img :src="newsData.imgs.slice(-1)">
 						</a>
 					</div>
 					<!-- 第一张 -->
-					<div class="mui-slider-item">
+					<div class="mui-slider-item" v-for="i in newsData.imgs">
 						<a href="#">
-							<img src="http://placehold.it/400x200">
+							<img :src="i">
 						</a>
 					</div>
-					<!-- 第二张 -->
-					<div class="mui-slider-item">
-						<a href="#">
-							<img src="http://placehold.it/400x600">
-						</a>
-					</div>
-					<!-- 第三张 -->
-					<div class="mui-slider-item">
-						<a href="#">
-							<img src="http://placehold.it/750x800">
-						</a>
-					</div>
+			
 					<!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
 					<div class="mui-slider-item mui-slider-item-duplicate">
 						<a href="#">
-							<img src="http://placehold.it/750x800">
+							<img :src="newsData.imgs.slice(1)">
 						</a>
 					</div>
 				</div>
 				<div class="mui-slider-indicator">
 					<div class="mui-indicator mui-active"></div>
-					<div class="mui-indicator"></div>
-					<div class="mui-indicator"></div>
-					<div class="mui-indicator"></div>
+					<div class="mui-indicator" v-for="i in (newsData.imgs.length-1)"></div>
+					
 				</div>
 			</div>
 			
 			<div class="detail">
-				<h1>千岛湖金秋第一捕：巨网下的“精灵”</h1>
-				<p>9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月9月</p>
-				<span><strong v-text="activeImg"></strong>/5</span>
+				<h1 v-text="newsData.title"></h1>
+				<p v-text="newsData.content"></p>
+				<span><strong v-text="activeImg"></strong>/{{newsData.imgs.length}}</span>
 			</div>
 			
 			<div class="toolbar newspaper-toolbar">
@@ -79,4 +67,5 @@
 
 </html>
 <script src="../js/global.js"></script>
+<script src="../js/a_ref.js"></script>
 <script src="../js/newsGraphic.js"></script>

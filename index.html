@@ -17,10 +17,10 @@
 	<body>
 		<!-- 导航栏 -->
 		<header class="mui-bar mui-bar-nav">
-		    <h1 class="mui-title">掌上普陀1</h1>
-		    <a class="mui-icon iconfont icon-icon1460187848267 mui-pull-right go-search"></a>
+			<h1 class="mui-title">掌上普陀1</h1>
+			<a class="mui-icon iconfont icon-icon1460187848267 mui-pull-right go-search"></a>
 		</header>
-		
+
 		<footer class="footer-tab">
 			<a class="active go-index">
 				<i class="iconfont icon-shouye"></i> 首页
@@ -35,60 +35,70 @@
 				<i class="iconfont icon-wode"></i> 我的
 			</a>
 		</footer>
-		
+
 		<div id="index" class="have-footer main">
-			<!-- 选项卡 -->	
+			<!-- 选项卡 -->
 			<div class="sub-bar">
 				<ul>
-					<li @click="goHotNews" class="active go-hotnews"><a>新闻</a></li>
-					<li @click="goLive" class="go-live"><a>直播</a></li>
-					<li @click="goPaper"><a>报纸</a></li>
-					<li @click="goVod" class="go-vod"><a>视频</a></li>
-					<li @click="goLife" class="go-life"><a>服务</a></li>
+					<li @click="goHotNews" class="active go-hotnews">
+						<a>新闻</a>
+					</li>
+					<li @click="goLive" class="go-live">
+						<a>直播</a>
+					</li>
+					<li @click="goPaper">
+						<a>报纸</a>
+					</li>
+					<li @click="goVod" class="go-vod">
+						<a>视频</a>
+					</li>
+					<li @click="goLife" class="go-life">
+						<a>服务</a>
+					</li>
 				</ul>
 			</div>
-			
+
 			<div class="index-tab index-tab-1">
 				<!-- 滚动图 -->
-				<div id="slider" class="mui-slider" >
-				  <div class="mui-slider-group mui-slider-loop">
-				    <div class="mui-slider-item mui-slider-item-duplicate">
-				      <a @click = "gotoDetail(scrollNews.slice(-1))">
-				        <img :src="scrollNews.slice(-1).img">
-				      </a>
-				    </div>
-				    <div class="mui-slider-item" v-for="i in scrollNews">
-				      <a @click="gotoDetail(i)">
-				        <img :src="i.img">
-				      </a>
-				    </div>
-				 
-				    <div class="mui-slider-item mui-slider-item-duplicate">
-				      <a @click = "gotoDetail(scrollNews.slice(1,2))">
-				        <img :src="scrollNews.slice(1,2).img">
-				      </a>
-				    </div>
-				  </div>
-				  <div class="mui-slider-text">
-				  	<p v-text="activeSlideText"></p>
-				  </div>
-				  <div class="mui-slider-indicator">			    
-				    <a v-for="i in scrollNews.length">
-				    	<div class="mui-indicator mui-active" v-if="i==1"></div>
-				    	<div class="mui-indicator" v-else></div>
-				    </a>
-				  </div>
+				<div id="slider" class="mui-slider">
+					<div class="mui-slider-group mui-slider-loop">
+						<div class="mui-slider-item mui-slider-item-duplicate">
+							<a @click="gotoDetail(scrollNews.slice(-1))">
+								<img :src="scrollNews.slice(-1).img">
+							</a>
+						</div>
+						<div class="mui-slider-item" v-for="i in scrollNews">
+							<a @click="gotoDetail(i)">
+								<img :src="i.imgs[0]">
+							</a>
+						</div>
+
+						<div class="mui-slider-item mui-slider-item-duplicate">
+							<a @click="gotoDetail(scrollNews.slice(1,2))">
+								<img :src="scrollNews.slice(1,2).img">
+							</a>
+						</div>
+					</div>
+					<div class="mui-slider-text">
+						<p v-text="activeSlideText"></p>
+					</div>
+					<div class="mui-slider-indicator">
+						<a v-for="i in scrollNews.length">
+							<div class="mui-indicator mui-active" v-if="i==1"></div>
+							<div class="mui-indicator" v-else></div>
+						</a>
+					</div>
 				</div>
-				
+
 				<div class="hotnews news-list">
 					<ul class="mui-table-view">
-					    <li class="mui-table-view-cell mui-media"  v-for="i in headNews">
-					        <a @click="gotoDetail(i)">
-					            <img class="mui-media-object mui-pull-left" :src="i.img" v-show="i.img!=''">
-					            <div class="mui-media-body" v-text="i.title"></div>
-					        </a>
-					    </li>
-					    <!--<li class="mui-table-view-cell mui-media">
+						<li class="mui-table-view-cell mui-media" v-for="i in headNews">
+							<a @click="gotoDetail(i)">
+								<img class="mui-media-object mui-pull-left" :src="i.imgs[0]" v-show="i.imgs[0]!=''">
+								<div class="mui-media-body" v-text="i.title"></div>
+							</a>
+						</li>
+						<!--<li class="mui-table-view-cell mui-media">
 					        <a href="javascript:;">
 					            <img class="mui-media-object mui-pull-left" src="http://placehold.it/120x80">
 					            <div class="mui-media-body">木屋</div>
@@ -96,87 +106,91 @@
 					    </li>-->
 					</ul>
 				</div>
-				
+
 				<div class="news-list">
 					<header @click="gotoInstantNews">即时新闻</header>
 					<ul class="mui-table-view">
-						<li v-for="i in instantNews" class="mui-table-view-cell mui-media" v-if="i.img.length <=1">
-				        	<a @click="gotoDetail(i)">
-				            	<img class="mui-media-object mui-pull-left" :src="i.img">
-				            	<div class="mui-media-body" v-text="i.title"></div>
-				        	</a>
+						<li v-for="i in instantNews" class="mui-table-view-cell mui-media" v-if="i.imgs.length <=1">
+							<a @click="gotoDetail(i)">
+								<img class="mui-media-object mui-pull-left" :src="i.imgs[0]">
+								<div class="mui-media-body" v-text="i.title"></div>
+							</a>
 						</li>
-						<li class="multiple-media mui-content" @click="goNewsGraphic" v-else>
+						<li class="multiple-media mui-content" @click="goNewsGraphic(i)" v-else>
 							<div class="multiple-imgs mui-row">
-				    			<div class="mui-col-xs-4 mui-col-sm-4" v-for="item in i.img">
-				    				<img :src="item" width="100%"/>
-				    			</div>
+								<div class="mui-col-xs-4 mui-col-sm-4" v-for="item in i.imgs">
+									<img :src="item" width="100%" />
+								</div>
 								<!--<div class="mui-col-xs-4 mui-col-sm-4">
 				    				<img src="http://placehold.it/120x85" width="100%"/>
 				    			</div>
 				    			<div class="mui-col-xs-4 mui-col-sm-4">
 				    				<img src="http://placehold.it/120x85" width="100%"/>
 				    			</div>-->
-				    		</div>
-				    		<p v-text = "i.title"></p>
+							</div>
+							<p v-text="i.title"></p>
 						</li>
 					</ul>
 				</div>
-				
+
 				<div class="ad">
-					<a href="#"><img src="imgs/ad.jpg" width="100%"/></a>
+					<a href="#"><img src="imgs/ad.jpg" width="100%" /></a>
 				</div>
-				
+
 				<div class="news-list">
 					<header @click="goNews(1)">普陀新闻</header>
 					<ul class="mui-table-view">
-					    <li class="mui-table-view-cell mui-media" v-for="i in putuoNews">
-					        <a @click="gotoDetail(i)">
-					            <img class="mui-media-object mui-pull-left" :src="i.img">
-					            <div class="mui-media-body" v-text = "i.title"></div>
-					        </a>
-					    </li>
+						<li class="mui-table-view-cell mui-media" v-for="i in putuoNews">
+							<a @click="gotoDetail(i)">
+								<img class="mui-media-object mui-pull-left" :src="i.imgs[0]">
+								<div class="mui-media-body" v-text="i.title"></div>
+							</a>
+						</li>
 					</ul>
 				</div>
-				
+
 				<div class="video-list news-list">
-					<header @click="goNews(2)">视频新闻</header>					
+					<header @click="goNews(2)">视频新闻</header>
 					<ul class="mui-row">
 						<li>
-							<a class="video-item" v-for="i in videoNews.slice(0,2)">
-					           	<div :style="'background-image:url('+ i.img +')'">
+							<a class="video-item" v-for="i in videoNews.slice(0,2)" @click="gotoDetail(i)">
+								<div :style="'background-image:url('+ i.imgs[0] +')'">
 									<i class="iconfont icon-shipin"></i>
-					            </div>
+								</div>
 								<p v-text="i.title"></p>
-							</a>								
+							</a>
 						</li>
 
 						<li>
-							<a class="video-item" v-for="i in videoNews.slice(-2)">
-					           	<div :style="'background-image:url('+ i.img +')'">
+							<a class="video-item" v-for="i in videoNews.slice(-2)" @click="gotoDetail(i)">
+								<div :style="'background-image:url('+ i.imgs[0] +')'">
 									<i class="iconfont icon-shipin"></i>
-					            </div>
+								</div>
 								<p v-text="i.title"></p>
-							</a>								
+							</a>
 						</li>
 					</ul>
-					
+
 				</div>
-				
+
 				<div class="news-list topic-list">
-				<header @click="goTopic">专题节目</header>
-				<ul class="mui-table-view">
-				    <li class="mui-table-view-cell mui-media" v-for="i in topicNews">
-				        <a @click="gotoTopic(i)">
-				            <img class="mui-media-object mui-pull-left" :src="i.img">
-				            <div class="mui-media-body"><h1 v-text="i.title"></h1><p v-text="i.brief"></p><p v-text="i.brief2"></p></div>
-				        </a>
-				    </li>
-	 
-				</ul>
+					<header @click="goTopic">专题节目</header>
+					<ul class="mui-table-view">
+						<li class="mui-table-view-cell mui-media" v-for="i in topicNews">
+							<a @click="gotoTopic(i)">
+								<img class="mui-media-object mui-pull-left" :src="i.img">
+								<div class="mui-media-body">
+									<h1 v-text="i.name"></h1>
+									<p v-text="i.brief"></p>
+									<p v-text="i.brief2"></p>
+								</div>
+							</a>
+						</li>
+
+					</ul>
+				</div>
 			</div>
-			</div>
-			
+
 			<div class="index-tab index-tab-2">
 				<iframe src="http://app.zsputuo.com/zb/" frameborder="0" width="100%" :height="frameHeight"></iframe>
 			</div>
@@ -185,102 +199,102 @@
 				<div class="life">
 					<header>热门查询</header>
 					<div class="mui-row">
-					    <div class="mui-col-sm-6 mui-col-xs-6">
-					    	<div class="item">
-						    	<img src="http://placehold.it/120x120" />
-						    	<div class="info">
-						    		<h1>天气</h1>
-						    		<p>晴雨表、温度等</p>
-						    	</div>
-					    	</div>
-					    	<div class="item">
-						    	<img src="http://placehold.it/120x120" />
-						    	<div class="info">
-						    		<h1>天气</h1>
-						    		<p>晴雨表、温度等</p>
-						    	</div>
-					    	</div>
-					    </div>
-					    <div class="mui-col-sm-6 mui-col-xs-6">
-					    	<div class="item">
-						    	<img src="http://placehold.it/120x120" />
-						    	<div class="info">
-						    		<h1>天气</h1>
-						    		<p>晴雨表、温度等</p>
-						    	</div>
-					    	</div>
-					    	<div class="item">
-						    	<img src="http://placehold.it/120x120" />
-						    	<div class="info">
-						    		<h1>天气</h1>
-						    		<p>晴雨表、温度等</p>
-						    	</div>
-					    	</div>
-					    </div>
+						<div class="mui-col-sm-6 mui-col-xs-6">
+							<div class="item">
+								<img src="http://placehold.it/120x120" />
+								<div class="info">
+									<h1>天气</h1>
+									<p>晴雨表、温度等</p>
+								</div>
+							</div>
+							<div class="item">
+								<img src="http://placehold.it/120x120" />
+								<div class="info">
+									<h1>天气</h1>
+									<p>晴雨表、温度等</p>
+								</div>
+							</div>
+						</div>
+						<div class="mui-col-sm-6 mui-col-xs-6">
+							<div class="item">
+								<img src="http://placehold.it/120x120" />
+								<div class="info">
+									<h1>天气</h1>
+									<p>晴雨表、温度等</p>
+								</div>
+							</div>
+							<div class="item">
+								<img src="http://placehold.it/120x120" />
+								<div class="info">
+									<h1>天气</h1>
+									<p>晴雨表、温度等</p>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
-				
+
 				<div class="life">
 					<header>热门查询</header>
 					<div class="mui-row">
-					    <div class="mui-col-sm-6 mui-col-xs-6">
-					    	<div class="item">
-						    	<img src="http://placehold.it/120x120" />
-						    	<div class="info">
-						    		<h1>天气</h1>
-						    		<p>晴雨表、温度等</p>
-						    	</div>
-					    	</div>
-					    	<div class="item">
-						    	<img src="http://placehold.it/120x120" />
-						    	<div class="info">
-						    		<h1>天气</h1>
-						    		<p>晴雨表、温度等</p>
-						    	</div>
-					    	</div>
-					    </div>
-					    <div class="mui-col-sm-6 mui-col-xs-6">
-					    	<div class="item">
-						    	<img src="http://placehold.it/120x120" />
-						    	<div class="info">
-						    		<h1>天气</h1>
-						    		<p>晴雨表、温度等</p>
-						    	</div>
-					    	</div>
-					    	<div class="item">
-						    	<img src="http://placehold.it/120x120" />
-						    	<div class="info">
-						    		<h1>天气</h1>
-						    		<p>晴雨表、温度等</p>
-						    	</div>
-					    	</div>
-					    </div>
+						<div class="mui-col-sm-6 mui-col-xs-6">
+							<div class="item">
+								<img src="http://placehold.it/120x120" />
+								<div class="info">
+									<h1>天气</h1>
+									<p>晴雨表、温度等</p>
+								</div>
+							</div>
+							<div class="item">
+								<img src="http://placehold.it/120x120" />
+								<div class="info">
+									<h1>天气</h1>
+									<p>晴雨表、温度等</p>
+								</div>
+							</div>
+						</div>
+						<div class="mui-col-sm-6 mui-col-xs-6">
+							<div class="item">
+								<img src="http://placehold.it/120x120" />
+								<div class="info">
+									<h1>天气</h1>
+									<p>晴雨表、温度等</p>
+								</div>
+							</div>
+							<div class="item">
+								<img src="http://placehold.it/120x120" />
+								<div class="info">
+									<h1>天气</h1>
+									<p>晴雨表、温度等</p>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
-			
+
 			<div id="vod" class="have-sub-header index-tab index-tab-4">
 				<div class="video-list news-list">
 					<ul class="mui-row">
 						<li>
 							<a class="video-item">
-								<img src="http://placehold.it/240x150" width="100%"/>
+								<img src="http://placehold.it/240x150" width="100%" />
 								<p>宁波舟山港六横港举行大马力海拖防台</p>
-							</a>		
+							</a>
 							<a class="video-item">
-								<img src="http://placehold.it/240x150" width="100%"/>
+								<img src="http://placehold.it/240x150" width="100%" />
 								<p>宁波舟山港六横港举行大马力海拖防台</p>
-							</a>	
+							</a>
 						</li>
 						<li>
 							<a class="video-item">
-								<img src="http://placehold.it/240x150" width="100%"/>
+								<img src="http://placehold.it/240x150" width="100%" />
 								<p>宁波舟山港六横港举行大马力海拖防台</p>
-							</a>								
+							</a>
 							<a class="video-item">
-								<img src="http://placehold.it/240x150" width="100%"/>
+								<img src="http://placehold.it/240x150" width="100%" />
 								<p>宁波舟山港六横港举行大马力海拖防台</p>
-							</a>	
+							</a>
 						</li>
 					</ul>
 				</div>
@@ -288,7 +302,7 @@
 			</div>
 
 		</div>
-		
+
 		<div id="news" class="have-footer main">
 			<!-- 选项卡 -->
 			<div class="sub-bar news-sub-bar">
@@ -414,48 +428,48 @@
 					<ul class="mui-row">
 						<li>
 							<a class="video-item">
-					           <div style="background-image:url(http://placehold.it/240x150)">
+								<div style="background-image:url(http://placehold.it/240x150)">
 									<i class="iconfont icon-shipin"></i>
-					            </div>
+								</div>
 								<p>宁波舟山港六横港举行大马力海拖防台</p>
-							</a>		
+							</a>
 							<a class="video-item">
-					           <div style="background-image:url(http://placehold.it/240x150)">
+								<div style="background-image:url(http://placehold.it/240x150)">
 									<i class="iconfont icon-shipin"></i>
-					            </div>
+								</div>
 								<p>宁波舟山港六横港举行大马力海拖防台</p>
-							</a>	
+							</a>
 						</li>
 						<li>
 							<a class="video-item">
-					           <div style="background-image:url(http://placehold.it/240x150)">
+								<div style="background-image:url(http://placehold.it/240x150)">
 									<i class="iconfont icon-shipin"></i>
-					            </div>
+								</div>
 								<p>宁波舟山港六横港举行大马力海拖防台</p>
-							</a>	
+							</a>
 							<a class="video-item">
-					           <div style="background-image:url(http://placehold.it/240x150)">
+								<div style="background-image:url(http://placehold.it/240x150)">
 									<i class="iconfont icon-shipin"></i>
-					            </div>
+								</div>
 								<p>宁波舟山港六横港举行大马力海拖防台</p>
-							</a>	
+							</a>
 						</li>
 					</ul>
 				</div>
 			</div>
-			
+
 			<a class="load-more">点击加载更多</a>
-			
+
 		</div>
-		
+
 		<div id="ucenter" class="have-footer have-header main ucenter">
 			<div class="user" @click="goLogin">
 				<div class="user-img iconfont">
-					<img src="http://placehold.it/80x80" v-show="isLogin"/>	
+					<img src="http://placehold.it/80x80" v-show="isLogin" />
 				</div>
 				<p v-text="isLogin ? 'username' : '登陆/注册'"></p>
 			</div>
-			
+
 			<ul class="mui-table-view">
 				<li class="mui-table-view-cell" @click="goZan">
 					<a class="mui-navigate-right">
@@ -486,7 +500,7 @@
 					</a>
 				</li>
 			</ul>
-		</div>		
+		</div>
 	</body>
 
 </html>

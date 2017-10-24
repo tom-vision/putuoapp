@@ -1,6 +1,13 @@
 var linkerId = {
-	
+	scrollNews: 100,
+	headNews: 101,
+	instantNews: 102,
+	putuoNews: 103,
+	videoNews: 104
 };
+
+// 用户信息
+var userInfo = { id: 0 };
 
 var pullToRefresh = function() {
 	var ws = plus.webview.currentWebview();
