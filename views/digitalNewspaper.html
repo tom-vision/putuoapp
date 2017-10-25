@@ -25,7 +25,7 @@
 		
 		<footer class="footer-tab" id="tab">
 			<a class="active" style="justify-content: center;">
-				<p style="margin: 0;">星期二</p>
+				<p style="margin: 0;" v-text="week"></p>
 				<p style="margin: 0;" v-text="date"></p>
 			</a>
 			<a @click="morePage">
@@ -42,39 +42,13 @@
 		<div id="digitalNewspaper" class="news-graphic have-header have-footer">
 			<div class="swiper-container paper">
 				<div class="swiper-wrapper">
-					<div class="swiper-slide">
-						<div>
-							<!--	
-								***
-								抓取的 area 标签中的 href 应指向 detail-popup 
-								非跳转方式
-								***
-							-->
-							<map name="PagePicMap">
-                            	<area coords="350,101,350,83,350,77,237,77,237,83,237,101,237,174,350,174" shape="polygon" href="content_1_1.htm"> 
-                                <area coords="0,83,224,83,224,231,0,231" shape="polygon" href="content_1_2.htm"> 
-                                <area coords="350,220,350,185,350,180,237,180,237,185,237,220,237,297,350,297" shape="polygon" href="content_1_3.htm"> 
-                                <area coords="0,243,226,243,226,383,0,383" shape="polygon" href="content_1_4.htm"> 
-                                <area coords="240,311,347,311,347,503,240,503" shape="polygon" href="content_1_5.htm"> 
-                                <area coords="224,430,224,430,224,388,224,388,224,388,224,388,106,388,0,388,0,430,106,430,106,456,0,456,0,506,224,506" shape="polygon" href="content_1_6.htm"> 
-                                <area coords="350,71,350,64,350,3,0,3,0,75,350,75" shape="polygon" href="content_1_7.htm"> 
-                            </map>
-							<img src="http://jrpt.zjol.com.cn/resfile/2017-09-05/01/Page_b.jpg" border="0" usemap="#PagePicMap">
-						</div>
+					<div class="swiper-slide" v-html="Pic_one">
 					</div>
-					<div class="swiper-slide">
-						<div>
-							<map name="PagePicMap">
-                            	<area coords="350,101,350,83,350,77,237,77,237,83,237,101,237,174,350,174" shape="polygon" href="content_1_1.htm"> 
-                                <area coords="0,83,224,83,224,231,0,231" shape="polygon" href="content_1_2.htm"> 
-                                <area coords="350,220,350,185,350,180,237,180,237,185,237,220,237,297,350,297" shape="polygon" href="content_1_3.htm"> 
-                                <area coords="0,243,226,243,226,383,0,383" shape="polygon" href="content_1_4.htm"> 
-                                <area coords="240,311,347,311,347,503,240,503" shape="polygon" href="content_1_5.htm"> 
-                                <area coords="224,430,224,430,224,388,224,388,224,388,224,388,106,388,0,388,0,430,106,430,106,456,0,456,0,506,224,506" shape="polygon" href="content_1_6.htm"> 
-                                <area coords="350,71,350,64,350,3,0,3,0,75,350,75" shape="polygon" href="content_1_7.htm"> 
-                            </map>
-							<img src="http://jrpt.zjol.com.cn/resfile/2017-09-05/01/Page_b.jpg" border="0" usemap="#PagePicMap">
-						</div>
+					<div class="swiper-slide" v-html="Pic_two">
+					</div>
+					<div class="swiper-slide" v-html="Pic_three">
+					</div>
+					<div class="swiper-slide" v-html="Pic_four">
 					</div>
 				</div>
 			</div>
@@ -86,43 +60,54 @@
 				<h1 class="mui-title">目录</h1>
 			</header>
 			<dl class="have-header">
-				<dt>第一版：要闻</dt>
+				<dt v-text="Catalog_class0"></dt>
 				<dd>
 					<ul>
-						<li @click="openDetail">住房保障业务正式入驻市行政服务中心</li>
-						<li>住房保障业务正式入驻市行政服务中心</li>
-						<li>住房保障业务正式入驻市行政服务中心</li>
+						<li v-for="Catalog_item0 in Catalog_items0" v-text="Catalog_item0.title" @click="openDetail(Catalog_item0)"></li>
 					</ul>
 				</dd>
-				<dt>第一版：要闻</dt>
+				<dt v-text="Catalog_class1"></dt>
 				<dd>
 					<ul>
-						<li>住房保障业务正式入驻市行政服务中心</li>
-						<li>住房保障业务正式入驻市行政服务中心</li>
-						<li>住房保障业务正式入驻市行政服务中心</li>
+						<li v-for="Catalog_item1 in Catalog_items1" v-text="Catalog_item1.title" @click="openDetail(Catalog_item1)"></li>
 					</ul>
 				</dd>
+				<dt v-text="Catalog_class2"></dt>
+				<dd>
+					<ul>
+						<li v-for="Catalog_item2 in Catalog_items2" v-text="Catalog_item2.title" @click="openDetail(Catalog_item2)"></li>
+					</ul>
+				</dd>
+				<dt v-text="Catalog_class3"></dt>
+				<dd>
+					<ul>
+						<li v-for="Catalog_item3 in Catalog_items3" v-text="Catalog_item3.title" @click="openDetail(Catalog_item3)"></li>
+					</ul>
+				</dd>
+				
 			</dl>
 		</div>
 		
 		<div class="popup digitalNewspaper-detail-popup" v-show="show">
 			<header class="mui-bar mui-bar-nav">
 				<a class="mui-icon mui-icon-left-nav mui-pull-left" @click="closeDetail"></a>
-				<h1 class="mui-title">第一版：要闻</h1>
+				<h1 class="mui-title" v-text="article_class"></h1>
 			</header>
 			<div class="content have-header">
-				<h1>张立军在调研城市环境提升和背街小巷改造时强调</h1>
-				<h2>城市更清洁 百姓更满意 游客更留恋</h2>
-				<article>
-					<p>本报讯（记者 张超群）昨天上午，区委书记张立军来到沈家门街道专题调研城市环境提升和背街小巷改造工作。他强调，要切实围绕“大景区”“大花园”建设要求，进一步提高思想认识，明确工作目标，细化责任分工，加速推进背街小巷改造工作，让城市更清洁、百姓更满意、游客更留恋，全力实现打造海上花园城会客厅目标。副区长丁伟民一同调研。</p>
-					<p>张立军一行先后来到沈家门街道了解青龙山公园滨港路入口改造项目设计方案，实地考察泰莱街背街小巷改造相关工作、滨港路沿途立面改造进展、板桥路综合改造相关工作，并座谈探讨如何进一步加快城市环境提升，推进背街小巷改造工作。</p>
-					<p>张立军指出，背街小巷改造工作，既是呼应百姓诉求，提升城市品质和城区居民居住环境的一项重要民生工程，又是加快推进全域旅游示范区建设，打造海上花园城会客厅的关键所在，有助于推动焕发城市生机活力，改善区域整体投资环境，吸引创业创新人才项目落地普陀。我们要深刻理解这一工作的重要意义，拔高思想站位，创新工作理念，发挥城市建设工匠精神，全力全速加快完成背街小巷改造任务。</p>
+				<h1 v-text="article_begintitle"></h1>
+				<h2 v-text="article_title"></h2>
+				<article v-html="article_message">
 				</article>
 			<div>
 		</div>
 	</body>
 
 </html>
+<<<<<<< HEAD
 <script src="../plugins/swiper.min.js"></script>
+=======
+<script src="../js/public.js"></script>
+<script src="https://cdn.bootcss.com/Swiper/3.4.2/js/swiper.min.js"></script>
+>>>>>>> branch_papers
 <script src="../js/global.js"></script>
 <script src="../js/digitalNewspaper.js"></script>
