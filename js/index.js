@@ -1,9 +1,6 @@
 //预加载页面
 mui.init({
 	preloadPages: [{
-		url: 'views/index.html',
-		id: 'index',
-	}, {
 		url: 'views/search.html',
 		id: 'search',
 	}, {
