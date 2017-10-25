@@ -19,6 +19,7 @@ var menu = new Vue({
 	}
 })
 
+
 var detail = new Vue({
 	el: '.digitalNewspaper-detail-popup',
 	data: {
