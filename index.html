@@ -17,7 +17,7 @@
 	<body>
 		<!-- 导航栏 -->
 		<header class="mui-bar mui-bar-nav">
-			<h1 class="mui-title">掌上普陀1</h1>
+			<h1 class="mui-title">掌上普陀</h1>
 			<a class="mui-icon iconfont icon-icon1460187848267 mui-pull-right go-search"></a>
 		</header>
 
@@ -147,7 +147,7 @@
 				<div class="video-list news-list">
 					<header @click="goNews(2)">视频新闻</header>
 					<ul class="clearfix">
-						<li v-for="i in videoNews">
+						<li v-for="i in videoNews.slice(0,4)">
 							<a class="video-item" @click="gotoDetail(i)">
 								<div :style="'background-image:url('+ i.imgs[0] +')'">
 									<i class="iconfont icon-shipin"></i>
@@ -155,23 +155,7 @@
 								<p v-text="i.title"></p>
 							</a>
 						</li>
-						<!--<li>
-							<a class="video-item" v-for="i in videoNews.slice(0,2)" @click="gotoDetail(i)">
-								<div :style="'background-image:url('+ i.imgs[0] +')'">
-									<i class="iconfont icon-shipin"></i>
-								</div>
-								<p v-text="i.title"></p>
-							</a>
-						</li>
-
-						<li>
-							<a class="video-item" v-for="i in videoNews.slice(-2)" @click="gotoDetail(i)">
-								<div :style="'background-image:url('+ i.imgs[0] +')'">
-									<i class="iconfont icon-shipin"></i>
-								</div>
-								<p v-text="i.title"></p>
-							</a>
-						</li>-->
+						
 					</ul>
 
 				</div>
@@ -276,32 +260,21 @@
 				</div>
 			</div>
 
-			<div id="vod" class="have-sub-header index-tab index-tab-4">
+			<!--顶部tab视频-->
+			<div id="video" class="have-sub-header index-tab index-tab-4">
 				<div class="video-list news-list">
-					<ul class="mui-row">
-						<li>
+					<ul class="clearfix">
+						<li v-for="i in videoNews" @click="gotoDetail(i)">
 							<a class="video-item">
-								<img src="http://placehold.it/240x150" width="100%" />
-								<p>宁波舟山港六横港举行大马力海拖防台</p>
+								<img :src="i.img" width="100%" />
+								<p v-text="i.title"></p>
 							</a>
-							<a class="video-item">
-								<img src="http://placehold.it/240x150" width="100%" />
-								<p>宁波舟山港六横港举行大马力海拖防台</p>
-							</a>
+							
 						</li>
-						<li>
-							<a class="video-item">
-								<img src="http://placehold.it/240x150" width="100%" />
-								<p>宁波舟山港六横港举行大马力海拖防台</p>
-							</a>
-							<a class="video-item">
-								<img src="http://placehold.it/240x150" width="100%" />
-								<p>宁波舟山港六横港举行大马力海拖防台</p>
-							</a>
-						</li>
+						
 					</ul>
 				</div>
-				<a class="load-more">点击加载更多</a>
+				<a class="load-more" @click="getVideoNews" v-show="bHaveMore_headvideo">点击加载更多</a>
 			</div>
 
 		</div>
@@ -390,7 +363,7 @@
 				<div class="user-img iconfont">
 					<img src="http://placehold.it/80x80" v-show="isLogin" />
 				</div>
-				<p v-text="isLogin ? 'username' : '登陆/注册'"></p>
+				<p v-text="isLogin ? 'username' : '登录/注册'"></p>
 			</div>
 
 			<ul class="mui-table-view">

@@ -21,14 +21,14 @@
 		</header>
 		
 		<div id="search" class="have-footer have-header">
-			<div class="search"><input type="search" placeholder="请输入您想要搜索的关键词" @keyup.13="search"/></div>
+			<div class="search"><input type="search" placeholder="请输入您想要搜索的关键词" @keyup.13="search" v-model="keyWord"/></div>
 			
 			<div class="news-list" v-show="searchResult.length > 0">
 				<ul class="mui-table-view">
-				    <li class="mui-table-view-cell mui-media">
-				        <a href="javascript:;">
-				            <img class="mui-media-object mui-pull-left" src="http://placehold.it/120x80">
-				            <div class="mui-media-body">副区长李莉到普陀广播电视台调研</div>
+				    <li class="mui-table-view-cell mui-media" v-for="i in searchResult">
+				        <a @click="gotoDetail(i)">
+				            <img class="mui-media-object mui-pull-left" :src="i.img">
+				            <div class="mui-media-body" v-text="i.title"></div>
 				        </a>
 				    </li>
 				</ul>
@@ -39,4 +39,5 @@
 
 </html>
 <script src="../js/global.js"></script>
+<script src="../js/a_ref.js"></script>
 <script src="../js/search.js"></script>

@@ -39,6 +39,21 @@ mui.init({
 	}],
 });
 
+//跳转到文章详情
+function gotoDetail(i) {
+	var detailPage = null;
+	//获得详情页面
+	if(!detailPage) {
+		detailPage = plus.webview.getWebviewById('newsDetail');
+	}
+	//触发详情页面的newsId事件
+	mui.fire(detailPage, 'newsId', {
+		id: i.id
+	});
+
+	openWindow('views/newsDetail.html', 'newsDetail');
+};
+
 //新闻选项卡
 var news = new Vue({
 	el: '#news',
@@ -57,20 +72,7 @@ var news = new Vue({
 		changeSort: function(i) {
 			this.activeSort = i
 		},
-		//跳转到文章详情
-		gotoDetail: function(i) {
-			var detailPage = null;
-			//获得详情页面
-			if(!detailPage) {
-				detailPage = plus.webview.getWebviewById('newsDetail');
-			}
-			//触发详情页面的newsId事件
-			mui.fire(detailPage, 'newsId', {
-				id: i.id
-			});
-
-			openWindow('views/newsDetail.html', 'newsDetail');
-		},
+		
 		goNewsGraphic: function(i) {
 			console.log(i.title);
 			var detailPage = null;
@@ -105,7 +107,7 @@ var news = new Vue({
 					return;
 				} else {
 					self.bHaveMore_instant = true;
-					
+
 					d.data.forEach(function(r) {
 						var arrImg = r.img.split(',');
 						r.imgs = arrImg;
@@ -124,7 +126,7 @@ var news = new Vue({
 			if(self.putuoNews.length) {
 				f = _at(self.putuoNews, -1).id;
 			}
-			
+
 			//获取普陀新闻
 			_callAjax({
 				cmd: "fetch",
@@ -138,18 +140,19 @@ var news = new Vue({
 					return;
 				} else {
 					self.bHaveMore_putuo = true;
-					
+
 					d.data.forEach(function(r) {
 						var arrImg = r.img.split(',');
 						r.imgs = arrImg;
 						self.putuoNews.push(r);
 					});
 				}
-				
+
 			});
 
 		},
 
+		//获取视频新闻
 		getVideoNews: function() {
 			var self = this;
 
@@ -157,8 +160,7 @@ var news = new Vue({
 			if(self.videoNews.length) {
 				f = _at(self.videoNews, -1).id;
 			}
-			
-			//获取视频新闻
+
 			_callAjax({
 				cmd: "fetch",
 				sql: "select * from articles where ifValid =1 and id<? and linkerId = ? order by id desc limit 5",
@@ -171,20 +173,21 @@ var news = new Vue({
 					return;
 				} else {
 					self.bHaveMore_video = true;
-					
+
 					d.data.forEach(function(r) {
 						var arrImg = r.img.split(',');
 						r.imgs = arrImg;
 						self.videoNews.push(r);
 					});
+
 				}
-				
+
 			});
 		}
 	},
-	mounted: function(){
+	mounted: function() {
 		var self = this;
-		
+
 		self.getInstantNews();
 		self.getPutuoNews();
 		self.getVideoNews();
@@ -203,6 +206,7 @@ var index = new Vue({
 		putuoNews: [], //普陀新闻
 		videoNews: [], //视频新闻
 		topicNews: [], //专题节目
+		bHaveMore_headvideo: true, //顶部tab视频加载更多
 	},
 	created: function() {
 		this.frameHeight = window.outerHeight - 150 + 'px';
@@ -216,9 +220,7 @@ var index = new Vue({
 			changeTab('news', $('.go-news'));
 			news.activeSort = i;
 		},
-		//		goNewsDetail: function() {
-		//			openWindow('views/newsDetail.html', 'newsDetail');
-		//		},
+		
 		goLife: function() {
 			changeIndexTab('index-tab-3', $('.go-life'));
 		},
@@ -247,20 +249,7 @@ var index = new Vue({
 		goPaper: function() {
 			openWindow('views/digitalNewsPaper.html', 'digitalNewsPaper')
 		},
-		//跳转到文章详情
-		gotoDetail: function(i) {
-			var detailPage = null;
-			//获得详情页面
-			if(!detailPage) {
-				detailPage = plus.webview.getWebviewById('newsDetail');
-			}
-			//触发详情页面的newsId事件
-			mui.fire(detailPage, 'newsId', {
-				id: i.id
-			});
-
-			openWindow('views/newsDetail.html', 'newsDetail');
-		},
+	
 		//查看更多即时新闻
 		gotoInstantNews: function() {
 
@@ -279,7 +268,41 @@ var index = new Vue({
 			});
 
 			openWindow('views/topic-list.html', 'topic-list');
+		},
+		
+		//顶部tab加载更多视频
+		getVideoNews: function() {
+			var self = this;
+
+			var f = 10e5;
+			if(self.videoNews.length) {
+				f = _at(self.videoNews, -1).id;
+			}
+
+			_callAjax({
+				cmd: "fetch",
+				sql: "select * from articles where ifValid =1 and id<? and linkerId = ? order by id desc limit 5",
+				vals: _dump([f, linkerId.videoNews])
+
+			}, function(d) {
+				if(!d.success || !d.data) {
+					self.bHaveMore_headvideo = false;
+					mui.toast("没有更多数据了");
+					return;
+				} else {
+					self.bHaveMore_headvideo = true;
+
+					d.data.forEach(function(r) {
+						var arrImg = r.img.split(',');
+						r.imgs = arrImg;
+						self.videoNews.push(r);
+					});
+					console.log("视频新闻");
+				}
+
+			});
 		}
+		
 	},
 	mounted: function() {
 		//获取新闻数据
@@ -365,6 +388,7 @@ var index = new Vue({
 	}
 })
 
+
 // banner滚动时更换标题
 document.querySelector('.mui-slider').addEventListener('slide', function(event) {
 
@@ -378,6 +402,7 @@ var changeTab = function(el, self) {
 }
 
 var changeIndexTab = function(el, self) {
+	console.log("顶部tab="+el);
 	$('.index-tab').hide();
 	$('.' + el + '').show();
 	self.addClass('active').siblings().removeClass('active');
