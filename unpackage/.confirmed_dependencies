@@ -210,7 +210,19 @@
 			"css/style.css",
 			"js/global.js",
 			"plugins/mui.min.css",
-			"plugins/iconfont.css"
+			"plugins/iconfont.css",
+			"js/interact.js"
+		],
+		"refer": [
+			"views/release.html"
+		]
+	},
+	"views/release.html": {
+		"resources": [
+			"plugins/mui.min.js",
+			"js/release.js",
+			"js/global.js",
+			"plugins/mui.min.css"
 		]
 	}
 }

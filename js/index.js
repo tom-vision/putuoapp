@@ -53,7 +53,7 @@ var index = new Vue({
 			news.activeSort = i;
 		},
 		goNewsDetail: function() {
-			openWindow('views/newsDetail.html', 'newsDetail');
+			openWindow('views/newsDetail.html', 'newsDetail');	
 		},
 		goLife: function() {
 			changeIndexTab('index-tab-3', $('.go-life'));
