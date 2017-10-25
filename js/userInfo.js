@@ -3,10 +3,13 @@ function plusReady() {
 	var userInfo = new Vue({
 		el: '#userInfo',
 		data: {
-			avatar: 'http://placehold.it/70x70',
-			name: '132****8888',
-			tel: '13212348888',
-			sex: '男'
+			userInfo: {
+				id: 0,
+				name: '',
+				phone: '',
+				pswd: '',
+				img: '',
+			},
 		},
 		methods: {
 			changeName: function() {
@@ -36,6 +39,10 @@ function plusReady() {
 					filter: "image"
 				});
 			}
+		},
+		mounted: function() {
+			var self = this;
+
 		}
 	})
 }
@@ -46,3 +53,10 @@ if(window.plus) {
 } else {
 	document.addEventListener('plusready', plusReady, false);
 }
+
+////添加newId自定义事件监听
+//window.addEventListener('login', function(event) {
+//	
+//	var userInfo = plus.storage.getItem('userInfo');
+//	
+//})

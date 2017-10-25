@@ -1,9 +1,16 @@
 var isTest = true;
 var serverAddr = isTest ? "http://192.168.0.110:10000" : "";
 
+var _set = function(k, v) {
+	plus.storage.setItem(k, v); 
+};
+var _get = function(k) {
+    return plus.storage.getItem(k); 
+};
+
 var _at = function(arr, id) {
-    if (id < 0) id = arr.length + id;
-    return arr[id];
+	if(id < 0) id = arr.length + id;
+	return arr[id];
 };
 
 var _dump = function(dict) {
@@ -67,13 +74,12 @@ var _genCallAjax = function(url) {
 				_tell(d);
 				cb(d);
 			},
-			
+
 			error: function(xhr, type, errorThrown) {
 				console.log(xhr + type + errorThrown);
 
 			}
 		});
-
 
 	};
 };

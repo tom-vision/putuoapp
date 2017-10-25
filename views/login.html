@@ -24,13 +24,13 @@
 			<div class="user-form">
 				<div class="label">
 					<i class="iconfont icon-shouji"></i>
-					<input type="tel" maxlength="11" placeholder="手机号"/>
+					<input type="tel" maxlength="11" placeholder="手机号" v-model="phone"/>
 				</div>
 				<div class="label">
 					<i class="iconfont icon-mima"></i>
-					<input type="password" maxlength="12" placeholder="密码"/>
+					<input type="password" maxlength="12" placeholder="密码" v-model="password"/>
 				</div>
-				<a class="login-btn">登录</a>
+				<a class="login-btn" @click="login">登录</a>
 				<div class="other-operate">
 					<a class="go-register" @click="goRegister">立即注册</a>
 					<a class="go-forget" @click="goForget">忘记密码?</a>
@@ -41,4 +41,5 @@
 
 </html>
 <script src="../js/global.js"></script>
+<script src="../js/a_ref.js"></script>
 <script src="../js/login.js"></script>

@@ -354,16 +354,14 @@
 				<a class="load-more" @click="getVideoNews" v-show="bHaveMore_video">点击加载更多</a>
 
 			</div>
-
-
 		</div>
 
 		<div id="ucenter" class="have-footer have-header main ucenter">
 			<div class="user" @click="goLogin">
 				<div class="user-img iconfont">
-					<img src="http://placehold.it/80x80" v-show="isLogin" />
+					<img :src="userInfo.img" v-show="isLogin" />
 				</div>
-				<p v-text="isLogin ? 'username' : '登录/注册'"></p>
+				<p v-text="isLogin ? userInfo.name : '登录/注册'"></p>
 			</div>
 
 			<ul class="mui-table-view">
@@ -390,9 +388,9 @@
 						<i class="iconfont icon-yijianfankui"></i>意见反馈
 					</a>
 				</li>
-				<li class="mui-table-view-cell">
+				<li class="mui-table-view-cell" v-show="isLogin" @click="logout">
 					<a class="mui-navigate-right">
-						<i class="iconfont icon-shengji"></i>退出登陆
+						<i class="iconfont icon-shengji"></i>退出登录
 					</a>
 				</li>
 			</ul>

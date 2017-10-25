@@ -1,6 +1,9 @@
 //预加载页面
 mui.init({
 	preloadPages: [{
+		url: 'views/index.html',
+		id: 'index',
+	}, {
 		url: 'views/search.html',
 		id: 'search',
 	}, {
@@ -72,7 +75,7 @@ var news = new Vue({
 		changeSort: function(i) {
 			this.activeSort = i
 		},
-		
+
 		goNewsGraphic: function(i) {
 			console.log(i.title);
 			var detailPage = null;
@@ -220,7 +223,7 @@ var index = new Vue({
 			changeTab('news', $('.go-news'));
 			news.activeSort = i;
 		},
-		
+
 		goLife: function() {
 			changeIndexTab('index-tab-3', $('.go-life'));
 		},
@@ -249,7 +252,7 @@ var index = new Vue({
 		goPaper: function() {
 			openWindow('views/digitalNewsPaper.html', 'digitalNewsPaper')
 		},
-	
+
 		//查看更多即时新闻
 		gotoInstantNews: function() {
 
@@ -269,7 +272,7 @@ var index = new Vue({
 
 			openWindow('views/topic-list.html', 'topic-list');
 		},
-		
+
 		//顶部tab加载更多视频
 		getVideoNews: function() {
 			var self = this;
@@ -302,7 +305,7 @@ var index = new Vue({
 
 			});
 		}
-		
+
 	},
 	mounted: function() {
 		//获取新闻数据
@@ -388,7 +391,6 @@ var index = new Vue({
 	}
 })
 
-
 // banner滚动时更换标题
 document.querySelector('.mui-slider').addEventListener('slide', function(event) {
 
@@ -402,11 +404,87 @@ var changeTab = function(el, self) {
 }
 
 var changeIndexTab = function(el, self) {
-	console.log("顶部tab="+el);
+	console.log("顶部tab=" + el);
 	$('.index-tab').hide();
 	$('.' + el + '').show();
 	self.addClass('active').siblings().removeClass('active');
 }
+
+var ucenter = new Vue({
+	el: '#ucenter',
+	data: {
+		userInfo: _load(_get('userInfo')),
+		isLogin: false,
+	},
+	beforeCreate: function() {},
+	methods: {
+		goSuggest: function(i) {
+			openWindow('views/iframe.html', 'iframe');
+			mui.fire(plus.webview.getWebviewById('iframe'), 'getInfo', {
+				title: '意见反馈',
+				url: 'http://www.baidu.com/'
+			})
+		},
+		goLogin: function() {
+			// 判断是否已登录
+			if(!this.isLogin) return openWindow('views/login.html', 'login');
+			openWindow('views/userInfo.html', 'userInfo');
+		},
+		goZan: function() {
+			if(!this.isLogin) return mui.toast("请先登录");
+			openWindow('views/zan.html', 'zan');
+		},
+		goCmt: function() {
+			if(!this.isLogin) return mui.toast("请先登录");
+			openWindow('views/cmt.html', 'cmt');
+		},
+		logout: function(){
+			var self = this;
+			
+			
+			self.isLogin = false;
+			self.userInfo = {};
+			_set(_dump('userInfo',self.userInfo));
+		}
+	},
+	mounted: function() {
+		var self = this;
+
+		
+		//获取个人信息
+		if(self.userInfo.id != 0) {
+			_callAjax({
+				cmd: "fetch",
+				sql: "select * from User where phone = ? and pswd = ?",
+				vals: _dump([self.userInfo.phone, self.userInfo.pswd])
+			}, function(d) {
+				if(d.success && d.data) {
+
+					self.isLogin = true;
+				} else {
+					self.isLogin = false;
+					self.userInfo = {};
+					_set('userInfo', _dump(self.userInfo));
+				}
+			});
+		}
+
+	}
+})
+
+//添加登录返回refresh自定义事件监听
+window.addEventListener('loginBack', function(event) {
+
+	console.log("5555777");
+	
+	if(userInfo.id != 0){
+		ucenter.isLogin = true;
+		ucenter.userInfo = _load(_get('userInfo'));
+	}else{
+		ucenter.isLogin = false;
+	}
+	
+})
 
 //跳转至搜索页
 $('.go-search').on('click', function() {
@@ -437,33 +515,6 @@ $('.go-ucenter').on('click', function() {
 function plusReady() {
 	pullToRefresh();
 
-	var ucenter = new Vue({
-		el: '#ucenter',
-		data: {
-			isLogin: true
-		},
-		beforeCreate: function() {},
-		methods: {
-			goSuggest: function(i) {
-				openWindow('views/iframe.html', 'iframe');
-				mui.fire(plus.webview.getWebviewById('iframe'), 'getInfo', {
-					title: '意见反馈',
-					url: 'http://www.baidu.com/'
-				})
-			},
-			goLogin: function() {
-				// 判断是否已登陆
-				if(!this.isLogin) return openWindow('views/login.html', 'login')
-				openWindow('views/userInfo.html', 'userInfo')
-			},
-			goZan: function() {
-				openWindow('views/zan.html', 'zan');
-			},
-			goCmt: function() {
-				openWindow('views/cmt.html', 'cmt');
-			}
-		}
-	})
 }
 
 // 判断扩展API是否准备，否则监听'plusready'事件
