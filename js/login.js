@@ -7,15 +7,15 @@ mui.init({
 		url: 'register.html',
 		id: 'register',
 	}],
-	beforeback: function(){
-		console.log("登录返回");
-		//获得列表界面的webview
-		var index = plus.webview.getLaunchWebview();
-		//触发自定义事件（loginBack）,从而进行数据刷新
-		mui.fire(index,'loginBack');
-		//返回true，继续页面关闭逻辑
-		return true;
-	}
+//	beforeback: function(){
+//		console.log("登录返回");
+//		//获得列表界面的webview
+//		var index = plus.webview.getLaunchWebview();
+//		//触发自定义事件（loginBack）,从而进行数据刷新
+//		mui.fire(index,'loginBack');
+//		//返回true，继续页面关闭逻辑
+//		return true;
+//	}
 	
 });
 
@@ -53,7 +53,7 @@ var login = new Vue({
 					
 					console.log(_dump(userInfo));
 					
-//					mui.fire(plus.webview.getWebviewById('index'), 'loginBack');
+					mui.fire(plus.webview.getLaunchWebview(), 'loginBack');
 					
 					setTimeout(function() {
 						mui.back();

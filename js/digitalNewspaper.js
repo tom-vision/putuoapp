@@ -1,85 +1,308 @@
-var swiper = new Swiper('.swiper-container', {
-	onSlideChangeEnd: function(swiper){
-      	alert(swiper.activeIndex)
-    }
-})
+var article_class = '';
+var	article_title = '';
+var	article_begintitle = '';
+var article_message = '';
+console.log("进入报纸页面");
 
 var menu = new Vue({
 	el: '.digitalNewspaper-menu-popup',
 	data: {
 		show: false,
+		date:'',
+		Catalog_class0: '',
+		Catalog_class1: '',
+		Catalog_class2: '',
+		Catalog_class3: '',
+		Catalog_items0: [],
+		Catalog_items1: [],
+		Catalog_items2: [],
+		Catalog_items3: [],
+	},
+	created: function() {
+		var self = this;
+		var d = new Date();
+		var mouth = d.getMonth() + 1;
+		this.date = d.getFullYear() + '-' + mouth + '-' + d.getDate();
+		self.getpartTwo()
+		self.getpartThree();
 	},
 	methods: {
 		closeMenu: function() {
 			this.show = false;
 		},
-		openDetail: function() {
-			detail.show = true;
-		}
+		openDetail: function(i) {
+			var paperId = parseInt(i.id);
+			_callAjax({
+				cmd:'fetch',
+				sql:'select class,title,beginTit,behindTit,text from Son where id = ?',
+				vals:_dump([paperId,])
+			},function(d){
+				if(d.success&&d.data){
+					detail.show = true;
+					article_class = d.data[0].class;
+					article_begintitle = d.data[0].beginTit;
+					article_title = d.data[0].title;
+					article_message = d.data[0].text;
+				}
+			});
+		},
+		getpartTwo:function(){
+			var self = this;
+			_callAjax({
+				cmd:'fetch',
+				sql:'select class from Dad where time = ?',
+				vals:_dump([self.date,])
+			},function(d){
+				if(d.success&&d.data){
+					self.Catalog_class0=d.data[0].class;
+					self.Catalog_class1=d.data[1].class;
+					self.Catalog_class2=d.data[2].class;
+					self.Catalog_class3=d.data[3].class;
+				}
+			});
+		},
+		getpartThree:function(){
+			var self = this;
+			_callAjax({
+				cmd:'fetch',
+				sql:'select title,id from Son where time = ? and page = ?',
+				vals:_dump([self.date,"1",])
+			},function(d){
+				if(d.success&&d.data){
+					self.Catalog_items0 = d.data;
+				}
+			});
+			_callAjax({
+				cmd:'fetch',
+				sql:'select title,id from Son where time = ? and page = ?',
+				vals:_dump([self.date,"2"])
+			},function(d){
+				if(d.success&&d.data){
+					self.Catalog_items1 = d.data;
+				}
+			});
+			_callAjax({
+				cmd:'fetch',
+				sql:'select title,id from Son where time = ? and page = ?',
+				vals:_dump([self.date,"3"])
+			},function(d){
+				if(d.success&&d.data){
+					self.Catalog_items2 = d.data;
+				}
+			});
+			_callAjax({
+				cmd:'fetch',
+				sql:'select title,id from Son where time = ? and page = ?',
+				vals:_dump([self.date,"4"])
+			},function(d){
+				if(d.success&&d.data){
+					self.Catalog_items3 = d.data;
+				}
+			});
+		},
 	}
 })
+
 
 var detail = new Vue({
 	el: '.digitalNewspaper-detail-popup',
 	data: {
-		show: false
+		show: false,
 	},
 	methods: {
 		closeDetail: function() {
 			this.show = false;
-		}
+		},
+	}
+})
+
+var pic = new Vue({
+	el: '#digitalNewspaper',
+	data: {
+		Pic_one: '',
+		Pic_two: '',
+		Pic_three: '',
+		Pic_four: '',
+	},
+	created: function() {
+		var self = this;
+		self.getpartOne();
+	},
+	methods: {
+		getpartOne: function() {
+			var self = this;
+			var today = '';
+			_callAjax({
+				cmd:'fetch',
+				sql:'select time from Son where date = ?',
+				vals:_dump([menu.date,])
+			},function(d){
+				if(d.data&&d.success){
+					today = d.data[0].time;
+					self.Pic_one = "<img src=\"http://jrpt.zjol.com.cn/resfile/" + today + "/01/Page_b.jpg\" border=\"0\" usemap=\"#PagePicMap\">";
+					self.Pic_two = "<img src=\"http://jrpt.zjol.com.cn/resfile/" + today + "/02/Page_b.jpg\" border=\"0\" usemap=\"#PagePicMap\">";
+					self.Pic_three = "<img src=\"http://jrpt.zjol.com.cn/resfile/" + today + "/03/Page_b.jpg\" border=\"0\" usemap=\"#PagePicMap\">";
+					self.Pic_four = "<img src=\"http://jrpt.zjol.com.cn/resfile/" + today + "/04/Page_b.jpg\" border=\"0\" usemap=\"#PagePicMap\">";
+					var swiper = new Swiper('.swiper-container', {
+						onSlideChangeEnd: function(swiper) {
+							_callAjax({
+								cmd: 'fetch',
+								sql: 'select class from Dad where time = ?',
+								vals: _dump([tab.date, ])
+							},function(d){
+								if(d.data&&d.success){
+									if(swiper.activeIndex == 0){
+										tab.pageTitle = d.data[0].class.split("：")[1];
+									}else if(swiper.activeIndex == 1){
+										tab.pageTitle = d.data[1].class.split("：")[1];
+									}else if(swiper.activeIndex == 2){
+										tab.pageTitle = d.data[2].class.split("：")[1];
+									}else {
+										tab.pageTitle = d.data[3].class.split("：")[1];
+									}
+								}
+							});
+						}
+					});				
+				}else{
+					mui.toast("没有今日的报纸信息！");
+				}
+			});
+		},
 	}
 })
 
 var tab = new Vue({
 	el: '#tab',
 	data: {
-		pageTitle: '要闻',
-		date: ''
+		pageTitle: '',
+		date: '',
+		week: '',
+		Catalog_class0: '',
+		Catalog_class1: '',
+		Catalog_class2: '',
+		Catalog_class3: '',
 	},
 	created: function() {
+		var self = this;
 		var d = new Date();
-		this.date = d.getFullYear() + '-' + d.getMonth() + '-' + d.getDate();
+		var mouth = d.getMonth() + 1;
+		this.date = d.getFullYear() + '-' + mouth + '-' + d.getDate();
+		self.getweek();
+		self.getpageTitle();
 	},
 	methods: {
 		morePage: function() {
 			var picker = new mui.PopPicker();
 			var self = this;
-			picker.setData([{
-				value: '0',
-				text: '第一版：要闻'
-			}, {
-				value: '1',
-				text: '第二版：民生'
-			}, {
-				value: '2',
-				text: '第三版：专版'
-			}]);
-			picker.show(function(items) {
-				var item = items[0];
-				var text = item.text;
-				var title = text.split('：')[1];
-				var value = item.value;
-				self.pageTitle = title;
-				swiper.slideTo(parseInt(value), 1000, false);
-				//返回 false 可以阻止选择框的关闭
-				//return false;
+			_callAjax({
+				cmd: 'fetch',
+				sql: 'select class from Dad where time = ?',
+				vals: _dump([self.date, ])
+			},function(d) {
+				if(d.success && d.data) {
+					self.Catalog_class0 = d.data[0].class;
+					self.Catalog_class1 = d.data[1].class;
+					self.Catalog_class2 = d.data[2].class;
+					self.Catalog_class3 = d.data[3].class;
+					picker.setData([{
+						value: '0',
+						text: self.Catalog_class0
+					}, {
+						value: '1',
+						text: self.Catalog_class1
+					}, {
+						value: '2',
+						text: self.Catalog_class2
+					}, {
+						value: '3',
+						text: self.Catalog_class3
+					}]);
+					picker.show(function(items) {
+						var item = items[0];
+						var text = item.text;
+						var title = text.split('：')[1];
+						var value = item.value;
+						self.pageTitle = title;
+						var swiper = new Swiper('.swiper-container', {
+							onSlideChangeEnd: function(swiper) {
+							}
+						});	
+						swiper.slideTo(parseInt(value), 1000, false);
+						//返回 false 可以阻止选择框的关闭
+						//return false;
+					});
+				}
+			});
+		},
+		getweek: function() {
+			var self = this;
+			var w = new Date().getDay();
+			if(w == 0) {
+				self.week = "星期日";
+			} else if(w == 1) {
+				self.week = "星期一";
+			} else if(w == 2) {
+				self.week = "星期二";
+			} else if(w == 3) {
+				self.week = "星期三";
+			} else if(w == 4) {
+				self.week = "星期四";
+			} else if(w == 5) {
+				self.week = "星期五";
+			} else if(w == 6) {
+				self.week = "星期六";
+			}
+		},
+		getpageTitle:function(){
+			var self = this;
+			_callAjax({
+				cmd: 'fetch',
+				sql: 'select class from Dad where time = ?',
+				vals: _dump([self.date, ])
+			},function(d){
+				if(d.success&&d.data){
+					var str = d.data[0].class;
+					str = str.split("：");
+					self.pageTitle = str[1];
+				}
 			});
 		},
 		openMenu: function() {
 			menu.show = true;
 		},
+		getNowFormatDate: function(){
+			var date = new Date();
+    		var seperator1 = "-";
+    		var year = date.getFullYear();
+    		var month = date.getMonth() + 1;
+    		var strDate = date.getDate();
+    		if (month >= 1 && month <= 9) {
+        		month = "0" + month;
+   			}
+    		if (strDate >= 0 && strDate <= 9) {
+        		strDate = "0" + strDate;
+    		}
+    		var currentdate = year + seperator1 + month + seperator1 + strDate;
+    		return currentdate;
+		},
 		chooseDate: function() {
+			var self = this;
 			var _self = $('.date-btn');
 			var result = '';
 			if(_self.picker) {
-				_self.picker.show(function (rs) {
+				_self.picker.show(function(rs) {
 					tab.date = rs.text;
 					_self.picker.dispose();
 					_self.picker = null;
 				});
 			} else {
-				var options = {type:'date',value:'2015-10-10',beginYear:'2010',endYear:'2020'};
+				var options = {
+					type: 'date',
+					value: self.get,
+					beginYear: '2010',
+					endYear: '2030'
+				};
 				var id = _self.attr('id');
 				_self.picker = new mui.DtPicker(options);
 				_self.picker.show(function(rs) {
@@ -90,8 +313,76 @@ var tab = new Vue({
 					 * rs.m 月，用法同年
 					 * rs.d 日，用法同年
 					 */
-					console.log(rs)
-					tab.date = rs.text;
+					_callAjax({
+						cmd: 'fetch',
+						sql: 'select week from Son where time = ? limit 1',
+						vals: _dump([rs.text, ])
+					},function(d){
+						if(d.data&&d.success){
+							tab.week = d.data[0].week;
+						}
+					});
+					_callAjax({
+						cmd: 'fetch',
+						sql: 'select class from Dad where time = ?',
+						vals: _dump([rs.text, ])
+					},function(d){
+						if(d.data&&d.success){
+							tab.date = rs.text;
+							var str1 = d.data[0].class;
+							tab.pageTitle = str1.split("：")[1];
+							menu.Catalog_class0 = d.data[0].class;
+							menu.Catalog_class1 = d.data[1].class;
+							menu.Catalog_class2 = d.data[2].class;
+							menu.Catalog_class3 = d.data[3].class;
+							pic.Pic_one = "<img src=\"http://jrpt.zjol.com.cn/resfile/" + rs.text + "/01/Page_b.jpg\" border=\"0\" usemap=\"#PagePicMap\">";
+							pic.Pic_two = "<img src=\"http://jrpt.zjol.com.cn/resfile/" + rs.text + "/02/Page_b.jpg\" border=\"0\" usemap=\"#PagePicMap\">";
+							pic.Pic_three = "<img src=\"http://jrpt.zjol.com.cn/resfile/" + rs.text + "/03/Page_b.jpg\" border=\"0\" usemap=\"#PagePicMap\">";
+							pic.Pic_four = "<img src=\"http://jrpt.zjol.com.cn/resfile/" + rs.text + "/04/Page_b.jpg\" border=\"0\" usemap=\"#PagePicMap\">";
+							var swiper = new Swiper('.swiper-container', {
+								onSlideChangeEnd: function(swiper) {
+								}
+							});	
+							_callAjax({
+								cmd: 'fetch',
+								sql: 'select title,id from Son where time = ? and page = ?',
+								vals: _dump([rs.text, "1", ])
+							},function(d){
+								if(d.data&&d.success){
+									menu.Catalog_items0 = d.data
+								}
+							});
+							_callAjax({
+								cmd: 'fetch',
+								sql: 'select title,id from Son where time = ? and page = ?',
+								vals: _dump([rs.text, "2", ])
+							},function(d){
+								if(d.data&&d.success){
+									menu.Catalog_items1 = d.data
+								}
+							});
+							_callAjax({
+								cmd: 'fetch',
+								sql: 'select title,id from Son where time = ? and page = ?',
+								vals: _dump([rs.text, "3", ])
+							},function(d){
+								if(d.data&&d.success){
+									menu.Catalog_items2 = d.data
+								}
+							});
+							_callAjax({
+								cmd: 'fetch',
+								sql: 'select title,id from Son where time = ? and page = ?',
+								vals: _dump([rs.text, "4", ])
+							},function(d){
+								if(d.data&&d.success){
+									menu.Catalog_items3 = d.data
+								}
+							});
+						}else{
+							mui.toast("没有当日的报纸信息");
+						}
+					});
 					/* 
 					 * 返回 false 可以阻止选择框的关闭
 					 * return false;
@@ -111,8 +402,7 @@ var tab = new Vue({
 })
 
 // 扩展API加载完毕，现在可以正常调用扩展API
-function plusReady() {
-}
+function plusReady() {}
 
 // 判断扩展API是否准备，否则监听'plusready'事件
 if(window.plus) {

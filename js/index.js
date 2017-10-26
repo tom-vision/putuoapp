@@ -16,7 +16,7 @@ mui.init({
 		url: 'views/newsGraphic.html',
 		id: 'newsGraphic'
 	}, {
-		url: 'views/digitalNewsPaper.html',
+		url: 'views/digitalNewspaper.html',
 		id: 'digitalNewsPaper'
 	}, {
 		url: 'views/iframe.html',
@@ -250,6 +250,7 @@ var index = new Vue({
 			changeIndexTab('index-tab-2', $('.go-live'));
 		},
 		goPaper: function() {
+			console.log("点击报纸");
 			openWindow('views/digitalNewsPaper.html', 'digitalNewsPaper')
 		},
 
@@ -476,10 +477,12 @@ var ucenter = new Vue({
 window.addEventListener('loginBack', function(event) {
 
 	console.log("5555777");
-	
+	userInfo = _load(_get('userInfo'));
+	console.log(_dump(userInfo));
+
 	if(userInfo.id != 0){
 		ucenter.isLogin = true;
-		ucenter.userInfo = _load(_get('userInfo'));
+		ucenter.userInfo = userInfo;
 	}else{
 		ucenter.isLogin = false;
 	}
