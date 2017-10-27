@@ -15,18 +15,18 @@
 
 	<body>
 		<!-- 导航栏 -->
-		<header class="mui-bar mui-bar-nav">
+		<header id = "nav" class="mui-bar mui-bar-nav">
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 		    <h1 class="mui-title">基本资料</h1>
-		    <button class="mui-btn mui-btn-link mui-pull-right">保存</button>
+		    <button class="mui-btn mui-btn-link mui-pull-right" @click="save">保存</button>
 		</header>
 		
 		<div id="userInfo" class="have-header">
 			<ul class="userinfo-list">
-				<li @click="changeAvatar"><label>头像</label><span><img :src="userInfo.img" alt="" /></span></li>
+				<li @click="changeAvatar"><label>头像</label><span><img id="titleimg" :src="userInfo.img" width="64px" height="64px" alt="" /></span></li>
 				<li @click="changeName"><label>用户名</label><span v-text="userInfo.name"></span></li>
 				<li><label>手机号</label><span v-text="userInfo.phone"></span></li>
-				<!--<li @click="changeSex"><label>性别</label><span v-text="sex"></span></li>-->
+				<!--<li @click="changeSex"><label>性别</label><span v-text="userInfo.sec"></span></li>-->
 			</ul>
 		</div>
 	</body>

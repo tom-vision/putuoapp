@@ -23,17 +23,17 @@
 		<div id="zan" class="have-header">
 			<div class="cmt-list">
 				<ul>
-					<li>
-						<img src="http://placehold.it/60x60" class="mu-card-avatar"/>
+					<li v-for="i in praises">
+						<img :src="i.img" class="mu-card-avatar"/>
 						<div class="cmt-info">
 							<header>
-								<h1>理想行间 <span>赞了你的评论</span></h1>
+								<h1 v-text="i.name"> <span>赞了你的评论</span></h1>
 								<time>5分钟前</time>
 							</header>
-							<p>测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容</p>
+							<p v-text="i.content"></p>
 						</div>
 					</li>
-					<li>
+					<!--<li>
 						<img src="http://placehold.it/60x60" class="mu-card-avatar"/>
 						<div class="cmt-info">
 							<header>
@@ -42,7 +42,7 @@
 							</header>
 							<p>测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容</p>
 						</div>
-					</li>
+					</li>-->
 				</ul>
 			</div>
 			
@@ -52,4 +52,5 @@
 
 </html>
 <script src="../js/global.js"></script>
+<script src="../js/a_ref.js"></script>
 <script src="../js/zan.js"></script>

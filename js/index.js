@@ -444,7 +444,7 @@ var ucenter = new Vue({
 			
 			
 			self.isLogin = false;
-			self.userInfo = {};
+			self.userInfo = {id:0};
 			_set(_dump('userInfo',self.userInfo));
 		}
 	},
@@ -462,6 +462,9 @@ var ucenter = new Vue({
 				if(d.success && d.data) {
 
 					self.isLogin = true;
+					self.userInfo = d.data[0];
+					_set('userInfo', _dump(self.userInfo));
+
 				} else {
 					self.isLogin = false;
 					self.userInfo = {};

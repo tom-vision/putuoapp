@@ -64,7 +64,9 @@ var _genCallAjax = function(url) {
 			type: "get",
 			url: url,
 			async: true,
-			data: data,
+			data: $.extend(data, { token: 'Jh2044695' }),
+
+//			data: data,
 			dataType: "jsonp",
 			jsonp: "jsoncallback",
 			timeout: 10000,
@@ -85,3 +87,4 @@ var _genCallAjax = function(url) {
 };
 
 var _callAjax = _genCallAjax(serverAddr + "/db4web");
+var _smsAjax  = _genCallAjax("http://develop.zsgd.com:7071/sms/");

@@ -76,7 +76,9 @@ create table if not exists User (
     phone   TEXT     NOT NULL
                      DEFAULT '',
     img     TEXT     NOT NULL
-                     DEFAULT '',
+                     DEFAULT ('http://k2.jsqq.net/uploads/allimg/1706/7_170629152344_5.jpg'),
+    sex     TEXT     NOT NULL
+                     DEFAULT ('女'),
     ifValid INTEGER  NOT NULL
                      DEFAULT 1,
     logtime DATETIME NOT NULL
