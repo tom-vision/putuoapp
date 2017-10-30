@@ -1,22 +1,21 @@
-var article_class = '';
-var	article_title = '';
-var	article_begintitle = '';
-var article_message = '';
-console.log("进入报纸页面");
+var oneclass = ''; // 第一版版面
+var twoclass = ''; // 第二版版面
+var threeclass = ''; // 第三版版面
+var fourclass = ''; // 第四版版面
 
 var menu = new Vue({
 	el: '.digitalNewspaper-menu-popup',
 	data: {
 		show: false,
-		date:'',
-		Catalog_class0: '',
-		Catalog_class1: '',
-		Catalog_class2: '',
-		Catalog_class3: '',
-		Catalog_items0: [],
-		Catalog_items1: [],
-		Catalog_items2: [],
-		Catalog_items3: [],
+		date:'', // 日期
+		Catalog_class0: '', // 第一版版面
+		Catalog_class1: '', // 第二版版面
+		Catalog_class2: '', // 第三版版面
+		Catalog_class3: '', // 第四版版面
+		Catalog_items0: [], // 第一版的详情内容
+		Catalog_items1: [], // 第二版的详情内容
+		Catalog_items2: [], // 第三版的详情内容
+		Catalog_items3: [], // 第四版的详情内容
 	},
 	created: function() {
 		var self = this;
@@ -39,10 +38,10 @@ var menu = new Vue({
 			},function(d){
 				if(d.success&&d.data){
 					detail.show = true;
-					article_class = d.data[0].class;
-					article_begintitle = d.data[0].beginTit;
-					article_title = d.data[0].title;
-					article_message = d.data[0].text;
+					detail.article_class = d.data[0].class;
+					detail.article_begintitle = d.data[0].beginTit;
+					detail.article_title = d.data[0].title;
+					detail.article_message = d.data[0].text;
 				}
 			});
 		},
@@ -54,10 +53,14 @@ var menu = new Vue({
 				vals:_dump([self.date,])
 			},function(d){
 				if(d.success&&d.data){
-					self.Catalog_class0=d.data[0].class;
-					self.Catalog_class1=d.data[1].class;
-					self.Catalog_class2=d.data[2].class;
-					self.Catalog_class3=d.data[3].class;
+					self.Catalog_class0 = d.data[0].class;
+					oneclass = d.data[0].class;
+					self.Catalog_class1 = d.data[1].class;
+					twoclass = d.data[1].class;
+					self.Catalog_class2 = d.data[2].class;
+					threeclass = d.data[2].class;
+					self.Catalog_class3 = d.data[3].class;
+					fourclass = d.data[3].class;
 				}
 			});
 		},
@@ -108,6 +111,10 @@ var detail = new Vue({
 	el: '.digitalNewspaper-detail-popup',
 	data: {
 		show: false,
+		article_class: '', // 新闻所属版面
+     	article_title: '', // 新闻标题
+		article_begintitle: '', // 新闻前标题
+		article_message: '', // 新闻详情
 	},
 	methods: {
 		closeDetail: function() {
@@ -145,27 +152,19 @@ var pic = new Vue({
 					self.Pic_four = "<img src=\"http://jrpt.zjol.com.cn/resfile/" + today + "/04/Page_b.jpg\" border=\"0\" usemap=\"#PagePicMap\">";
 					var swiper = new Swiper('.swiper-container', {
 						onSlideChangeEnd: function(swiper) {
-							_callAjax({
-								cmd: 'fetch',
-								sql: 'select class from Dad where time = ?',
-								vals: _dump([tab.date, ])
-							},function(d){
-								if(d.data&&d.success){
-									if(swiper.activeIndex == 0){
-										tab.pageTitle = d.data[0].class.split("：")[1];
-									}else if(swiper.activeIndex == 1){
-										tab.pageTitle = d.data[1].class.split("：")[1];
-									}else if(swiper.activeIndex == 2){
-										tab.pageTitle = d.data[2].class.split("：")[1];
-									}else {
-										tab.pageTitle = d.data[3].class.split("：")[1];
-									}
-								}
-							});
+							if(swiper.activeIndex == 0){
+								tab.pageTitle = oneclass.split("：")[1];
+							}else if(swiper.activeIndex == 1){
+								tab.pageTitle = twoclass.split("：")[1];
+							}else if(swiper.activeIndex == 2){
+								tab.pageTitle = threeclass.split("：")[1];
+							}else {
+								tab.pageTitle = fourclass.split("：")[1];
+							}
 						}
 					});				
 				}else{
-//					mui.toast("没有今日的报纸信息！");
+					mui.toast("没有今日的报纸信息！");
 				}
 			});
 		},
