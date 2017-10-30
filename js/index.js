@@ -207,6 +207,7 @@ var index = new Vue({
 		videoNews: [], //视频新闻
 		topicNews: [], //专题节目
 		bHaveMore_headvideo: true, //顶部tab视频加载更多
+		services: [{title:'',service:[]}],  //服务
 	},
 	created: function() {
 		this.frameHeight = window.outerHeight - 150 + 'px';
@@ -308,10 +309,43 @@ var index = new Vue({
 		}
 
 	},
+	
 	mounted: function() {
 		//获取新闻数据
 		var self = this;
 
+		//获取服务
+		_callAjax({
+			cmd: "fetch",
+			sql: "select * from linkers where refId=?",
+			vals: _dump([linkerId.services])
+		}, function(d) {
+			if(d.success && d.data) {
+				d.data.forEach(function(r) {
+		
+					var dicService = {
+						title: r.name,
+						service: []
+					};
+		
+					_callAjax({
+						cmd: "fetch",
+						sql: "select * from linkers where refId=?",
+						vals: _dump([r.id])
+					}, function(d) {
+						if(d.success && d.data) {
+		
+							dicService.service = d.data;
+							self.services.push(dicService);
+						}
+					});
+		
+				});
+		
+			}
+		});
+
+		//获取新闻
 		_callAjax({
 			cmd: "multiFetch",
 			multi: _dump([{
@@ -391,6 +425,7 @@ var index = new Vue({
 		});
 	}
 })
+
 
 // banner滚动时更换标题
 document.querySelector('.mui-slider').addEventListener('slide', function(event) {

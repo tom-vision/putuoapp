@@ -165,7 +165,7 @@ var pic = new Vue({
 						}
 					});				
 				}else{
-					mui.toast("没有今日的报纸信息！");
+//					mui.toast("没有今日的报纸信息！");
 				}
 			});
 		},

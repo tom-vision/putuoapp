@@ -3,7 +3,8 @@ var linkerId = {
 	headNews: 101,
 	instantNews: 102,
 	putuoNews: 103,
-	videoNews: 104
+	videoNews: 104,
+	services: 107   //服务
 };
 
 // 用户信息

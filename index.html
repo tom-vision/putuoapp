@@ -183,26 +183,17 @@
 			</div>
 
 			<div id="life" class="have-sub-header index-tab index-tab-3">
-				<div class="life">
-					<header>热门查询</header>
-					<div class="mui-row">
-						<div class="mui-col-sm-6 mui-col-xs-6">
-							<div class="item">
-								<img src="http://placehold.it/120x120" />
-								<div class="info">
-									<h1>天气</h1>
-									<p>晴雨表、温度等</p>
-								</div>
-							</div>
-							<div class="item">
-								<img src="http://placehold.it/120x120" />
-								<div class="info">
-									<h1>天气</h1>
-									<p>晴雨表、温度等</p>
-								</div>
+				<div class="life" v-for="i in services">
+					<header v-text="i.title"></header>
+					<div class="clearfix">
+						<div class="item" v-for="s in i.service">
+							<img :src="s.img" />
+							<div class="info">
+								<h1 v-text="s.name">天气</h1>
+								<p v-text="s.brief"></p>
 							</div>
 						</div>
-						<div class="mui-col-sm-6 mui-col-xs-6">
+						<!--<div class="mui-col-sm-6 mui-col-xs-6">
 							<div class="item">
 								<img src="http://placehold.it/120x120" />
 								<div class="info">
@@ -217,11 +208,11 @@
 									<p>晴雨表、温度等</p>
 								</div>
 							</div>
-						</div>
+						</div>-->
 					</div>
 				</div>
 
-				<div class="life">
+				<!--<div class="life">
 					<header>热门查询</header>
 					<div class="mui-row">
 						<div class="mui-col-sm-6 mui-col-xs-6">
@@ -257,7 +248,7 @@
 							</div>
 						</div>
 					</div>
-				</div>
+				</div>-->
 			</div>
 
 			<!--顶部tab视频-->
