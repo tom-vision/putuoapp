@@ -12,6 +12,11 @@ var iframe = new Vue({
 	}
 })
 
+//mui.back = function(){
+//	console.log("back");
+//	window.history.go(-1);
+//}
+
 // 扩展API加载完毕，现在可以正常调用扩展API
 function plusReady() {
 }
@@ -22,3 +27,4 @@ if(window.plus) {
 } else {
 	document.addEventListener('plusready', plusReady, false);
 }
+

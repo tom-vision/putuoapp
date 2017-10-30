@@ -734,23 +734,22 @@ body {
 }
 .life .mui-row {
   border-top: 1px solid #eee;
-  border-bottom: 1px solid #eee;
 }
-.life .mui-row .mui-col-sm-6:first-child {
-  border-right: 1px solid #eee;
-}
-.life .mui-row .mui-col-sm-6 .item {
+.life .mui-row .item {
   display: flex;
   border-bottom: 1px solid #eee;
+  border-right: 1px solid #eee;
   padding: 15px;
   align-items: center;
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
+  float: left;
+  width: 50%;
 }
-.life .mui-row .mui-col-sm-6 .item:last-child {
-  border-bottom: none;
+.life .mui-row .item:nth-child(2n) {
+  border-right: none;
 }
-.life .mui-row .mui-col-sm-6 .item img {
+.life .mui-row .item img {
   display: block;
   width: 30%;
   height: 30%;
@@ -758,16 +757,16 @@ body {
   -moz-border-radius: 50%;
   border-radius: 50%;
 }
-.life .mui-row .mui-col-sm-6 .item .info {
+.life .mui-row .item .info {
   margin-left: 10px;
   width: 70%;
 }
-.life .mui-row .mui-col-sm-6 .item .info h1 {
+.life .mui-row .item .info h1 {
   color: #333;
   font-weight: normal;
   font-size: 18px;
 }
-.life .mui-row .mui-col-sm-6 .item .info p {
+.life .mui-row .item .info p {
   color: #999;
   font-size: 14px;
   white-space: nowrap;

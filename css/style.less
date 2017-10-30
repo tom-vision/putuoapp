@@ -681,43 +681,40 @@ body {
     }
     .mui-row {
         border-top: 1px solid #eee;
-        border-bottom: 1px solid #eee;
-        .mui-col-sm-6 {
-            &:first-child {
-                border-right: 1px solid #eee;
+        .item {
+            display: flex;
+            border-bottom: 1px solid #eee;
+            border-right: 1px solid #eee;
+            padding: 15px;
+            align-items: center;
+            box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            float: left;
+            width: 50%;
+            &:nth-child(2n) {
+                border-right: none;
             }
-            .item {
-                display: flex;
-                border-bottom: 1px solid #eee;
-                padding: 15px;
-                align-items: center;
-                box-sizing: border-box;
-                -webkit-box-sizing: border-box;
-                &:last-child {
-                    border-bottom: none;
+            img {
+                display: block;
+                width: 30%;
+                height: 30%;
+                -webkit-border-radius: 50%;
+                -moz-border-radius: 50%;
+                border-radius: 50%;
+            }
+            .info {
+                margin-left: 10px;
+                width: 70%;
+                h1 {
+                    color: #333;
+                    font-weight: normal;
+                    font-size: 18px;
                 }
-                img {
-                    display: block;
-                    width: 30%;
-                    height: 30%;
-                    -webkit-border-radius: 50%;
-                    -moz-border-radius: 50%;
-                    border-radius: 50%;
-                }
-                .info {
-                    margin-left: 10px;
-                    width: 70%;
-                    h1 {
-                        color: #333;
-                        font-weight: normal;
-                        font-size: 18px;
-                    }
-                    p {
-                        color: #999;
-                        font-size: 14px;
-                        .ell;
-                        margin-bottom: 0;
-                    }
+                p {
+                    color: #999;
+                    font-size: 14px;
+                    .ell;
+                    margin-bottom: 0;
                 }
             }
         }

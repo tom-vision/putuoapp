@@ -306,6 +306,18 @@ var index = new Vue({
 				}
 
 			});
+		},
+		
+		//跳转到服务链接
+		gotoService: function(s){
+			var self = this;
+			
+			console.log(s.url);
+			openWindow('views/iframe.html', 'iframe');
+			mui.fire(plus.webview.getWebviewById('iframe'), 'getInfo', {
+				title: s.name,
+				url: s.url
+			})
 		}
 
 	},
