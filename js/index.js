@@ -208,6 +208,7 @@ var index = new Vue({
 		topicNews: [], //专题节目
 		bHaveMore_headvideo: true, //顶部tab视频加载更多
 		services: [{title:'',service:[]}],  //服务
+		zhiboUrl: 'http://app.zsputuo.com/zb/',
 	},
 	created: function() {
 		this.frameHeight = window.outerHeight - 150 + 'px';

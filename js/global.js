@@ -4,7 +4,11 @@ var linkerId = {
 	instantNews: 102,
 	putuoNews: 103,
 	videoNews: 104,
-	services: 107   //服务
+	services: 107,   //服务
+	interact: 114,   //互动
+	rebellion: 115,  //报料
+	photography:116, //摄影
+	food: 117        //美食
 };
 
 // 用户信息

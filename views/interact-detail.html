@@ -23,36 +23,36 @@
 		<div id="interactDetail" class="have-header have-footer">
 			<div class="comment-area">
 				<input type="text" :placeholder="placeholder" v-model="comment"/>
-				<a :class="{ active : haveComment }">发送</a>
+				<a :class="{ active : haveComment }" @click="diliver()">发送</a>
 			</div>
 			
 			<div class="interact-list">
 				<div class="mu-flex">
-					<img src="http://placehold.it/60x60" class="mu-card-avatar"/>
+					<img :src="interactDetail.userImg" class="mu-card-avatar"/>
 					<div class="mu-card">
 						<div class="mu-card-header">
-							<div class="mu-card-title"> 芒果橙</div>
-							<div class="mu-card-time">34秒前</div>
+							<div class="mu-card-title" v-text="interactDetail.name"></div>
+							<div class="mu-card-time" v-text="interactDetail.logtime"></div>
 						</div>
-						<div class="mu-card-text">测试内容测试内容测试内容测试内容测试内容测试内容</div>
+						<div class="mu-card-text" v-text="interactDetail.content"></div>
 						<!-- 1 张图时使用 -->
-						<div class="mu-card-imgs mu-card-imgs-1">
-							<img src="http://placehold.it/200x200"/>
+						<div class="mu-card-imgs mu-card-imgs-1" v-if="interactDetail.imgs.length==1">
+							<img :src="interactDetail.imgs[0]"/>
 						</div>
 						<!-- 2 张图时使用 -->
-						<div class="mu-card-imgs">
+						<div class="mu-card-imgs" v-else="interactDetail.imgs.length>1">
 							<ul>
-								<li>
-									<div style="background-image:url('https://placeimg.com/200/200')"></div>
+								<li v-for="i in interactDetail.imgs">
+									<div :style="'background-image:url('+ i +')'"></div>
 								</li>
-								<li>
+								<!--<li>
 									<div style="background-image:url('https://placeimg.com/144/332')"></div>
-								</li>
+								</li>-->
 							</ul>
 						</div>
 						<div class="mu-footer">
-							<span><i class="iconfont icon-zan"></i> 3</span>
-							<span><i class="iconfont icon-icon-test"></i> 5</span>
+							<span @click="clickZan" v-text="zan"><i class="iconfont icon-zan"></i></span>
+							<span><i class="iconfont icon-icon-test"></i>{{comments.length}}</span>
 							<span><i class="iconfont icon-fenxiang"></i></span>
 						</div>
 					</div>
@@ -60,7 +60,17 @@
 				
 				<div class="cmt-list">
 					<ul>
-						<li>
+						<li v-for="i in comments">
+							<img :src="i.userImg" class="mu-card-avatar"/>
+							<div class="cmt-info">
+								<header>
+									<h1 v-text="i.name"></h1>
+									<time v-text="i.logtime"></time>
+								</header>
+								<p v-text="i.content"></p>
+							</div>
+						</li>
+						<!--<li>
 							<img src="http://placehold.it/60x60" class="mu-card-avatar"/>
 							<div class="cmt-info">
 								<header>
@@ -69,25 +79,16 @@
 								</header>
 								<p>测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容</p>
 							</div>
-						</li>
-						<li>
-							<img src="http://placehold.it/60x60" class="mu-card-avatar"/>
-							<div class="cmt-info">
-								<header>
-									<h1>吉吉32123</h1>
-									<time>5分钟前</time>
-								</header>
-								<p>测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容</p>
-							</div>
-						</li>
+						</li>-->
 					</ul>
 				</div>
 				
-				<a class="load-more">更多评论</a>
+				<a class="load-more" @click="getMoreComments" v-show="bHaveMore_comment">更多评论</a>
 			</div>
 		</div>
 	</body>
 
 </html>
 <script src="../js/global.js"></script>
+<script src="../js/a_ref.js"></script>
 <script src="../js/interactDetail.js"></script>
