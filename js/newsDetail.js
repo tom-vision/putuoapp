@@ -7,6 +7,7 @@ mui.init({
 });
 
 var articleId = 0;
+var userInfo = _load(_get('userInfo'));
 
 var newsDetail = new Vue({
 	el: '#detail',
@@ -19,7 +20,7 @@ var newsDetail = new Vue({
 		changeLike: function() {
 			var self = this;
 
-			if(userInfo.id != 0) {
+			if(userInfo.id != null) {
 				self.like = !self.like;
 				
 				
@@ -105,7 +106,10 @@ window.addEventListener('newsId', function(event) {
 	articleId = event.detail.id;
 	//根据id向服务器请求新闻详情
 	console.log("详情页articleId=" + articleId);
-
+	userInfo = _load(_get('userInfo'));
+	
+	console.log(userInfo.id);
+	
 	_callAjax({
 		cmd: "fetch",
 		sql: "select * from articles where id = " + articleId
@@ -131,7 +135,7 @@ window.addEventListener('newsId', function(event) {
 	});
 
 	//本人是否点赞
-	if(userInfo.id != 0) {
+	if(userInfo.id != null) {
 		_callAjax({
 			cmd: "fetch",
 			sql: "select * from article_praises where articleId = " + articleId + " and userId = " + userInfo.id
@@ -141,6 +145,8 @@ window.addEventListener('newsId', function(event) {
 
 				newsDetail.like = true;
 				console.log("本人点赞: " + newsDetail.like);
+			}else{
+				newsDetail.like = false;
 			}
 		});
 	}

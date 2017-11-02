@@ -1310,10 +1310,19 @@ body {
   align-items: center;
   justify-content: center;
   font-size: 100px;
+  position: relative;
 }
 .release-imgs div.add-img i {
   color: #999;
   font-size: 60px;
+}
+.release-imgs div.add-img input {
+  position: absolute;
+  opacity: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
 }
 .cmt-list {
   position: relative;

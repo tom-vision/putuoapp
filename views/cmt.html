@@ -23,23 +23,23 @@
 		<div id="cmt" class="have-header">
 			<div class="cmt-list">
 				<ul>
-					<li>
-						<img src="http://placehold.it/60x60" class="mu-card-avatar"/>
+					<li v-for="i in cmts">
+						<img :src="i.UserImg" class="mu-card-avatar"/>
 						<div class="cmt-info">
 							<header>
-								<h1>理想行间 <span>评论了你的互动</span></h1>
-								<time>5分钟前</time>
+								<h1 v-text="i.name"><span>评论了你的互动</span></h1>
+								<time v-text="i.logtime"></time>
 							</header>
-							<p>测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容</p>
+							<p v-text="i.content"></p>
 						</div>
 					</li>
 				</ul>
 			</div>
 			
-			<a class="load-more">查看更多</a>
+			<a class="load-more" @click="getCmts" v-show="bHaveMore">查看更多</a>
 		</div>
 	</body>
-
 </html>
 <script src="../js/global.js"></script>
+<script src="../js/a_ref.js"></script>
 <script src="../js/cmt.js"></script>

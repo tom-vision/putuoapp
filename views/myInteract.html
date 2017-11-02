@@ -22,38 +22,36 @@
 		
 		<div id="myInteract" class="have-header">
 			<div class="interact-list">
-				<div class="mu-flex">
-					<img src="http://placehold.it/60x60" class="mu-card-avatar"/>
+				<div class="mu-flex" v-for="i in interacts" @click="openInteractDetail(i)">
+					<img :src="i.userImg" class="mu-card-avatar" />
 					<div class="mu-card">
 						<div class="mu-card-header">
-							<div class="mu-card-title"> 芒果橙</div>
-							<div class="mu-card-time">34秒前</div>
+							<div class="mu-card-title" v-text="i.name"></div>
+							<div class="mu-card-time" v-text="i.logtime"></div>
 						</div>
-						<div class="mu-card-text">测试内容测试内容测试内容测试内容测试内容测试内容</div>
+						<div class="mu-card-text" v-text="i.content"></div>
 						<!-- 1 张图时使用 -->
-						<div class="mu-card-imgs mu-card-imgs-1">
-							<img src="http://placehold.it/200x200"/>
+						<div class="mu-card-imgs mu-card-imgs-1" v-if="i.imgs.length==1">
+							<img :src="i.imgs[0]" />
 						</div>
 						<!-- 2 张图时使用 -->
-						<div class="mu-card-imgs">
+						<div class="mu-card-imgs" v-else="i.imgs.length>1">
 							<ul>
-								<li>
-									<div style="background-image:url('https://placeimg.com/200/200')"></div>
+								<li v-for="m, index in i.imgs" @click="openGallery(i.imgs, index)">
+									<div :style="'background-image:url('+ m +')'"></div>
 								</li>
-								<li>
-									<div style="background-image:url('https://placeimg.com/144/332')"></div>
-								</li>
+				
 							</ul>
 						</div>
 						<div class="mu-footer">
-							<span><i class="iconfont icon-zan"></i> 3</span>
-							<span><i class="iconfont icon-icon-test"></i> 5</span>
+							<span><i class="iconfont icon-zan"></i>{{ i.zan}}</span>
+							<span><i class="iconfont icon-icon-test"></i>{{ i.commentNum}}</span>
 							<span><i class="iconfont icon-fenxiang"></i></span>
 						</div>
 					</div>
 				</div>
 				
-				<div class="mu-flex">
+				<!--<div class="mu-flex">
 					<img src="http://placehold.it/60x60" class="mu-card-avatar"/>
 					<div class="mu-card">
 						<div class="mu-card-header">
@@ -62,7 +60,7 @@
 						</div>
 						<div class="mu-card-text">测试内容测试内容测试内容测试内容测试内容测试内容</div>
 						<!-- 3 张图时使用 -->
-						<div class="mu-card-imgs">
+						<!--<div class="mu-card-imgs">
 							<ul>
 								<li @click="openGallery">
 									<div style="background-image:url('https://placeimg.com/200/200')"></div>
@@ -81,8 +79,8 @@
 							<span><i class="iconfont icon-fenxiang"></i></span>
 						</div>
 					</div>
-				</div>
-				<a class="load-more">点击加载更多</a>
+				</div>-->
+				<a class="load-more" @click="getMyInteract" v-show="bHaveMore">点击加载更多</a>
 			</div>
 		
 		</div>
@@ -90,4 +88,5 @@
 
 </html>
 <script src="../js/global.js"></script>
+<script src="../js/a_ref.js"></script>
 <script src="../js/myInteract.js"></script>

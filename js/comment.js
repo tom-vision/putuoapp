@@ -10,7 +10,7 @@ var comment = new Vue({
 	methods: {
 		changeLiked: function(i) {
 			var self = this;
-			if(userInfo.id == 0) return mui.toast("请先在个人中心登录");
+			if(userInfo.id == null) return mui.toast("请先在个人中心登录");
 
 			i.liked = !i.liked;
 
@@ -43,7 +43,7 @@ var comment = new Vue({
 		publish: function() {
 			var self = this;
 
-			if(userInfo.id == 0) return mui.toast("请先在个人中心登录");
+			if(userInfo.id == null) return mui.toast("请先在个人中心登录");
 			if('' == self.content) return mui.toast("请填写评论内容");
 
 			_callAjax({
@@ -82,7 +82,7 @@ function getComments() {
 				r.liked = false;
 
 				//已登录状况下获取个人对，每条评论的点赞情况
-				if(userInfo.id != 0) {
+				if(userInfo.id != null) {
 					_callAjax({
 						cmd: "fetch",
 						sql: "select * from comment_praises where userId=? and commentId = ? ",

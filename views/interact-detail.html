@@ -51,7 +51,7 @@
 							</ul>
 						</div>
 						<div class="mu-footer">
-							<span @click="clickZan" v-text="zan"><i class="iconfont icon-zan"></i></span>
+							<span :class="{ active : like }"><i class="iconfont icon-zan" @click="clickZan"></i>{{zan}}</span>
 							<span><i class="iconfont icon-icon-test"></i>{{comments.length}}</span>
 							<span><i class="iconfont icon-fenxiang"></i></span>
 						</div>

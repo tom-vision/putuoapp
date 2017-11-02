@@ -1,7 +1,8 @@
+var userInfo = _load(_get('userInfo'));
+
 var forgetPswd = new Vue({
 	el: '#forget',
 	data: {
-		userInfo: _load(_get('userInfo')),
 		phone: userInfo.phone,
 		captcha: '',
 		password: '',

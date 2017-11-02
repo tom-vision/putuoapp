@@ -15,22 +15,30 @@
 
 	<body>
 		<!-- 导航栏 -->
-		<header class="mui-bar mui-bar-nav">
+		<header id="header" class="mui-bar mui-bar-nav">
 			<button class="mui-action-back mui-btn mui-btn-link mui-pull-left">取消</button>
 			<h1 class="mui-title">互动</h1>
-			<button class="mui-btn mui-btn-link mui-pull-right">发布</button>
+			<button class="mui-btn mui-btn-link mui-pull-right" @click="diliver">发布</button>
 		</header>
 
 		<div id="release" class="have-header">
-			<textarea class="release-text" placeholder="发表你的动态..."></textarea>
+			<textarea class="release-text" placeholder="发表你的动态..." v-model="content"></textarea>
 			<div class="release-imgs">
-				<div style="background-image: url('https://placeimg.com/200/200')" @click="removeImg"></div>
-				<div style="background-image: url('https://placeimg.com/200/200')" @click="removeImg"></div>
-				<div class="add-img" v-show="showAdd" @click="addImg"><i class="iconfont icon-iconfont7"></i></div>
+				<img v-for="i in imgs" :src="i" @click="removeImg" width='100px' height="100px"></img>
+				<!--<div class="add-img" v-show="showAdd" @click="addImg(imgs.length)">
+					<i class="iconfont icon-iconfont7"></i>
+					<input type="file" accept="image/*" />
+				</div>-->
+				<div class="add-img" v-show="showAdd">
+					<i class="iconfont icon-iconfont7"></i>
+					<!--<input type="file" accept="image/*" @change="uploadIdnoImg1($event)"/>-->
+					<input id="rcpic" type="file" accept="image/*" multiple="multiple" capture="camera" @change="addImg($event)"/>
+				</div>
 			</div>
 		</div>
 	</body>
 
 </html>
 <script src="../js/global.js"></script>
+<script src="../js/a_ref.js"></script>
 <script src="../js/release.js"></script>

@@ -88,3 +88,60 @@ var _genCallAjax = function(url) {
 
 var _callAjax = _genCallAjax(serverAddr + "/db4web");
 var _smsAjax  = _genCallAjax("http://develop.zsgd.com:7071/sms/");
+
+/**
+ * 上传图片
+ * vue中input file标签@change事件时的上传
+ * @param modulename 模块名 对应存储到后台相同名称的文件夹中
+ * @param fileList change事件中的文件列表
+ * @param obj 上传图片的信息
+ *  obj是一个数组 其中每一个元素包含3个属性
+ *      key FormData中也使用这个属性作为存储文件的key,后台根据这个key取相应的文件
+ *          如果一个input标签中选择的多个图片,则同一个标签中的图片后台由同一个key取
+ *      thumbonly 是否只需要缩略图 不设置或者0:否 1:是
+ *      waterMark 是否需要添加水印 不设置或者0:否 1:是 需要添加水印会删除原始图片返回添加水印后的图片
+ *      width 缩略图宽度 不设置或者设置未0 会根据高度同比例缩放
+ *      height 缩略图高度 不设置或者设置未0 会根据宽度同比例缩放
+ *      注: 如果上传图片width,height同时未设置或者同时设置为0 则不会生成缩略图
+ *          如果上传视频width,height同时未设置或者同时设置为0 则按视频原尺寸生成缩略图
+ *          如果上传视频width,height同时设置为-1 则不会生成缩略图
+ * @param url 上传的后台地址
+ * @param cb 回调函数名称
+ * @param loading 上传进度显示的回调函数 如果不传这个参数就不会显示进度
+ */
+var _uploadMulityImageVueChange = function(modulename, fileList, obj, url, cb, loading) {
+	console.log(url);
+	
+    loading = loading ? loading : function() {};
+    // 上传图片的表单
+    var fd = new FormData();
+    $.each(obj, function(i, v) {
+        // input标签中选择的每一个图片
+        $.each(fileList, function(i, f) {
+            fd.append(v.key, f);
+        });
+
+//		console.log("888888888"+v.key);
+//		fd.append(v.key, fileList);
+        // 缩放图片设置
+        fd.append(v.key + "resize", JSON.stringify(v));
+    });
+    // 模块名
+    fd.append('module', modulename);
+    var xhr = new XMLHttpRequest();
+    xhr.open("post", url);
+    // 进度条
+    xhr.upload.addEventListener("progress", function(e) {
+        loading(e);
+    }, false);
+    // 上传成功回调
+    xhr.addEventListener("load", function(e) {
+    	console.log(e.target.responseText);
+        var ret = JSON.parse(e.target.responseText);
+        cb(ret.data);
+    }, false);
+    xhr.addEventListener("error", function(e) {
+        return mui.toast("文件上传失败，请重试！");
+    }, false);
+    xhr.send(fd);
+};

@@ -11,9 +11,6 @@ var linkerId = {
 	food: 117        //美食
 };
 
-// 用户信息
-var userInfo = { id: 0 };
-
 var pullToRefresh = function() {
 	var ws = plus.webview.currentWebview();
 	// 下拉刷新事件

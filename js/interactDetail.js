@@ -12,7 +12,8 @@ var interactDetail = new Vue({
 		comment: '',
 		haveComment: false,
 		bHaveMore_comment: true,
-		zan: 0   //点赞个数
+		zan: 0,   //点赞个数
+		like: false    //自己点赞
 	},
 	methods: {
 		//获取互动详情
@@ -90,13 +91,15 @@ var interactDetail = new Vue({
 		diliver: function(){
 			var self = this;
 			
-			if(userInfo.id == 0) return mui.toast("请先在个人中心登录");
+			if(!self.haveComment) return;
+			
+			if(userInfo.id == null) return mui.toast("请先在个人中心登录");
 			if(''==self.comment.trim()) return mui.toast("请填写评论内容");
 			
 			_callAjax({
 				cmd: "exec",
-				sql: "insert into interactComments(content, interactId, userId) values(?,?,?)",
-				vals: _dump([self.comment.trim(), self.interactId, userInfo.id])
+				sql: "insert into interactComments(content, replyTo, interactId, userId) values('"+ self.comment.trim() +"',(select userId from interact where id = "+ self.interactId +" ),"+ self.interactId +","+ userInfo.id +")"
+//				vals: _dump([self.comment.trim(),  self.interactId, userInfo.id])
 			}, function(d) {
 				if(d.success) {
 					mui.toast("评论成功");
@@ -130,19 +133,40 @@ var interactDetail = new Vue({
 		clickZan:function(){
 			var self = this;
 			
-			if(userInfo.id == 0) return mui.toast("请先在个人中心登录");
+			if(userInfo.id == null) return mui.toast("请先在个人中心登录");
 			
-			_callAjax({
-				cmd: "exec",
-				sql: "insert into interact_praises(interactId, userId) values(?,?)",
-				vals: _dump([self.interactId, userInfo.id])
-			}, function(d) {
-				if(d.success) {
-					
-					self.getZan();
-		
-				}
-			});
+			if(!self.like){
+				//点赞
+				_callAjax({
+					cmd: "exec",
+					sql: "insert into interact_praises(interactId, userId) values(?,?)",
+					vals: _dump([self.interactId, userInfo.id])
+				}, function(d) {
+					if(d.success) {
+				
+						self.getZan();
+						self.like = true;
+					}else {
+						self.like = false;
+					}
+				});
+			}else{
+				//取消
+				_callAjax({
+					cmd: "exec",
+					sql: "delete from interact_praises where interactId = ? and userId = ?",
+					vals: _dump([self.interactId, userInfo.id])
+				}, function(d) {
+					if(d.success) {
+				
+						self.getZan();
+						self.like = false;
+					}else{
+						self.like = true;
+					}
+				});
+			}
+			
 		}
 	},
 	watch: {
@@ -171,7 +195,8 @@ window.addEventListener('interactId', function(event) {
 	interactDetail.interactId = event.detail.id;
 	//根据id向服务器请求文章评论
 	console.log("互动id=" + interactDetail.interactId);
-
+	userInfo = _load(_get('userInfo'));
+	
 	interactDetail.getDetail();
 	
 	//清空防止加载更多
@@ -179,4 +204,21 @@ window.addEventListener('interactId', function(event) {
 	interactDetail.getComments();
 	
 	interactDetail.getZan();
+	
+	//本人是否点赞
+	if(userInfo.id != null) {
+		_callAjax({
+			cmd: "fetch",
+			sql: "select * from interact_praises where interactId = " + event.detail.id + " and userId = " + userInfo.id
+
+		}, function(d) {
+			if(d.success && d.data) {
+
+				interactDetail.like = true;
+
+			}else{
+				interactDetail.like = false;
+			}
+		});
+	}
 })

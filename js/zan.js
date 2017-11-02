@@ -20,7 +20,7 @@ var zan = new Vue({
 					self.praises = d.data;
 					console.log("收到的赞");
 				} else {
-					mui.toast("抱歉，您还没有收到赞");
+//					mui.toast("抱歉，您还没有收到赞");
 				}
 			})
 	}

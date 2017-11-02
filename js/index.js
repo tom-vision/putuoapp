@@ -36,6 +36,9 @@ mui.init({
 	}, {
 		url: 'views/cmt.html',
 		id: 'cmt'
+	}, {
+		url: 'views/myInteract.html',
+		id: 'myInteract'
 	}],
 });
 
@@ -487,13 +490,19 @@ var ucenter = new Vue({
 			if(!this.isLogin) return mui.toast("请先登录");
 			openWindow('views/cmt.html', 'cmt');
 		},
+		goMyInteract: function(){
+			if(!this.isLogin) return mui.toast("请先登录");
+			openWindow('views/myInteract.html', 'myInteract');
+		},
 		logout: function(){
 			var self = this;
 			
 			
 			self.isLogin = false;
-			self.userInfo = {id:0};
-			_set(_dump('userInfo',self.userInfo));
+			self.userInfo = {};
+			_set('userInfo',_dump(self.userInfo));
+			console.log("退出登录");
+			
 		}
 	},
 	mounted: function() {
@@ -501,7 +510,7 @@ var ucenter = new Vue({
 
 		
 		//获取个人信息
-		if(self.userInfo.id != 0) {
+		if(self.userInfo.id != null) {
 			_callAjax({
 				cmd: "fetch",
 				sql: "select * from User where phone = ? and pswd = ?",
@@ -528,10 +537,10 @@ var ucenter = new Vue({
 window.addEventListener('loginBack', function(event) {
 
 	console.log("5555777");
-	userInfo = _load(_get('userInfo'));
-	console.log(_dump(userInfo));
+	var userInfo = _load(_get('userInfo'));
+	console.log('userInfo.id='+userInfo.id);
 
-	if(userInfo.id != 0){
+	if(userInfo.id != null){
 		ucenter.isLogin = true;
 		ucenter.userInfo = userInfo;
 	}else{

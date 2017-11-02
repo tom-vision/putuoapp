@@ -49,7 +49,8 @@ var interact = new Vue({
 
 			_callAjax({
 				cmd: "fetch",
-				sql: "select u.name, u.img as userImg, a.id, a.content, a.img, strftime('%Y-%m-%d %H:%M', a.logtime) as logtime from interact a left outer join User u on a.userId = u.id  where a.ifValid =1 and a.id<? order by a.id desc limit 5",
+				sql: "select F.*, count(c.id) as commentNum from (select u.name, u.img as userImg, a.id, a.content, a.img, strftime('%Y-%m-%d %H:%M', a.logtime) as logtime, count(p.id) as zan from interact a left outer join User u on a.userId = u.id left outer join interact_praises p on p.interactId = a.id where a.ifValid =1 and a.id<? group by a.id order by a.id desc limit 5) F left outer join interactComments c on c.interactId = F.id group by F.id order by F.id desc",
+//				sql: "select u.name, u.img as userImg, a.id, a.content, a.img, strftime('%Y-%m-%d %H:%M', a.logtime) as logtime from interact a left outer join User u on a.userId = u.id  where a.ifValid =1 and a.id<? order by a.id desc limit 5",
 				vals: _dump([f])
 
 			}, function(d) {
@@ -82,7 +83,7 @@ var interact = new Vue({
 		
 			_callAjax({
 				cmd: "fetch",
-				sql: "select u.name, u.img as userImg, a.id, a.content, a.img, strftime('%Y-%m-%d %H:%M', a.logtime) as logtime from interact a left outer join User u on a.userId = u.id where a.ifValid =1 and a.id<? and a.linkerId = ? order by a.id desc limit 5",
+				sql: "select F.*, count(c.id) as commentNum from (select u.name, u.img as userImg, a.id, a.content, a.img, strftime('%Y-%m-%d %H:%M', a.logtime) as logtime, count(p.id) as zan from interact a left outer join User u on a.userId = u.id left outer join interact_praises p on p.interactId = a.id where a.ifValid =1 and a.id<? and a.linkerId = ? group by a.id order by a.id desc limit 5) F left outer join interactComments c on c.interactId = F.id group by F.id order by F.id desc",
 				vals: _dump([f, linkerId.rebellion])
 		
 			}, function(d) {
@@ -115,7 +116,7 @@ var interact = new Vue({
 		
 			_callAjax({
 				cmd: "fetch",
-				sql: "select u.name, u.img as userImg, a.id, a.content, a.img, strftime('%Y-%m-%d %H:%M', a.logtime) as logtime from interact a left outer join User u on a.userId = u.id where a.ifValid =1 and a.id<? and a.linkerId = ? order by a.id desc limit 5",
+				sql: "select F.*, count(c.id) as commentNum from (select u.name, u.img as userImg, a.id, a.content, a.img, strftime('%Y-%m-%d %H:%M', a.logtime) as logtime, count(p.id) as zan from interact a left outer join User u on a.userId = u.id left outer join interact_praises p on p.interactId = a.id where a.ifValid =1 and a.id<? and a.linkerId = ? group by a.id order by a.id desc limit 5) F left outer join interactComments c on c.interactId = F.id group by F.id order by F.id desc",
 				vals: _dump([f, linkerId.photography])
 		
 			}, function(d) {
@@ -148,7 +149,8 @@ var interact = new Vue({
 		
 			_callAjax({
 				cmd: "fetch",
-				sql: "select u.name, u.img as userImg, a.id, a.content, a.img, strftime('%Y-%m-%d %H:%M', a.logtime) as logtime from interact a left outer join User u on a.userId = u.id where a.ifValid =1 and a.id<? and a.linkerId = ? order by a.id desc limit 5",
+				sql: "select F.*, count(c.id) as commentNum from (select u.name, u.img as userImg, a.id, a.content, a.img, strftime('%Y-%m-%d %H:%M', a.logtime) as logtime, count(p.id) as zan from interact a left outer join User u on a.userId = u.id left outer join interact_praises p on p.interactId = a.id where a.ifValid =1 and a.id<? and a.linkerId = ? group by a.id order by a.id desc limit 5) F left outer join interactComments c on c.interactId = F.id group by F.id order by F.id desc",
+//				sql: "select u.name, u.img as userImg, a.id, a.content, a.img, strftime('%Y-%m-%d %H:%M', a.logtime) as logtime from interact a left outer join User u on a.userId = u.id where a.ifValid =1 and a.id<? and a.linkerId = ? order by a.id desc limit 5",
 				vals: _dump([f, linkerId.food])
 		
 			}, function(d) {
@@ -224,8 +226,47 @@ var interactGraphic = new Vue({
 })
 
 $('.icon-xiangji').on('click', function() {
-	openWindow('release.html', 'release');
-})
+	var btnArray = [{
+		title: "报料"
+	}, {
+		title: "摄影"
+	},{
+		title: "美食"
+	}];
+	plus.nativeUI.actionSheet({
+		title: "动态类型",
+		cancel: "取消",
+		buttons: btnArray
+	}, function(e) {
+		var index = e.index;
+		var type = linkerId.rebellion;
+		switch(index) {
+			//取消
+			case 0:
+				break;
+			//报料
+			case 1:
+				type = linkerId.rebellion;
+				break;
+			//摄影
+			case 2:
+				type = linkerId.photography;
+				break;
+			//美食
+			case 2:
+				type = linkerId.food;
+				break;
+		}
+		
+		if(index != 0){
+			mui.fire(plus.webview.getWebviewById('release'), 'releaseType', {
+				type: type
+			});
+			openWindow('release.html', 'release');
+		}
+		
+	});
+});
 
 var changeIndexTab = function(el, self) {
 	console.log("顶部tab=" + el);
