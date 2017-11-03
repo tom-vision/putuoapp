@@ -21,7 +21,6 @@
 		</header>
 
 		<div id="topic-list" class="have-header">
-
 			<div class="video-list">
 				<ul class="clearfix">
 					<li v-for="i in topics" @click="gotoDetail(i)">
@@ -30,12 +29,14 @@
 							<p v-text="i.title"></p>
 						</a>
 					</li>
+<<<<<<< HEAD
 					
+=======
+>>>>>>> local
 				</ul>
 			</div>
 
 			<a class="load-more" @click="getTopic" v-show="bHaveMore">点击加载更多</a>
-
 		</div>
 	</body>
 

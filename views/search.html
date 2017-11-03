@@ -5,12 +5,12 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<title></title>
+		<script src="../plugins/jquery.min.js"></script>
+		<script src="../plugins/vue.min.js"></script>
 		<script src="../plugins/mui.min.js"></script>
 		<link href="../plugins/mui.min.css" rel="stylesheet" />
 		<link rel="stylesheet" href="../plugins/iconfont.css" />
 		<link rel="stylesheet" href="../css/style.css" />
-		<script src="../plugins/jquery.min.js"></script>
-		<script src="../plugins/vue.min.js"></script>
 	</head>
 
 	<body>
@@ -22,7 +22,6 @@
 		
 		<div id="search" class="have-footer have-header">
 			<form class="search" action="#"><input type="search" placeholder="请输入您想要搜索的关键词" @keyup.13="search" v-model="keyWord"/></form>
-			<!--<div class="search"><input type="search" placeholder="请输入您想要搜索的关键词" @keyup.13="search" v-model="keyWord"/></div>-->
 			
 			<div class="news-list" v-show="searchResult.length > 0">
 				<ul class="mui-table-view">
@@ -34,7 +33,6 @@
 				    </li>
 				</ul>
 			</div>
-			
 		</div>
 	</body>
 

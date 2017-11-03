@@ -27,11 +27,9 @@
 			<article>
 				<img src="../imgs/ad.jpg" width="100%" />
 				<video controls :poster="newsData.img" width="100%" :src="newsData.url" v-show="newsData.url!=''"></video>
-
-				<!--<img :src="newsData.img" />-->
 				<p v-text="newsData.content"></p>
 			</article>
-			<div class="like" :class="{ active : like }" @click="changeLike"><i class="iconfont icon-heart-copy"></i>{{likeNum}}个人喜欢 </div>
+			<div class="like" :class="{ active : like }" @click="changeLike"><i class="iconfont icon-heart-copy"></i>{{likeNum}} 个人喜欢 </div>
 			<div class="share">
 				<div class="line"></div>
 				<div class="share-item">
@@ -42,22 +40,19 @@
 		</div>
 
 		<div id="comment" class="have-footer">
-			<div class="comment-list">
+			<div class="comment-list" v-show="comments.length != 0">
 				<header>热门评论</header>
-				<!--没有评论时显示以下tips-->
-				<div class="tips" v-if="comments.length==0">目前没有评论，欢迎您发表观点。</div>
-				<div v-else>
-					<dl>
+				<div>
+					<dl v-for="c in comments">
 						<dt>
-							<img :src="comments[0].img" width="30px" height="30px" />
-							<strong v-text="comments[0].name"></strong>
-							<time v-text="comments[0].logtime"></time>
+							<img :src="c.img" width="30px" height="30px" />
+							<strong v-text="c.name"></strong>
+							<time v-text="c.logtime"></time>
 						</dt>
-						<dd v-text="comments[0].content"></dd>
+						<dd v-text="c.content"></dd>
 					</dl>
 					<footer @click="goComment" v-text="'全部'+comments.length+'条评论'"></footer>
 				</div>
-
 			</div>
 
 			<div class="comment-bar" @click="goComment">

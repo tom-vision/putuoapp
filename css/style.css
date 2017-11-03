@@ -182,17 +182,28 @@ body {
   -webkit-transform: scaleY(0.5);
   background-color: #c8c7cc;
 }
+.news-list li.multiple-media .multiple-imgs {
+  display: flex;
+  height: 80px;
+  overflow: hidden;
+}
+.news-list li.multiple-media .multiple-imgs div {
+  height: 80px;
+  overflow: hidden;
+  -webkit-background-size: cover;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  flex: 1;
+}
 .news-list li.multiple-media .multiple-imgs div:nth-child(1) {
-  padding-right: 5px;
+  margin-right: 5px;
 }
 .news-list li.multiple-media .multiple-imgs div:nth-child(2) {
-  padding: 0 2.5px;
+  margin: 0 2.5px;
 }
 .news-list li.multiple-media .multiple-imgs div:nth-child(3) {
-  padding-left: 5px;
-}
-.news-list li.multiple-media .multiple-imgs img {
-  display: block;
+  margin: 5px;
 }
 .news-list li.multiple-media p {
   white-space: nowrap;
@@ -311,9 +322,6 @@ body {
   font-size: 16px;
   font-weight: normal;
 }
-.topic-list .mui-media-body p {
-  margin-top: 10px;
-}
 .topic-list .mui-media-body i {
   position: absolute;
   right: 0;
@@ -396,7 +404,7 @@ body {
   left: 0;
   top: 44px;
   right: 0;
-  z-index: 2;
+  z-index: 3;
 }
 .tab-content-width-fixed-sub-bar {
   margin-top: 94px;
@@ -679,6 +687,13 @@ body {
 .comment-lists dl {
   position: relative;
   padding-bottom: 40px;
+  padding-top: 20px;
+}
+.comment-lists dl:first-child {
+  padding-top: 0;
+}
+.comment-lists dl:last-child:after {
+  height: 0;
 }
 .comment-lists dl:after {
   content: '';
@@ -785,23 +800,12 @@ body {
   right: 0;
   bottom: 0;
 }
-.news-graphic .mui-slider-indicator {
-  display: none;
-}
-.news-graphic .mui-slider-group {
+.news-graphic .swiper-container {
   height: 100%;
 }
-.news-graphic .mui-slider {
-  height: 100%;
-}
-.news-graphic .mui-slider-item {
-  vertical-align: middle!important;
-  height: 100%;
-}
-.news-graphic .mui-slider-item a {
-  display: flex!important;
+.news-graphic .swiper-container .swiper-slide {
+  display: flex;
   align-items: center;
-  height: 100%;
 }
 .news-graphic .detail {
   position: absolute;
