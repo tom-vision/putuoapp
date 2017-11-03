@@ -66,10 +66,7 @@ var interact = new Vue({
 						r.imgs = arrImg;
 						self.interact_latest.push(r);
 					});
-					console.log("最新互动");
-
 				}
-
 			});
 		},
 		//获取报料信息
@@ -99,9 +96,7 @@ var interact = new Vue({
 						r.imgs = arrImg;
 						self.interact_rebellion.push(r);
 					});
-					console.log("报料");
 				}
-		
 			});
 		},
 		
@@ -132,9 +127,7 @@ var interact = new Vue({
 						r.imgs = arrImg;
 						self.interact_photography.push(r);
 					});
-					console.log("摄影");
 				}
-		
 			});
 		},
 		
@@ -166,9 +159,7 @@ var interact = new Vue({
 						r.imgs = arrImg;
 						self.interact_food.push(r);
 					});
-					console.log("美食");
 				}
-		
 			});
 		},
 		

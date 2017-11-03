@@ -10,7 +10,11 @@
 			"js/global.js",
 			"views/newsDetail.html",
 			"fonts/mui.ttf",
-			"imgs/uBg.jpg"
+			"imgs/uBg.jpg",
+			"js/a_ref.js",
+			"plugins/swiper.min.css",
+			"plugins/jquery.min.js",
+			"plugins/vue.min.js"
 		],
 		"refer": [
 			"search.html",
@@ -28,7 +32,10 @@
 			"views/interact.html",
 			"views/iframe.html",
 			"views/zan.html",
-			"views/cmt.html"
+			"views/cmt.html",
+			"views/topic-list.html",
+			"views/digitalNewspaper.html",
+			"views/myInteract.html"
 		]
 	},
 	"views/search.html": {
@@ -40,6 +47,9 @@
 			"fonts/mui.ttf",
 			"js/search.js",
 			"js/global.js"
+		],
+		"refer": [
+			"views/search.html"
 		]
 	},
 	"views/news.html": {
@@ -88,7 +98,10 @@
 			"plugins/mui.min.css",
 			"js/search.js",
 			"plugins/iconfont.css",
-			"js/newsDetail.js"
+			"js/newsDetail.js",
+			"js/a_ref.js",
+			"plugins/jquery.min.js",
+			"plugins/vue.min.js"
 		],
 		"refer": [
 			"index.html",
@@ -103,7 +116,10 @@
 			"js/global.js",
 			"plugins/mui.min.css",
 			"js/comment.js",
-			"plugins/iconfont.css"
+			"plugins/iconfont.css",
+			"js/a_ref.js",
+			"plugins/jquery.min.js",
+			"plugins/vue.min.js"
 		]
 	},
 	"views/life.html": {
@@ -134,7 +150,10 @@
 			"js/global.js",
 			"plugins/mui.min.css",
 			"plugins/iconfont.css",
-			"js/newsGraphic.js"
+			"js/newsGraphic.js",
+			"js/a_ref.js",
+			"plugins/jquery.min.js",
+			"plugins/vue.min.js"
 		],
 		"refer": [
 			"views/comment.html"
@@ -217,7 +236,8 @@
 			"js/interact.js"
 		],
 		"refer": [
-			"views/release.html"
+			"views/release.html",
+			"views/interact-detail.html"
 		]
 	},
 	"views/iframe.html": {
@@ -238,6 +258,11 @@
 	"views/release.html": {
 		"resources": [
 			"js/release.js"
+		]
+	},
+	"views/cmt.html": {
+		"resources": [
+			"fonts/mui.ttf"
 		]
 	}
 }

@@ -1,5 +1,5 @@
-var isTest = true;
-var serverAddr = isTest ? "http://192.168.0.110:10000" : "";
+var isTest = false;
+var serverAddr = isTest ? "http://192.168.0.110:10000" : "http://hyv.wifizs.cn/putuo";
 
 var _set = function(k, v) {
 	plus.storage.setItem(k, v); 
@@ -65,8 +65,6 @@ var _genCallAjax = function(url) {
 			url: url,
 			async: true,
 			data: $.extend(data, { token: 'Jh2044695' }),
-
-//			data: data,
 			dataType: "jsonp",
 			jsonp: "jsoncallback",
 			timeout: 10000,

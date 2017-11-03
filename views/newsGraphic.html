@@ -9,6 +9,7 @@
 		<link href="../plugins/mui.min.css" rel="stylesheet" />
 		<link rel="stylesheet" href="../plugins/iconfont.css" />
 		<link rel="stylesheet" href="../css/style.css" />
+		<link href="../plugins/swiper.min.css" rel="stylesheet" />
 		<script src="../plugins/jquery.min.js"></script>
 		<script src="../plugins/vue.min.js"></script>
 	</head>
@@ -21,51 +22,31 @@
 		</header>
 		
 		<div id="newsGraphic" class="news-graphic">
-			<div id="slider" class="mui-slider" >
-				<div class="mui-slider-group mui-slider-loop">
-					<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
-					<div class="mui-slider-item mui-slider-item-duplicate">
-						<a href="#">
-							<img :src="newsData.imgs.slice(-1)">
-						</a>
+			<div class="swiper-container paper">
+				<div class="swiper-wrapper">
+					<div class="swiper-slide"  v-for="i in newsData.imgs">
+						<img :src="i" width="100%"/>
 					</div>
-					<!-- 第一张 -->
-					<div class="mui-slider-item" v-for="i in newsData.imgs">
-						<a href="#">
-							<img :src="i">
-						</a>
-					</div>
-			
-					<!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
-					<div class="mui-slider-item mui-slider-item-duplicate">
-						<a href="#">
-							<img :src="newsData.imgs.slice(1)">
-						</a>
-					</div>
-				</div>
-				<div class="mui-slider-indicator">
-					<div class="mui-indicator mui-active"></div>
-					<div class="mui-indicator" v-for="i in (newsData.imgs.length-1)"></div>
-					
 				</div>
 			</div>
 			
 			<div class="detail">
 				<h1 v-text="newsData.title"></h1>
 				<p v-text="newsData.content"></p>
-				<span><strong v-text="activeImg"></strong>/{{newsData.imgs.length}}</span>
+				<span><strong v-text="activeImgIndex"></strong>/{{newsData.imgs.length}}</span>
 			</div>
 			
 			<div class="toolbar newspaper-toolbar">
 				<div class="comment" @click="goComment">写评论</div>
 				<i class="iconfont icon-pinglun1" @click="goComment"></i>
 				<i class="iconfont icon-fenxiang"></i>
-				<i class="iconfont icon-xiazai"></i>
+				<i class="iconfont icon-xiazai" @click="saveImg"></i>
 			</div>
 		</div>
 	</body>
 
 </html>
 <script src="../js/global.js"></script>
+<script src="../plugins/swiper.min.js"></script>
 <script src="../js/a_ref.js"></script>
 <script src="../js/newsGraphic.js"></script>
