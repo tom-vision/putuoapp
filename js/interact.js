@@ -221,7 +221,7 @@ var interactGraphic = new Vue({
 	created:function(){
 		var self = this;
 		
-		$('.mui-slider').slider().gotoItem(self.index);
+		mui('.mui-slider').slider().gotoItem(self.index);
 	}
 })
 

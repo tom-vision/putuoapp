@@ -14,13 +14,9 @@ var topic = new Vue({
 	methods: {
 		//跳转到某个具体专题节目列表
 		gotoTopicList: function(i) {
-			var detailPage = null;
-			//获得主题页面
-			if(!detailPage) {
-				detailPage = plus.webview.getWebviewById('topic-list');
-			}
+			
 			//触发详情页面的newsId事件
-			mui.fire(detailPage, 'topicId', {
+			mui.fire(plus.webview.getWebviewById('topic-list'), 'topicId', {
 				id: i.id,
 				title: i.name
 			});
