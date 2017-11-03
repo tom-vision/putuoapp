@@ -26,21 +26,8 @@
 				<a :class="{ active: content.length > 0 }" @click="publish">发表</a>
 			</div>
 			
-			<div class="comment-list comment-lists">
-				<!--没有评论时显示以下tips-->
-				<!--<div class="tips">目测没有评论，欢迎您发表观点。</div>-->
-				<!--<dl>
-					<dt>
-						<img src="http://placehold.it/80x80" width="30px" height="30px" />
-						<strong>刘宝琴</strong>
-						<time>24小时前</time>
-						<span :class="{ 'active' : liked }" @click="changeLiked"><i class="iconfont icon-dianzan1"></i> 0</span>
-					</dt>
-					<dd>习主席强调，文艺是时代前进的号角。希望广大文艺工作者坚持以人民为中心的创作导向，坚持“二为”方向、“双百”方针，坚持创造性转化、创新性发展，精益求精、潜心磨砺，以传世之心打造传世之作，不断创作生产优秀作品，书写和记录人民的伟大实践、时代的进步要求，唱响主旋律、传递正能量，塑造中国形象、弘扬中国精神，坚定人民信心、振奋人民精神，为实现“两个一百年”奋斗目标、实现中华民族伟大复兴的中国梦提供强大精神力量。</dd>
-				</dl>
-				<footer>更多评论<i class="iconfont icon-jiantou3"></i></footer>-->
-				<div class="tips" v-if="comments.length==0">目前没有评论，欢迎您发表观点。</div>
-				<div v-else>
+			<div class="comment-list comment-lists" v-if="comments.length != 0">
+				<div>
 					<dl v-for="i in comments">
 						<dt>
 							<img :src="i.img" width="30px" height="30px" />
@@ -50,8 +37,8 @@
 						</dt>
 						<dd v-text="i.content"></dd>
 					</dl>
-					<footer v-show="bHaveMore" @click="getComments">更多评论<i class="iconfont icon-jiantou3"></i></footer>
 				</div>
+				<footer v-show="bHaveMore" @click="getComments">更多评论<i class="iconfont icon-jiantou3"></i></footer>
 			</div>
 		</div>
 	</body>

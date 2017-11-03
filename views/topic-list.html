@@ -21,7 +21,6 @@
 		</header>
 
 		<div id="topic-list" class="have-header">
-
 			<div class="video-list">
 				<ul class="clearfix">
 					<li v-for="i in topics" @click="gotoDetail(i)">
@@ -30,21 +29,10 @@
 							<p v-text="i.title"></p>
 						</a>
 					</li>
-					<!--<li>
-						<a class="video-item">
-							<img src="http://placehold.it/240x150" width="100%"/>
-							<p>宁波舟山港六横港举行大马力海拖防台</p>
-						</a>	
-						<a class="video-item">
-							<img src="http://placehold.it/240x150" width="100%"/>
-							<p>宁波舟山港六横港举行大马力海拖防台</p>
-						</a>	
-					</li>-->
 				</ul>
 			</div>
 
 			<a class="load-more" @click="getTopic" v-show="bHaveMore">点击加载更多</a>
-
 		</div>
 	</body>
 
