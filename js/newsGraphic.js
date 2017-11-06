@@ -25,9 +25,20 @@ function plusReady() {
 				openWindow('comment.html', 'comment')
 			},
 			saveImg: function() {
-				plus.gallery.save(this.activeImg, function () {
-					mui.toast("图片已保存到手机相册");
+				mui.toast("下载开始");
+
+				var dtask = plus.downloader.createDownload(this.activeImg, {}, function ( d, status ) {
+					// 下载完成
+					if ( status == 200 ) { 
+						plus.gallery.save(d.filename, function () {
+							mui.toast("图片已保存到手机相册");
+						});
+					} else {
+						mui.toast("下载失败");
+					}  
 				});
+				dtask.start(); 
+				
 			}
 		},
 	})

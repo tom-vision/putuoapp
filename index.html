@@ -173,7 +173,7 @@
 			<div id="life" class="have-sub-header index-tab index-tab-3">
 				<div class="life" v-for="i in services">
 					<header v-text="i.title"></header>
-					<div class="mui-row">
+					<div class="mui-row clearfix">
 						<div class="item" v-for="s in i.service" @click="gotoService(s)">
 							<img :src="s.img" />
 							<div class="info">

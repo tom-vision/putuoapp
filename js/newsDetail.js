@@ -4,7 +4,13 @@ mui.init({
 	preloadPages: [{
 		url: 'comment.html',
 		id: 'comment',
-	}]
+	}],
+	beforeback: function() {
+		// 页面返回前关闭所有视频播放
+		$('video').each(function() {
+			$(this)[0].pause();
+		})
+	}
 });
 
 // 扩展API加载完毕，现在可以正常调用扩展API
