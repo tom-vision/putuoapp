@@ -21,8 +21,7 @@
 		</header>
 		
 		<div id="search" class="have-footer have-header">
-			<form class="search" action="#"><input type="search" placeholder="请输入您想要搜索的关键词" @keyup.13="search" v-model="keyWord"/></form>
-			
+			<div class="search"><input type="search" placeholder="请输入您想要搜索的关键词" @keyup.13="search" v-model="keyWord"/></div>
 			<div class="news-list" v-show="searchResult.length > 0">
 				<ul class="mui-table-view">
 				    <li class="mui-table-view-cell mui-media" v-for="i in searchResult">

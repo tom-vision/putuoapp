@@ -264,5 +264,10 @@
 		"resources": [
 			"fonts/mui.ttf"
 		]
+	},
+	"views/myInteract.html": {
+		"refer": [
+			"views/interact-detail.html"
+		]
 	}
 }

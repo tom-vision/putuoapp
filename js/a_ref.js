@@ -69,15 +69,12 @@ var _genCallAjax = function(url) {
 			jsonp: "jsoncallback",
 			timeout: 10000,
 			success: function(data) {
-
 				d = eval(data);
 				_tell(d);
 				cb(d);
 			},
-
 			error: function(xhr, type, errorThrown) {
 				console.log(xhr + type + errorThrown);
-
 			}
 		});
 

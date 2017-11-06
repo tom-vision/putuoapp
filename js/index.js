@@ -107,10 +107,7 @@ function plusReady() {
 			videoNews: [], //视频新闻
 			topicNews: [], //专题节目
 			bHaveMore_headvideo: true, //顶部tab视频加载更多
-			services: [{
-				title: '',
-				service: []
-			}], //服务
+			services: [], //服务
 			zhiboUrl: 'http://app.zsputuo.com/zb/',
 		},
 		created: function() {
@@ -256,6 +253,7 @@ function plusReady() {
 							if(d.success && d.data) {
 								dicService.service = d.data;
 								self.services.push(dicService);
+								console.log(_dump(self.services))
 							}
 						});
 					});
@@ -544,6 +542,7 @@ function plusReady() {
 				self.isLogin = false;
 				self.userInfo = {};
 				_set('userInfo', _dump(self.userInfo));
+				mui.toast('退出成功');
 			}
 		},
 		mounted: function() {

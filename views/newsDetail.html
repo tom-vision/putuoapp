@@ -51,13 +51,13 @@
 						</dt>
 						<dd v-text="c.content"></dd>
 					</dl>
-					<footer @click="goComment" v-text="'全部'+comments.length+'条评论'"></footer>
+					<footer @click="goComment" v-text="'全部'+allCommentsLength+'条评论'"></footer>
 				</div>
 			</div>
 
 			<div class="comment-bar" @click="goComment">
 				<span><i class="iconfont icon-xie"></i><em>写评论</em></span>
-				<span><i class="iconfont icon-pinglun1"></i><em v-text="comments.length"></em></span>
+				<span><i class="iconfont icon-pinglun1"></i><em v-text="allCommentsLength"></em></span>
 			</div>
 		</div>
 	</body>

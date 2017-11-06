@@ -30,40 +30,33 @@ function plusReady() {
 			login: function() {
 				var self = this;
 	
-				if('' == self.phone.trim()) return mui.toast("手机号不能为空");
-				if('' == self.password.trim()) return mui.toast("密码不能为空");
+				if('' == self.phone.trim() || !(/^1(3|4|5|7|8)\d{9}$/.test(self.phone.trim()))) return mui.toast("请输入正确的手机号");
+				if('' == self.password.trim() || !(/^[a-zA-Z0-9]\w{5,11}$/.test(self.password.trim()))) return mui.toast("请输入正确的密码");
 	
 				_callAjax({
 					cmd: "fetch",
-					sql: "select * from User where phone = ? and pswd = ?",
+					sql: "select * from User where phone = ?",
 					vals: _dump([self.phone, self.password])
 				}, function(d) {
 					if(d.success && d.data) {
-	
+						if(d.data[0].pswd!= self.password.trim()) return mui.toast('密码输入错误');
 						mui.toast("登录成功");
 				
 						userInfo = d.data[0];
 						_set('userInfo',_dump(userInfo));
 						
-						console.log("userInfo=");
-						console.log(_dump(userInfo));
-						
 						mui.fire(plus.webview.getLaunchWebview(), 'loginBack');
 						
 						setTimeout(function() {
 							mui.back();
-	
-						}, 2000);
-	
+						}, 1500);
 					} else {
-						mui.toast("登录失败");
+						mui.toast("手机号未注册");
 					}
 				});
-	
 			}
 		}
 	})
-
 }
 
 // 判断扩展API是否准备，否则监听'plusready'事件

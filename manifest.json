@@ -490,6 +490,13 @@
 				],
 				"refer": [],
 				"priority": 0
+			},
+			"views/myInteract.html": {
+				"resources": [],
+				"refer": [
+					"views/interact-detail.html"
+				],
+				"priority": 0
 			}
 		},
 		"idle": {

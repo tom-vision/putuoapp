@@ -108,18 +108,15 @@ var release = new Vue({
 			e.srcElement.remove();
 
 		},
-		
 		addImg: function(evt) {
 			// 上传
 			var self = this;
 			uploadImage(evt, function(r) {
-
 				console.log(_dump(r));
-				self.imgs.push(serverAddr+r.image);
+				self.imgs.push(serverAddr+'/'+r.image.replace('public/',''));
 				
 			});
 		},
-
 	},
 	watch: {
 		imgs: function() {

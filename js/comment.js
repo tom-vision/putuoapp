@@ -1,10 +1,19 @@
+var comment = '';
+
+//预加载页面
+mui.init({
+	beforeback: function() {
+		comment.comments = []
+	}
+});
+
 // 扩展API加载完毕，现在可以正常调用扩展API
 function plusReady() {
 	pullToRefresh();
 	
 	var articleId = 0;
 	
-	var comment = new Vue({
+	comment = new Vue({
 		el: '#comment',
 		data: {
 			content: '',
@@ -12,12 +21,13 @@ function plusReady() {
 			userInfo: '',
 			bHaveMore: true
 		},
-		beforeCreate: function() {
+		created: function() {
 			this.userInfo = _load(_get('userInfo'));
 		},
 		methods: {
 			changeLiked: function(i) {
 				var self = this;
+
 				if(self.userInfo == '') return mui.toast("请先在个人中心登录");
 	
 				i.liked = !i.liked;
@@ -60,6 +70,7 @@ function plusReady() {
 				}, function(d) {
 					if(d.success) {
 						mui.toast("发表成功");
+						location.reload();
 					}
 				});
 			},
@@ -74,17 +85,14 @@ function plusReady() {
 				
 				_callAjax({
 					cmd: "fetch",
-					sql: "select c.id, c.content, strftime('%Y-%m-%d %H:%M', c.logtime) as logtime, count(p.id) as count, u.name, u.img from comments c left outer join comment_praises p on c.id=p.commentId " +
-						"left outer join User u on c.userId = u.id " +
-						"where c.ifValid=1 and c.articleId = ? and c.id< ? group by c.articleId order by c.logtime desc limit 5",
+					sql: "select c.id, c.content, strftime('%Y-%m-%d %H:%M', c.logtime) as logtime, count(p.id) as zan, u.name, u.img from comments c left outer join User u on c.userId = u.id left outer join comment_praises p on c.id=p.commentId where c.ifValid=1 and c.articleId = ? and c.id < ? group by c.id order by c.logtime desc limit 5",
 					vals: _dump([articleId, f])
 				}, function(d) {
-					
+					console.log(JSON.stringify(d))
 					plus.nativeUI.closeToast();
 					
 					if(!d.success || !d.data) {
-						self.bHaveMore = false;
-						return;
+						return self.bHaveMore = false;
 					} else {
 						d.data.forEach(function(r) {
 							r.liked = false;

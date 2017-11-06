@@ -1,4 +1,3 @@
-
 //预加载页面
 mui.init({
 	preloadPages: [{
@@ -73,7 +72,8 @@ function plusReady() {
 	var hotComment = new Vue({
 		el: '#comment',
 		data: {
-			comments: []
+			comments: [],
+			allCommentsLength: ''
 		},
 		methods: {
 			goComment: function() {
@@ -103,7 +103,6 @@ function plusReady() {
 			sql: "select * from articles where id = " + articleId
 		}, function(d) {
 			if(d.success && d.data) {
-	
 				newsDetail.newsData = d.data[0];
 			}
 		});
@@ -135,6 +134,7 @@ function plusReady() {
 	
 		//获取文章热门评论
 		hotComment.comments = [];
+		
 		_callAjax({
 			cmd: "fetch",
 			sql: "select c.content, strftime('%Y-%m-%d %H:%M', c.logtime) as logtime, count(p.id) as count, u.name, u.img from comments c left outer join comment_praises p on c.id=p.commentId " +
@@ -144,7 +144,18 @@ function plusReady() {
 		}, function(d) {
 			if(d.success && d.data) {
 				hotComment.comments = d.data;
-				console.log("热门评论：" + hotComment.comments.length)
+			}
+		});
+		
+		//获取全部评论
+		_callAjax({
+			cmd: "fetch",
+			sql: "select count(id) as count from comments " +
+				"where articleId = ?",
+			vals: _dump([articleId])
+		}, function(d) {
+			if(d.success && d.data) {
+				hotComment.allCommentsLength = d.data[0].count;
 			}
 		});
 	});
