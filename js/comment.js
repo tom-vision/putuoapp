@@ -26,6 +26,7 @@ function plusReady() {
 		},
 		methods: {
 			changeLiked: function(i) {
+				_tell(i)
 				var self = this;
 
 				if(self.userInfo == '') return mui.toast("请先在个人中心登录");
@@ -33,14 +34,14 @@ function plusReady() {
 				i.liked = !i.liked;
 	
 				//喜欢
-				if(i.like) {
+				if(i.liked) {
 					_callAjax({
 						cmd: "exec",
 						sql: "insert into comment_praises(userId, commentId) values(?,?)",
 						vals: _dump([self.userInfo.id, i.id])
 					}, function(d) {
 						if(d.success) {
-							i.count++;
+							i.zan++;
 						}
 					});
 				} else {
@@ -51,7 +52,7 @@ function plusReady() {
 						vals: _dump([i.id, self.userInfo.id])
 					}, function(d) {
 						if(d.success) {
-							i.count--;
+							i.zan--;
 						}
 					});
 				}
@@ -81,16 +82,11 @@ function plusReady() {
 					f = _at(self.comments, -1).id;
 				}
 				
-				plus.nativeUI.toast( "加载中...");
-				
 				_callAjax({
 					cmd: "fetch",
 					sql: "select c.id, c.content, strftime('%Y-%m-%d %H:%M', c.logtime) as logtime, count(p.id) as zan, u.name, u.img from comments c left outer join User u on c.userId = u.id left outer join comment_praises p on c.id=p.commentId where c.ifValid=1 and c.articleId = ? and c.id < ? group by c.id order by c.logtime desc limit 5",
 					vals: _dump([articleId, f])
 				}, function(d) {
-					console.log(JSON.stringify(d))
-					plus.nativeUI.closeToast();
-					
 					if(!d.success || !d.data) {
 						return self.bHaveMore = false;
 					} else {

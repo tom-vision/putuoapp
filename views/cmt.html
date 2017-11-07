@@ -21,7 +21,8 @@
 		</header>
 		
 		<div id="cmt" class="have-header">
-			<div class="cmt-list">
+			<p class="tips" v-show="cmts.length == 0">暂未收到任何消息</p>
+			<div class="cmt-list" v-show="cmts.length != 0">
 				<ul>
 					<li v-for="i in cmts">
 						<img :src="i.UserImg" class="mu-card-avatar"/>

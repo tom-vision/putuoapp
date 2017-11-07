@@ -23,7 +23,7 @@ var register = new Vue({
 				vals: _dump([self.phone.trim()])
 			}, function(d) {
 				if(d.success && d.data) {
-					return mui.toast("该手机号已注册过");
+					return mui.toast("该手机号已注册");
 				} else {
 					// 生成验证码
 					var captcha_session = '';
@@ -37,6 +37,7 @@ var register = new Vue({
 						text: "【新蓝广科】您的验证码" + captcha_session + " ，请及时查收。",
 						phone: self.phone.trim()
 					}, function(d) {
+						mui.toast('发送成功');
 						var t = 60;
 						var timeOut = setInterval(function(){
 							t--;

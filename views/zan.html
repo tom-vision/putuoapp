@@ -21,7 +21,8 @@
 		</header>
 		
 		<div id="zan" class="have-header">
-			<div class="cmt-list">
+			<p class="tips" v-show="praises.length == 0">暂未收到任何赞</p>
+			<div class="cmt-list" v-show="praises.length != 0">
 				<ul>
 					<li v-for="i in praises">
 						<img :src="i.img" class="mu-card-avatar"/>
@@ -33,20 +34,9 @@
 							<p v-text="i.content"></p>
 						</div>
 					</li>
-					<!--<li>
-						<img src="http://placehold.it/60x60" class="mu-card-avatar"/>
-						<div class="cmt-info">
-							<header>
-								<h1>吉吉32123 <span>赞了你的互动</span></h1>
-								<time>5分钟前</time>
-							</header>
-							<p>测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容</p>
-						</div>
-					</li>-->
 				</ul>
 			</div>
-			
-			<a class="load-more">查看更多</a>
+			<a class="load-more" v-show="praises.length != 0">查看更多</a>
 		</div>
 	</body>
 

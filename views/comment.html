@@ -33,7 +33,7 @@
 							<img :src="i.img" width="30px" height="30px" />
 							<strong v-text="i.name"></strong>
 							<time v-text="i.logtime"></time>
-							<span :class="{ 'active' : i.liked }" @click="changeLiked(i)"><i class="iconfont icon-dianzan1"></i> {{i.count}}</span>
+							<span :class="{ 'active' : i.liked }" @click="changeLiked(i)"><i class="iconfont icon-dianzan1"></i> {{i.zan}}</span>
 						</dt>
 						<dd v-text="i.content"></dd>
 					</dl>
