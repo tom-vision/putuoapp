@@ -84,7 +84,6 @@ function plusReady() {
 				}
 				//触发评论页面的newsId事件
 				mui.fire(detailPage, 'newsId', {
-					id: articleId
 				});
 				openWindow('comment.html', 'comment');
 			}
@@ -94,10 +93,11 @@ function plusReady() {
 	//添加newId自定义事件监听
 	window.addEventListener('newsId', function(event) {
 		//获得事件参数
-		articleId = event.detail.id;
+//		articleId = event.detail.id;
+		articleId = _get('newsId');
 		//根据id向服务器请求新闻详情
 		userInfo = _load(_get('userInfo'));
-
+		
 		_callAjax({
 			cmd: "fetch",
 			sql: "select * from articles where id = " + articleId

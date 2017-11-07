@@ -132,9 +132,10 @@ function plusReady() {
 				}
 				//触发详情页面的newsId事件
 				mui.fire(detailPage, 'newsId', {
-					id: i.id
 				});
-	
+				
+				_set('newsId',i.id);
+				
 				openWindow('views/newsDetail.html', 'newsDetail');
 			},
 			goLife: function() {
@@ -151,8 +152,9 @@ function plusReady() {
 				}
 				//触发详情页面的newsId事件
 				mui.fire(detailPage, 'newsId', {
-					id: i.id
 				});
+				_set('newsId',i.id);
+
 				openWindow('views/newsGraphic.html', 'newsGraphic');
 			},
 			goHotNews: function() {
@@ -380,9 +382,8 @@ function plusReady() {
 	
 				//触发详情页面的newsId事件
 				mui.fire(detailPage, 'newsId', {
-					id: i.id
 				});
-	
+				_set('newsId', i.id);
 				openWindow('views/newsDetail.html', 'newsDetail');
 			},
 			goNewsGraphic: function(i) {
@@ -393,8 +394,8 @@ function plusReady() {
 				}
 				//触发详情页面的newsId事件
 				mui.fire(detailPage, 'newsId', {
-					id: i.id
 				});
+				_set('newsId', i.id);
 				openWindow('views/newsGraphic.html', 'newsGraphic');
 			},
 			//获取即时新闻

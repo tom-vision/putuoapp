@@ -22,6 +22,8 @@ function plusReady() {
 		},
 		methods: {
 			goComment: function() {
+				mui.fire(plus.webview.getWebviewById('comment'), 'newsId', {
+				});
 				openWindow('comment.html', 'comment')
 			},
 			saveImg: function() {
@@ -45,7 +47,7 @@ function plusReady() {
 	//添加newId自定义事件监听
 	window.addEventListener('newsId',function(event){
 	  	//获得事件参数
-	  	var id = event.detail.id;
+	  	var id = _get('newsId');
 	  	console.log(id)
 	  	//根据id向服务器请求新闻详情
 	  	console.log("newsId="+id);
