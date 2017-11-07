@@ -47,7 +47,9 @@ if(window.plus) {
 	plusReady();
 } else {
 	document.addEventListener('plusready', plusReady, false);
+	
 }
+
 
 var changeTab = function(el, self) {
 	$('.main').hide();
@@ -508,9 +510,10 @@ function plusReady() {
 			userInfo: '',
 			isLogin: false,
 		},
-		beforeCreate: function() {
-			this.userInfo = _load(_get('userInfo'));
-		},
+//		beforeCreate: function() {
+//			this.userInfo = _load(_get('userInfo'));
+//			
+//		},
 		methods: {
 			goSuggest: function(i) {
 				openWindow('views/iframe.html', 'iframe');
@@ -541,22 +544,23 @@ function plusReady() {
 	
 				self.isLogin = false;
 				self.userInfo = {};
-				_set('userInfo', _dump(self.userInfo));
+				plus.storage.removeItem('userInfo');
 				mui.toast('退出成功');
 			}
 		},
 		mounted: function() {
 			var self = this;
-	
+			self.userInfo = _load(_get('userInfo'));
+			
 			//获取个人信息
-			if(self.userInfo.id != null) {
+			if(self.userInfo != null) {
 				_callAjax({
 					cmd: "fetch",
 					sql: "select * from User where phone = ? and pswd = ?",
 					vals: _dump([self.userInfo.phone, self.userInfo.pswd])
 				}, function(d) {
+
 					if(d.success && d.data) {
-	
 						self.isLogin = true;
 						self.userInfo = d.data[0];
 						_set('userInfo', _dump(self.userInfo));
@@ -564,11 +568,18 @@ function plusReady() {
 					} else {
 						self.isLogin = false;
 						self.userInfo = {};
-						_set('userInfo', _dump(self.userInfo));
+						plus.storage.removeItem('userInfo');
+
 					}
 				});
 			}
 		}
 	})
 	
+	window.addEventListener("splashclosed", function() {
+//		mui.toast("Application splashclosed!");
+//		ucenter.userInfo = _load(_get('userInfo'));
+//		mui.toast( plus.storage.getItem('userInfo'));
+		
+	}, false);
 }

@@ -36,7 +36,7 @@
 					</li>
 				</ul>
 			</div>
-			<a class="load-more" v-show="praises.length != 0">查看更多</a>
+			<a class="load-more" v-show="bHaveMore && praises.length != 0" @click="getPraises">查看更多</a>
 		</div>
 	</body>
 
