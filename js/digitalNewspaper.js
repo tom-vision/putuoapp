@@ -146,10 +146,10 @@ var pic = new Vue({
 			},function(d){
 				if(d.data&&d.success){
 					today = d.data[0].time;
-					self.Pic_one = "<img src=\"http://jrpt.zjol.com.cn/resfile/" + today + "/01/Page_b.jpg\" border=\"0\" usemap=\"#PagePicMap\">";
-					self.Pic_two = "<img src=\"http://jrpt.zjol.com.cn/resfile/" + today + "/02/Page_b.jpg\" border=\"0\" usemap=\"#PagePicMap\">";
-					self.Pic_three = "<img src=\"http://jrpt.zjol.com.cn/resfile/" + today + "/03/Page_b.jpg\" border=\"0\" usemap=\"#PagePicMap\">";
-					self.Pic_four = "<img src=\"http://jrpt.zjol.com.cn/resfile/" + today + "/04/Page_b.jpg\" border=\"0\" usemap=\"#PagePicMap\">";
+					self.Pic_one = "<img src=\"http://jrpt.zjol.com.cn/resfile/" + today + "/01/Page_b.jpg\" border=\"0\" usemap=\"#PagePicMap\" height=\"100%\">";
+					self.Pic_two = "<img src=\"http://jrpt.zjol.com.cn/resfile/" + today + "/02/Page_b.jpg\" border=\"0\" usemap=\"#PagePicMap\" height=\"100%\">";
+					self.Pic_three = "<img src=\"http://jrpt.zjol.com.cn/resfile/" + today + "/03/Page_b.jpg\" border=\"0\" usemap=\"#PagePicMap\" height=\"100%\">";
+					self.Pic_four = "<img src=\"http://jrpt.zjol.com.cn/resfile/" + today + "/04/Page_b.jpg\" border=\"0\" usemap=\"#PagePicMap\" height=\"100%\">";
 					var swiper = new Swiper('.swiper-container', {
 						onSlideChangeEnd: function(swiper) {
 							if(swiper.activeIndex == 0){
