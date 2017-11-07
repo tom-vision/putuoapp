@@ -550,6 +550,12 @@ function plusReady() {
 			},
 			goMyInteract: function() {
 				if(!this.isLogin) return mui.toast("请先登录");
+				var detailPage = null;
+				if(!detailPage) {
+					detailPage = plus.webview.getWebviewById('myInteract');
+				}
+				mui.fire(detailPage, 'myInteract', {});
+				
 				openWindow('views/myInteract.html', 'myInteract');
 			},
 			logout: function() {
