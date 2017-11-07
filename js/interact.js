@@ -252,9 +252,7 @@ var interact = new Vue({
 		
 		}, 1500);
 		
-		//初始化显示最新
-//		$('.interact-list').hide();
-//		$('.index-tab-1').show();
+
 	}
 })
 
