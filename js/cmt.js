@@ -32,25 +32,30 @@ function plusReady() {
 						});
 					}
 				});
+			},
+			initCmt: function(){
+				var self = this;
+				
+				//获取评论
+				_callAjax({
+					cmd: "fetch",
+					sql: "select u.name, u.img as UserImg, a.id, a.content, strftime('%Y-%m-%d %H:%M', a.logtime) as logtime from interactComments a left outer join User u on a.userId = u.id where a.replyTo = ? order by a.id desc limit 5 ",
+					vals: _dump([self.userInfo.id])
+				}, function(d) {
+					if(d.success && d.data) {
+						self.cmts = d.data;
+						self.bHaveMore = true;
+					} else {
+				
+					}
+				})
 			}
-		},
-		mounted: function(){
-			var self = this;
-			
-			//获取评论
-			_callAjax({
-				cmd: "fetch",
-				sql: "select u.name, u.img as UserImg, a.id, a.content, strftime('%Y-%m-%d %H:%M', a.logtime) as logtime from interactComments a left outer join User u on a.userId = u.id where a.replyTo = ? order by a.id desc limit 5 ",
-				vals: _dump([self.userInfo.id])
-			}, function(d) {
-				if(d.success && d.data) {
-					self.cmts = d.data;
-					self.bHaveMore = true;
-				} else {
-					
-				}
-			})
 		}
+	})
+	
+	//添加newId自定义事件监听
+	window.addEventListener('cmt', function(event) {
+		cmt.initCmt();
 	})
 }
 

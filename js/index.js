@@ -530,10 +530,22 @@ function plusReady() {
 			},
 			goZan: function() {
 				if(!this.isLogin) return mui.toast("请先登录");
+				var detailPage = null;
+				if(!detailPage) {
+					detailPage = plus.webview.getWebviewById('zan');
+				}
+				mui.fire(detailPage, 'zan', {});
+				
 				openWindow('views/zan.html', 'zan');
 			},
 			goCmt: function() {
 				if(!this.isLogin) return mui.toast("请先登录");
+				var detailPage = null;
+				if(!detailPage) {
+					detailPage = plus.webview.getWebviewById('cmt');
+				}
+				mui.fire(detailPage, 'cmt', {});
+
 				openWindow('views/cmt.html', 'cmt');
 			},
 			goMyInteract: function() {
