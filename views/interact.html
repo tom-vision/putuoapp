@@ -24,15 +24,15 @@
 		<div id="interact">
 			<div class="sub-bar">
 				<ul>
-					<li @click="goLatest" class="active latest"><a>最新</a></li>
-					<li @click="goRebellion" class="rebellion"><a>报料</a></li>
-					<li @click="goPhotography" class="photography"><a>摄影</a></li>
-					<li @click="goFood" class="food"><a>美食</a></li>
+					<li id="1" @click="goLatest" class="active latest"><a>最新</a></li>
+					<li id="2" @click="goRebellion" class="rebellion"><a>报料</a></li>
+					<li id="3" @click="goPhotography" class="photography"><a>摄影</a></li>
+					<li id="4" @click="goFood" class="food"><a>美食</a></li>
 				</ul>
 			</div>
 			<!--最新-->
-			<div class="interact-list index-tab-1">
-				<div class="mu-flex" v-for="i in interact_latest" @click="openInteractDetail(i)">
+			<div class="interact-list">
+				<div class="mu-flex" v-for="i in interact_current" @click="openInteractDetail(i)">
 					<img :src="i.userImg" class="mu-card-avatar"/>
 					<div class="mu-card">
 						<div class="mu-card-header">
@@ -50,9 +50,7 @@
 								<li v-for="m, index in i.imgs" @click="openGallery(i.imgs, index)">
 									<div :style="'background-image:url('+ m +')'"></div>
 								</li>
-								<!--<li>
-									<div style="background-image:url('https://placeimg.com/144/332')"></div>
-								</li>-->
+								
 							</ul>
 						</div>
 						<div class="mu-footer">
@@ -63,134 +61,9 @@
 					</div>
 				</div>
 				
-				<!--<div class="mu-flex" @click="openInteractDetail">
-					<img src="http://placehold.it/60x60" class="mu-card-avatar"/>
-					<div class="mu-card">
-						<div class="mu-card-header">
-							<div class="mu-card-title"> 芒果橙</div>
-							<div class="mu-card-time">34秒前</div>
-						</div>
-						<div class="mu-card-text">测试内容测试内容测试内容测试内容测试内容测试内容</div>
-						<div class="mu-card-imgs">
-							<ul>
-								<li @click="openGallery">
-									<div style="background-image:url('https://placeimg.com/200/200')"></div>
-								</li>
-								<li>
-									<div style="background-image:url('https://placeimg.com/144/332')"></div>
-								</li>
-								<li>
-									<div style="background-image:url('https://placeimg.com/444/132')"></div>
-								</li>
-							</ul>
-						</div>
-						<div class="mu-footer">
-							<span class="active"><i class="iconfont icon-zan"></i> 3</span>
-							<span><i class="iconfont icon-icon-test"></i> 5</span>
-							<span><i class="iconfont icon-fenxiang"></i></span>
-						</div>
-					</div>
-				</div>-->
-				<a class="load-more" @click="getLatest" v-show="bHaveMore_latest">点击加载更多</a>
+				<a class="load-more" @click="getCurrent" v-show="bHaveMore_current && interact_current.length != 0">点击加载更多</a>
 			</div>
-			<!--报料-->
-			<div class="interact-list index-tab-2">
-				<div class="mu-flex" v-for="i in interact_rebellion" @click="openInteractDetail(i)">
-					<img :src="i.userImg" class="mu-card-avatar" />
-					<div class="mu-card">
-						<div class="mu-card-header">
-							<div class="mu-card-title" v-text="i.name"></div>
-							<div class="mu-card-time" v-text="i.logtime"></div>
-						</div>
-						<div class="mu-card-text" v-text="i.content"></div>
-						<!-- 1 张图时使用 -->
-						<div class="mu-card-imgs mu-card-imgs-1" v-if="i.imgs.length==1">
-							<img :src="i.imgs[0]" />
-						</div>
-						<!-- 2 张图时使用 -->
-						<div class="mu-card-imgs" v-else="i.imgs.length>1">
-							<ul>
-								<li v-for="m, index in i.imgs" @click="openGallery(i.imgs, index)">
-									<div :style="'background-image:url('+ m +')'"></div>
-								</li>							
-							</ul>
-						</div>
-						<div class="mu-footer">
-							<span><i class="iconfont icon-zan"></i>{{ i.zan}}</span>
-							<span><i class="iconfont icon-icon-test"></i>{{ i.commentNum}}</span>
-							<span><i class="iconfont icon-fenxiang"></i></span>
-						</div>
-					</div>
-				</div>
 			
-				<a class="load-more" @click="getRebellion" v-show="bHaveMore_rebellion">点击加载更多</a>
-			</div>
-			<!--摄影-->
-			<div class="interact-list index-tab-3">
-				<div class="mu-flex" v-for="i in interact_photography" @click="openInteractDetail(i)">
-					<img :src="i.userImg" class="mu-card-avatar" />
-					<div class="mu-card">
-						<div class="mu-card-header">
-							<div class="mu-card-title" v-text="i.name"></div>
-							<div class="mu-card-time" v-text="i.logtime"></div>
-						</div>
-						<div class="mu-card-text" v-text="i.content"></div>
-						<!-- 1 张图时使用 -->
-						<div class="mu-card-imgs mu-card-imgs-1" v-if="i.imgs.length==1">
-							<img :src="i.imgs[0]" />
-						</div>
-						<!-- 2 张图时使用 -->
-						<div class="mu-card-imgs" v-else="i.imgs.length>1">
-							<ul>
-								<li v-for="m, index in i.imgs" @click="openGallery(i.imgs, index)">
-									<div :style="'background-image:url('+ m +')'"></div>
-								</li>
-								
-							</ul>
-						</div>
-						<div class="mu-footer">
-							<span><i class="iconfont icon-zan"></i>{{ i.zan}}</span>
-							<span><i class="iconfont icon-icon-test"></i>{{ i.commentNum}}</span>
-							<span><i class="iconfont icon-fenxiang"></i></span>
-						</div>
-					</div>
-				</div>
-			
-				<a class="load-more" @click="getPhotography" v-show="bHaveMore_photography">点击加载更多</a>
-			</div>
-			<!--美食-->
-			<div class="interact-list index-tab-4">
-				<div class="mu-flex" v-for="i in interact_food" @click="openInteractDetail(i)">
-					<img :src="i.userImg" class="mu-card-avatar" />
-					<div class="mu-card">
-						<div class="mu-card-header">
-							<div class="mu-card-title" v-text="i.name"></div>
-							<div class="mu-card-time" v-text="i.logtime"></div>
-						</div>
-						<div class="mu-card-text" v-text="i.content"></div>
-						<!-- 1 张图时使用 -->
-						<div class="mu-card-imgs mu-card-imgs-1" v-if="i.imgs.length==1">
-							<img :src="i.imgs[0]" />
-						</div>
-						<!-- 2 张图时使用 -->
-						<div class="mu-card-imgs" v-else="i.imgs.length>1">
-							<ul>
-								<li v-for="m, index in i.imgs" @click="openGallery(i.imgs, index)">
-									<div :style="'background-image:url('+ m +')'"></div>
-								</li>
-								
-							</ul>
-						</div>
-						<div class="mu-footer">
-							<span><i class="iconfont icon-zan"></i>{{ i.zan}}</span>
-							<span><i class="iconfont icon-icon-test"></i>{{ i.commentNum}}</span>
-							<span><i class="iconfont icon-fenxiang"></i></span>
-						</div>
-					</div>
-				</div>
-			
-				<a class="load-more" @click="getFood" v-show="bHaveMore_food">点击加载更多</a>
-			</div>
 			
 		</div>
 		

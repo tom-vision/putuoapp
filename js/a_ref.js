@@ -56,7 +56,7 @@ var _tell = function(d) {
 //};
 var _genCallAjax = function(url) {
 	return function(data, cb, notLoading) {
-		//      if (!notLoading) _loading();
+//		if (!notLoading) _loading();
 		cb = cb ? cb : function() {};
 		data.callback = "_echo";
 

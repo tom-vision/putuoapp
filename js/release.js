@@ -10,97 +10,6 @@ var release = new Vue({
 		releaseType: '', //动态类型
 	},
 	methods: {
-//		addImg: function(index) {
-//			var self = this;
-//
-//			var imgName = 'interact' + '-' + index + '.png';
-//			console.log(imgName);
-//
-//			plus.gallery.pick(function(a) {
-//
-//				plus.io.resolveLocalFileSystemURL(a, function(entry) {
-//
-//					plus.io.resolveLocalFileSystemURL("_doc/", function(root) {
-//
-//						root.getFile(imgName, {}, function(file) {
-//
-//							//文件已存在
-//
-//							file.remove(function() {
-//
-//								console.log("file remove success");
-//
-//								entry.copyTo(root, imgName, function(e) {
-//
-//										var path = e.fullPath + "?version=" + new Date().getTime();
-//
-//										root.getFile(imgName, {}, function(file) {
-//											
-//											console.log(file.name);
-//											uploadImage(file);
-//										})
-//
-//										console.log('111' + path);
-//										self.imgs.splice(index, 1, path);
-//
-//
-//									},
-//
-//									function(e) {
-//
-//										console.log('copy image file:' + e.message);
-//
-//									});
-//
-//							}, function() {
-//
-//								console.log('delete image file:' + e.message);
-//
-//							});
-//
-//						}, function() {
-//
-//							//文件不存在
-//
-//							entry.copyTo(root, imgName, function(e) {
-//
-//								var path = e.fullPath + "?version=" + new Date().getTime();
-//								
-//								//上传图片
-//								root.getFile(imgName, {}, function(file) {
-//									
-//									uploadImage(file);
-//								})
-//
-//								self.imgs.push(path);
-//								console.log(_dump(self.imgs));
-//
-//							}, function(e) {
-//
-//								console.log('copy image fail:' + e.message);
-//
-//							});
-//
-//						});
-//
-//					}, function(e) {
-//
-//						console.log("get _www folder fail");
-//
-//					})
-//
-//				}, function(e) {
-//
-//					console.log("读取拍照文件错误：" + e.message);
-//
-//				});
-//
-//			}, function(a) {}, {
-//
-//				filter: "image"
-//
-//			})
-//		},
 		removeImg: function(e) {
 			var self = this;
 			console.log("移除图片");
@@ -112,6 +21,7 @@ var release = new Vue({
 			// 上传
 			var self = this;
 			uploadImage(evt, function(r) {
+				
 				console.log(_dump(r));
 				self.imgs.push(serverAddr+'/'+r.image.replace('public/',''));
 				
@@ -141,10 +51,6 @@ var head = new Vue({
 			if(userInfo.id == null || userInfo.id ==0) return mui.toast("请先在个人中心登录");
 			if('' == release.releaseType) return mui.toast("动态类型为空");
 			if('' == release.content && release.imgs.length == 0) return mui.toast("不说点什么？");
-
-			//上传图片到服务器
-//			uploadImage(release.imgs);			
-			return;
 			
 			var img = '';
 
