@@ -9,8 +9,6 @@ mui.init({
 
 // 扩展API加载完毕，现在可以正常调用扩展API
 function plusReady() {
-	pullToRefresh();
-	
 	var articleId = 0;
 	
 	comment = new Vue({
@@ -71,7 +69,7 @@ function plusReady() {
 				}, function(d) {
 					if(d.success) {
 						mui.toast("发表成功");
-						location.reload();
+						self.content = '';
 					}
 				});
 			},
@@ -106,6 +104,7 @@ function plusReady() {
 								});
 							}
 							self.comments.push(r);
+							_tell(self.comments)
 						});
 					}
 				});
