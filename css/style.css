@@ -806,6 +806,7 @@ body {
 .news-graphic .swiper-container .swiper-slide {
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 .news-graphic .detail {
   position: absolute;
