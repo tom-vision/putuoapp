@@ -606,6 +606,20 @@ function plusReady() {
 					}
 				});
 			}
+			
+			//获取版本号
+			var version = 0;
+			_callAjax({
+				cmd: "fetch",
+				sql: "select * from system"
+			}, function(d) {			
+				if(d.success && d.data) {
+					
+					version = d.data[0].version;
+					_set('version', version);
+				}
+				
+			});
 		}
 	})
 }
