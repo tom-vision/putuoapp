@@ -14,6 +14,17 @@ function plusReady() {
 		}
 	})
 	
+	// 相册显示时监听物理返回按键，若已经显示则优先关闭相册
+	var oldback = mui.back;
+	mui.back = function() {
+	    if(interactGraphic.show) {
+	    	interactGraphic.show = false;
+	    	$('body').removeClass('no-scroll');
+	    	return false;
+	    }
+	    oldback();
+	}
+	
 	var userInfo = _load(_get('userInfo'));
 
 	var interactDetail = new Vue({
@@ -32,6 +43,16 @@ function plusReady() {
 			like: false    //自己点赞
 		},
 		methods: {
+			openGallery: function(imgs, index) {
+				console.log(imgs)
+				interactGraphic.show = true;
+				interactGraphic.imgs = imgs;
+				$('body').addClass('no-scroll');
+				setTimeout(function(){
+					var swiper = new Swiper('.swiper-container');
+					swiper.slideTo(index, 500, false);
+				}, 500)
+			},
 			//获取互动详情
 			getDetail:function(){
 				var self = this;
@@ -173,6 +194,21 @@ function plusReady() {
 				this.haveComment = false;
 			}
 		}
+	})
+	
+	var interactGraphic = new Vue({
+		el: '#interactGraphic',
+		data: {
+			show: false,
+			imgs: [],
+			index: 0
+		},
+		methods: {
+			close: function() {
+				this.show = false;
+				$('body').removeClass('no-scroll');
+			}
+		},
 	})
 	
 	//添加interactId自定义事件监听
