@@ -430,9 +430,14 @@ var tab = new Vue({
 	}
 })
 
-$('area').on('click', function(){
-	console.log(1)
-})
+var _areas=document.getElementsByTagName('area');
+for(j=0;j<_areas.length;j++){
+	 (function (i) {
+	    _areas[i].onclick = function() {
+	       alert(i);
+	    }
+    })(j);
+}
 
 // 扩展API加载完毕，现在可以正常调用扩展API
 function plusReady() {}
