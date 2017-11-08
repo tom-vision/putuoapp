@@ -27,6 +27,7 @@ function plusReady() {
 				articleId = _get('newsId');
 				this.getComments();
 			}
+
 		},
 		methods: {
 			changeLiked: function(i) {

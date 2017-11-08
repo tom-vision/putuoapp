@@ -21,7 +21,7 @@ function plusReady() {
 		el: '#topic-list',
 		data: {
 			topics: [],
-			bHaveMore: true
+			bHaveMore: false
 		},
 		methods: {
 			//跳转到文章详情
@@ -66,6 +66,16 @@ function plusReady() {
 			}
 		}
 	});
+	
+	//添加newId自定义事件监听
+	window.addEventListener('topicId', function(event) {
+		//获得事件参数
+		topicId = event.detail.id;
+		topicTitle.title = event.detail.title;
+		
+		topic.topics = [];
+		topic.getTopic();
+	})
 }
 
 // 判断扩展API是否准备，否则监听'plusready'事件
@@ -74,17 +84,3 @@ if(window.plus) {
 } else {
 	document.addEventListener('plusready', plusReady, false);
 }
-
-//添加newId自定义事件监听
-window.addEventListener('topicId', function(event) {
-	//获得事件参数
-	topicId = event.detail.id;
-	topicTitle.title = event.detail.title;
-	
-	//根据id向服务器请求专题详情
-	console.log("topicId=" + topicId);
-	console.log("topicTitle=" + topicTitle.title);
-	
-	topic.topics = [];
-	getTopic();
-})

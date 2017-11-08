@@ -64,7 +64,7 @@
 			<a class="load-more" @click="getCurrent" v-show="bHaveMore_current && interact_current.length != 0">点击加载更多</a>
 		</div>
 		
-		<div id="interactGraphic" class="news-graphic interact-graphic" v-show="show">
+		<div id="interactGraphic" class="news-graphic interact-graphic" v-show="show" v-cloak>
 			<header class="mui-bar mui-bar-nav">
 				<a class="mui-icon mui-icon-left-nav mui-pull-left" @click="close"></a>
 			</header>

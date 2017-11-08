@@ -26,7 +26,7 @@
 			</header>
 			<article>
 				<img src="../imgs/ad.jpg" width="100%" />
-				<video controls :poster="newsData.img" width="100%" :src="newsData.url" v-show="newsData.url!=''"></video>
+				<video controls :poster="newsData.img" width="100%" :src="newsData.url" v-show="newsData.url!=''" v-cloak></video>
 				<p v-text="newsData.content"></p>
 			</article>
 			<div class="like" :class="{ active : like }" @click="changeLike"><i class="iconfont icon-heart-copy"></i>{{likeNum}} 个人喜欢 </div>

@@ -6,8 +6,6 @@ mui.init({
 	}, ],
 });
 
-
-
 // 扩展API加载完毕，现在可以正常调用扩展API
 function plusReady() {
 	var myInteract = new Vue({
@@ -15,10 +13,9 @@ function plusReady() {
 		data: {
 			userInfo: _load(_get('userInfo')),
 			interacts: [],
-			bHaveMore: true
+			bHaveMore: false
 		},
 		methods: {
-	
 			getMyInteract: function() {
 				var self = this;
 	
@@ -31,7 +28,6 @@ function plusReady() {
 					cmd: "fetch",
 					sql: "select F.*, count(c.id) as commentNum from (select u.name, u.img as userImg, a.id, a.content, a.img, strftime('%Y-%m-%d %H:%M', a.logtime) as logtime, count(p.id) as zan from interact a left outer join User u on a.userId = u.id left outer join interact_praises p on p.interactId = a.id where a.ifValid =1 and a.id<? and a.userId = ? group by a.id order by a.id desc limit 5) F left outer join interactComments c on c.interactId = F.id group by F.id order by F.id desc",
 					vals: _dump([f, self.userInfo.id])
-	
 				}, function(d) {
 					if(!d.success || !d.data) {
 						self.bHaveMore = false;
@@ -45,20 +41,14 @@ function plusReady() {
 							r.imgs = arrImg;
 							self.interact_food.push(r);
 						});
-						console.log("我的互动");
 					}
-	
 				});
 			},
-	
 			openInteractDetail: function(i) {
-	
 				mui.fire(plus.webview.getWebviewById('interact-detail'), 'interactId', {
 					id: i.id
 				});
-	
 				openWindow('interact-detail.html', 'interact-detail');
-	
 			},
 			initMyInteract: function() {
 				var self = this;
@@ -70,22 +60,17 @@ function plusReady() {
 	
 				}, function(d) {
 					if(!d.success || !d.data) {
-	
 						return;
 					} else {
-	
 						d.data.forEach(function(r) {
 							var arrImg = r.img.split(';');
 							r.imgs = arrImg;
 							self.interacts.push(r);
 						});
-						console.log("我的互动");
 					}
-	
 				});
 			}
 		}
-	
 	})
 	
 	//添加newId自定义事件监听
