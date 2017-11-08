@@ -50,74 +50,7 @@
 								<li v-for="m, index in i.imgs" @click.stop="openGallery(i.imgs, index)">
 									<div :style="'background-image:url('+ m +')'"></div>
 								</li>
-<<<<<<< HEAD
-=======
-							</ul>
-						</div>
-						<div class="mu-footer">
-							<span><i class="iconfont icon-zan"></i> {{ i.zan}}</span>
-							<span><i class="iconfont icon-icon-test"></i> {{ i.commentNum}}</span>
-							<span><i class="iconfont icon-fenxiang"></i></span>
-						</div>
-					</div>
-				</div>
-				
-				<a class="load-more" @click="getLatest" v-show="bHaveMore_latest">点击加载更多</a>
-			</div>
-			<!--报料-->
-			<div class="interact-list index-tab-2">
-				<div class="mu-flex" v-for="i in interact_rebellion" @click="openInteractDetail(i)">
-					<img :src="i.userImg" class="mu-card-avatar" />
-					<div class="mu-card">
-						<div class="mu-card-header">
-							<div class="mu-card-title" v-text="i.name"></div>
-							<div class="mu-card-time" v-text="i.logtime"></div>
-						</div>
-						<div class="mu-card-text" v-text="i.content"></div>
-						<!-- 1 张图时使用 -->
-						<div class="mu-card-imgs mu-card-imgs-1" v-if="i.imgs.length==1">
-							<img :src="i.imgs[0]" />
-						</div>
-						<!-- 2 张图时使用 -->
-						<div class="mu-card-imgs" v-else="i.imgs.length>1">
-							<ul>
-								<li v-for="m, index in i.imgs" @click="openGallery(i.imgs, index)">
-									<div :style="'background-image:url('+ m +')'"></div>
-								</li>							
-							</ul>
-						</div>
-						<div class="mu-footer">
-							<span><i class="iconfont icon-zan"></i>{{ i.zan}}</span>
-							<span><i class="iconfont icon-icon-test"></i>{{ i.commentNum}}</span>
-							<span><i class="iconfont icon-fenxiang"></i></span>
-						</div>
-					</div>
-				</div>
-			
-				<a class="load-more" @click="getRebellion" v-show="bHaveMore_rebellion">点击加载更多</a>
-			</div>
-			<!--摄影-->
-			<div class="interact-list index-tab-3">
-				<div class="mu-flex" v-for="i in interact_photography" @click="openInteractDetail(i)">
-					<img :src="i.userImg" class="mu-card-avatar" />
-					<div class="mu-card">
-						<div class="mu-card-header">
-							<div class="mu-card-title" v-text="i.name"></div>
-							<div class="mu-card-time" v-text="i.logtime"></div>
-						</div>
-						<div class="mu-card-text" v-text="i.content"></div>
-						<!-- 1 张图时使用 -->
-						<div class="mu-card-imgs mu-card-imgs-1" v-if="i.imgs.length==1">
-							<img :src="i.imgs[0]" />
-						</div>
-						<!-- 2 张图时使用 -->
-						<div class="mu-card-imgs" v-else="i.imgs.length>1">
-							<ul>
-								<li v-for="m, index in i.imgs" @click="openGallery(i.imgs, index)">
-									<div :style="'background-image:url('+ m +')'"></div>
-								</li>
->>>>>>> eee3168fbc80d90466d1df33d5e0986c2b87d259
-								
+
 							</ul>
 						</div>
 						<div class="mu-footer">
