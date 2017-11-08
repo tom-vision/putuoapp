@@ -9,6 +9,7 @@
 		<link href="../plugins/mui.min.css" rel="stylesheet" />
 		<link rel="stylesheet" href="../plugins/iconfont.css" />
 		<link rel="stylesheet" href="../css/style.css" />
+		<link href="../plugins/swiper.min.css" rel="stylesheet" />
 		<script src="../plugins/jquery.min.js"></script>
 		<script src="../plugins/vue.min.js"></script>
 	</head>
@@ -24,10 +25,10 @@
 		<div id="interact">
 			<div class="sub-bar">
 				<ul>
-					<li id="1" @click="goLatest" class="active latest"><a>最新</a></li>
-					<li id="2" @click="goRebellion" class="rebellion"><a>报料</a></li>
-					<li id="3" @click="goPhotography" class="photography"><a>摄影</a></li>
-					<li id="4" @click="goFood" class="food"><a>美食</a></li>
+					<li @click="goLatest" class="latest" :class="currentIndex == 0 ? 'active' : ''"><a>最新</a></li>
+					<li @click="goRebellion" class="rebellion" :class="currentIndex == 1 ? 'active' : ''"><a>报料</a></li>
+					<li @click="goPhotography" class="photography" :class="currentIndex == 2 ? 'active' : ''"><a>摄影</a></li>
+					<li @click="goFood" class="food" :class="currentIndex == 3 ? 'active' : ''"><a>美食</a></li>
 				</ul>
 			</div>
 			<!--最新-->
@@ -41,38 +42,34 @@
 						</div>
 						<div class="mu-card-text" v-text="i.content"></div>
 						<!-- 1 张图时使用 -->
-						<div class="mu-card-imgs mu-card-imgs-1" v-if="i.imgs.length==1" @click.stop="openGallery(i.imgs, 0)">
-							<img :src="i.imgs[0]"/>
+						<div class="mu-card-imgs mu-card-imgs-1" v-if="i.imgs.length==1">
+							<img :src="i.imgs[0]" @click.stop="openGallery(i.imgs, 0)"/>
 						</div>
 						<!-- 2 张图时使用 -->
 						<div class="mu-card-imgs" v-else="i.imgs.length>1" >
 							<ul>
-								<li v-for="m, index in i.imgs" @click.stop="openGallery(i.imgs, index)">
-									<div :style="'background-image:url('+ m +')'"></div>
+								<li v-for="m, index in i.imgs">
+									<div :style="'background-image:url('+ m +')'" @click.stop="openGallery(i.imgs, index)"></div>
 								</li>
-
 							</ul>
 						</div>
 						<div class="mu-footer">
-							<span><i class="iconfont icon-zan"></i>{{ i.zan}}</span>
-							<span><i class="iconfont icon-icon-test"></i>{{ i.commentNum}}</span>
+							<span><i class="iconfont icon-zan"></i> {{ i.zan}}</span>
+							<span><i class="iconfont icon-icon-test"></i> {{ i.commentNum}}</span>
 							<span><i class="iconfont icon-fenxiang"></i></span>
 						</div>
 					</div>
 				</div>
-				
-				<a class="load-more" @click="getCurrent" v-show="bHaveMore_current && interact_current.length != 0">点击加载更多</a>
 			</div>
-			
-			
+			<a class="load-more" @click="getCurrent" v-show="bHaveMore_current && interact_current.length != 0">点击加载更多</a>
 		</div>
 		
 		<div id="interactGraphic" class="news-graphic interact-graphic" v-show="show">
 			<header class="mui-bar mui-bar-nav">
 				<a class="mui-icon mui-icon-left-nav mui-pull-left" @click="close"></a>
 			</header>
-			<div id="slider" class="mui-slider" >
-				<div class="swiper-container paper">
+			<div id="slider">
+				<div class="swiper-container">
 					<div class="swiper-wrapper">
 						<div class="swiper-slide"  v-for="i in imgs">
 							<img :src="i" width="100%"/>
@@ -85,5 +82,6 @@
 
 </html>
 <script src="../js/global.js"></script>
+<script src="../plugins/swiper.min.js"></script>
 <script src="../js/a_ref.js"></script>
 <script src="../js/interact.js"></script>

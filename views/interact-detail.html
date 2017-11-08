@@ -47,15 +47,15 @@
 								</li>
 							</ul>
 						</div>
-						<div class="mu-footer">
-							<span :class="{ active : like }"><i class="iconfont icon-zan" @click="clickZan"></i>{{zan}}</span>
-							<span><i class="iconfont icon-icon-test"></i>{{comments.length}}</span>
+						<div class="mu-footer" v-cloak>
+							<span :class="{ active : like }"><i class="iconfont icon-zan" @click="clickZan"></i> {{zan}}</span>
+							<span><i class="iconfont icon-icon-test"></i> {{comments.length}}</span>
 							<span><i class="iconfont icon-fenxiang"></i></span>
 						</div>
 					</div>
 				</div>
 				
-				<div class="cmt-list">
+				<div class="cmt-list" v-show="comments.length != 0">
 					<ul>
 						<li v-for="i in comments">
 							<img :src="i.userImg" class="mu-card-avatar"/>

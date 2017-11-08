@@ -20,12 +20,7 @@ function plusReady() {
 			bHaveMore: true
 		},
 		beforeCreate: function(){
-//			
-//			if(articleId == 0){
-//				this.getComments();
-//			}
 		},
-		
 		created: function() {
 			this.userInfo = _load(_get('userInfo'));
 			if(articleId == 0){
@@ -90,7 +85,6 @@ function plusReady() {
 				if(self.comments.length) {
 					f = _at(self.comments, -1).id;
 				}
-				console.log('f='+f);
 				_callAjax({
 					cmd: "fetch",
 					sql: "select c.id, c.content, strftime('%Y-%m-%d %H:%M', c.logtime) as logtime, count(p.id) as zan, u.name, u.img from comments c left outer join User u on c.userId = u.id left outer join comment_praises p on c.id=p.commentId where c.ifValid=1 and c.articleId = ? and c.id < ? group by c.id order by c.logtime desc limit 5",
@@ -101,7 +95,6 @@ function plusReady() {
 					} else {
 						d.data.forEach(function(r) {
 							r.liked = false;
-			
 							//已登录状况下获取个人对，每条评论的点赞情况
 							if(self.userInfo!= '') {
 								_callAjax({

@@ -1,3 +1,6 @@
+[v-cloak] {
+  display: none;
+}
 ul {
   margin: 0;
   padding: 0;
@@ -1280,12 +1283,28 @@ body {
   font-size: 20px;
   display: inline-block;
 }
+.interact-list .mu-flex .mu-card .mu-footer span i.icon-icon-test:before {
+  position: relative;
+  top: 3px;
+}
 .interact-graphic {
   background-color: #000;
   z-index: 11;
 }
 .interact-graphic header {
   background-color: rgba(0, 0, 0, 0);
+}
+.interact-graphic #slider {
+  height: 100%;
+}
+.interact-graphic #slider .swiper-container {
+  height: 100%;
+}
+.interact-graphic #slider .swiper-container .swiper-wrapper {
+  height: 100%;
+}
+.interact-graphic #slider .swiper-container .swiper-wrapper .swiper-slide {
+  height: 100%;
 }
 .no-scroll {
   overflow: hidden;
@@ -1303,25 +1322,27 @@ body {
   padding: 10px;
   display: flex;
 }
-.release-imgs div {
+.release-imgs img {
   width: 100px;
   height: 100px;
   display: inline-block;
   margin-right: 10px;
 }
-.release-imgs div.add-img {
+.release-imgs .add-img {
   border: 1px solid #999;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 100px;
   position: relative;
+  width: 100px;
+  height: 100px;
 }
-.release-imgs div.add-img i {
+.release-imgs .add-img i {
   color: #999;
   font-size: 60px;
 }
-.release-imgs div.add-img input {
+.release-imgs .add-img input {
   position: absolute;
   opacity: 0;
   left: 0;

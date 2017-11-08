@@ -1256,19 +1256,34 @@ body {
                     i {
                         font-size: 20px;
                         display: inline-block;
+                        &.icon-icon-test:before{
+                            position: relative;
+                            top: 3px;
+                        }
                     }
                 }
             }
         }
     }
 }
-
 .interact-graphic {
     header {
         background-color: rgba(0, 0, 0, 0);
     }
     background-color: #000;
     z-index: 11;
+    #slider {
+        height: 100%;
+        .swiper-container {
+            height: 100%;
+            .swiper-wrapper {
+                height: 100%;
+                .swiper-slide {
+                    height: 100%;
+                }
+            }
+        }
+    }
 }
 
 .no-scroll {
@@ -1288,30 +1303,32 @@ body {
 .release-imgs {
     padding: 10px;
     display: flex;
-    div {
+    img {
         width: 100px;
         height: 100px;
         display: inline-block;
         margin-right: 10px;
-        &.add-img {
-            border: 1px solid #999;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 100px;
-            position: relative;
-            i {
-                color: #999;
-                font-size: 60px;
-            }
-            input {
-                position: absolute;
-                opacity: 0;
-                left: 0;
-                right: 0;
-                top: 0;
-                bottom: 0;;
-            }
+    }
+    .add-img {
+        border: 1px solid #999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 100px;
+        position: relative;
+        width: 100px;
+        height: 100px;
+        i {
+            color: #999;
+            font-size: 60px;
+        }
+        input {
+            position: absolute;
+            opacity: 0;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;;
         }
     }
 }

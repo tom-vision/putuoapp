@@ -12,6 +12,17 @@ mui.init({
 // 扩展API加载完毕，现在可以正常调用扩展API
 function plusReady() {
 	pullToRefresh();
+	
+	// 相册显示时监听物理返回按键，若已经显示则优先关闭相册
+	var oldback = mui.back;
+	mui.back = function() {
+	    if(interactGraphic.show) {
+	    	interactGraphic.show = false;
+	    	$('body').removeClass('no-scroll');
+	    	return false;
+	    }
+	    oldback();
+	}
 
 	var interact = new Vue({
 		el: '#interact',
@@ -32,9 +43,11 @@ function plusReady() {
 			openGallery: function(imgs, index) {
 				interactGraphic.show = true;
 				interactGraphic.imgs = imgs;
-				interactGraphic.index = index;
 				$('body').addClass('no-scroll');
-				var swiper = new Swiper('.swiper-container')
+				setTimeout(function(){
+					var swiper = new Swiper('.swiper-container');
+					swiper.slideTo(index, 500, false);
+				}, 500)
 			},
 			openInteractDetail: function(i) {
 				mui.fire(plus.webview.getWebviewById('interact-detail'), 'interactId', {
@@ -42,43 +55,33 @@ function plusReady() {
 				});
 
 				openWindow('interact-detail.html', 'interact-detail');
-
 			},
 			//获取当前tab更多信息
 			getCurrent: function() {
 				var self = this;
-				console.log('currentIndex = ' + self.currentIndex);
 				switch(self.currentIndex) {
 					//最新
-					case 0:
-						{
-							self.getLatest();
-							break;
-						}
-						//报料
-					case 1:
-						{
-							self.getRebellion();
-							break;
-						}
-
-						//摄影
-					case 2:
-						{
-							self.getPhotography();
-							break;
-						}
-
-						//美食
-					case 3:
-						{
-							self.getFood();
-							break;
-						}
-
+					case 0:{
+						self.getLatest();
+						break;
+					}
+					//报料
+					case 1:{
+						self.getRebellion();
+						break;
+					}
+					//摄影
+					case 2:{
+						self.getPhotography();
+						break;
+					}
+					//美食
+					case 3:{
+						self.getFood();
+						break;
+					}
 				}
 			},
-
 			//获取最新互动信息
 			getLatest: function() {
 				var self = this;
@@ -91,9 +94,7 @@ function plusReady() {
 				_callAjax({
 					cmd: "fetch",
 					sql: "select F.*, count(c.id) as commentNum from (select u.name, u.img as userImg, a.id, a.content, a.img, strftime('%Y-%m-%d %H:%M', a.logtime) as logtime, count(p.id) as zan from interact a left outer join User u on a.userId = u.id left outer join interact_praises p on p.interactId = a.id where a.ifValid =1 and a.id<? group by a.id order by a.id desc limit 5) F left outer join interactComments c on c.interactId = F.id group by F.id order by F.id desc",
-
 					vals: _dump([f])
-
 				}, function(d) {
 					if(!d.success || !d.data) {
 						self.bHaveMore_latest = false;
@@ -107,7 +108,6 @@ function plusReady() {
 							self.interact_latest.push(r);
 						});
 					}
-
 					self.goLatest();
 				});
 			},
@@ -124,7 +124,6 @@ function plusReady() {
 					cmd: "fetch",
 					sql: "select F.*, count(c.id) as commentNum from (select u.name, u.img as userImg, a.id, a.content, a.img, strftime('%Y-%m-%d %H:%M', a.logtime) as logtime, count(p.id) as zan from interact a left outer join User u on a.userId = u.id left outer join interact_praises p on p.interactId = a.id where a.ifValid =1 and a.id<? and a.linkerId = ? group by a.id order by a.id desc limit 5) F left outer join interactComments c on c.interactId = F.id group by F.id order by F.id desc",
 					vals: _dump([f, linkerId.rebellion])
-
 				}, function(d) {
 					if(!d.success || !d.data) {
 						self.bHaveMore_rebellion = false;
@@ -140,7 +139,6 @@ function plusReady() {
 					}
 					self.goRebellion();
 				});
-
 			},
 			//获取摄影信息
 			getPhotography: function() {
@@ -155,7 +153,6 @@ function plusReady() {
 					cmd: "fetch",
 					sql: "select F.*, count(c.id) as commentNum from (select u.name, u.img as userImg, a.id, a.content, a.img, strftime('%Y-%m-%d %H:%M', a.logtime) as logtime, count(p.id) as zan from interact a left outer join User u on a.userId = u.id left outer join interact_praises p on p.interactId = a.id where a.ifValid =1 and a.id<? and a.linkerId = ? group by a.id order by a.id desc limit 5) F left outer join interactComments c on c.interactId = F.id group by F.id order by F.id desc",
 					vals: _dump([f, linkerId.photography])
-
 				}, function(d) {
 					if(!d.success || !d.data) {
 						self.bHaveMore_photography = false;
@@ -169,16 +166,13 @@ function plusReady() {
 							self.interact_photography.push(r);
 						});
 					}
-					console.log('bHaveMore_photography=' + self.bHaveMore_photography);
 					self.goPhotography();
 				});
 			},
-
 			//获取美食信息
 			getFood: function() {
 				var self = this;
 
-				console.log('9999');
 				var f = 10e5;
 				if(self.interact_food.length) {
 					f = _at(self.interact_food, -1).id;
@@ -187,11 +181,8 @@ function plusReady() {
 				_callAjax({
 					cmd: "fetch",
 					sql: "select F.*, count(c.id) as commentNum from (select u.name, u.img as userImg, a.id, a.content, a.img, strftime('%Y-%m-%d %H:%M', a.logtime) as logtime, count(p.id) as zan from interact a left outer join User u on a.userId = u.id left outer join interact_praises p on p.interactId = a.id where a.ifValid =1 and a.id<? and a.linkerId = ? group by a.id order by a.id desc limit 5) F left outer join interactComments c on c.interactId = F.id group by F.id order by F.id desc",
-
 					vals: _dump([f, linkerId.food])
-
 				}, function(d) {
-					console.log('77777');
 					if(!d.success || !d.data) {
 						self.bHaveMore_food = false;
 						mui.toast("没有更多数据了");
@@ -204,49 +195,45 @@ function plusReady() {
 							self.interact_food.push(r);
 						});
 					}
-					console.log('666');
-					console.log('bHaveMore_food=' + self.bHaveMore_food);
 					self.goFood();
 				});
 			},
-
 			//tab切换
 			goLatest: function() {
-				changeIndexTab($('.latest'));
 				var self = this;
 				self.interact_current = self.interact_latest;
 				self.bHaveMore_current = self.bHaveMore_latest;
 				self.currentIndex = 0;
 			},
 			goRebellion: function() {
-				changeIndexTab($('.rebellion'));
 				var self = this;
 				self.interact_current = self.interact_rebellion;
 				self.bHaveMore_current = self.bHaveMore_rebellion;
 				self.currentIndex = 1;
 			},
 			goPhotography: function() {
-				changeIndexTab($('.photography'));
 				var self = this;
 				self.interact_current = self.interact_photography;
 				self.bHaveMore_current = self.bHaveMore_photography;
 				self.currentIndex = 2;
 			},
 			goFood: function() {
-				changeIndexTab($('.food'));
 				var self = this;
 				self.interact_current = self.interact_food;
 				self.bHaveMore_current = self.bHaveMore_food;
-				console.log('bHaveMore_current=' + self.bHaveMore_current);
 				self.currentIndex = 3;
 			},
+		},
+		watch: {
+			currentIndex: function() {
+				$('body').animate({scrollTop:0},500)
+			}
 		},
 		mounted: function() {
 			var self = this;
 
 			//获取最新互动信息
 			self.getLatest();
-
 			//获取报料信息
 			self.getRebellion();
 			//获取摄影信息
@@ -256,12 +243,7 @@ function plusReady() {
 
 			setTimeout(function() {
 				self.goLatest();
-
 			}, 1500);
-
-			//初始化显示最新
-			//		$('.interact-list').hide();
-			//		$('.index-tab-1').show();
 		}
 	})
 
@@ -278,11 +260,6 @@ function plusReady() {
 				$('body').removeClass('no-scroll');
 			}
 		},
-		created: function() {
-			var self = this;
-
-			mui('.mui-slider').slider().gotoItem(self.index);
-		}
 	})
 
 	$('.icon-xiangji').on('click', function() {
@@ -294,7 +271,7 @@ function plusReady() {
 			title: "美食"
 		}];
 		plus.nativeUI.actionSheet({
-			title: "动态类型",
+			title: "发布到",
 			cancel: "取消",
 			buttons: btnArray
 		}, function(e) {
@@ -317,7 +294,6 @@ function plusReady() {
 					type = linkerId.food;
 					break;
 			}
-
 			if(index != 0) {
 				mui.fire(plus.webview.getWebviewById('release'), 'releaseType', {
 					type: type
@@ -331,7 +307,6 @@ function plusReady() {
 	var changeIndexTab = function(self) {
 		self.addClass('active').siblings().removeClass('active');
 	}
-
 }
 
 // 判断扩展API是否准备，否则监听'plusready'事件
