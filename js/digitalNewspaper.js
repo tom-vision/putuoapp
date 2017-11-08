@@ -19,13 +19,27 @@ var menu = new Vue({
 	},
 	created: function() {
 		var self = this;
-		var d = new Date();
-		var mouth = d.getMonth() + 1;
-		this.date = d.getFullYear() + '-' + mouth + '-' + d.getDate();
-		self.getpartTwo()
+		this.date = self.getNowFormatDate();
+		self.getpartTwo();
 		self.getpartThree();
 	},
 	methods: {
+		getNowFormatDate: function(){
+			var self = this;
+			var date = new Date();
+    		var seperator1 = "-";
+    		var year = date.getFullYear();
+    		var month = date.getMonth() + 1;
+    		var strDate = date.getDate();
+    		if (month >= 1 && month <= 9) {
+        		month = "0" + month;
+   			}
+    		if (strDate >= 0 && strDate <= 9) {
+        		strDate = "0" + strDate;
+    		}
+    		var currentdate = year + seperator1 + month + seperator1 + strDate;
+    		return currentdate;
+		},
 		closeMenu: function() {
 			this.show = false;
 		},
@@ -49,7 +63,7 @@ var menu = new Vue({
 			var self = this;
 			_callAjax({
 				cmd:'fetch',
-				sql:'select class from Dad where time = ?',
+				sql:'select class from Dad where date = ?',
 				vals:_dump([self.date,])
 			},function(d){
 				if(d.success&&d.data){
@@ -68,7 +82,7 @@ var menu = new Vue({
 			var self = this;
 			_callAjax({
 				cmd:'fetch',
-				sql:'select title,id from Son where time = ? and page = ?',
+				sql:'select title,id from Son where date = ? and page = ?',
 				vals:_dump([self.date,"1",])
 			},function(d){
 				if(d.success&&d.data){
@@ -77,7 +91,7 @@ var menu = new Vue({
 			});
 			_callAjax({
 				cmd:'fetch',
-				sql:'select title,id from Son where time = ? and page = ?',
+				sql:'select title,id from Son where date = ? and page = ?',
 				vals:_dump([self.date,"2"])
 			},function(d){
 				if(d.success&&d.data){
@@ -86,7 +100,7 @@ var menu = new Vue({
 			});
 			_callAjax({
 				cmd:'fetch',
-				sql:'select title,id from Son where time = ? and page = ?',
+				sql:'select title,id from Son where date = ? and page = ?',
 				vals:_dump([self.date,"3"])
 			},function(d){
 				if(d.success&&d.data){
@@ -95,7 +109,7 @@ var menu = new Vue({
 			});
 			_callAjax({
 				cmd:'fetch',
-				sql:'select title,id from Son where time = ? and page = ?',
+				sql:'select title,id from Son where date = ? and page = ?',
 				vals:_dump([self.date,"4"])
 			},function(d){
 				if(d.success&&d.data){
@@ -141,15 +155,14 @@ var pic = new Vue({
 			var today = '';
 			_callAjax({
 				cmd:'fetch',
-				sql:'select time from Son where date = ?',
+				sql:'select div from Dad where date = ?',
 				vals:_dump([menu.date,])
 			},function(d){
 				if(d.data&&d.success){
-					today = d.data[0].time;
-					self.Pic_one = "<img src=\"http://jrpt.zjol.com.cn/resfile/" + today + "/01/Page_b.jpg\" border=\"0\" usemap=\"#PagePicMap\" height=\"100%\">";
-					self.Pic_two = "<img src=\"http://jrpt.zjol.com.cn/resfile/" + today + "/02/Page_b.jpg\" border=\"0\" usemap=\"#PagePicMap\" height=\"100%\">";
-					self.Pic_three = "<img src=\"http://jrpt.zjol.com.cn/resfile/" + today + "/03/Page_b.jpg\" border=\"0\" usemap=\"#PagePicMap\" height=\"100%\">";
-					self.Pic_four = "<img src=\"http://jrpt.zjol.com.cn/resfile/" + today + "/04/Page_b.jpg\" border=\"0\" usemap=\"#PagePicMap\" height=\"100%\">";
+					self.Pic_one = d.data[0].div;
+					self.Pic_two = d.data[1].div;
+					self.Pic_three = d.data[2].div;
+					self.Pic_four= d.data[3].div;
 					var swiper = new Swiper('.swiper-container', {
 						onSlideChangeEnd: function(swiper) {
 							if(swiper.activeIndex == 0){
@@ -164,7 +177,7 @@ var pic = new Vue({
 						}
 					});				
 				}else{
-//					mui.toast("没有今日的报纸信息！");
+					mui.toast("没有今日的报纸信息！");
 				}
 			});
 		},
@@ -183,20 +196,34 @@ var tab = new Vue({
 		Catalog_class3: '',
 	},
 	created: function() {
-		var self = this;
-		var d = new Date();
-		var mouth = d.getMonth() + 1;
-		this.date = d.getFullYear() + '-' + mouth + '-' + d.getDate();
+		var self = this; 
+		this.date = self.getNowFormatDate();
 		self.getweek();
 		self.getpageTitle();
 	},
 	methods: {
+		getNowFormatDate: function(){
+			var self = this;
+			var date = new Date();
+    		var seperator1 = "-";
+    		var year = date.getFullYear();
+    		var month = date.getMonth() + 1;
+    		var strDate = date.getDate();
+    		if (month >= 1 && month <= 9) {
+        		month = "0" + month;
+   			}
+    		if (strDate >= 0 && strDate <= 9) {
+        		strDate = "0" + strDate;
+    		}
+    		var currentdate = year + seperator1 + month + seperator1 + strDate;
+    		return currentdate;
+		},
 		morePage: function() {
 			var picker = new mui.PopPicker();
 			var self = this;
 			_callAjax({
 				cmd: 'fetch',
-				sql: 'select class from Dad where time = ?',
+				sql: 'select class from Dad where date = ?',
 				vals: _dump([self.date, ])
 			},function(d) {
 				if(d.success && d.data) {
@@ -257,7 +284,7 @@ var tab = new Vue({
 			var self = this;
 			_callAjax({
 				cmd: 'fetch',
-				sql: 'select class from Dad where time = ?',
+				sql: 'select class from Dad where date = ?',
 				vals: _dump([self.date, ])
 			},function(d){
 				if(d.success&&d.data){
@@ -314,68 +341,71 @@ var tab = new Vue({
 					 */
 					_callAjax({
 						cmd: 'fetch',
-						sql: 'select week from Son where time = ? limit 1',
-						vals: _dump([rs.text, ])
-					},function(d){
-						if(d.data&&d.success){
-							tab.week = d.data[0].week;
-						}
-					});
-					_callAjax({
-						cmd: 'fetch',
-						sql: 'select class from Dad where time = ?',
+						sql: 'select class,div from Dad where date = ?',
 						vals: _dump([rs.text, ])
 					},function(d){
 						if(d.data&&d.success){
 							tab.date = rs.text;
+							var arys1 = new Array();
+   							arys1 = rs.text.split('-');
+  							var ssdate = new Date(arys1[0], parseInt(arys1[1] - 1), arys1[2]);
+  							var week1=String(ssdate.getDay()).replace("0","日").replace("1","一").replace("2","二").replace("3","三").replace("4","四").replace("5","五").replace("6","六");//就是你要的星期几
+   							tab.week = "星期"+week1;
 							var str1 = d.data[0].class;
+							var str2 = d.data[1].class;
+							var str3 = d.data[2].class;
+							var str4 = d.data[3].class;
 							tab.pageTitle = str1.split("：")[1];
 							menu.Catalog_class0 = d.data[0].class;
 							menu.Catalog_class1 = d.data[1].class;
 							menu.Catalog_class2 = d.data[2].class;
 							menu.Catalog_class3 = d.data[3].class;
-							pic.Pic_one = "<img src=\"http://jrpt.zjol.com.cn/resfile/" + rs.text + "/01/Page_b.jpg\" border=\"0\" usemap=\"#PagePicMap\">";
-							pic.Pic_two = "<img src=\"http://jrpt.zjol.com.cn/resfile/" + rs.text + "/02/Page_b.jpg\" border=\"0\" usemap=\"#PagePicMap\">";
-							pic.Pic_three = "<img src=\"http://jrpt.zjol.com.cn/resfile/" + rs.text + "/03/Page_b.jpg\" border=\"0\" usemap=\"#PagePicMap\">";
-							pic.Pic_four = "<img src=\"http://jrpt.zjol.com.cn/resfile/" + rs.text + "/04/Page_b.jpg\" border=\"0\" usemap=\"#PagePicMap\">";
+							oneclass = d.data[0].class;
+							twoclass = d.data[1].class;
+							threeclass = d.data[2].class;
+							fourclass = d.data[3].class;
+							pic.Pic_one = d.data[0].div;
+							pic.Pic_two = d.data[1].div;
+							pic.Pic_three = d.data[2].div;
+							pic.Pic_four = d.data[3].div;
 							var swiper = new Swiper('.swiper-container', {
 								onSlideChangeEnd: function(swiper) {
 								}
 							});	
 							_callAjax({
 								cmd: 'fetch',
-								sql: 'select title,id from Son where time = ? and page = ?',
+								sql: 'select title,id from Son where date = ? and page = ?',
 								vals: _dump([rs.text, "1", ])
 							},function(d){
 								if(d.data&&d.success){
-									menu.Catalog_items0 = d.data
+									menu.Catalog_items0 = d.data;
 								}
 							});
 							_callAjax({
 								cmd: 'fetch',
-								sql: 'select title,id from Son where time = ? and page = ?',
+								sql: 'select title,id from Son where date = ? and page = ?',
 								vals: _dump([rs.text, "2", ])
 							},function(d){
 								if(d.data&&d.success){
-									menu.Catalog_items1 = d.data
+									menu.Catalog_items1 = d.data;
 								}
 							});
 							_callAjax({
 								cmd: 'fetch',
-								sql: 'select title,id from Son where time = ? and page = ?',
+								sql: 'select title,id from Son where date = ? and page = ?',
 								vals: _dump([rs.text, "3", ])
 							},function(d){
 								if(d.data&&d.success){
-									menu.Catalog_items2 = d.data
+									menu.Catalog_items2 = d.data;
 								}
 							});
 							_callAjax({
 								cmd: 'fetch',
-								sql: 'select title,id from Son where time = ? and page = ?',
+								sql: 'select title,id from Son where date = ? and page = ?',
 								vals: _dump([rs.text, "4", ])
 							},function(d){
 								if(d.data&&d.success){
-									menu.Catalog_items3 = d.data
+									menu.Catalog_items3 = d.data;
 								}
 							});
 						}else{
@@ -398,6 +428,10 @@ var tab = new Vue({
 			}
 		}
 	}
+})
+
+$('area').on('click', function(){
+	console.log(1)
 })
 
 // 扩展API加载完毕，现在可以正常调用扩展API
