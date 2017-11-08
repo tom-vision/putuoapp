@@ -1,21 +1,14 @@
-var iframe = new Vue({
-	el: '#iframe',
-	data: {
-	},
-	created: function() {
-		window.addEventListener('getInfo', function(d) {
-			$('.mui-title').text(d.detail.title);
-			$('.full-iframe').attr('src', d.detail.url);
-		})
-	},
-	methods: {
+mui.init({
+	beforeback: function() {
+		$('.full-iframe').attr('src', '');
+		$('.mui-title').text('');
 	}
 })
 
-//mui.back = function(){
-//	console.log("back");
-//	window.history.go(-1);
-//}
+window.addEventListener('getInfo', function(d) {
+	$('.mui-title').text(d.detail.title);
+	$('.full-iframe').attr('src', d.detail.url);
+})
 
 // 扩展API加载完毕，现在可以正常调用扩展API
 function plusReady() {
@@ -27,4 +20,3 @@ if(window.plus) {
 } else {
 	document.addEventListener('plusready', plusReady, false);
 }
-

@@ -54,7 +54,9 @@ function plusReady() {
 					id: i.id
 				});
 
-				openWindow('interact-detail.html', 'interact-detail');
+				setTimeout(function(){
+					openWindow('interact-detail.html', 'interact-detail');
+				},200)
 			},
 			//获取当前tab更多信息
 			getCurrent: function() {

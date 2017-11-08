@@ -65,7 +65,9 @@ var changeIndexTab = function(el, self) {
 
 //跳转至搜索页
 $('.go-search').on('click', function() {
-	openWindow('views/search.html', 'search');
+	setTimeout(function(){
+		openWindow('views/search.html', 'search');
+	},200)
 })
 
 //跳转至首页tab
@@ -80,7 +82,9 @@ $('.go-news').on('click', function() {
 
 //跳转至互动
 $('.go-interact').on('click', function() {
-	openWindow('views/interact.html', 'interact');
+	setTimeout(function(){
+		openWindow('views/interact.html', 'interact');
+	},200)
 })
 
 //跳转至个人中心
@@ -118,7 +122,9 @@ function plusReady() {
 		methods: {
 			//跳转到专题分类页面
 			goTopic: function() {
-				openWindow('views/topic.html', 'topic');
+				setTimeout(function(){
+					openWindow('views/topic.html', 'topic');
+				},200)
 			},
 			goNews: function(i) {
 				changeTab('news', $('.go-news'));
@@ -136,7 +142,9 @@ function plusReady() {
 				
 				_set('newsId',i.id);
 				
-				openWindow('views/newsDetail.html', 'newsDetail');
+				setTimeout(function(){
+					openWindow('views/newsDetail.html', 'newsDetail');
+				},200)
 			},
 			goLife: function() {
 				changeIndexTab('index-tab-3', $('.go-life'));
@@ -155,7 +163,9 @@ function plusReady() {
 				});
 				_set('newsId',i.id);
 
-				openWindow('views/newsGraphic.html', 'newsGraphic');
+				setTimeout(function(){
+					openWindow('views/newsGraphic.html', 'newsGraphic');
+				},200)
 			},
 			goHotNews: function() {
 				changeIndexTab('index-tab-1', $('.go-hotnews'));
@@ -196,14 +206,11 @@ function plusReady() {
 					f = _at(self.videoNews, -1).id;
 				}
 				
-				plus.nativeUI.toast( "加载中...");
-				
 				_callAjax({
 					cmd: "fetch",
 					sql: "select * from articles where ifValid =1 and id<? and linkerId = ? order by id desc limit 5",
 					vals: _dump([f, linkerId.videoNews])
 				}, function(d) {
-					plus.nativeUI.closeToast();
 					if(!d.success || !d.data) {
 						self.bHaveMore_headvideo = false;
 						mui.toast("没有更多数据了");
@@ -223,12 +230,13 @@ function plusReady() {
 			//跳转到服务链接
 			gotoService: function(s) {
 				var self = this;
-	
-				openWindow('views/iframe.html', 'iframe');
 				mui.fire(plus.webview.getWebviewById('iframe'), 'getInfo', {
 					title: s.name,
 					url: s.url
 				})
+				setTimeout(function(){
+					openWindow('views/iframe.html', 'iframe');
+				}, 200)
 			}
 		},
 	
@@ -384,7 +392,9 @@ function plusReady() {
 				mui.fire(detailPage, 'newsId', {
 				});
 				_set('newsId', i.id);
-				openWindow('views/newsDetail.html', 'newsDetail');
+				setTimeout(function(){
+					openWindow('views/newsDetail.html', 'newsDetail');
+				},200)
 			},
 			goNewsGraphic: function(i) {
 				var detailPage = null;
@@ -396,7 +406,9 @@ function plusReady() {
 				mui.fire(detailPage, 'newsId', {
 				});
 				_set('newsId', i.id);
-				openWindow('views/newsGraphic.html', 'newsGraphic');
+				setTimeout(function(){
+					openWindow('views/newsGraphic.html', 'newsGraphic');
+				},200)
 			},
 			//获取即时新闻
 			getInstantNews: function() {
@@ -406,14 +418,12 @@ function plusReady() {
 				if(self.instantNews.length) {
 					f = _at(self.instantNews, -1).id;
 				}
-				plus.nativeUI.toast( "加载中...");
 				//获取即时新闻
 				_callAjax({
 					cmd: "fetch",
 					sql: "select * from articles where ifValid =1 and id<? and linkerId = ? order by id desc limit 10",
 					vals: _dump([f, linkerId.instantNews])
 				}, function(d) {
-					plus.nativeUI.closeToast();
 					if(!d.success || !d.data) {
 						self.bHaveMore_instant = false;
 						mui.toast("没有更多数据了");
@@ -437,7 +447,6 @@ function plusReady() {
 				if(self.putuoNews.length) {
 					f = _at(self.putuoNews, -1).id;
 				}
-				plus.nativeUI.toast( "加载中...");
 	
 				//获取普陀新闻
 				_callAjax({
@@ -446,7 +455,6 @@ function plusReady() {
 					vals: _dump([f, linkerId.putuoNews])
 	
 				}, function(d) {
-					plus.nativeUI.closeToast();
 					if(!d.success || !d.data) {
 						self.bHaveMore_putuo = false;
 						mui.toast("没有更多数据了");
@@ -471,7 +479,6 @@ function plusReady() {
 				if(self.videoNews.length) {
 					f = _at(self.videoNews, -1).id;
 				}
-				plus.nativeUI.toast( "加载中...");
 	
 				_callAjax({
 					cmd: "fetch",
@@ -479,7 +486,6 @@ function plusReady() {
 					vals: _dump([f, linkerId.videoNews])
 	
 				}, function(d) {
-					plus.nativeUI.closeToast();
 					if(!d.success || !d.data) {
 						self.bHaveMore_video = false;
 						mui.toast("没有更多数据了");
@@ -517,11 +523,13 @@ function plusReady() {
 //		},
 		methods: {
 			goSuggest: function(i) {
-				openWindow('views/iframe.html', 'iframe');
 				mui.fire(plus.webview.getWebviewById('iframe'), 'getInfo', {
 					title: '意见反馈',
 					url: 'http://www.baidu.com/'
 				})
+				setTimeout(function(){
+					openWindow('views/iframe.html', 'iframe');
+				},200)
 			},
 			goLogin: function() {
 				// 判断是否已登录
@@ -536,7 +544,9 @@ function plusReady() {
 				}
 				mui.fire(detailPage, 'zan', {});
 				
-				openWindow('views/zan.html', 'zan');
+				setTimeout(function(){
+					openWindow('views/zan.html', 'zan');
+				},200)
 			},
 			goCmt: function() {
 				if(!this.isLogin) return mui.toast("请先登录");
@@ -546,7 +556,9 @@ function plusReady() {
 				}
 				mui.fire(detailPage, 'cmt', {});
 
-				openWindow('views/cmt.html', 'cmt');
+				setTimeout(function(){
+					openWindow('views/cmt.html', 'cmt');
+				},200)
 			},
 			goMyInteract: function() {
 				if(!this.isLogin) return mui.toast("请先登录");
@@ -556,7 +568,9 @@ function plusReady() {
 				}
 				mui.fire(detailPage, 'myInteract', {});
 				
-				openWindow('views/myInteract.html', 'myInteract');
+				setTimeout(function(){
+					openWindow('views/myInteract.html', 'myInteract');
+				},200)
 			},
 			logout: function() {
 				var self = this;
@@ -594,11 +608,4 @@ function plusReady() {
 			}
 		}
 	})
-	
-	window.addEventListener("splashclosed", function() {
-//		mui.toast("Application splashclosed!");
-//		ucenter.userInfo = _load(_get('userInfo'));
-//		mui.toast( plus.storage.getItem('userInfo'));
-		
-	}, false);
 }
