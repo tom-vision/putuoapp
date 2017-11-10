@@ -30,7 +30,6 @@ function plusReady() {
 	
 				if(userInfo != null) {
 					self.like = !self.like;
-					
 					//喜欢
 					if(self.like) {
 						_callAjax({
@@ -54,17 +53,12 @@ function plusReady() {
 							}
 						});
 					}
-	
 				}else{
 					mui.toast("请先在个人中心登录");
 				}
 			},
 			shareSystem: function() {
-				plus.share.sendWithSystem({content:'分享内容',href:'http://www.dcloud.io/'}, function(){
-					console.log('分享成功');
-				}, function(e){
-					console.log('分享失败：'+JSON.stringify(e));
-				});
+				
 			}
 		},
 	})
@@ -83,8 +77,7 @@ function plusReady() {
 					detailPage = plus.webview.getWebviewById('comment');
 				}
 				//触发评论页面的newsId事件
-				mui.fire(detailPage, 'newsId', {
-				});
+				mui.fire(detailPage, 'newsId', {});
 				openWindow('comment.html', 'comment');
 			}
 		}
@@ -93,16 +86,16 @@ function plusReady() {
 	//添加newId自定义事件监听
 	window.addEventListener('newsId', function(event) {
 		//获得事件参数
-//		articleId = event.detail.id;
 		articleId = _get('newsId');
 		//根据id向服务器请求新闻详情
 		userInfo = _load(_get('userInfo'));
 		
 		_callAjax({
 			cmd: "fetch",
-			sql: "select * from articles where id = " + articleId
+			sql: "select id, title, content, img, url, linkerId, reporter  from articles where ifValid = 1 and id = " + articleId
 		}, function(d) {
 			if(d.success && d.data) {
+				console.log(JSON.stringify(d))
 				newsDetail.newsData = d.data[0];
 			}
 		});
@@ -124,7 +117,6 @@ function plusReady() {
 				sql: "select * from article_praises where articleId = " + articleId + " and userId = " + userInfo.id
 			}, function(d) {
 				if(d.success && d.data) {
-	
 					newsDetail.like = true;
 				}else{
 					newsDetail.like = false;

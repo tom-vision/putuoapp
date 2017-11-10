@@ -51,7 +51,7 @@ function plusReady() {
 				setTimeout(function(){
 					var swiper = new Swiper('.swiper-container');
 					swiper.slideTo(index, 500, false);
-				}, 500)
+				}, 800)
 			},
 			//获取互动详情
 			getDetail:function(){

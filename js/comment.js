@@ -19,15 +19,11 @@ function plusReady() {
 			userInfo: '',
 			bHaveMore: true
 		},
-		beforeCreate: function(){
-		},
 		created: function() {
-			this.userInfo = _load(_get('userInfo'));
 			if(articleId == 0){
 				articleId = _get('newsId');
 				this.getComments();
 			}
-
 		},
 		methods: {
 			changeLiked: function(i) {
@@ -97,7 +93,7 @@ function plusReady() {
 						d.data.forEach(function(r) {
 							r.liked = false;
 							//已登录状况下获取个人对，每条评论的点赞情况
-							if(self.userInfo!= '') {
+							if(self.userInfo!= null) {
 								_callAjax({
 									cmd: "fetch",
 									sql: "select * from comment_praises where userId=? and commentId = ? ",
@@ -121,7 +117,7 @@ function plusReady() {
 	window.addEventListener('newsId', function(event) {
 		//获得事件参数
 		articleId = _get('newsId');
-		console.log(articleId);
+		comment.userInfo = _load(_get('userInfo'));
 		comment.getComments();
 	})
 }

@@ -36,7 +36,9 @@ function plusReady() {
 					id: i.id
 				});
 	
-				openWindow('views/newsDetail.html', 'newsDetail');
+				setTimeout(function(){
+					openWindow('views/newsDetail.html', 'newsDetail');
+				},200)
 			},
 			getTopic: function() {
 				var f = 10e5;
@@ -50,7 +52,6 @@ function plusReady() {
 					vals: _dump([topicId, f])
 				}, function(d) {
 					if(!d.success || !d.data) {
-						
 						topic.bHaveMore = false;
 						mui.toast("没有更多数据了");
 						return;
@@ -61,21 +62,17 @@ function plusReady() {
 							topic.topics.push(r);
 						})
 					}
-					
 				});
 			}
-		}
+		},
 	});
 	
-	//添加newId自定义事件监听
-	window.addEventListener('topicId', function(event) {
-		//获得事件参数
-		topicId = event.detail.id;
-		topicTitle.title = event.detail.title;
-		
-		topic.topics = [];
-		topic.getTopic();
-	})
+	var web = plus.webview.currentWebview();
+	topicTitle.title = web.title;
+	topicId = web.i;
+	
+	topic.topics = [];
+	topic.getTopic();
 }
 
 // 判断扩展API是否准备，否则监听'plusready'事件

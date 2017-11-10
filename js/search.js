@@ -20,7 +20,6 @@ function plusReady() {
 						mui.toast("抱歉，没有找到相关新闻");
 					}else{
 						self.searchResult = d.data;
-						console.log(self.searchResult)
 					}
 				});
 			},
@@ -35,7 +34,9 @@ function plusReady() {
 					id: i.id
 				});
 			
-				openWindow('views/newsDetail.html', 'newsDetail');
+				setTimeout(function(){
+					openWindow('views/newsDetail.html', 'newsDetail');
+				}, 200)
 			}
 		}
 	});

@@ -37,7 +37,7 @@
 						<!-- 2 张图时使用 -->
 						<div class="mu-card-imgs" v-else="i.imgs.length>1">
 							<ul>
-								<li v-for="m, index in i.imgs" @click="openGallery(i.imgs, index)">
+								<li v-for="m, index in i.imgs">
 									<div :style="'background-image:url('+ m +')'"></div>
 								</li>
 				
