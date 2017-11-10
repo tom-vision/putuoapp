@@ -60,28 +60,28 @@
 				<h1 class="mui-title">目录</h1>
 			</header>
 			<dl class="have-header">
-				<dt v-text="Catalog_class0"></dt>
+				<dt v-text="menu_class1"></dt>
 				<dd>
 					<ul>
-						<li v-for="Catalog_item0 in Catalog_items0" v-text="Catalog_item0.title" @click="openDetail(Catalog_item0)"></li>
+						<li v-for="menu_item0 in menu_items0" v-text="menu_item0.title" @click="openDetail(menu_item0)"></li>
 					</ul>
 				</dd>
-				<dt v-text="Catalog_class1"></dt>
+				<dt v-text="menu_class2"></dt>
 				<dd>
 					<ul>
-						<li v-for="Catalog_item1 in Catalog_items1" v-text="Catalog_item1.title" @click="openDetail(Catalog_item1)"></li>
+						<li v-for="menu_item1 in menu_items1" v-text="menu_item1.title" @click="openDetail(menu_item1)"></li>
 					</ul>
 				</dd>
-				<dt v-text="Catalog_class2"></dt>
+				<dt v-text="menu_class3"></dt>
 				<dd>
 					<ul>
-						<li v-for="Catalog_item2 in Catalog_items2" v-text="Catalog_item2.title" @click="openDetail(Catalog_item2)"></li>
+						<li v-for="menu_item2 in menu_items2" v-text="menu_item2.title" @click="openDetail(menu_item2)"></li>
 					</ul>
 				</dd>
-				<dt v-text="Catalog_class3"></dt>
+				<dt v-text="menu_class4"></dt>
 				<dd>
 					<ul>
-						<li v-for="Catalog_item3 in Catalog_items3" v-text="Catalog_item3.title" @click="openDetail(Catalog_item3)"></li>
+						<li v-for="menu_item3 in menu_items3" v-text="menu_item3.title" @click="openDetail(menu_item3)"></li>
 					</ul>
 				</dd>
 				
@@ -91,12 +91,12 @@
 		<div class="popup digitalNewspaper-detail-popup" v-show="show">
 			<header class="mui-bar mui-bar-nav">
 				<a class="mui-icon mui-icon-left-nav mui-pull-left" @click="closeDetail"></a>
-				<h1 class="mui-title" v-text="article_class"></h1>
+				<h1 class="mui-title" v-text="detail_class"></h1>
 			</header>
 			<div class="content have-header">
-				<h1 v-text="article_begintitle"></h1>
-				<h2 v-text="article_title"></h2>
-				<article v-html="article_message"></article>
+				<h1 v-text="detail_begintitle"></h1>
+				<h2 v-text="detail_title"></h2>
+				<article v-html="detail_message"></article>
 			<div>
 		</div>
 	</body>

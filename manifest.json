@@ -350,7 +350,9 @@
 					"js/newsGraphic.js",
 					"js/a_ref.js",
 					"plugins/jquery.min.js",
-					"plugins/vue.min.js"
+					"plugins/vue.min.js",
+					"plugins/swiper.min.css",
+					"plugins/swiper.min.js"
 				],
 				"refer": [
 					"views/comment.html"
@@ -464,7 +466,8 @@
 					"css/style.css",
 					"js/global.js",
 					"plugins/mui.min.css",
-					"plugins/iconfont.css"
+					"plugins/iconfont.css",
+					"js/zan.js"
 				],
 				"refer": [],
 				"priority": 0
@@ -478,16 +481,39 @@
 			},
 			"views/cmt.html": {
 				"resources": [
-					"fonts/mui.ttf"
+					"fonts/mui.ttf",
+					"js/cmt.js"
 				],
 				"refer": [],
 				"priority": 0
 			},
 			"views/myInteract.html": {
-				"resources": [],
+				"resources": [
+					"js/myInteract.js"
+				],
 				"refer": [
 					"views/interact-detail.html"
 				],
+				"priority": 0
+			},
+			"views/digitalNewspaper.html": {
+				"resources": [
+					"js/digitalNewspaper.js",
+					"plugins/mui.picker.min.css",
+					"plugins/mui.picker.min.js",
+					"js/a_ref.js",
+					"plugins/swiper.min.js",
+					"plugins/jquery.min.js",
+					"plugins/mui.min.js",
+					"js/global.js",
+					"plugins/mui.min.css",
+					"plugins/vue.min.js",
+					"css/style.css",
+					"plugins/iconfont.css",
+					"plugins/swiper.min.css",
+					"fonts/mui.ttf"
+				],
+				"refer": [],
 				"priority": 0
 			}
 		},
