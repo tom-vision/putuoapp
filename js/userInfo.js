@@ -1,5 +1,11 @@
 // 扩展API加载完毕，现在可以正常调用扩展API
 function plusReady() {
+	mui.init({
+		beforeback: function() {
+			userInfo.userInfo = ''
+		}
+	})
+	
 	var nav = new Vue({
 		el: '#nav',
 		data: {},
@@ -31,7 +37,7 @@ function plusReady() {
 	var userInfo = new Vue({
 		el: '#userInfo',
 		data: {
-			userInfo: _load(_get('userInfo')),
+			userInfo: '',
 		},
 		methods: {
 			changeName: function() {
@@ -45,7 +51,6 @@ function plusReady() {
 						console.log(self.userInfo.name);
 					}
 				}, 'div');
-
 			},
 			addImg: function(evt) {
 				// 上传
@@ -53,12 +58,15 @@ function plusReady() {
 				uploadImage(evt, function(r) {
 					self.userInfo.img = serverAddr + '/pic/head/' + r.thumb;
 				});
-				
 			}
 		},
 		mounted: function() {
 			var self = this;
 		}
+	})
+	
+	window.addEventListener('getInfo', function(event) {
+		userInfo.userInfo = _load(_get('userInfo'))
 	})
 }
 

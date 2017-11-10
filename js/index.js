@@ -513,10 +513,6 @@ function plusReady() {
 			userInfo: '',
 			isLogin: false,
 		},
-//		beforeCreate: function() {
-//			this.userInfo = _load(_get('userInfo'));
-//			
-//		},
 		methods: {
 			goSuggest: function(i) {
 				mui.fire(plus.webview.getWebviewById('iframe'), 'getInfo', {
@@ -530,7 +526,10 @@ function plusReady() {
 			goLogin: function() {
 				// 判断是否已登录
 				if(!this.isLogin) return openWindow('views/login.html', 'login');
-				openWindow('views/userInfo.html', 'userInfo');
+				mui.fire(plus.webview.getWebviewById('userInfo'), 'getInfo', {})
+				setTimeout(function(){
+					openWindow('views/userInfo.html', 'userInfo');
+				},200)
 			},
 			goZan: function() {
 				if(!this.isLogin) return mui.toast("请先登录");

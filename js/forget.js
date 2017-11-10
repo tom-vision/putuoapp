@@ -19,7 +19,7 @@ function plusReady() {
 	forgetPswd = new Vue({
 		el: '#forget',
 		data: {
-			phone: userInfo.phone,
+			phone: '',
 			captcha: '',
 			password: '',
 			captcha_session: '',
