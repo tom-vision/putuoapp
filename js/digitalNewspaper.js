@@ -25,7 +25,6 @@ var menu = new Vue({
 	created: function() {
 		var self = this;
 		this.date = self.getNowFormatDate();
-
 		self.getpartTwo();
 		self.getpartThree();
 	},
@@ -505,6 +504,11 @@ function plusReady() {
 	mui.back = function() {
 	    if(detail.show) {
 	    	detail.show = false;
+	    	$('body').removeClass('no-scroll');
+	    	return false;
+	    }
+	    if(menu.show){
+	    	menu.show = false;
 	    	$('body').removeClass('no-scroll');
 	    	return false;
 	    }
