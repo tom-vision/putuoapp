@@ -57,8 +57,8 @@ function plusReady() {
 					mui.toast("请先在个人中心登录");
 				}
 			},
-			shareSystem: function() {
-				
+			shareSystem: function(e) {
+				share(e)
 			}
 		},
 	})

@@ -47,11 +47,6 @@ $('.go-ucenter').on('click', function() {
 	changeTab('ucenter', $(this))
 })
 
-// banner滚动时更换标题
-document.querySelector('.mui-slider').addEventListener('slide', function(event) {
-	index.activeSlideText = index.scrollNews[event.detail.slideNumber].title;
-})
-
 // 扩展API加载完毕，现在可以正常调用扩展API 
 function plusReady() {
 	pullToRefresh();
@@ -67,9 +62,6 @@ function plusReady() {
 		}, {
 			url: 'views/digitalNewspaper.html',
 			id: 'digitalNewsPaper'
-		}, {
-			url: 'views/iframe.html',
-			id: 'iframe'
 		}, {
 			url: 'views/login.html',
 			id: 'login'
@@ -227,13 +219,15 @@ function plusReady() {
 			//跳转到服务链接
 			gotoService: function(s) {
 				var self = this;
-				mui.fire(plus.webview.getWebviewById('iframe'), 'getInfo', {
-					title: s.name,
-					url: s.url
+				
+				mui.openWindow({
+					url: 'views/iframe.html',
+					id: 'iframe',
+					extras: {
+						title: s.name,
+						url: s.url
+					},
 				})
-				setTimeout(function(){
-					openWindow('views/iframe.html', 'iframe');
-				}, 200)
 			}
 		},
 	
@@ -277,15 +271,15 @@ function plusReady() {
 					},
 					{
 						key: "headNews",
-						sql: "select * from articles where ifValid =1 and linkerId = " + linkerId.headNews + " order by id desc limit 2"
+						sql: "select * from articles where ifValid =1 and linkerId = " + linkerId.headNews + " order by id desc limit 1"
 					},
 					{
 						key: "instantNews",
-						sql: "select * from articles where ifValid =1 and linkerId = " + linkerId.instantNews + " order by id desc limit 10"
+						sql: "select * from articles where ifValid =1 and linkerId = " + linkerId.instantNews + " order by id desc limit 5"
 					},
 					{
 						key: "putuoNews",
-						sql: "select * from articles where ifValid =1 and linkerId = " + linkerId.putuoNews + " order by id desc limit 10"
+						sql: "select * from articles where ifValid =1 and linkerId = " + linkerId.putuoNews + " order by id desc limit 5"
 					},
 					{
 						key: "videoNews",
@@ -294,14 +288,21 @@ function plusReady() {
 				])
 			}, function(d) {
 				if(d.success && d.data && d.data.scrollNews) {
-					d.data.scrollNews.forEach(function(r) {
+					d.data.scrollNews.forEach(function(r, i) {
 						var arrImg = r.img.split(',');
 						r.imgs = arrImg;
 						self.scrollNews.push(r);
 					});
 	
 					self.activeSlideText = self.scrollNews[0].title;
-	
+					setTimeout(function(){
+						var swiper = new Swiper('.index-swiper', {
+							pagination: '.swiper-pagination',
+							onSlideChangeEnd: function(swiper){
+						      	self.activeSlideText = self.scrollNews[swiper.activeIndex].title
+							}
+						});
+					}, 500)
 				}
 				if(d.success && d.data && d.data.headNews) {
 					d.data.headNews.forEach(function(r) {
@@ -309,7 +310,6 @@ function plusReady() {
 						r.imgs = arrImg;
 						self.headNews.push(r);
 					});
-	
 				}
 				if(d.success && d.data && d.data.instantNews) {
 					d.data.instantNews.forEach(function(r) {
@@ -317,7 +317,6 @@ function plusReady() {
 						r.imgs = arrImg;
 						self.instantNews.push(r);
 					});
-	
 				}
 				if(d.success && d.data && d.data.putuoNews) {
 					d.data.putuoNews.forEach(function(r) {
@@ -515,13 +514,14 @@ function plusReady() {
 		},
 		methods: {
 			goSuggest: function(i) {
-				mui.fire(plus.webview.getWebviewById('iframe'), 'getInfo', {
-					title: '意见反馈',
-					url: 'http://www.baidu.com/'
+				mui.openWindow({
+					url: 'views/iframe.html',
+					id: 'iframe',
+					extras: {
+						title: '意见反馈',
+						url: 'http://www.baidu.com/'
+					},
 				})
-				setTimeout(function(){
-					openWindow('views/iframe.html', 'iframe');
-				},200)
 			},
 			goLogin: function() {
 				// 判断是否已登录

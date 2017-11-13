@@ -24,9 +24,6 @@ ul {
 .mui-bar button.mui-btn {
   color: #fff;
 }
-.mui-slider {
-  height: 150px;
-}
 .mui-slider-text {
   position: absolute;
   left: 0;
@@ -46,10 +43,6 @@ ul {
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
-}
-.mui-slider-indicator {
-  right: 20px;
-  text-align: right;
 }
 .mui-table-view .mui-media-object {
   height: 80px;

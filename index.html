@@ -60,33 +60,15 @@
 
 			<div class="index-tab index-tab-1">
 				<!-- 滚动图 -->
-				<div id="slider" class="mui-slider">
-					<div class="mui-slider-group mui-slider-loop">
-						<div class="mui-slider-item mui-slider-item-duplicate">
-							<a @click="gotoDetail(scrollNews.slice(-1))">
-								<img :src="scrollNews.slice(-1).img">
-							</a>
-						</div>
-						<div class="mui-slider-item" v-for="i in scrollNews">
-							<a @click="gotoDetail(i)">
-								<img :src="i.imgs[0]">
-							</a>
-						</div>
-
-						<div class="mui-slider-item mui-slider-item-duplicate">
-							<a @click="gotoDetail(scrollNews.slice(1,2))">
-								<img :src="scrollNews.slice(1,2).img">
-							</a>
+				<div class="swiper-container index-swiper">
+					<div class="swiper-wrapper">
+						<div class="swiper-slide" v-for="i in scrollNews">
+							<img :src="i.imgs[0]" width="100%">
 						</div>
 					</div>
+					<div class="swiper-pagination"></div>
 					<div class="mui-slider-text">
 						<p v-text="activeSlideText"></p>
-					</div>
-					<div class="mui-slider-indicator">
-						<a v-for="i in scrollNews.length">
-							<div class="mui-indicator mui-active" v-if="i==1"></div>
-							<div class="mui-indicator" v-else></div>
-						</a>
 					</div>
 				</div>
 
@@ -133,6 +115,10 @@
 							</a>
 						</li>
 					</ul>
+				</div>
+				
+				<div class="ad">
+					<a href="#"><img src="imgs/ad.jpg" width="100%" /></a>
 				</div>
 
 				<div class="video-list news-list">
@@ -308,5 +294,6 @@
 
 </html>
 <script src="js/global.js"></script>
+<script src="plugins/swiper.min.js"></script>
 <script src="js/a_ref.js"></script>
 <script src="js/index.js"></script>

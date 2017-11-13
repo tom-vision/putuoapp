@@ -25,7 +25,6 @@
 				<p v-text="newsData.reporter"></p>
 			</header>
 			<article>
-				<img src="../imgs/ad.jpg" width="100%" />
 				<video controls :poster="newsData.img" width="100%" :src="newsData.url" v-show="newsData.url!=''"></video>
 				<p v-text="newsData.content"></p>                 
 			</article>
@@ -33,11 +32,13 @@
 			<div class="share">
 				<div class="line"></div>
 				<div class="share-item">
-					<i class="iconfont icon-weixin" @click="shareSystem"></i>
-					<i class="iconfont icon-pengyouquan" @click="shareSystem"></i>
+					<i class="iconfont icon-weixin" @click="shareSystem('WXSceneSession')"></i>
+					<i class="iconfont icon-pengyouquan" @click="shareSystem('WXSceneTimeline')"></i>
 				</div>
 			</div>
 		</div>
+		
+		<img src="../imgs/ad.jpg" width="100%" class="inner-ad"/>
 
 		<div id="comment" class="have-footer">
 			<div class="comment-list" v-show="comments.length != 0">

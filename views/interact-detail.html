@@ -38,7 +38,7 @@
 						<div class="mu-card-text" v-text="interactDetail.content"></div>
 						<!-- 1 张图时使用 -->
 						<div class="mu-card-imgs mu-card-imgs-1" v-if="interactDetail.imgs.length==1">
-							<img :src="interactDetail.imgs[0]" @click.stop="openGallery(interactDetail.imgs, 0)"/>
+							<img :src="interactDetail.imgs[0]" @click.stop="openGallery(interactDetail.imgs, 0)" width="100%"/>
 						</div>
 						<!-- 2 张图时使用 -->
 						<div class="mu-card-imgs" v-else="interactDetail.imgs.length>1">

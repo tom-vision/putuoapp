@@ -1,9 +1,9 @@
 {
 	"@platforms": ["android", "iPhone", "iPad"],
 	"id": "com.xinlan.PTtele",/*应用的标识，创建应用时自动生成，勿手动修改*/
-	"name": "普陀电视台",/*应用名称，程序桌面图标名称*/
+	"name": "掌上普陀",/*应用名称，程序桌面图标名称*/
 	"version": {
-		"name": "0.0.6",/*应用版本名称*/
+		"name": "0.0.7",/*应用版本名称*/
 		"code": "83"
 	},
 	"description": "",/*应用描述信息*/
@@ -91,7 +91,16 @@
         },
         "NativeObj":{
         	"description": "原生对象"
-        },"Geolocation":{}
+        },"Geolocation":{},
+        "Share": {
+        	"description": "管理社交分享插件",
+        	"tencent": {
+        		"appkey": "wxa62e4a36b31871b2",
+        		"appsecret": "b7136c3325ed4ade94a7e1068b7b4d38",
+        		"redirect_uri": "http://www.baidu.com/",
+        		"description": "我正在使用掌上普陀一起来加入吧"
+        	}
+        }
 	},
 	"plus": {
 		"splashscreen": {
