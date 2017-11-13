@@ -170,7 +170,6 @@ var pic = new Vue({
 					self.Pic_three = d.data[2].div;
 					self.Pic_four = d.data[3].div;
 				} else {
-					mui.toast("没有今日的报纸信息！");
 				}
 			});
 		},

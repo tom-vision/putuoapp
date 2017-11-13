@@ -109,7 +109,7 @@ body {
   left: 0;
   right: 0;
   top: 44px;
-  z-index: 2;
+  z-index: 3;
 }
 .sub-bar ul {
   display: flex;
@@ -1176,6 +1176,14 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+.userinfo-list li input {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  opacity: 0;
 }
 .userinfo-list li span {
   color: #666;

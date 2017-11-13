@@ -14,14 +14,14 @@ var topic = new Vue({
 	methods: {
 		//跳转到某个具体专题节目列表
 		gotoTopicList: function(i) {
-			
-			//触发详情页面的newsId事件
-			mui.fire(plus.webview.getWebviewById('topic-list'), 'topicId', {
-				id: i.id,
-				title: i.name
-			});
-			
-			openWindow('views/topic-list.html', 'topic-list');
+			mui.openWindow({
+				url: 'views/topic-list.html',
+				id: 'topicList',
+				extras: {
+					i: i.id,
+					title: i.name
+				}
+			})
 		}
 	},
 	mounted: function() {
@@ -34,7 +34,6 @@ var topic = new Vue({
 
 		}, function(d) {
 			if(d.success && d.data) {
-
 				self.topicNews = d.data;
 			}
 		});

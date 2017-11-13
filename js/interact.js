@@ -47,7 +47,7 @@ function plusReady() {
 				setTimeout(function(){
 					var swiper = new Swiper('.swiper-container');
 					swiper.slideTo(index, 500, false);
-				}, 500)
+				}, 800)
 			},
 			openInteractDetail: function(i) {
 				mui.fire(plus.webview.getWebviewById('interact-detail'), 'interactId', {

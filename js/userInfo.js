@@ -1,5 +1,11 @@
 // 扩展API加载完毕，现在可以正常调用扩展API
 function plusReady() {
+	mui.init({
+		beforeback: function() {
+			userInfo.userInfo = ''
+		}
+	})
+	
 	var nav = new Vue({
 		el: '#nav',
 		data: {},
@@ -31,7 +37,7 @@ function plusReady() {
 	var userInfo = new Vue({
 		el: '#userInfo',
 		data: {
-			userInfo: _load(_get('userInfo')),
+			userInfo: '',
 		},
 		methods: {
 			changeName: function() {
@@ -45,94 +51,42 @@ function plusReady() {
 						console.log(self.userInfo.name);
 					}
 				}, 'div');
-
 			},
-			changeAvatar: function() {
+			addImg: function(evt) {
+				// 上传
 				var self = this;
-				
-				plus.gallery.pick(function(a) {
-					plus.io.resolveLocalFileSystemURL(a, function(entry) {
-						plus.io.resolveLocalFileSystemURL("_doc/", function(root) {
-							root.getFile("bg.png", {}, function(file) {
-								//文件已存在
-								file.remove(function() {
-									entry.copyTo(root, 'bg.png', function(e) {
-											var e = e.fullPath + "?version=" + new Date().getTime();
-											uploadHead(e); //上传图片
-											self.userInfo.img = e;
-										},
-										function(e) {
-											console.log('copy image file:' + e.message);
-										});
-								}, function() {
-									console.log('delete image file:' + e.message);
-								});
-							}, function() {
-								//文件不存在
-								entry.copyTo(root, 'bg.png', function(e) {
-									var path = e.fullPath + "?version=" + new Date().getTime();
-									uploadHead(path);
-									self.userInfo.img = e;
-								}, function(e) {
-									console.log('copy image fail:' + e.message);
-								});
-							});
-						}, function(e) {
-							console.log("get _www folder fail");
-						})
-					}, function(e) {
-						console.log("读取拍照文件错误：" + e.message);
-					});
-				}, function(a) {}, {
-					filter: "image"
-				})
+				uploadImage(evt, function(r) {
+					self.userInfo.img = serverAddr + '/pic/head/' + r.thumb;
+				});
 			}
 		},
 		mounted: function() {
 			var self = this;
 		}
 	})
+	
+	window.addEventListener('getInfo', function(event) {
+		userInfo.userInfo = _load(_get('userInfo'))
+	})
 }
 
-//上传头像图片
-
-function uploadHead(imgPath) {
-	console.log("imgPath =" + imgPath);
-	var mainImage = document.getElementById("titleimg");
-	mainImage.src = imgPath;
-	mainImage.style.width = "64px";
-	mainImage.style.height = "64px";
-	var image = new Image();
-	image.src = imgPath;
-	image.onload = function() {
-		var imgData = getBase64Image(image);
-	}
-}
-
-//将图片压缩成base64
-
-function getBase64Image(img) {
-	var canvas = document.createElement("canvas");
-	var width = img.width;
-	var height = img.height;
-	if(width > height) {
-		if(width > 100) {
-			height = Math.round(height *= 100 / width);
-			width = 100;
+function uploadImage(evt, cb) {
+	// 文件上传的文件夹
+	var folderName = 'head';
+	var arr = [{
+		key: 'kkkk',
+		width: 200
+	}];
+	// 上传图片
+	_uploadMulityImageVueChange(folderName, evt.target.files, arr, serverAddr + '/multiupload', function(ret) {
+		if(null !== ret && ret.length > 0) {
+			ret.forEach(function(r) {
+				cb(r);
+			});
 		}
-	} else {
-		if(height > 100) {
-			width = Math.round(width *= 100 / height);
-			height = 100;
-		}
-	}
-	canvas.width = width;
-	canvas.height = height;
-	var ctx = canvas.getContext("2d");
-	ctx.drawImage(img, 0, 0, width, height);
-	var dataURL = canvas.toDataURL("image/png", 0.8);
-	return dataURL.replace("data:image/png;base64,", "");
+	});
 }
+
 
 // 判断扩展API是否准备，否则监听'plusready'事件
 if(window.plus) {

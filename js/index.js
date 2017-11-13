@@ -1,47 +1,3 @@
-//预加载页面
-mui.init({
-	preloadPages: [{
-		url: 'views/search.html',
-		id: 'search',
-	}, {
-		url: 'views/topic.html',
-		id: 'topic'
-	}, {
-		url: 'views/topic-list.html',
-		id: 'topicList'
-	}, {
-		url: 'views/newsDetail.html',
-		id: 'newsDetail'
-	}, {
-		url: 'views/newsGraphic.html',
-		id: 'newsGraphic'
-	}, {
-		url: 'views/digitalNewspaper.html',
-		id: 'digitalNewsPaper'
-	}, {
-		url: 'views/iframe.html',
-		id: 'iframe'
-	}, {
-		url: 'views/login.html',
-		id: 'login'
-	}, {
-		url: 'views/userInfo.html',
-		id: 'userInfo'
-	}, {
-		url: 'views/interact.html',
-		id: 'interact'
-	}, {
-		url: 'views/zan.html',
-		id: 'zan'
-	}, {
-		url: 'views/cmt.html',
-		id: 'cmt'
-	}, {
-		url: 'views/myInteract.html',
-		id: 'myInteract'
-	}],
-});
-
 // 判断扩展API是否准备，否则监听'plusready'事件
 if(window.plus) {
 	plusReady();
@@ -49,7 +5,6 @@ if(window.plus) {
 	document.addEventListener('plusready', plusReady, false);
 	
 }
-
 
 var changeTab = function(el, self) {
 	$('.main').hide();
@@ -101,6 +56,56 @@ document.querySelector('.mui-slider').addEventListener('slide', function(event) 
 function plusReady() {
 	pullToRefresh();
 	
+	//预加载页面
+	mui.init({
+		preloadPages: [{
+			url: 'views/newsDetail.html',
+			id: 'newsDetail'
+		}, {
+			url: 'views/newsGraphic.html',
+			id: 'newsGraphic'
+		}, {
+			url: 'views/digitalNewspaper.html',
+			id: 'digitalNewsPaper'
+		}, {
+			url: 'views/iframe.html',
+			id: 'iframe'
+		}, {
+			url: 'views/login.html',
+			id: 'login'
+		}, {
+			url: 'views/userInfo.html',
+			id: 'userInfo'
+		}, {
+			url: 'views/interact.html',
+			id: 'interact'
+		}, {
+			url: 'views/zan.html',
+			id: 'zan'
+		}, {
+			url: 'views/cmt.html',
+			id: 'cmt'
+		}, {
+			url: 'views/myInteract.html',
+			id: 'myInteract'
+		}],
+	});
+	
+	var topicPage = mui.preload({
+	    url: 'views/topic.html',
+	    id: 'topic',
+	});
+	
+	var searchPage = mui.preload({
+	    url: 'views/search.html',
+	    id: 'search',
+	});
+	
+	var topicListPage = mui.preload({
+	    url: 'views/topic-list.html',
+	    id: 'topicList',
+	});
+	
 	var index = new Vue({
 		el: '#index',
 		data: {
@@ -122,9 +127,7 @@ function plusReady() {
 		methods: {
 			//跳转到专题分类页面
 			goTopic: function() {
-				setTimeout(function(){
-					openWindow('views/topic.html', 'topic');
-				},200)
+				openWindow('views/topic.html', 'topic');
 			},
 			goNews: function(i) {
 				changeTab('news', $('.go-news'));
@@ -182,21 +185,15 @@ function plusReady() {
 			},
 			//跳转到某个具体专题节目列表
 			gotoTopicList: function(i) {
-				var detailPage = null;
-				//获得主题页面
-				if(!detailPage) {
-					detailPage = plus.webview.getWebviewById('topicList');
-					console.log(detailPage)
-				}
-				//触发详情页面的newsId事件
-				mui.fire(detailPage, 'topicId', {
-					id: i.id,
-					title: i.name
-				});
-	
-				openWindow('views/topic-list.html', 'topicList');
+				mui.openWindow({
+					url: 'views/topic-list.html',
+					id: 'topicList',
+					extras: {
+						i: i.id,
+						title: i.name
+					},
+				})
 			},
-	
 			//顶部tab加载更多视频
 			getVideoNews: function() {
 				var self = this;
@@ -265,7 +262,6 @@ function plusReady() {
 							if(d.success && d.data) {
 								dicService.service = d.data;
 								self.services.push(dicService);
-								console.log(_dump(self.services))
 							}
 						});
 					});
@@ -517,10 +513,6 @@ function plusReady() {
 			userInfo: '',
 			isLogin: false,
 		},
-//		beforeCreate: function() {
-//			this.userInfo = _load(_get('userInfo'));
-//			
-//		},
 		methods: {
 			goSuggest: function(i) {
 				mui.fire(plus.webview.getWebviewById('iframe'), 'getInfo', {
@@ -534,7 +526,10 @@ function plusReady() {
 			goLogin: function() {
 				// 判断是否已登录
 				if(!this.isLogin) return openWindow('views/login.html', 'login');
-				openWindow('views/userInfo.html', 'userInfo');
+				mui.fire(plus.webview.getWebviewById('userInfo'), 'getInfo', {})
+				setTimeout(function(){
+					openWindow('views/userInfo.html', 'userInfo');
+				},200)
 			},
 			goZan: function() {
 				if(!this.isLogin) return mui.toast("请先登录");
