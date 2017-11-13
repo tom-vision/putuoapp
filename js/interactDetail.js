@@ -186,6 +186,9 @@ function plusReady() {
 					});
 				}
 				
+			},
+			shareSystem: function(e) {
+				share(e)
 			}
 		},
 		watch: {
@@ -224,7 +227,7 @@ function plusReady() {
 		interactDetail.getZan();
 		
 		//本人是否点赞
-		if(userInfo.id != null) {
+		if(userInfo != null) {
 			_callAjax({
 				cmd: "fetch",
 				sql: "select * from interact_praises where interactId = " + event.detail.id + " and userId = " + userInfo.id

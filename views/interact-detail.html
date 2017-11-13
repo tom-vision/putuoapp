@@ -38,7 +38,7 @@
 						<div class="mu-card-text" v-text="interactDetail.content"></div>
 						<!-- 1 张图时使用 -->
 						<div class="mu-card-imgs mu-card-imgs-1" v-if="interactDetail.imgs.length==1">
-							<img :src="interactDetail.imgs[0]" @click.stop="openGallery(interactDetail.imgs, 0)" width="100%"/>
+							<img :src="interactDetail.imgs[0]" @click.stop="openGallery(interactDetail.imgs, 0)"/>
 						</div>
 						<!-- 2 张图时使用 -->
 						<div class="mu-card-imgs" v-else="interactDetail.imgs.length>1">
@@ -51,7 +51,7 @@
 						<div class="mu-footer" v-cloak>
 							<span :class="{ active : like }"><i class="iconfont icon-zan" @click="clickZan"></i> {{zan}}</span>
 							<span><i class="iconfont icon-icon-test"></i> {{comments.length}}</span>
-							<span><i class="iconfont icon-fenxiang"></i></span>
+							<span @click="shareSystem('WXSceneSession')"><i class="iconfont icon-fenxiang"></i></span>
 						</div>
 					</div>
 				</div>

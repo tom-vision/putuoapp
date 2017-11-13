@@ -23,6 +23,10 @@ function plusReady() {
 	    }
 	    oldback();
 	}
+	
+	window.addEventListener('releaseBack', function(event) {
+		location.reload();
+	})
 
 	var interact = new Vue({
 		el: '#interact',

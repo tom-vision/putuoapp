@@ -36,13 +36,12 @@ var openWindow = function(u, i, s) {
 }
 
 var share = function(ext) {
-	console.log(ext)
 	plus.share.getServices(function(shares) {
 		shares.forEach(function(s) {
 			if(s.id == 'weixin' && s.authenticated) {
 				s.send(	{
-					thumbs: '../img/ad.jpg',
-					pictures: '../img/ad.jpg',
+					thumbs: ['../imgs/logo.png'],
+					pictures: ['../imgs/logo.png'],
 					title: '掌上普陀',
 					content:'我正在使用掌上普陀你也一起来加入吧',
 					href: 'http://ptnews.zjol.com.cn/',

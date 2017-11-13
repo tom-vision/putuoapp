@@ -70,6 +70,7 @@ function plusReady() {
 						release.content = '';
 						
 						setTimeout(function() {
+							mui.fire(plus.webview.getWebviewById('interact'), 'releaseBack');
 							mui.back();
 						}, 500);
 					}
