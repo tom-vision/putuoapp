@@ -25,6 +25,7 @@ var menu = new Vue({
 	created: function() {
 		var self = this;
 		this.date = self.getNowFormatDate();
+
 		self.getpartTwo();
 		self.getpartThree();
 	},
@@ -168,46 +169,6 @@ var pic = new Vue({
 					self.Pic_two = d.data[1].div;
 					self.Pic_three = d.data[2].div;
 					self.Pic_four = d.data[3].div;
-					//					setTimeout(function() {
-					//						var _areas = document.getElementsByTagName('area');
-					//						for(j = 0; j < _areas.length; j++) {
-					//							(function(i) {
-					//								_areas[i].onclick = function() {
-					//									detail.show = true;
-					//									var page = swiper.activeIndex + 1;
-					//									_callAjax({
-					//										cmd: 'fetch',
-					//										sql: 'select beginTit,class,title,text from Son where date = ? and page = ? and piece = ? ',
-					//										vals: _dump([pic.date, page, i, ])
-					//									}, function(d) {
-					//										if(d.data && d.success) {
-					//											detail.detail_class = d.data[0].class;
-					//											detail.detail_begintitle = d.data[0].beginTit;
-					//											detail.detail_title = d.data[0].title;
-					//											detail.detail_message = d.data[0].text;
-					//										}
-					//									});
-					//								}
-					//							})(j);
-					//						}
-					//					}, 1000);
-					//					var swiper = new Swiper('.swiper-container', {
-					//						onSlideChangeEnd: function(swiper) {
-					//							if(swiper.activeIndex == 0) {
-					//								tab.pageTitle = oneclass.split("：")[1];
-					//								alert("1111111111111111111");
-					//							} else if(swiper.activeIndex == 1) {
-					//								tab.pageTitle = twoclass.split("：")[1];
-					//								alert("2222222222222222222");
-					//							} else if(swiper.activeIndex == 2) {
-					//								tab.pageTitle = threeclass.split("：")[1];
-					//								alert("3333333333333333333");
-					//							} else {
-					//								tab.pageTitle = fourclass.split("：")[1];
-					//								alert("4444444444444444444");
-					//							}
-					//						}
-					//					});
 				} else {
 					mui.toast("没有今日的报纸信息！");
 				}
@@ -238,7 +199,7 @@ var tab = new Vue({
 		pageTitle: '',
 		date: '',
 		week: '',
-		tab_class:'',
+		tab_class: '',
 	},
 	created: function() {
 		var self = this;
@@ -285,13 +246,13 @@ var tab = new Vue({
 				var title = text.split('：')[1];
 				var value = item.value;
 				self.pageTitle = title;
-				if(item.value == '0'){
+				if(item.value == '0') {
 					activepage = 1;
-				}else if(item.value == '1'){
+				} else if(item.value == '1') {
 					activepage = 2;
-				}else if(item.value == '2'){
+				} else if(item.value == '2') {
 					activepage = 3;
-				}else{
+				} else {
 					activepage = 4;
 				}
 				var swiper = new Swiper('.swiper-container', {
@@ -501,7 +462,7 @@ setTimeout(function() {
 			_areas[i].onclick = function() {
 				detail.show = true;
 				var piece = parseInt(_areas[i].getAttribute('data-id'));
-				var page = activepage ;
+				var page = activepage;
 				_callAjax({
 					cmd: 'fetch',
 					sql: 'select beginTit,class,title,text from Son where date = ? and page = ? and piece = ? ',
@@ -534,12 +495,23 @@ var swiper = new Swiper('.swiper-container', {
 			tab.pageTitle = fourclass.split("：")[1];
 			activepage = 4;
 		}
-		
+
 	}
 });
 
 // 扩展API加载完毕，现在可以正常调用扩展API
-function plusReady() {}
+function plusReady() {
+	// 报纸返回
+	var oldback = mui.back;
+	mui.back = function() {
+	    if(detail.show) {
+	    	detail.show = false;
+	    	$('body').removeClass('no-scroll');
+	    	return false;
+	    }
+	    oldback();
+	}
+}
 
 // 判断扩展API是否准备，否则监听'plusready'事件
 if(window.plus) {
