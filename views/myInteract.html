@@ -28,6 +28,7 @@
 						<div class="mu-card-header">
 							<div class="mu-card-title" v-text="i.name"></div>
 							<div class="mu-card-time" v-text="i.logtime"></div>
+							<i class="iconfont icon-jiantou3"></i>
 						</div>
 						<div class="mu-card-text" v-text="i.content"></div>
 						<!-- 1 张图时使用 -->
@@ -40,7 +41,6 @@
 								<li v-for="m, index in i.imgs">
 									<div :style="'background-image:url('+ m +')'"></div>
 								</li>
-				
 							</ul>
 						</div>
 						<div class="mu-footer">
@@ -50,13 +50,10 @@
 						</div>
 					</div>
 				</div>
-				
 				<a class="load-more" @click="getMyInteract" v-show="bHaveMore">点击加载更多</a>
 			</div>
-		
 		</div>
 	</body>
-
 </html>
 <script src="../js/global.js"></script>
 <script src="../js/a_ref.js"></script>

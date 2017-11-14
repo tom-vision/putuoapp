@@ -28,8 +28,8 @@
 						<img :src="i.img" class="mu-card-avatar"/>
 						<div class="cmt-info">
 							<header>
-								<h1 v-text="i.name"> <span>赞了你的评论</span></h1>
-								<time>5分钟前</time>
+								<h1>{{i.name}}<span>赞了你的评论</span></h1>
+								<time>{{i.logtime}}</time>
 							</header>
 							<p v-text="i.content"></p>
 						</div>

@@ -28,7 +28,7 @@
 						<img :src="i.UserImg" class="mu-card-avatar"/>
 						<div class="cmt-info">
 							<header>
-								<h1 v-text="i.name"><span>评论了你的互动</span></h1>
+								<h1>{{i.name}}<span>评论了你的互动</span></h1>
 								<time v-text="i.logtime"></time>
 							</header>
 							<p v-text="i.content"></p>
