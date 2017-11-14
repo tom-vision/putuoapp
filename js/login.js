@@ -30,7 +30,6 @@ function plusReady() {
 			login: function() {
 				var self = this;
 	
-				console.log(self.password);
 				if('' == self.phone.trim() || !(/^1(3|4|5|7|8)\d{9}$/.test(self.phone.trim()))) return mui.toast("请输入正确的手机号");
 				if('' == self.password.trim() || !(/^[a-zA-Z0-9]\w{5,11}$/.test(self.password.trim()))) return mui.toast("请输入正确的密码");
 	
