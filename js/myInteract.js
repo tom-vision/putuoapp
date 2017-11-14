@@ -69,17 +69,41 @@ function plusReady() {
 					}
 				});
 			},
-			del: function() {
+			del: function(i) {
+				var self = this;
+				
 				plus.nativeUI.actionSheet( {title:"选择操作", cancel:"取消",buttons:[{title:"删除"},]}, function(e){
 					console.log( "User pressed: "+e.index );
+					if(e.index == 1){
+						//删除
+						_callAjax({
+							cmd: "exec",
+							sql: "delete from interact where id=?",
+							vals: _dump([i.id])
+						}, function(d) {
+							if(d.success) {
+								mui.toast("删除成功");
+								
+								var index = self.interacts.indexOf(i);
+								if(index<self.interacts.length){
+									self.interacts.splice(index,1);
+								}
+							}
+						})
+					}
 				});
 			}
+		},
+		mounted: function(){
+			var self = this;
+			
+			self.initMyInteract();
 		}
 	})
 	
 	//添加newId自定义事件监听
 	window.addEventListener('myInteract', function(event) {
-		myInteract.initMyInteract();
+
 	})
 }
 
