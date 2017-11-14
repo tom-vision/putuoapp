@@ -55,6 +55,7 @@ function plusReady() {
 	
 	//添加newId自定义事件监听
 	window.addEventListener('cmt', function(event) {
+		cmt.userInfo = _load(_get('userInfo'));
 		cmt.initCmt();
 	})
 }
