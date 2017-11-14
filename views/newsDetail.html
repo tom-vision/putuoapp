@@ -39,8 +39,8 @@
 		</div>
 		
 		<!--<img src="../imgs/ad.jpg" width="100%" class="inner-ad"/>-->
-		<div id="ad" >
-			<a @click="gotoFirstAd"><img :src="firstAd.img" width="100%" class="inner-ad"/></a>
+		<div class="inner-ad" v-show="firstAd.ifValid==1">
+			<a @click="gotoFirstAd"><img :src="firstAd.img" width="100%" /></a>
 		</div>
 		
 		<div id="comment" class="have-footer">

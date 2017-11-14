@@ -65,7 +65,7 @@ function plusReady() {
 	})
 	
 	var ad = new Vue({
-		el: '#ad',
+		el: '.inner-ad',
 		data: {
 			firstAd: {} //广告
 	
@@ -82,7 +82,7 @@ function plusReady() {
 				})
 			}
 		},
-		mounted: function (){
+		created: function (){
 			var self = this;
 			
 			//获取广告
@@ -92,6 +92,7 @@ function plusReady() {
 			}, function(d) {
 				if(d.success && d.data) {
 					self.firstAd = d.data[d.data.length-1];
+					console.log("广告"+_dump(self.firstAd));
 				}
 			});
 		}
