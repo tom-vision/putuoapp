@@ -24,7 +24,7 @@
 			<p class="tips" v-show="praises.length == 0">暂未收到任何赞</p>
 			<div class="cmt-list" v-show="praises.length != 0">
 				<ul>
-					<li v-for="i in praises">
+					<li v-for="i in praises" @click="gotoComment(i)">
 						<img :src="i.img" class="mu-card-avatar"/>
 						<div class="cmt-info">
 							<header>

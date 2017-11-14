@@ -1,3 +1,11 @@
+//预加载页面
+mui.init({
+	preloadPages: [{
+		url: 'interact-detail.html',
+		id: 'interact-detail',
+	}],
+});
+
 // 扩展API加载完毕，现在可以正常调用扩展API
 function plusReady() {
 	var cmt = new Vue({
@@ -17,7 +25,7 @@ function plusReady() {
 				
 				_callAjax({
 					cmd: "fetch",
-					sql: "select u.name, u.img as UserImg, a.id, a.content, strftime('%Y-%m-%d %H:%M', a.logtime) as logtime from interactComments a left outer join User u on a.userId = u.id where a.replyTo = ? and a.id < ? order by a.id desc limit 5 ",
+					sql: "select u.name, u.img as UserImg, a.id, a.content, a.interactId, strftime('%Y-%m-%d %H:%M', a.logtime) as logtime from interactComments a left outer join User u on a.userId = u.id where a.replyTo = ? and a.id < ? order by a.id desc limit 5 ",
 					vals: _dump([self.userInfo.id, f])
 				}, function(d) {
 					if(!d.success || !d.data) {
@@ -39,7 +47,7 @@ function plusReady() {
 				//获取评论
 				_callAjax({
 					cmd: "fetch",
-					sql: "select u.name, u.img as UserImg, a.id, a.content, strftime('%Y-%m-%d %H:%M', a.logtime) as logtime from interactComments a left outer join User u on a.userId = u.id where a.replyTo = ? order by a.id desc limit 5 ",
+					sql: "select u.name, u.img as UserImg, a.id, a.content, a.interactId, strftime('%Y-%m-%d %H:%M', a.logtime) as logtime from interactComments a left outer join User u on a.userId = u.id where a.replyTo = ? order by a.id desc limit 5 ",
 					vals: _dump([self.userInfo.id])
 				}, function(d) {
 					if(d.success && d.data) {
@@ -49,6 +57,13 @@ function plusReady() {
 				
 					}
 				})
+			},
+			gotoInteractDetail:function(i){
+				console.log("互动id="+i.interactId);
+				mui.fire(plus.webview.getWebviewById('interact-detail'), 'interactId', {
+					id: i.interactId
+				});
+				openWindow('interact-detail.html', 'interact-detail');
 			}
 		}
 	})

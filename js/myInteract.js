@@ -84,10 +84,32 @@ function plusReady() {
 							if(d.success) {
 								mui.toast("删除成功");
 								
+								//本地删除
 								var index = self.interacts.indexOf(i);
 								if(index<self.interacts.length){
 									self.interacts.splice(index,1);
 								}
+								
+								//删除这条互动的所有评论和赞
+								_callAjax({
+									cmd: "exec",
+									sql: "delete from interactComments where interactId=?",
+									vals: _dump([i.id])
+								}, function(d) {
+									if(d.success) {			
+								
+									}
+								})
+								
+								_callAjax({
+									cmd: "exec",
+									sql: "delete from interact_praises where interactId=?",
+									vals: _dump([i.id])
+								}, function(d) {
+									if(d.success) {
+								
+									}
+								})
 							}
 						})
 					}

@@ -24,7 +24,7 @@
 			<p class="tips" v-show="cmts.length == 0">暂未收到任何消息</p>
 			<div class="cmt-list" v-show="cmts.length != 0">
 				<ul>
-					<li v-for="i in cmts">
+					<li v-for="i in cmts" @click="gotoInteractDetail(i)">
 						<img :src="i.UserImg" class="mu-card-avatar"/>
 						<div class="cmt-info">
 							<header>

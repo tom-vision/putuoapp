@@ -1,3 +1,10 @@
+//预加载页面
+mui.init({
+	preloadPages: [{
+		url: 'comment.html',
+		id: 'comment',
+	}]
+});
 // 扩展API加载完毕，现在可以正常调用扩展API
 function plusReady() {
 	var zan = new Vue({
@@ -19,8 +26,8 @@ function plusReady() {
 				
 				_callAjax({
 					cmd: "fetch",
-					sql: "select p.id, strftime('%Y-%m-%d %H:%M', p.logtime) as logtime, u.img, u.name, c.content from comment_praises p left outer join User u on p.userId=u.id " +
-						" left outer join comments c on c.userId = ? where p.commentId = c.id and p.id<? order by p.id desc limit 10",
+					sql: "select p.id, strftime('%Y-%m-%d %H:%M', p.logtime) as logtime, u.img, u.name, c.content, a.id as articleId from comment_praises p left outer join User u on p.userId=u.id " +
+						" left outer join comments c on c.userId = ? left outer join articles a on a.id = c.articleId where p.commentId = c.id and p.id<? order by p.id desc limit 10",
 					vals: _dump([f,self.userInfo.id])
 				}, function(d) {
 					if(d.success && d.data) {
@@ -40,8 +47,8 @@ function plusReady() {
 				
 				_callAjax({
 					cmd: "fetch",
-					sql: "select p.id, strftime('%Y-%m-%d %H:%M', p.logtime) as logtime, u.img, u.name, c.content from comment_praises p left outer join User u on p.userId=u.id " +
-						" left outer join comments c on c.userId = ? where p.commentId = c.id ",
+					sql: "select p.id, strftime('%Y-%m-%d %H:%M', p.logtime) as logtime, u.img, u.name, c.content, a.id as articleId from comment_praises p left outer join User u on p.userId=u.id " +
+						" left outer join comments c on c.userId = ? left outer join articles a on a.id = c.articleId where p.commentId = c.id ",
 					vals: _dump([self.userInfo.id])
 				}, function(d) {
 					if(d.success && d.data) {
@@ -53,6 +60,16 @@ function plusReady() {
 						//					mui.toast("抱歉，您还没有收到赞");
 					}
 				})
+			},
+			// 跳转到评论页
+			gotoComment:function(i){
+				var self = this;
+				
+				_set('newsId', i.articleId);
+				
+				//触发评论页面的newsId事件
+				mui.fire(plus.webview.getWebviewById('comment'), 'newsId', {});
+				openWindow('comment.html', 'comment');
 			}
 		},
 		
