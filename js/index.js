@@ -93,11 +93,6 @@ function plusReady() {
 	    id: 'search',
 	});
 	
-	var topicListPage = mui.preload({
-	    url: 'views/topic-list.html',
-	    id: 'topicList',
-	});
-	
 	var index = new Vue({
 		el: '#index',
 		data: {

@@ -432,7 +432,6 @@ var tab = new Vue({
 								}
 							});
 						} else {
-							mui.toast("没有当日的报纸信息");
 						}
 					});
 					/* 

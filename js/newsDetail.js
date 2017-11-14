@@ -95,8 +95,15 @@ function plusReady() {
 			sql: "select id, title, content, img, url, linkerId, reporter  from articles where ifValid = 1 and id = " + articleId
 		}, function(d) {
 			if(d.success && d.data) {
-				console.log(JSON.stringify(d))
 				newsDetail.newsData = d.data[0];
+				
+				//视频加poster
+				if(newsDetail.newsData.content.contains('video')){
+					var poster = d.data[0].content;
+					poster = poster.replace(/controls=""/, 'poster="' + d.data[0].img + '"');
+					newsDetail.newsData.content = poster;
+				}
+
 			}
 		});
 	
