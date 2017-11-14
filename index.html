@@ -62,7 +62,7 @@
 				<!-- 滚动图 -->
 				<div class="swiper-container index-swiper">
 					<div class="swiper-wrapper">
-						<div class="swiper-slide" v-for="i in scrollNews">
+						<div class="swiper-slide" v-for="i in scrollNews" @click="gotoDetail(i)">
 							<img :src="i.imgs[0]" width="100%">
 						</div>
 					</div>
@@ -101,8 +101,8 @@
 					</ul>
 				</div>
 
-				<div class="ad">
-					<a href="#"><img src="imgs/ad.jpg" width="100%" /></a>
+				<div class="ad" v-show="firstAd.ifValid==1">
+					<a @click="gotoFirstAd"><img :src="firstAd.img" width="100%" /></a>
 				</div>
 
 				<div class="news-list">
@@ -117,8 +117,8 @@
 					</ul>
 				</div>
 				
-				<div class="ad">
-					<a href="#"><img src="imgs/ad.jpg" width="100%" /></a>
+				<div class="ad" v-show="secondAd.ifValid==1">
+					<a @click="gotoSecondAd"><img :src="secondAd.img" width="100%" /></a>
 				</div>
 
 				<div class="video-list news-list">

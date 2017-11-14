@@ -107,6 +107,8 @@ function plusReady() {
 			bHaveMore_headvideo: true, //顶部tab视频加载更多
 			services: [], //服务
 			zhiboUrl: 'http://app.zsputuo.com/zb/',
+			firstAd: {},  //首页广告
+			secondAd: {} 
 		},
 		created: function() {
 			this.frameHeight = window.outerHeight - 150 + 'px';
@@ -141,6 +143,27 @@ function plusReady() {
 			},
 			goVod: function() {
 				changeIndexTab('index-tab-4', $('.go-vod'));
+			},
+			//跳转到广告页面
+			gotoFirstAd: function(){
+				mui.openWindow({
+					url: 'views/iframe.html',
+					id: 'iframe',
+					extras: {
+						title: this.firstAd.title,
+						url: this.firstAd.url
+					},
+				})
+			},
+			gotoSecondAd: function() {
+				mui.openWindow({
+					url: 'views/iframe.html',
+					id: 'iframe',
+					extras: {
+						title: this.secondAd.title,
+						url: this.secondAd.url
+					},
+				})
 			},
 			goNewsGraphic: function(i) {
 				var detailPage = null;
@@ -336,6 +359,20 @@ function plusReady() {
 			}, function(d) {
 				if(d.success && d.data) {
 					self.topicNews = d.data;
+				}
+			});
+			
+			//获取广告
+			_callAjax({
+				cmd: "fetch",
+				sql: "select id, title, img, url, ifValid from articles where linkerId = 119 order by id desc limit 2"
+			}, function(d) {
+				
+				if(d.success && d.data) {
+					
+					self.firstAd = d.data[0];
+					self.secondAd = d.data[1];
+			
 				}
 			});
 		}

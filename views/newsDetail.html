@@ -38,8 +38,11 @@
 			</div>
 		</div>
 		
-		<img src="../imgs/ad.jpg" width="100%" class="inner-ad"/>
-
+		<!--<img src="../imgs/ad.jpg" width="100%" class="inner-ad"/>-->
+		<div id="ad" >
+			<a @click="gotoFirstAd"><img :src="firstAd.img" width="100%" class="inner-ad"/></a>
+		</div>
+		
 		<div id="comment" class="have-footer">
 			<div class="comment-list" v-show="comments.length != 0">
 				<header>热门评论</header>

@@ -8,7 +8,8 @@ var linkerId = {
 	interact: 114,   //互动
 	rebellion: 115,  //报料
 	photography:116, //摄影
-	food: 117        //美食
+	food: 117,        //美食
+	ad: 119          //广告
 };
 
 var pullToRefresh = function() {

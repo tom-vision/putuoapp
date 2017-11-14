@@ -22,7 +22,8 @@ function plusReady() {
 		data: {
 			newsData: {}, //内容
 			like: false,
-			likeNum: 0 //点赞数
+			likeNum: 0, //点赞数
+	
 		},
 		methods: {
 			changeLike: function() {
@@ -63,6 +64,39 @@ function plusReady() {
 		},
 	})
 	
+	var ad = new Vue({
+		el: '#ad',
+		data: {
+			firstAd: {} //广告
+	
+		},
+		methods: {
+			gotoFirstAd: function(){
+				mui.openWindow({
+					url: 'iframe.html',
+					id: 'iframe',
+					extras: {
+						title: this.firstAd.title,
+						url: this.firstAd.url
+					},
+				})
+			}
+		},
+		mounted: function (){
+			var self = this;
+			
+			//获取广告
+			_callAjax({
+				cmd: "fetch",
+				sql: "select id, title, img, url, ifValid from articles where linkerId = 119 order by id desc limit 3"
+			}, function(d) {
+				if(d.success && d.data) {
+					self.firstAd = d.data[d.data.length-1];
+				}
+			});
+		}
+	})
+	
 	var hotComment = new Vue({
 		el: '#comment',
 		data: {
@@ -98,11 +132,9 @@ function plusReady() {
 				newsDetail.newsData = d.data[0];
 				
 				//视频加poster
-				if(newsDetail.newsData.content.contains('video')){
-					var poster = d.data[0].content;
-					poster = poster.replace(/controls=""/, 'poster="' + d.data[0].img + '"');
-					newsDetail.newsData.content = poster;
-				}
+				var poster = d.data[0].content;
+				poster = poster.replace(/controls=""/, 'poster="' + d.data[0].img + '"');
+				newsDetail.newsData.content = poster;
 
 			}
 		});
