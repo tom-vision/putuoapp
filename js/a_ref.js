@@ -140,3 +140,22 @@ var _uploadMulityImageVueChange = function(modulename, fileList, obj, url, cb, l
     }, false);
     xhr.send(fd);
 };
+
+//时间格式化
+var _howLongAgo = function(d) {
+    // _tell((new Date()));
+    // _tell(d);
+    // _tell((new Date()).getTime() + ' - ' + Date.parse(d.replace(' ', 'T')));
+    var span = (new Date()).getTime() - Date.parse(d.replace(' ', 'T')) + (8 * 3600 * 1000);
+    if (span < 60 * 1000) {
+        return "刚刚";
+    }
+    if (span < 3600 * 1000) {
+        return parseInt(span / 60000) + "分钟前";
+    } else if (span < 86400 * 1000) {
+        return parseInt(span / 3600000) + "小时前";
+    } else {
+        
+        return d.slice(5);
+    }
+};

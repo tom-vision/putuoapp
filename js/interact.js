@@ -111,6 +111,7 @@ function plusReady() {
 						d.data.forEach(function(r) {
 							var arrImg = r.img.split(';');
 							r.imgs = arrImg;
+							r.logtime = _howLongAgo(r.logtime);
 							self.interact_latest.push(r);
 						});
 					}
@@ -140,6 +141,8 @@ function plusReady() {
 						d.data.forEach(function(r) {
 							var arrImg = r.img.split(';');
 							r.imgs = arrImg;
+							r.logtime = _howLongAgo(r.logtime);
+
 							self.interact_rebellion.push(r);
 						});
 					}
@@ -169,6 +172,8 @@ function plusReady() {
 						d.data.forEach(function(r) {
 							var arrImg = r.img.split(';');
 							r.imgs = arrImg;
+							r.logtime = _howLongAgo(r.logtime);
+
 							self.interact_photography.push(r);
 						});
 					}
@@ -198,6 +203,8 @@ function plusReady() {
 						d.data.forEach(function(r) {
 							var arrImg = r.img.split(';');
 							r.imgs = arrImg;
+							r.logtime = _howLongAgo(r.logtime);
+
 							self.interact_food.push(r);
 						});
 					}
