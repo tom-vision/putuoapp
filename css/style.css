@@ -1246,6 +1246,7 @@ body {
   justify-content: space-between;
   height: 50px;
   margin-bottom: 10px;
+  position: relative;
 }
 .interact-list .mu-flex .mu-card .mu-card-header .mu-card-title {
   font-size: 16px;
@@ -1257,6 +1258,13 @@ body {
 }
 .interact-list .mu-flex .mu-card .mu-card-header .mu-card-time {
   font-size: 14px;
+  color: #999;
+}
+.interact-list .mu-flex .mu-card .mu-card-header i {
+  position: absolute;
+  right: 0;
+  top: 0;
+  font-size: 12px;
   color: #999;
 }
 .interact-list .mu-flex .mu-card .mu-card-text {

@@ -57,7 +57,6 @@ function plusReady() {
 					cmd: "fetch",
 					sql: "select F.*, count(c.id) as commentNum from (select u.name, u.img as userImg, a.id, a.content, a.img, strftime('%Y-%m-%d %H:%M', a.logtime) as logtime, count(p.id) as zan from interact a left outer join User u on a.userId = u.id left outer join interact_praises p on p.interactId = a.id where a.ifValid =1 and a.userId = ? group by a.id order by a.id desc limit 5) F left outer join interactComments c on c.interactId = F.id group by F.id order by F.id desc",
 					vals: _dump([self.userInfo.id])
-	
 				}, function(d) {
 					if(!d.success || !d.data) {
 						return;
@@ -68,6 +67,11 @@ function plusReady() {
 							self.interacts.push(r);
 						});
 					}
+				});
+			},
+			del: function() {
+				plus.nativeUI.actionSheet( {title:"选择操作", cancel:"取消",buttons:[{title:"删除"},]}, function(e){
+					console.log( "User pressed: "+e.index );
 				});
 			}
 		}

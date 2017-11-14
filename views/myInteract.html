@@ -28,7 +28,7 @@
 						<div class="mu-card-header">
 							<div class="mu-card-title" v-text="i.name"></div>
 							<div class="mu-card-time" v-text="i.logtime"></div>
-							<i class="iconfont icon-jiantou3"></i>
+							<i class="iconfont icon-jiantou3" @click.stop="del"></i>
 						</div>
 						<div class="mu-card-text" v-text="i.content"></div>
 						<!-- 1 张图时使用 -->
