@@ -39,6 +39,7 @@ function plusReady() {
 						d.data.forEach(function(r) {
 							var arrImg = r.img.split(';');
 							r.imgs = arrImg;
+							r.logtime = _howLongAgo(r.logtime);
 							self.interact_food.push(r);
 						});
 					}
@@ -64,6 +65,7 @@ function plusReady() {
 						d.data.forEach(function(r) {
 							var arrImg = r.img.split(';');
 							r.imgs = arrImg;
+							r.logtime = _howLongAgo(r.logtime);
 							self.interacts.push(r);
 						});
 					}

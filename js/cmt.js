@@ -36,6 +36,7 @@ function plusReady() {
 						self.bHaveMore = true;
 				
 						d.data.forEach(function(r) {
+							r.logtime = _howLongAgo(r.logtime);
 							self.cmts.push(r);
 						});
 					}
@@ -51,7 +52,12 @@ function plusReady() {
 					vals: _dump([self.userInfo.id])
 				}, function(d) {
 					if(d.success && d.data) {
-						self.cmts = d.data;
+						self.cmts = [];
+
+						d.data.forEach(function(r) {
+							r.logtime = _howLongAgo(r.logtime);
+							self.cmts.push(r);
+						});
 						self.bHaveMore = true;
 					} else {
 				
@@ -59,7 +65,6 @@ function plusReady() {
 				})
 			},
 			gotoInteractDetail:function(i){
-				console.log("互动id="+i.interactId);
 				mui.fire(plus.webview.getWebviewById('interact-detail'), 'interactId', {
 					id: i.interactId
 				});

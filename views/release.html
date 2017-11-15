@@ -22,7 +22,7 @@
 		</header>
 
 		<div id="release" class="have-header">
-			<textarea class="release-text" placeholder="发表你的动态..." v-model="content"></textarea>
+			<textarea class="release-text" placeholder="发表你的动态..." v-model="content" maxlength="200"></textarea>
 			<div class="release-imgs">
 				<img v-for="i in imgs" :src="i" @click="removeImg" width='100px' height="100px">
 				<div class="add-img" v-show="showAdd">

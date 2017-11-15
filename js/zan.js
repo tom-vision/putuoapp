@@ -34,6 +34,7 @@ function plusReady() {
 						self.bHaveMore = true;
 						
 						d.data.forEach(function(r) {
+							r.logtime = _howLongAgo(r.logtime);
 							self.praises.push(r);
 						});
 					} else {
@@ -52,9 +53,13 @@ function plusReady() {
 					vals: _dump([self.userInfo.id])
 				}, function(d) {
 					if(d.success && d.data) {
+						self.praises = [];
+						
+						d.data.forEach(function(r) {
+							r.logtime = _howLongAgo(r.logtime);
+							self.praises.push(r);
+						});
 						self.bHaveMore = true;
-						self.praises = d.data;
-						console.log(self.praises);
 					} else {
 						self.bHaveMore = false;
 						//					mui.toast("抱歉，您还没有收到赞");
