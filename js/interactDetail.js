@@ -123,6 +123,13 @@ function plusReady() {
 				if(userInfo.id == null) return mui.toast("请先在个人中心登录");
 				if(''==self.comment.trim()) return mui.toast("请填写评论内容");
 				
+				//非法字符过滤
+				var illegalWords = _load(_get('illegal'));				
+				for (var i=0; i<illegalWords.length; i++) {
+					var word = illegalWords[i].content;
+					self.comment = self.comment.replaceAll(word,'**');
+				}
+				
 				_callAjax({
 					cmd: "exec",
 					sql: "insert into interactComments(content, replyTo, interactId, userId) values('"+ self.comment.trim() +"',(select userId from interact where id = "+ self.interactId +" ),"+ self.interactId +","+ userInfo.id +")"

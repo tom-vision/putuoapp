@@ -375,6 +375,22 @@ function plusReady() {
 			
 				}
 			});
+			
+			//获取非法字，存storage
+			_callAjax({
+				cmd: "fetch",
+				sql: "select id, content from illegalWords where ifValid = 1"
+			}, function(d) {
+				
+				if(d.success && d.data) {
+					
+					var illegalWords = d.data;
+					console.log("illegalWords = "+illegalWords);
+					
+					_set('illegal',_dump(illegalWords));
+				}
+			});
+			
 		}
 	})
 	
