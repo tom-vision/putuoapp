@@ -559,6 +559,7 @@ function plusReady() {
 		data: {
 			userInfo: '',
 			isLogin: false,
+			isNew: false,
 		},
 		methods: {
 			goSuggest: function(i) {
@@ -629,8 +630,6 @@ function plusReady() {
 				
 				var dicVersion = _load(_get('version'));
 				var curVersion = plus.runtime.version;
-				console.log("新版本：" + dicVersion.version);				
-				console.log("当前版本：" + curVersion);
 
 				if(curVersion < dicVersion.version){
 					mui.confirm('发现新版本v' + dicVersion.version + '，是否更新?', '', ['更新', '取消'], function(e) {
@@ -682,7 +681,14 @@ function plusReady() {
 			
 					var dicVersion = d.data[0];
 					_set('version', _dump(dicVersion));
-					console.log(dicVersion.version);
+					
+					var curVersion = plus.runtime.version;
+					
+					if(curVersion < dicVersion.version) {
+						self.isNew = true;
+					}else{
+						self.isNew = false;
+					}
 				}
 			
 			});
