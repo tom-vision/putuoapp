@@ -622,6 +622,27 @@ function plusReady() {
 				self.userInfo = {};
 				plus.storage.removeItem('userInfo');
 				mui.toast('退出成功');
+			},
+			// 检查新版本
+			checkNewVersion: function(){
+				var self = this;
+				
+				var dicVersion = _load(_get('version'));
+				console.log("新版本："+dicVersion.version);
+				console.log("当前版本："+curVersion);
+				var curVersion = plus.runtime.version;
+				if(curVersion < dicVersion.version){
+					mui.confirm('发现新版本v' + dicVersion.version + '，是否更新?', '', ['更新', '取消'], function(e) {
+						if(e.index == 0) {
+							if(dicVersion.downloadUrl.length>0){
+								window.location.href = dicVersion.downloadUrl;
+							}
+						}
+					})
+					
+				}else{
+					mui.toast("已是最新版本");
+				}
 			}
 		},
 		mounted: function() {
@@ -651,18 +672,20 @@ function plusReady() {
 			}
 			
 			//获取版本号
-			var version = 0;
 			_callAjax({
 				cmd: "fetch",
 				sql: "select * from system"
-			}, function(d) {			
+			}, function(d) {
+				console.log("获取版本号");
 				if(d.success && d.data) {
-					
-					version = d.data[0].version;
-					_set('version', version);
+			
+					var dicVersion = d.data[0];
+					_set('version', _dump(dicVersion));
+					console.log(dicVersion.version);
 				}
-				
+			
 			});
+			
 		}
 	})
 }

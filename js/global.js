@@ -12,6 +12,9 @@ var linkerId = {
 	ad: 119          //广告
 };
 
+//版本号
+//var curVersion = "0.0.5";
+
 var pullToRefresh = function() {
 	var ws = plus.webview.currentWebview();
 	// 下拉刷新事件
