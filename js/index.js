@@ -628,9 +628,10 @@ function plusReady() {
 				var self = this;
 				
 				var dicVersion = _load(_get('version'));
-				console.log("新版本："+dicVersion.version);
-				console.log("当前版本："+curVersion);
 				var curVersion = plus.runtime.version;
+				console.log("新版本：" + dicVersion.version);				
+				console.log("当前版本：" + curVersion);
+
 				if(curVersion < dicVersion.version){
 					mui.confirm('发现新版本v' + dicVersion.version + '，是否更新?', '', ['更新', '取消'], function(e) {
 						if(e.index == 0) {
