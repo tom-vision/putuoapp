@@ -1,9 +1,6 @@
 //预加载页面
 mui.init({
-	preloadPages: [{
-		url: 'topic-list.html',
-		id: 'topic-list',
-	}],
+	
 });
 
 var topic = new Vue({
@@ -14,21 +11,14 @@ var topic = new Vue({
 	methods: {
 		//跳转到某个具体专题节目列表
 		gotoTopicList: function(i) {
-			console.log("id = "+i.id);
-			
-			mui.fire(plus.webview.getWebviewById('topic-list'), 'topicId', {
-				id: i.id,
-				title: i.name
-			});
-			openWindow('topic-list.html', 'topic-list');
-//			mui.openWindow({
-//				url: 'views/topic-list.html',
-//				id: 'topic-list',
-//				extras: {
-//					i: i.id,
-//					title: i.name
-//				}
-//			})
+			mui.openWindow({
+				url: 'topic-list.html',
+				id: 'topicList',
+				extras: {
+					i: i.id,
+					title: i.name
+				}
+			})
 		}
 	},
 	mounted: function() {

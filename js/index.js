@@ -80,9 +80,6 @@ function plusReady() {
 		}, {
 			url: 'views/myInteract.html',
 			id: 'myInteract'
-		}, {
-			url: 'views/topic-list.html',
-			id: 'topic-list',
 		}],
 	});
 	
@@ -198,20 +195,14 @@ function plusReady() {
 			},
 			//跳转到某个具体专题节目列表
 			gotoTopicList: function(i) {
-				mui.fire(plus.webview.getWebviewById('topic-list'), 'topicId', {
-					id: i.id,
-					title: i.name
-				});
-				openWindow('views/topic-list.html', 'topic-list');
-				
-//				mui.openWindow({
-//					url: 'views/topic-list.html',
-//					id: 'topicList',
-//					extras: {
-//						i: i.id,
-//						title: i.name
-//					},
-//				})
+				mui.openWindow({
+					url: 'views/topic-list.html',
+					id: 'topicList',
+					extras: {
+						i: i.id,
+						title: i.name
+					},
+				})
 			},
 			//顶部tab加载更多视频
 			getVideoNews: function() {

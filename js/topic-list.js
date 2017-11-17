@@ -26,7 +26,6 @@ function plusReady() {
 		methods: {
 			//跳转到文章详情
 			gotoDetail: function(i) {
-				
 				var detailPage = null;
 				//获得详情页面
 				if(!detailPage) {
@@ -40,7 +39,6 @@ function plusReady() {
 				setTimeout(function(){
 					openWindow('views/newsDetail.html', 'newsDetail');
 				},200)
-
 			},
 			getTopic: function() {
 				var f = 10e5;
@@ -50,7 +48,7 @@ function plusReady() {
 			
 				_callAjax({
 					cmd: "fetch",
-					sql: "select id, title, img, linkerId, reporter from articles where ifValid=1 and linkerId = ? and id<? order by id desc limit 2",
+					sql: "select * from articles where ifValid=1 and linkerId = ? and id<? order by id desc limit 2",
 					vals: _dump([topicId, f])
 				}, function(d) {
 					if(!d.success || !d.data) {
@@ -69,20 +67,12 @@ function plusReady() {
 		},
 	});
 	
-//	var web = plus.webview.currentWebview();
-//	topicTitle.title = web.title;
-//	topicId = web.i;
-//	
-//	topic.topics = [];
-//	topic.getTopic();
-	
-	//添加topicId自定义事件监听
-	window.addEventListener('topicId', function(event) {
-		topicTitle.title = event.detail.title;
-		topicId = event.detail.id;
-		topic.topics = [];
-		topic.getTopic();
-	})
+	var web = plus.webview.currentWebview();
+	topicTitle.title = web.title;
+	topicId = web.i;
+	console.log(topicId);
+	topic.topics = [];
+	topic.getTopic();
 }
 
 // 判断扩展API是否准备，否则监听'plusready'事件
