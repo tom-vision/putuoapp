@@ -49,7 +49,7 @@ function plusReady() {
 						if(e.value.length<=12){
 							self.userInfo.name = e.value;
 						}else {
-							mui.toast("用户名不要超过12个字符");
+							mui.toast("用户名最长12个字符");
 						}
 					}
 				}, 'div');

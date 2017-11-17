@@ -168,6 +168,27 @@ var pic = new Vue({
 					self.Pic_two = d.data[1].div;
 					self.Pic_three = d.data[2].div;
 					self.Pic_four = d.data[3].div;
+
+					setTimeout(function(){
+						var swiper = new Swiper('.swiper-container', {
+							onSlideChangeEnd: function(swiper) {
+								if(swiper.activeIndex == 0) {
+									tab.pageTitle = oneclass.split("：")[1];
+									activepage = 1;
+								} else if(swiper.activeIndex == 1) {
+									tab.pageTitle = twoclass.split("：")[1];
+									activepage = 2;
+								} else if(swiper.activeIndex == 2) {
+									tab.pageTitle = threeclass.split("：")[1];
+									activepage = 3;
+								} else {
+									tab.pageTitle = fourclass.split("：")[1];
+									activepage = 4;
+								}
+							}
+						});
+					}, 500)
+
 				} else {
 				}
 			});
@@ -476,25 +497,6 @@ setTimeout(function() {
 		})(j);
 	}
 }, 1000);
-
-var swiper = new Swiper('.swiper-container', {
-	onSlideChangeEnd: function(swiper) {
-		if(swiper.activeIndex == 0) {
-			tab.pageTitle = oneclass.split("：")[1];
-			activepage = 1;
-		} else if(swiper.activeIndex == 1) {
-			tab.pageTitle = twoclass.split("：")[1];
-			activepage = 2;
-		} else if(swiper.activeIndex == 2) {
-			tab.pageTitle = threeclass.split("：")[1];
-			activepage = 3;
-		} else {
-			tab.pageTitle = fourclass.split("：")[1];
-			activepage = 4;
-		}
-
-	}
-});
 
 // 扩展API加载完毕，现在可以正常调用扩展API
 function plusReady() {

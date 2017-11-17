@@ -34,13 +34,11 @@ function plusReady() {
 						mui.toast("没有更多数据了");
 						return;
 					} else {
-						self.bHaveMore = true;
-	
 						d.data.forEach(function(r) {
 							var arrImg = r.img.split(';');
 							r.imgs = arrImg;
 							r.logtime = _howLongAgo(r.logtime);
-							self.interact_food.push(r);
+							self.interacts.push(r);
 						});
 					}
 				});
@@ -67,6 +65,7 @@ function plusReady() {
 							r.imgs = arrImg;
 							r.logtime = _howLongAgo(r.logtime);
 							self.interacts.push(r);
+							self.bHaveMore = true;
 						});
 					}
 				});

@@ -568,7 +568,7 @@ function plusReady() {
 					id: 'iframe',
 					extras: {
 						title: '意见反馈',
-						url: 'http://www.baidu.com/'
+						url: 'http://develop.wifizs.cn/dist/channel/activity/form/views/ptappform.html?formId=16'
 					},
 				})
 			},
@@ -634,12 +634,12 @@ function plusReady() {
 				if(curVersion < dicVersion.version){
 					mui.confirm('发现新版本v' + dicVersion.version + '，是否更新?', '', ['更新', '取消'], function(e) {
 						if(e.index == 0) {
-							if(dicVersion.downloadUrl.length>0){
-								window.location.href = dicVersion.downloadUrl;
-							}
+							mui.toast('请使用浏览器打开');
+							plus.runtime.openURL(dicVersion.downloadUrl, function(){
+								mui.toast('浏览器调用失败，请前往应用中心更新');
+							});
 						}
 					})
-					
 				}else{
 					mui.toast("已是最新版本");
 				}
@@ -666,7 +666,6 @@ function plusReady() {
 						self.isLogin = false;
 						self.userInfo = {};
 						plus.storage.removeItem('userInfo');
-
 					}
 				});
 			}
@@ -676,9 +675,7 @@ function plusReady() {
 				cmd: "fetch",
 				sql: "select * from system"
 			}, function(d) {
-				console.log("获取版本号");
 				if(d.success && d.data) {
-			
 					var dicVersion = d.data[0];
 					_set('version', _dump(dicVersion));
 					
@@ -690,9 +687,7 @@ function plusReady() {
 						self.isNew = false;
 					}
 				}
-			
 			});
-			
 		}
 	})
 }

@@ -916,11 +916,6 @@ body {
   display: flex;
   align-items: center;
 }
-#digitalNewspaper .swiper-wrapper {
-  align-items: center;
-  height: 95%;
-  overflow: hidden;
-}
 #digitalNewspaper .swiper-slide div {
   height: 100%;
 }

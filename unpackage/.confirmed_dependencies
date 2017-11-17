@@ -256,6 +256,9 @@
       "plugins/mui.min.css",
       "plugins/iconfont.css",
       "js/zan.js"
+    ],
+    "refer": [
+      "views/comment.html"
     ]
   },
   "views/release.html": {
