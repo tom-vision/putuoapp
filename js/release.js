@@ -44,7 +44,12 @@ function plusReady() {
 		data: {},
 		methods: {
 			diliver: function() {
-				if(userInfo == null || userInfo == 0) return mui.toast("请先在个人中心登录");
+				userInfo = _load(_get('userInfo'));
+				if(userInfo == null || userInfo == ''){
+					mui.toast("请先在个人中心登录");
+					openWindow('login.html', 'login');
+					return ;
+				} 
 				if('' == release.releaseType) return mui.toast("动态类型为空");
 				if('' == release.content && release.imgs.length == 0) return mui.toast("不说点什么？");
 				

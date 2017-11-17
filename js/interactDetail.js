@@ -118,9 +118,15 @@ function plusReady() {
 			//发送
 			diliver: function(){
 				var self = this;
+				userInfo = _load(_get('userInfo'));
 				
 				if(!self.haveComment) return;
-				if(userInfo.id == null) return mui.toast("请先在个人中心登录");
+				if(userInfo == '' || userInfo == null){
+					mui.toast("请先在个人中心登录");
+					openWindow('login.html', 'login');
+					return;
+				}
+				
 				if(''==self.comment.trim()) return mui.toast("请填写评论内容");
 				
 				//非法字符过滤
@@ -160,8 +166,12 @@ function plusReady() {
 			//点赞
 			clickZan:function(){
 				var self = this;
-				
-				if(userInfo.id == null) return mui.toast("请先在个人中心登录");
+				userInfo = _load(_get('userInfo'));
+				if(userInfo == '' || userInfo == null){
+					mui.toast("请先在个人中心登录");
+					openWindow('login.html', 'login');
+					return;
+				}
 				if(!self.like){
 					//点赞
 					_callAjax({

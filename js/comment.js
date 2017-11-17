@@ -2,6 +2,10 @@ var comment = '';
 
 //预加载页面
 mui.init({
+//	preloadPages: [{
+//		url: 'login.html',
+//		id: 'login'
+//	}],
 	beforeback: function() {
 		comment.comments = []
 	}
@@ -29,8 +33,14 @@ function plusReady() {
 			changeLiked: function(i) {
 				_tell(i)
 				var self = this;
-
-				if(self.userInfo == '') return mui.toast("请先在个人中心登录");
+				self.userInfo = _load(_get('userInfo'));
+				if(self.userInfo == '' || self.userInfo == null) {
+					mui.toast("请先在个人中心登录");
+					
+					openWindow('login.html', 'login');
+					
+					return;
+				} 
 	
 				i.liked = !i.liked;
 	
@@ -61,8 +71,15 @@ function plusReady() {
 			//发表评论
 			publish: function() {
 				var self = this;
-	
-				if(self.userInfo == '') return mui.toast("请先在个人中心登录");
+				self.userInfo = _load(_get('userInfo'));
+				console.log(_get('userInfo'));
+				if(self.userInfo == '' || self.userInfo == null) {
+					mui.toast("请先在个人中心登录");
+				
+					openWindow('login.html', 'login');
+				
+					return;
+				}
 				if('' == self.content) return mui.toast("请填写评论内容");
 								
 				var illegalWords = _load(_get('illegal'));

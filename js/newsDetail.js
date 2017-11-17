@@ -28,8 +28,13 @@ function plusReady() {
 		methods: {
 			changeLike: function() {
 				var self = this;
-	
-				if(userInfo != null) {
+				userInfo = _load(_get('userInfo'));
+				
+				if(userInfo == '' || userInfo == null){
+					mui.toast("请先在个人中心登录");
+					openWindow('login.html', 'login');
+					return;
+				}else{
 					self.like = !self.like;
 					//喜欢
 					if(self.like) {
@@ -54,8 +59,6 @@ function plusReady() {
 							}
 						});
 					}
-				}else{
-					mui.toast("请先在个人中心登录");
 				}
 			},
 			shareSystem: function(e) {
@@ -136,6 +139,8 @@ function plusReady() {
 				var poster = d.data[0].content;
 				poster = poster.replace(/controls=""/, 'poster="' + d.data[0].img + '"');
 				newsDetail.newsData.content = poster;
+				console.log("视频");
+				console.log(newsDetail.newsData.content);
 
 			}
 		});
