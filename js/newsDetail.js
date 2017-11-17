@@ -125,6 +125,9 @@ function plusReady() {
 	window.addEventListener('newsId', function(event) {
 		//获得事件参数
 		articleId = _get('newsId');
+		
+		console.log("articleId="+articleId);
+		
 		//根据id向服务器请求新闻详情
 		userInfo = _load(_get('userInfo'));
 		

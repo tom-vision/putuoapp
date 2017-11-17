@@ -31,9 +31,9 @@ function plusReady() {
 				}
 				//触发详情页面的newsId事件
 				mui.fire(detailPage, 'newsId', {
-					id: i.id
 				});
-			
+				_set('newsId', i.id);
+				
 				setTimeout(function(){
 					openWindow('views/newsDetail.html', 'newsDetail');
 				}, 200)
