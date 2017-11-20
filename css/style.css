@@ -921,6 +921,7 @@ body {
 }
 #digitalNewspaper .swiper-slide img {
   height: 100%;
+  max-width: 100%;
 }
 .digitalNewspaper-menu-popup dl dt {
   height: 40px;
@@ -990,6 +991,9 @@ body {
 .digitalNewspaper-detail-popup .content article p {
   text-indent: 2em;
   color: #333;
+}
+.digitalNewspaper-detail-popup .content article img {
+  width: 100%;
 }
 .ucenter ul:last-child {
   margin-top: 20px;

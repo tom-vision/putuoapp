@@ -78,8 +78,8 @@ var menu = new Vue({
 					twoclass = d.data[1].class;
 					self.menu_class3 = d.data[2].class;
 					threeclass = d.data[2].class;
-					self.menu_class4 = d.data[3].class;
-					fourclass = d.data[3].class;
+//					self.menu_class4 = d.data[3].class;
+//					fourclass = d.data[3].class;
 				}
 			});
 		},
@@ -138,6 +138,17 @@ var detail = new Vue({
 		closeDetail: function() {
 			this.show = false;
 		},
+	},
+	watch: {
+		show: function() {
+			if(!this.show) {
+				$('.digitalNewspaper-detail-popup').scrollTop(0);
+				this.detail_class = '';
+				this.detail_title = '';
+				this.detail_begintitle = '';
+				this.detail_message = '';
+			}
+		}
 	}
 })
 
@@ -145,10 +156,7 @@ var pic = new Vue({
 	el: '#digitalNewspaper',
 	data: {
 		date: '',
-		Pic_one: '',
-		Pic_two: '',
-		Pic_three: '',
-		Pic_four: '',
+		Pics: [],
 	},
 	created: function() {
 		var self = this;
@@ -164,11 +172,9 @@ var pic = new Vue({
 				vals: _dump([self.date, ])
 			}, function(d) {
 				if(d.data && d.success) {
-					self.Pic_one = d.data[0].div;
-					self.Pic_two = d.data[1].div;
-					self.Pic_three = d.data[2].div;
-					self.Pic_four = d.data[3].div;
-
+					self.Pics = d.data;
+					console.log("*****************************");
+					console.log(d.data.div);
 					setTimeout(function(){
 						var swiper = new Swiper('.swiper-container', {
 							onSlideChangeEnd: function(swiper) {
@@ -182,7 +188,7 @@ var pic = new Vue({
 									tab.pageTitle = threeclass.split("：")[1];
 									activepage = 3;
 								} else {
-									tab.pageTitle = fourclass.split("：")[1];
+//									tab.pageTitle = fourclass.split("：")[1];
 									activepage = 4;
 								}
 							}
@@ -246,19 +252,11 @@ var tab = new Vue({
 		morePage: function() {
 			var picker = new mui.PopPicker();
 			var self = this;
-			picker.setData([{
-				value: '0',
-				text: oneclass
-			}, {
-				value: '1',
-				text: twoclass
-			}, {
-				value: '2',
-				text: threeclass
-			}, {
-				value: '3',
-				text: fourclass
-			}]);
+			var arr = [];
+			[oneclass, twoclass, threeclass, fourclass].forEach(function(d, i) {
+				if(d != '') arr.push({value: i, text: d})
+			})
+			picker.setData(arr);
 			picker.show(function(items) {
 				var item = items[0];
 				var text = item.text;
@@ -399,6 +397,7 @@ var tab = new Vue({
 									(function(i) {
 										_areas[i].onclick = function() {
 											detail.show = true;
+
 											var piece = parseInt(_areas[i].getAttribute('data-id'));
 											_callAjax({
 												cmd: 'fetch',
