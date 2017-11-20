@@ -7,7 +7,75 @@ var easytwoclass = ''; // 第二版版面名称
 var easythreeclass = ''; // 第三版版面名称
 var easyfourclass = ''; // 第四版版面名称
 activepage = 1; // 活跃版面
+pagecount = 1; // 一共有几个版面
+var swiper = '';
 
+//初始化
+var pic = new Vue({
+	el: '#digitalNewspaper',
+	data: {
+		date: '',
+		Pics: [],
+	},
+	created: function() {
+		var self = this;
+		self.date = self.getNowFormatDate();
+		self.getpartOne();
+	},
+	methods: {
+		getpartOne: function() {
+			var self = this;
+			_callAjax({
+				cmd: 'fetch',
+				sql: 'select div from Dad where date = ?',
+				vals: _dump([self.date])
+			}, function(d) {
+				if(d.data && d.success) {
+					self.Pics = d.data;
+					setTimeout(function(){
+						swiper = new Swiper('.swiper-container', {
+							onSlideChangeEnd: function(swiper) {
+								if(swiper.activeIndex == 0) {
+									tab.pageTitle = oneclass.split("：")[1];
+									activepage = 1;
+								} else if(swiper.activeIndex == 1) {
+									tab.pageTitle = twoclass.split("：")[1];
+									activepage = 2;
+								} else if(swiper.activeIndex == 2) {
+									tab.pageTitle = threeclass.split("：")[1];
+									activepage = 3;
+								} else {
+									tab.pageTitle = fourclass.split("：")[1];
+									activepage = 4;
+								}
+							}
+						});
+					}, 500)
+
+				} else {
+				}
+			});
+		},
+		getNowFormatDate: function() {
+			var self = this;
+			var date = new Date();
+			var seperator1 = "-";
+			var year = date.getFullYear();
+			var month = date.getMonth() + 1;
+			var strDate = date.getDate();
+			if(month >= 1 && month <= 9) {
+				month = "0" + month;
+			}
+			if(strDate >= 0 && strDate <= 9) {
+				strDate = "0" + strDate;
+			}
+			var currentdate = year + seperator1 + month + seperator1 + strDate;
+			return currentdate;
+		},
+	}
+})
+
+//菜单
 var menu = new Vue({
 	el: '.digitalNewspaper-menu-popup',
 	data: {
@@ -21,6 +89,10 @@ var menu = new Vue({
 		menu_items1: [], // 第二版的详情内容
 		menu_items2: [], // 第三版的详情内容
 		menu_items3: [], // 第四版的详情内容
+		true1: true, // 显示
+		true2: true, // 显示
+		true3: true, // 显示
+		true4: true, // 显示
 	},
 	created: function() {
 		var self = this;
@@ -64,22 +136,55 @@ var menu = new Vue({
 				}
 			});
 		},
+		//获取版面信息
 		getpartTwo: function() {
 			var self = this;
 			_callAjax({
-				cmd: 'fetch',
-				sql: 'select class from Dad where date = ?',
-				vals: _dump([self.date, ])
-			}, function(d) {
-				if(d.success && d.data) {
-					self.menu_class1 = d.data[0].class;
-					oneclass = d.data[0].class;
-					self.menu_class2 = d.data[1].class;
-					twoclass = d.data[1].class;
-					self.menu_class3 = d.data[2].class;
-					threeclass = d.data[2].class;
-//					self.menu_class4 = d.data[3].class;
-//					fourclass = d.data[3].class;
+				cmd:'fetch',
+				sql:'select count(*) as total from Dad where date = ?',
+				vals:_dump([self.date])
+			},function(d){
+				if(d.data&&d.success){
+					pagecount = parseInt(d.data[0].total);
+					_callAjax({
+						cmd: 'fetch',
+						sql: 'select class from Dad where date = ?',
+						vals: _dump([self.date, ])
+					}, function(d) {
+						if(d.success && d.data) {
+							if(pagecount == 4){
+								self.menu_class1 = d.data[0].class;
+								oneclass = d.data[0].class;
+								self.menu_class2 = d.data[1].class;
+								twoclass = d.data[1].class;
+								self.menu_class3 = d.data[2].class;
+								threeclass = d.data[2].class;
+								self.menu_class4 = d.data[3].class;
+								fourclass = d.data[3].class;
+							}else if(pagecount == 3){
+								self.menu_class1 = d.data[0].class;
+								oneclass = d.data[0].class;
+								self.menu_class2 = d.data[1].class;
+								twoclass = d.data[1].class;
+								self.menu_class3 = d.data[2].class;
+								threeclass = d.data[2].class;
+								self.true4 = false;
+							}else if(pagecount ==2){
+								self.menu_class1 = d.data[0].class;
+								oneclass = d.data[0].class;
+								self.menu_class2 = d.data[1].class;
+								twoclass = d.data[1].class;
+								self.true3 = false;
+								self.true4 = false;
+							}else{
+								self.menu_class1 = d.data[0].class;
+								oneclass = d.data[0].class;
+								self.true2 = false;
+								self.true3 = false;
+								self.true4 = false;
+							}
+						}
+					});
 				}
 			});
 		},
@@ -125,6 +230,7 @@ var menu = new Vue({
 	}
 })
 
+//详情
 var detail = new Vue({
 	el: '.digitalNewspaper-detail-popup',
 	data: {
@@ -152,72 +258,7 @@ var detail = new Vue({
 	}
 })
 
-var pic = new Vue({
-	el: '#digitalNewspaper',
-	data: {
-		date: '',
-		Pics: [],
-	},
-	created: function() {
-		var self = this;
-		self.date = self.getNowFormatDate();
-		self.getpartOne();
-	},
-	methods: {
-		getpartOne: function() {
-			var self = this;
-			_callAjax({
-				cmd: 'fetch',
-				sql: 'select div from Dad where date = ?',
-				vals: _dump([self.date, ])
-			}, function(d) {
-				if(d.data && d.success) {
-					self.Pics = d.data;
-					console.log("*****************************");
-					console.log(d.data.div);
-					setTimeout(function(){
-						var swiper = new Swiper('.swiper-container', {
-							onSlideChangeEnd: function(swiper) {
-								if(swiper.activeIndex == 0) {
-									tab.pageTitle = oneclass.split("：")[1];
-									activepage = 1;
-								} else if(swiper.activeIndex == 1) {
-									tab.pageTitle = twoclass.split("：")[1];
-									activepage = 2;
-								} else if(swiper.activeIndex == 2) {
-									tab.pageTitle = threeclass.split("：")[1];
-									activepage = 3;
-								} else {
-//									tab.pageTitle = fourclass.split("：")[1];
-									activepage = 4;
-								}
-							}
-						});
-					}, 500)
-
-				} else {
-				}
-			});
-		},
-		getNowFormatDate: function() {
-			var self = this;
-			var date = new Date();
-			var seperator1 = "-";
-			var year = date.getFullYear();
-			var month = date.getMonth() + 1;
-			var strDate = date.getDate();
-			if(month >= 1 && month <= 9) {
-				month = "0" + month;
-			}
-			if(strDate >= 0 && strDate <= 9) {
-				strDate = "0" + strDate;
-			}
-			var currentdate = year + seperator1 + month + seperator1 + strDate;
-			return currentdate;
-		},
-	}
-})
-
+//切换日期
 var tab = new Vue({
 	el: '#tab',
 	data: {
@@ -249,6 +290,7 @@ var tab = new Vue({
 			var currentdate = year + seperator1 + month + seperator1 + strDate;
 			return currentdate;
 		},
+		//更换版面
 		morePage: function() {
 			var picker = new mui.PopPicker();
 			var self = this;
@@ -272,9 +314,6 @@ var tab = new Vue({
 				} else {
 					activepage = 4;
 				}
-				var swiper = new Swiper('.swiper-container', {
-					onSlideChangeEnd: function(swiper) {}
-				});
 				swiper.slideTo(parseInt(value), 1000, false);
 				//返回 false 可以阻止选择框的关闭
 				//return false;
@@ -331,6 +370,7 @@ var tab = new Vue({
 			var currentdate = year + seperator1 + month + seperator1 + strDate;
 			return currentdate;
 		},
+		//更换日期后重新获取数据
 		chooseDate: function() {
 			var self = this;
 			var _self = $('.date-btn');
@@ -351,6 +391,9 @@ var tab = new Vue({
 				var id = _self.attr('id');
 				_self.picker = new mui.DtPicker(options);
 				_self.picker.show(function(rs) {
+					//销毁swiper前回到第一页
+					swiper.slideTo(0,1,false);
+					swiper.destroy();
 					/*
 					 * rs.value 拼合后的 value
 					 * rs.text 拼合后的 text
@@ -370,28 +413,55 @@ var tab = new Vue({
 							var ssdate = new Date(arys1[0], parseInt(arys1[1] - 1), arys1[2]);
 							var week1 = String(ssdate.getDay()).replace("0", "日").replace("1", "一").replace("2", "二").replace("3", "三").replace("4", "四").replace("5", "五").replace("6", "六"); //就是你要的星期几
 							tab.week = "星期" + week1;
-							var str1 = d.data[0].class;
-							var str2 = d.data[1].class;
-							var str3 = d.data[2].class;
-							var str4 = d.data[3].class;
-							if(swiper.activeIndex == 0) {
-								tab.pageTitle = str1.split("：")[1];
-							} else if(swiper.activeIndex == 1) {
-								tab.pageTitle = str2.split("：")[1];
-							} else if(swiper.activeIndex == 2) {
-								tab.pageTitle = str3.split("：")[1];
-							} else {
-								tab.pageTitle = str4.split("：")[1];
+							if(d.data[0]){
+								var str1 = d.data[0].class;
+								oneclass = d.data[0].class;
+							}else{
+								var str1 = "";
+								oneclass = "";
 							}
-							oneclass = d.data[0].class;
-							twoclass = d.data[1].class;
-							threeclass = d.data[2].class;
-							fourclass = d.data[3].class;
-							pic.Pic_one = d.data[0].div;
-							pic.Pic_two = d.data[1].div;
-							pic.Pic_three = d.data[2].div;
-							pic.Pic_four = d.data[3].div;
+							if(d.data[1]){
+								var str2 = d.data[1].class;
+								twoclass = d.data[1].class;
+							}else{
+								var str2 = "";
+								twoclass = "";
+							}
+							if(d.data[3]){
+								var str3 = d.data[2].class;
+								threeclass = d.data[2].class;
+								menu.true4 = true
+							}else{
+								var str3 = "";
+								threeclass = "";
+							}
+							if(d.data[4]){
+								var str4 = d.data[3].class;
+								fourclass = d.data[3].class;
+							}else{
+								var str4 = "";
+								fourclass = "";
+							}
+							pic.Pics = d.data;
 							setTimeout(function() {
+								swiper = new Swiper('.swiper-container', {
+									onSlideChangeEnd: function(swiper) {
+										if(swiper.activeIndex == 0) {
+											tab.pageTitle = oneclass.split("：")[1];
+											activepage = 1;
+										} else if(swiper.activeIndex == 1) {
+											tab.pageTitle = twoclass.split("：")[1];
+											activepage = 2;
+										} else if(swiper.activeIndex == 2) {
+											tab.pageTitle = threeclass.split("：")[1];
+											activepage = 3;
+										} else {
+											tab.pageTitle = fourclass.split("：")[1];
+											activepage = 4;
+										}
+									},
+								});
+								
 								var _areas = document.getElementsByTagName('area');
 								for(j = 0; j < _areas.length; j++) {
 									(function(i) {

@@ -54,25 +54,25 @@
 				<h1 class="mui-title">目录</h1>
 			</header>
 			<dl class="have-header">
-				<dt v-text="menu_class1"></dt>
+				<dt v-text="menu_class1" v-if="true1"></dt>
 				<dd>
 					<ul>
 						<li v-for="menu_item0 in menu_items0" v-text="menu_item0.title" @click="openDetail(menu_item0)"></li>
 					</ul>
 				</dd>
-				<dt v-text="menu_class2"></dt>
+				<dt v-text="menu_class2" v-if="true2"></dt>
 				<dd>
 					<ul>
 						<li v-for="menu_item1 in menu_items1" v-text="menu_item1.title" @click="openDetail(menu_item1)"></li>
 					</ul>
 				</dd>
-				<dt v-text="menu_class3"></dt>
+				<dt v-text="menu_class3" v-if="true3"></dt>
 				<dd>
 					<ul>
 						<li v-for="menu_item2 in menu_items2" v-text="menu_item2.title" @click="openDetail(menu_item2)"></li>
 					</ul>
 				</dd>
-				<dt v-text="menu_class4"></dt>
+				<dt v-text="menu_class4" v-if="true4"></dt>
 				<dd>
 					<ul>
 						<li v-for="menu_item3 in menu_items3" v-text="menu_item3.title" @click="openDetail(menu_item3)"></li>

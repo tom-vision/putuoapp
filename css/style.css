@@ -937,6 +937,9 @@ body {
   text-indent: 2em;
   color: #009cff;
   position: relative;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 .digitalNewspaper-menu-popup dl dd ul li:last-child:after {
   height: 0;
