@@ -161,6 +161,10 @@ var menu = new Vue({
 								threeclass = d.data[2].class;
 								self.menu_class4 = d.data[3].class;
 								fourclass = d.data[3].class;
+								self.true5=true;
+								self.true6=true;
+								self.true7=true;
+								self.true8=true;
 							}else if(pagecount == 3){
 								self.menu_class1 = d.data[0].class;
 								oneclass = d.data[0].class;
@@ -169,6 +173,9 @@ var menu = new Vue({
 								self.menu_class3 = d.data[2].class;
 								threeclass = d.data[2].class;
 //								self.true4 = false;
+								self.true5=true;
+								self.true6=true;
+								self.true7=true;
 							}else if(pagecount ==2){
 								self.menu_class1 = d.data[0].class;
 								oneclass = d.data[0].class;
@@ -176,12 +183,15 @@ var menu = new Vue({
 								twoclass = d.data[1].class;
 //								self.true3 = false;
 //								self.true4 = false;
+								self.true5=true;
+								self.true6=true;
 							}else{
 								self.menu_class1 = d.data[0].class;
 								oneclass = d.data[0].class;
 //								self.true2 = false;
 //								self.true3 = false;
 //								self.true4 = false;
+								self.true5=true;
 							}
 						}
 					});
@@ -499,6 +509,8 @@ var tab = new Vue({
 							}, function(d) {
 								if(d.data && d.success) {
 									menu.menu_items0 = d.data;
+								}else{
+									menu.menu_items0 = [];
 								}
 							});
 							_callAjax({
@@ -508,6 +520,8 @@ var tab = new Vue({
 							}, function(d) {
 								if(d.data && d.success) {
 									menu.menu_items1 = d.data;
+								}else{
+									menu.menu_items1 = [];
 								}
 							});
 							_callAjax({
@@ -517,6 +531,8 @@ var tab = new Vue({
 							}, function(d) {
 								if(d.data && d.success) {
 									menu.menu_items2 = d.data;
+								}else{
+									menu.menu_items2 = [];
 								}
 							});
 							_callAjax({
@@ -526,6 +542,8 @@ var tab = new Vue({
 							}, function(d) {
 								if(d.data && d.success) {
 									menu.menu_items3 = d.data;
+								}else{
+									menu.menu_items3 = [];
 								}
 							});
 						} else {
