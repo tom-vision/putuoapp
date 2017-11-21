@@ -61,7 +61,8 @@
       "plugins/mui.min.css",
       "plugins/iconfont.css",
       "js/news.js"
-    ]
+    ],
+    "refer": []
   },
   "views/topic.html": {
     "resources": [
@@ -85,7 +86,8 @@
       "js/global.js",
       "plugins/mui.min.css",
       "plugins/iconfont.css"
-    ]
+    ],
+    "refer": []
   },
   "views/newsDetail.html": {
     "resources": [
@@ -105,7 +107,8 @@
     ],
     "refer": [
       "index.html",
-      "views/comment.html"
+      "views/comment.html",
+      "views/iframe.html"
     ]
   },
   "views/comment.html": {
@@ -120,7 +123,8 @@
       "js/a_ref.js",
       "plugins/jquery.min.js",
       "plugins/vue.min.js"
-    ]
+    ],
+    "refer": []
   },
   "views/life.html": {
     "resources": [
@@ -130,7 +134,8 @@
       "js/global.js",
       "plugins/mui.min.css",
       "plugins/iconfont.css"
-    ]
+    ],
+    "refer": []
   },
   "views/vod.html": {
     "resources": [
@@ -140,7 +145,8 @@
       "js/global.js",
       "plugins/mui.min.css",
       "plugins/iconfont.css"
-    ]
+    ],
+    "refer": []
   },
   "views/newsGraphic.html": {
     "resources": [
@@ -169,7 +175,8 @@
       "js/global.js",
       "plugins/mui.min.css",
       "plugins/iconfont.css"
-    ]
+    ],
+    "refer": []
   },
   "views/suggest.html": {
     "resources": [
@@ -179,7 +186,8 @@
       "js/global.js",
       "plugins/mui.min.css",
       "plugins/iconfont.css"
-    ]
+    ],
+    "refer": []
   },
   "views/login.html": {
     "resources": [
@@ -204,7 +212,8 @@
       "plugins/mui.min.css",
       "plugins/iconfont.css",
       "fonts/mui.ttf"
-    ]
+    ],
+    "refer": []
   },
   "views/forgetPassword.html": {
     "resources": [
@@ -214,7 +223,8 @@
       "js/global.js",
       "plugins/mui.min.css",
       "plugins/iconfont.css"
-    ]
+    ],
+    "refer": []
   },
   "views/userInfo.html": {
     "resources": [
@@ -225,7 +235,8 @@
       "plugins/mui.min.css",
       "plugins/iconfont.css",
       "js/userInfo.js"
-    ]
+    ],
+    "refer": []
   },
   "views/interact.html": {
     "resources": [
@@ -246,7 +257,8 @@
     "resources": [
       "js/iframe.js",
       "fonts/mui.ttf"
-    ]
+    ],
+    "refer": []
   },
   "views/zan.html": {
     "resources": [
@@ -264,13 +276,15 @@
   "views/release.html": {
     "resources": [
       "js/release.js"
-    ]
+    ],
+    "refer": []
   },
   "views/cmt.html": {
     "resources": [
       "fonts/mui.ttf",
       "js/cmt.js"
-    ]
+    ],
+    "refer": []
   },
   "views/myInteract.html": {
     "refer": [
@@ -296,6 +310,12 @@
       "plugins/iconfont.css",
       "plugins/swiper.min.css",
       "fonts/mui.ttf"
+    ],
+    "refer": []
+  },
+  "boot.html": {
+    "refer": [
+      "index.html"
     ]
   }
 }

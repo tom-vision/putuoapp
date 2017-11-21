@@ -23,7 +23,6 @@ function plusReady() {
 			newsData: {}, //内容
 			like: false,
 			likeNum: 0, //点赞数
-	
 		},
 		methods: {
 			changeLike: function() {
@@ -71,7 +70,6 @@ function plusReady() {
 		el: '.inner-ad',
 		data: {
 			firstAd: {} //广告
-	
 		},
 		methods: {
 			gotoFirstAd: function(){
@@ -133,7 +131,7 @@ function plusReady() {
 		
 		_callAjax({
 			cmd: "fetch",
-			sql: "select id, title, content, img, url, linkerId, reporter  from articles where ifValid = 1 and id = " + articleId
+			sql: "select id, title, content, img, url, linkerId, reporter from articles where ifValid = 1 and id = " + articleId
 		}, function(d) {
 			if(d.success && d.data) {
 				newsDetail.newsData = d.data[0];
@@ -142,9 +140,6 @@ function plusReady() {
 				var poster = d.data[0].content;
 				poster = poster.replace(/controls=""/, 'poster="' + d.data[0].img + '"');
 				newsDetail.newsData.content = poster;
-				console.log("视频");
-				console.log(newsDetail.newsData.content);
-
 			}
 		});
 	

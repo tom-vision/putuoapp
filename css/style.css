@@ -88,14 +88,14 @@ body {
 }
 .index-tab {
   display: none;
-  margin-top: 94px;
+  margin-top: 84px;
 }
 .index-tab-1 {
   display: block;
 }
 .sub-bar {
-  height: 50px;
-  line-height: 50px;
+  height: 40px;
+  line-height: 40px;
   width: 100%;
   background-color: #fff;
   position: fixed;
@@ -147,7 +147,7 @@ body {
   text-align: right;
 }
 .news-list {
-  margin-bottom: 15px;
+  margin-bottom: 8px;
 }
 .news-list header {
   background-color: #fff;
@@ -224,7 +224,7 @@ body {
   background-color: #eee;
 }
 .ad {
-  margin-bottom: 15px;
+  margin-bottom: 8px;
   background-color: #fff;
   padding: 10px;
 }
@@ -235,7 +235,7 @@ body {
   display: block;
 }
 .inner-ad {
-  margin-top: 20px;
+  margin-top: 8px;
 }
 .clearfix {
   zoom: 1;
@@ -344,7 +344,7 @@ body {
   margin-top: 44px;
 }
 .have-sub-header {
-  margin-top: 94px;
+  margin-top: 84px;
 }
 .have-footer {
   padding-bottom: 50px;
@@ -379,7 +379,7 @@ body {
   flex-direction: column;
   justify-content: center;
   color: #333;
-  font-size: 14px;
+  font-size: 13px;
 }
 .footer-tab a i {
   display: inline-block;
@@ -447,17 +447,18 @@ body {
   color: #999;
   margin-bottom: 0;
   margin-top: 6px;
+  width: 100%;
 }
-.news-detail header:after {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 1px;
-  background-color: #C8C7CC;
-  transform: scaleY(0.5);
-  -webkit-transform: scaleY(0.5);
+.news-detail header .desc {
+  font-size: 14px;
+  color: #999;
+  position: relative;
+  margin: 10px;
+  border: 1px solid #C8C7CC;
+  padding: 10px;
+}
+.news-detail header .desc:before {
+  content: '摘 要：';
 }
 .news-detail article {
   padding: 15px;
@@ -601,7 +602,7 @@ body {
 }
 .comment-list {
   background-color: #fff;
-  margin-top: 20px;
+  margin-top: 8px;
   padding: 0 25px;
 }
 .comment-list header {
@@ -1529,4 +1530,26 @@ body {
   color: #666;
   text-align: center;
   padding: 50px 0;
+}
+.boot {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: #fff;
+  -webkit-background-size: cover;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.boot span {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  padding: 5px 10px;
+  z-index: 2;
+  font-size: 12px;
 }

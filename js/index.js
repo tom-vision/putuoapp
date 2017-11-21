@@ -3,7 +3,6 @@ if(window.plus) {
 	plusReady();
 } else {
 	document.addEventListener('plusready', plusReady, false);
-	
 }
 
 var changeTab = function(el, self) {
@@ -690,4 +689,21 @@ function plusReady() {
 			});
 		}
 	})
+	
+	if ('Android' == plus.os.name) {
+		var first = null;
+		mui.back = function() {
+			if (!first) {
+				first = new Date().getTime();
+				mui.toast('再按一次退出应用');
+				setTimeout(function() {
+					first = null;
+				}, 1000);
+			} else {
+				if (new Date().getTime() - first < 1000) {
+					plus.runtime.quit();
+				}
+			}
+		}
+	}
 }
