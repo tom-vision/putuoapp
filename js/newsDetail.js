@@ -9,6 +9,7 @@ mui.init({
 		$('video').each(function() {
 			$(this)[0].pause();
 		})
+		
 	}
 });
 
@@ -25,6 +26,21 @@ function plusReady() {
 			likeNum: 0, //点赞数
 		},
 		methods: {
+			//阅读量+1
+			addReadCnt: function(){
+				var self = this;
+				
+				var count = parseInt(self.newsData.readcnt) + 1;
+				console.log(self.newsData.readcnt);
+				console.log("count="+count);
+				_callAjax({
+					cmd: "exec",
+					sql: "update articles set readcnt = ? where id = ?",
+					vals: _dump([count, articleId])
+				}, function(d) {
+					
+				})
+			},
 			changeLike: function() {
 				var self = this;
 				userInfo = _load(_get('userInfo'));
@@ -131,7 +147,7 @@ function plusReady() {
 		
 		_callAjax({
 			cmd: "fetch",
-			sql: "select id, title, content, img, url, linkerId, reporter from articles where ifValid = 1 and id = " + articleId
+			sql: "select id, title, content, img, url, linkerId, reporter, newsdate, brief, readcnt from articles where ifValid = 1 and id = " + articleId
 		}, function(d) {
 			if(d.success && d.data) {
 				newsDetail.newsData = d.data[0];
@@ -140,6 +156,12 @@ function plusReady() {
 				var poster = d.data[0].content;
 				poster = poster.replace(/controls=""/, 'poster="' + d.data[0].img + '"');
 				newsDetail.newsData.content = poster;
+				
+				console.log("***********")
+				_tell(d.data[0]);
+				
+				//文章阅读量+1
+				newsDetail.addReadCnt();
 			}
 		});
 	
@@ -193,6 +215,8 @@ function plusReady() {
 				hotComment.allCommentsLength = d.data[0].count;
 			}
 		});
+		
+		
 	});
 }
 
