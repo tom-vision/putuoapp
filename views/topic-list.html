@@ -5,12 +5,12 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<title></title>
+		<script src="../plugins/jquery.min.js"></script>
+		<script src="../plugins/vue.min.js"></script>
 		<script src="../plugins/mui.min.js"></script>
 		<link href="../plugins/mui.min.css" rel="stylesheet" />
 		<link rel="stylesheet" href="../plugins/iconfont.css" />
 		<link rel="stylesheet" href="../css/style.css" />
-		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
-		<script src="https://cdn.bootcss.com/vue/2.4.2/vue.min.js"></script>
 	</head>
 
 	<body>
@@ -27,7 +27,7 @@
 						<a class="video-item">
 							<img :src="i.img" width="100%" />
 							<p class="title" v-text="i.title"></p>
-							<p class="desc">我是副标题</p>
+							<p class="desc" v-text="i.subtitle"></p>
 						</a>
 					</li>
 				</ul>

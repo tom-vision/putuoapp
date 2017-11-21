@@ -1,9 +1,16 @@
+var changePswd;
+
 mui.init({
+	beforeback: function() {
+		changePswd.opassword = '';	
+		changePswd.npassword = '';	
+		changePswd.nnpassword = '';	
+	}
 })
 
 // 扩展API加载完毕，现在可以正常调用扩展API
 function plusReady() {
-	var changePswd = new Vue({
+	changePswd = new Vue({
 		el: '#changePswd',
 		data: {
 			opassword: '',
@@ -43,13 +50,10 @@ function plusReady() {
 				if('' == self.npassword.trim() || !(/^[a-zA-Z0-9]\w{5,11}$/.test(self.npassword.trim()))) return mui.toast("请输入6-12位密码");
 				if('' == self.nnpassword.trim() || !(/^[a-zA-Z0-9]\w{5,11}$/.test(self.nnpassword.trim()))) return mui.toast("请输入6-12位密码");
 				
-				console.log(self.npassword.trim());
-				console.log(self.nnpassword.trim());
 				if(self.npassword.trim() != self.nnpassword.trim()) return mui.toast('两次密码输入不同');
 				
 				//先验证旧密码是否正确
 				var userInfo = _load(_get('userInfo'));
-				_tell(userInfo);
 				if(userInfo.pswd == self.opassword){
 					self.updateUserData();
 				}else {
