@@ -25,10 +25,10 @@
 		<div id="interact">
 			<div class="sub-bar">
 				<ul>
-					<li @click="goLatest" class="latest" :class="currentIndex == 0 ? 'active' : ''"><a>最新</a></li>
-					<li @click="goRebellion" class="rebellion" :class="currentIndex == 1 ? 'active' : ''"><a>报料</a></li>
-					<li @click="goPhotography" class="photography" :class="currentIndex == 2 ? 'active' : ''"><a>摄影</a></li>
-					<li @click="goFood" class="food" :class="currentIndex == 3 ? 'active' : ''"><a>美食</a></li>
+					<li @click="goLatest" class="latest" :class="'active' : currentIndex == 0"><a>最新</a></li>
+					<li @click="goRebellion" class="rebellion" :class="'active' : currentIndex == 1"><a>报料</a></li>
+					<li @click="goPhotography" class="photography" :class="'active' : currentIndex == 2"><a>摄影</a></li>
+					<li @click="goFood" class="food" :class="'active' : currentIndex == 3"><a>美食</a></li>
 				</ul>
 			</div>
 			<!--最新-->
@@ -53,7 +53,7 @@
 								</li>
 							</ul>
 						</div>
-						<div class="mu-footer">
+						<div class="mu-footer" v-cloak>
 							<span><i class="iconfont icon-zan"></i> {{ i.zan}}</span>
 							<span><i class="iconfont icon-icon-test"></i> {{ i.commentNum}}</span>
 							<span><i class="iconfont icon-fenxiang"></i></span>
