@@ -1,4 +1,4 @@
-var isTest = false;
+var isTest = true;
 var serverAddr = isTest ? "http://192.168.0.110:10000" : "http://hyv.wifizs.cn/putuo";
 
 var _set = function(k, v) {

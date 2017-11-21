@@ -24,11 +24,11 @@
 			<header v-cloak>
 				{{newsData.title}}
 				<p>
-					<span>记者</span>
-					<span>时间</span>
-					<span>阅读量：22</span>
+					<span v-text="newsData.reporter"></span>
+					<span v-text="newsData.newsdate"></span>
+					<span v-show="newsData.readcnt>0">阅读量：{{newsData.readcnt}}</span>
 				</p>
-				<div class="desc">我是摘要我是摘要我是摘要我是摘要我是摘要我是摘要我是摘要我是摘要我是摘要</div>
+				<div class="desc" v-text="newsData.brief" v-show="newsData.brief!=''"></div>
 			</header>
 			<article>
 				<!--<video controls :poster="newsData.img" width="100%" :src="newsData.url" v-show="newsData.url!=''"></video>-->
