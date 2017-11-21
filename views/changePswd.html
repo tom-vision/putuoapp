@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<script src="../plugins/mui.min.js"></script>
+		<link href="../plugins/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../plugins/iconfont.css" />
+		<link rel="stylesheet" href="../css/style.css" />
+		<script src="../plugins/jquery.min.js"></script>
+		<script src="../plugins/vue.min.js"></script>
+	</head>
+
+	<body>
+		<!-- 导航栏 -->
+		<header class="mui-bar mui-bar-nav u-bar">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">修改密码</h1>
+		</header>
+		
+		<div id="changePswd" class="have-header">
+			<div class="user-form">
+				
+				<div class="label">
+					<i class="iconfont icon-mima"></i>
+					<input type="password" maxlength="12" placeholder="输入旧密码" v-model="opassword"/>
+				</div>
+				<div class="label">
+					<i class="iconfont icon-mima"></i>
+					<input type="password" maxlength="12" placeholder="输入新密码" v-model="npassword"/>
+				</div>
+				<div class="label">
+					<i class="iconfont icon-mima"></i>
+					<input type="password" maxlength="12" placeholder="再次输入新密码" v-model="nnpassword"/>
+				</div>
+				<a class="login-btn" @click="resetPassword">修改密码</a>
+			</div>
+		</div>
+	</body>
+
+</html>
+<script src="../js/global.js"></script>
+<script src="../js/a_ref.js"></script>
+<script src="../js/changePswd.js"></script>

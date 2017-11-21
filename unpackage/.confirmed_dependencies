@@ -236,7 +236,9 @@
       "plugins/iconfont.css",
       "js/userInfo.js"
     ],
-    "refer": []
+    "refer": [
+      "views/changePswd.html"
+    ]
   },
   "views/interact.html": {
     "resources": [
@@ -316,6 +318,7 @@
   "boot.html": {
     "refer": [
       "index.html"
-    ]
+    ],
+    "resources": []
   }
 }

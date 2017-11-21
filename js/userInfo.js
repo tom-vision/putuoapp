@@ -3,7 +3,11 @@ function plusReady() {
 	mui.init({
 		beforeback: function() {
 			userInfo.userInfo = ''
-		}
+		},
+		preloadPages: [{
+			url: 'changePswd.html',
+			id: 'changePswd'
+		},]
 	})
 	
 	var nav = new Vue({
@@ -26,7 +30,6 @@ function plusReady() {
 						mui.fire(plus.webview.getLaunchWebview(), 'loginBack');
 						setTimeout(function() {
 							mui.back();
-
 						}, 2000);
 					}
 				});
@@ -60,6 +63,9 @@ function plusReady() {
 				uploadImage(evt, function(r) {
 					self.userInfo.img = serverAddr + '/pic/head/' + r.thumb;
 				});
+			},
+			changePassword: function() {
+				openWindow('changePswd.html', 'changePswd');
 			}
 		},
 		mounted: function() {

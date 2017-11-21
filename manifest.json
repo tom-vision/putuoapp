@@ -441,7 +441,9 @@
 					"plugins/iconfont.css",
 					"js/userInfo.js"
 				],
-				"refer": [],
+				"refer": [
+					"views/changePswd.html"
+				],
 				"priority": 0
 			},
 			"views/interact.html": {
