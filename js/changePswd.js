@@ -9,15 +9,55 @@ function plusReady() {
 			opassword: '',
 			npassword: '',
 			nnpassword: '',
+			userInfo: _load(_get('userInfo'))
 		},
 		methods: {
+			updateUserData: function() {
+				var self = this;
+	
+				//修改成功插入数据
+				_callAjax({
+					cmd: "exec",
+					sql: "update User set pswd = ? where id = ?",
+					vals: _dump([self.npassword.trim(), self.userInfo.id])
+				}, function(d) {
+					if(d.success) {
+						mui.toast("密码重置成功");
+						
+						self.userInfo.pswd = self.npassword.trim();
+						_set('userInfo',_dump(self.userInfo));
+						
+						setTimeout(function() {
+							mui.back();
+	
+						}, 1500);
+					} else {
+						mui.toast("密码重置失败");
+					}
+				});
+			},
 			//重置密码
 			resetPassword: function() {
 				var self = this;
 				if('' == self.opassword.trim() || !(/^[a-zA-Z0-9]\w{5,11}$/.test(self.opassword.trim()))) return mui.toast("请输入6-12位密码");
 				if('' == self.npassword.trim() || !(/^[a-zA-Z0-9]\w{5,11}$/.test(self.npassword.trim()))) return mui.toast("请输入6-12位密码");
 				if('' == self.nnpassword.trim() || !(/^[a-zA-Z0-9]\w{5,11}$/.test(self.nnpassword.trim()))) return mui.toast("请输入6-12位密码");
-				if(self.npassword.trim() == self.nnpassword.trim()) return mui.toast('两次密码输入不同');
+				
+				console.log(self.npassword.trim());
+				console.log(self.nnpassword.trim());
+				if(self.npassword.trim() != self.nnpassword.trim()) return mui.toast('两次密码输入不同');
+				
+				//先验证旧密码是否正确
+				var userInfo = _load(_get('userInfo'));
+				_tell(userInfo);
+				if(userInfo.pswd == self.opassword){
+					self.updateUserData();
+				}else {
+					mui.toast("旧密码错误，请重新输入");
+					self.opassword = '';
+					
+				}
+				
 			}
 		}
 	})

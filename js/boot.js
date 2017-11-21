@@ -21,13 +21,35 @@ function plusReady() {
 		methods: {
 			goIndex: function() {
 				openWindow('index.html', 'index');
-			}
+			},
+		
+			
 		},
 		created: function() {
-			setInterval(function() {
-				boot.time --;
-				if(boot.time == 0) return openWindow('index.html', 'index');
-			}, 1000)
+			var self = this;
+			//获取启动页
+			_callAjax({
+				cmd: "fetch",
+				sql: "select homepage from system"
+			}, function(d) {
+				if(d.success && d.data) {
+					self.link = d.data[0].homepage;
+					console.log("**********");
+					_tell(self.link);
+			
+				}
+				
+				setInterval(function() {
+					boot.time--;
+					if(boot.time == 0) return openWindow('index.html', 'index');
+				}, 1000)
+			
+			})
+			
+			
+			
+			
+			
 		}
 	})
 }
