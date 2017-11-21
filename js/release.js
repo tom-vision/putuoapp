@@ -23,7 +23,9 @@ function plusReady() {
 			addImg: function(evt) {
 				// 上传
 				var self = this;
+				plus.nativeUI.showWaiting('上传中...')
 				uploadImage(evt, function(r) {
+					plus.nativeUI.closeWaiting();
 					self.imgs.push(serverAddr+'/pic/interact/'+r.thumb);
 				});
 			},

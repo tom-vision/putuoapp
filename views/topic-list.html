@@ -26,7 +26,8 @@
 					<li v-for="i in topics" @click="gotoDetail(i)">
 						<a class="video-item">
 							<img :src="i.img" width="100%" />
-							<p v-text="i.title"></p>
+							<p class="title" v-text="i.title"></p>
+							<p class="desc">我是副标题</p>
 						</a>
 					</li>
 				</ul>

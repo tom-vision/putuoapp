@@ -340,6 +340,13 @@ body {
   transform: translateY(-50%);
   -webkit-transform: translateY(-50%);
 }
+#topic-list .desc {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  font-size: 14px;
+  color: #666;
+}
 .have-header {
   margin-top: 44px;
 }
