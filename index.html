@@ -269,7 +269,7 @@
 		<div id="ucenter" class="have-footer have-header main ucenter">
 			<div class="user" @click="goLogin">
 				<div class="user-img iconfont">
-					<img :src="userInfo.img" v-show="isLogin" v-if="userInfo.img != null"/>
+					<img :src="userInfo.img" v-show="isLogin" v-if="userInfo != null"/>
 				</div>
 				<p v-text="isLogin ? userInfo.name : '登录/注册'"></p>
 			</div>

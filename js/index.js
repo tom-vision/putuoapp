@@ -397,6 +397,7 @@ function plusReady() {
 	window.addEventListener('loginBack', function(event) {
 		var userInfo = _load(_get('userInfo'));
 	
+		_tell(userInfo);
 		if(userInfo.id != null) {
 			ucenter.isLogin = true;
 			ucenter.userInfo = userInfo;
@@ -556,7 +557,7 @@ function plusReady() {
 	var ucenter = new Vue({
 		el: '#ucenter',
 		data: {
-			userInfo: '',
+			userInfo: {},
 			isLogin: false,
 			isNew: false,
 		},
@@ -666,6 +667,7 @@ function plusReady() {
 						self.userInfo = {};
 						plus.storage.removeItem('userInfo');
 					}
+					
 				});
 			}
 			
