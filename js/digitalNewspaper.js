@@ -168,20 +168,20 @@ var menu = new Vue({
 								twoclass = d.data[1].class;
 								self.menu_class3 = d.data[2].class;
 								threeclass = d.data[2].class;
-								self.true4 = false;
+//								self.true4 = false;
 							}else if(pagecount ==2){
 								self.menu_class1 = d.data[0].class;
 								oneclass = d.data[0].class;
 								self.menu_class2 = d.data[1].class;
 								twoclass = d.data[1].class;
-								self.true3 = false;
-								self.true4 = false;
+//								self.true3 = false;
+//								self.true4 = false;
 							}else{
 								self.menu_class1 = d.data[0].class;
 								oneclass = d.data[0].class;
-								self.true2 = false;
-								self.true3 = false;
-								self.true4 = false;
+//								self.true2 = false;
+//								self.true3 = false;
+//								self.true4 = false;
 							}
 						}
 					});
@@ -416,31 +416,38 @@ var tab = new Vue({
 							if(d.data[0]){
 								var str1 = d.data[0].class;
 								oneclass = d.data[0].class;
+								menu.menu_class1 = oneclass;
 							}else{
 								var str1 = "";
 								oneclass = "";
+								menu.menu_class1 = "";
 							}
 							if(d.data[1]){
 								var str2 = d.data[1].class;
 								twoclass = d.data[1].class;
+								menu.menu_class2 = twoclass;
 							}else{
 								var str2 = "";
 								twoclass = "";
+								menu.menu_class2 = "";
 							}
-							if(d.data[3]){
+							if(d.data[2]){
 								var str3 = d.data[2].class;
 								threeclass = d.data[2].class;
-								menu.true4 = true
+								menu.menu_class3 = threeclass;
 							}else{
 								var str3 = "";
 								threeclass = "";
+								menu.menu_class3 = "";
 							}
-							if(d.data[4]){
+							if(d.data[3]){
 								var str4 = d.data[3].class;
 								fourclass = d.data[3].class;
+								menu.menu_class4 = fourclass;
 							}else{
 								var str4 = "";
 								fourclass = "";
+								menu.menu_class4 = "";
 							}
 							pic.Pics = d.data;
 							setTimeout(function() {

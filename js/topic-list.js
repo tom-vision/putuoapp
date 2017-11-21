@@ -48,7 +48,7 @@ function plusReady() {
 			
 				_callAjax({
 					cmd: "fetch",
-					sql: "select * from articles where ifValid=1 and linkerId = ? and id<? order by id desc limit 2",
+					sql: "select * from articles where ifValid=1 and linkerId = ? and id<? order by id desc limit 10",
 					vals: _dump([topicId, f])
 				}, function(d) {
 					if(!d.success || !d.data) {
