@@ -27,7 +27,7 @@ function plusReady() {
 					if(d.success) {
 						mui.toast("保存成功");
 						_set('userInfo', _dump(userInfo.userInfo));
-						mui.fire(plus.webview.getLaunchWebview(), 'loginBack');
+						mui.fire(plus.webview.getWebviewById('index'), 'loginBack');
 						setTimeout(function() {
 							mui.back();
 						}, 2000);

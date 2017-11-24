@@ -46,10 +46,6 @@ function plusReady() {
 			
 			})
 			
-			
-			
-			
-			
 		}
 	})
 }

@@ -72,10 +72,10 @@ var register = new Vue({
 							userInfo = d.data[0];
 							_set('userInfo', _dump(userInfo));
 
-							mui.fire(plus.webview.getLaunchWebview(), 'loginBack');
+							mui.fire(plus.webview.getWebviewById('index'), 'loginBack');
 
 							setTimeout(function() {
-								var webview = plus.webview.getLaunchWebview();
+								var webview = plus.webview.getWebviewById('index');
 								webview.show();
 							}, 2000);
 						}

@@ -24,6 +24,7 @@ function plusReady() {
 			newsData: {}, //内容
 			like: false,
 			likeNum: 0, //点赞数
+			showread: 0
 		},
 		methods: {
 			//阅读量+1
@@ -151,14 +152,11 @@ function plusReady() {
 		}, function(d) {
 			if(d.success && d.data) {
 				newsDetail.newsData = d.data[0];
-				
+				console.log(d.data[0].content)
 				//视频加poster
 				var poster = d.data[0].content;
 				poster = poster.replace(/controls=""/, 'poster="' + d.data[0].img + '"');
 				newsDetail.newsData.content = poster;
-				
-				console.log("***********")
-				_tell(d.data[0]);
 				
 				//文章阅读量+1
 				newsDetail.addReadCnt();
@@ -208,11 +206,21 @@ function plusReady() {
 		_callAjax({
 			cmd: "fetch",
 			sql: "select count(id) as count from comments " +
-				"where articleId = ?",
+				"where ifValid = 1 and articleId = ?",
 			vals: _dump([articleId])
 		}, function(d) {
 			if(d.success && d.data) {
 				hotComment.allCommentsLength = d.data[0].count;
+			}
+		});
+		
+		//阅读开关
+		_callAjax({
+			cmd: "fetch",
+			sql: "select showreadcnt from system"
+		}, function(d) {
+			if(d.success && d.data) {
+				newsDetail.showread = d.data[0].showreadcnt;
 			}
 		});
 		

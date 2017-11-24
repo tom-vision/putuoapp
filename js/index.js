@@ -56,9 +56,6 @@ function plusReady() {
 			url: 'views/newsDetail.html',
 			id: 'newsDetail'
 		}, {
-			url: 'views/newsGraphic.html',
-			id: 'newsGraphic'
-		}, {
 			url: 'views/digitalNewspaper.html',
 			id: 'digitalNewsPaper'
 		}, {
@@ -122,20 +119,31 @@ function plusReady() {
 				news.activeSort = i;
 			},
 			gotoDetail: function(i) {
-				var detailPage = null;
-				//获得详情页面
-				if(!detailPage) {
-					detailPage = plus.webview.getWebviewById('newsDetail');
+				if(i.url != '#'){
+					mui.openWindow({
+						url: 'views/iframe.html',
+						id: 'iframe',
+						extras: {
+							title: i.title,
+							url: i.url
+						},
+					})
+				}else {
+					var detailPage = null;
+					//获得详情页面
+					if(!detailPage) {
+						detailPage = plus.webview.getWebviewById('newsDetail');
+					}
+					//触发详情页面的newsId事件
+					mui.fire(detailPage, 'newsId', {});
+					
+					_set('newsId', i.id);
+					
+					setTimeout(function() {
+						openWindow('views/newsDetail.html', 'newsDetail');
+					}, 200)
 				}
-				//触发详情页面的newsId事件
-				mui.fire(detailPage, 'newsId', {
-				});
 				
-				_set('newsId',i.id);
-				
-				setTimeout(function(){
-					openWindow('views/newsDetail.html', 'newsDetail');
-				},200)
 			},
 			goLife: function() {
 				changeIndexTab('index-tab-3', $('.go-life'));
@@ -279,28 +287,28 @@ function plusReady() {
 				}
 			});
 	
-			//获取新闻
+			//获取新闻  reference包含0：滚动 1：头条
 			_callAjax({
 				cmd: "multiFetch",
 				multi: _dump([{
 						key: "scrollNews",
-						sql: "select * from articles where ifValid =1 and linkerId = " + linkerId.scrollNews + " order by id desc limit 5"
+						sql: "select id, title, img, content, linkerId, brief, reporter, url, readcnt, newsdate, subtitle, strftime('%Y-%m-%d %H:%M', logtime) as logtime from articles where ifValid =1 and linkerId = " + linkerId.putuoNews + " and reference like '%0%'" + " order by id desc limit 5"
 					},
 					{
 						key: "headNews",
-						sql: "select * from articles where ifValid =1 and linkerId = " + linkerId.headNews + " order by id desc limit 1"
+						sql: "select id, title, img, content, linkerId, brief, reporter, url, readcnt, newsdate, subtitle, strftime('%Y-%m-%d %H:%M', logtime) as logtime from articles where ifValid =1 and linkerId = " + linkerId.putuoNews + " and reference like '%1%'" + " order by id desc limit 1"
 					},
 					{
 						key: "instantNews",
-						sql: "select * from articles where ifValid =1 and linkerId = " + linkerId.instantNews + " order by id desc limit 5"
+						sql: "select id, title, img, content, linkerId, brief, reporter, url, readcnt, newsdate, subtitle, strftime('%Y-%m-%d %H:%M', logtime) as logtime from articles where ifValid =1 and linkerId = " + linkerId.instantNews + " order by id desc limit 5"
 					},
 					{
 						key: "putuoNews",
-						sql: "select * from articles where ifValid =1 and linkerId = " + linkerId.putuoNews + " order by id desc limit 5"
+						sql: "select id, title, img, content, linkerId, brief, reporter, url, readcnt, newsdate, subtitle, strftime('%Y-%m-%d %H:%M', logtime) as logtime from articles where ifValid =1 and linkerId = " + linkerId.putuoNews + " order by id desc limit 5"
 					},
 					{
 						key: "videoNews",
-						sql: "select * from articles where ifValid =1 and linkerId = " + linkerId.videoNews + " order by id desc limit 10"
+						sql: "select id, title, img, content, linkerId, brief, reporter, url, readcnt, newsdate, subtitle, strftime('%Y-%m-%d %H:%M', logtime) as logtime from articles where ifValid =1 and linkerId = " + linkerId.videoNews + " order by id desc limit 10"
 					}
 				])
 			}, function(d) {
@@ -366,12 +374,9 @@ function plusReady() {
 				cmd: "fetch",
 				sql: "select id, title, img, url, ifValid from articles where linkerId = 119 order by id desc limit 2"
 			}, function(d) {
-				
 				if(d.success && d.data) {
-					
 					self.firstAd = d.data[0];
 					self.secondAd = d.data[1];
-			
 				}
 			});
 			
@@ -440,18 +445,11 @@ function plusReady() {
 				},200)
 			},
 			goNewsGraphic: function(i) {
-				var detailPage = null;
-				//获得详情页面
-				if(!detailPage) {
-					detailPage = plus.webview.getWebviewById('newsGraphic');
-				}
-				//触发详情页面的newsId事件
-				mui.fire(detailPage, 'newsId', {
-				});
+				mui.openWindow({
+					url: 'views/newsGraphic.html',
+					id: 'newsGraphic',
+				})
 				_set('newsId', i.id);
-				setTimeout(function(){
-					openWindow('views/newsGraphic.html', 'newsGraphic');
-				},200)
 			},
 			//获取即时新闻
 			getInstantNews: function() {
@@ -661,13 +659,12 @@ function plusReady() {
 						self.isLogin = true;
 						self.userInfo = d.data[0];
 						_set('userInfo', _dump(self.userInfo));
-	
 					} else {
+						mui.toast('非法的用户信息');
 						self.isLogin = false;
 						self.userInfo = {};
 						plus.storage.removeItem('userInfo');
 					}
-					
 				});
 			}
 			

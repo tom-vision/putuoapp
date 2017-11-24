@@ -38,7 +38,6 @@ body {
     top: 44px;
     z-index: 3;
     ul {
-       
         display: flex;
         li {
             flex: 1;
@@ -81,6 +80,12 @@ body {
         right: 0;
         bottom: 10px;
         text-align: right;
+    }
+    .swiper-slide {
+        -webkit-background-size: cover;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: 50%;
     }
 }
 
@@ -771,6 +776,7 @@ body {
     .swiper-container {
         height: 100%;
         .swiper-slide {
+            width: 100%;
             display: flex;
             align-items: center;
             justify-content: center;

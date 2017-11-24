@@ -44,6 +44,10 @@ ul {
   line-height: 80px;
   width: 120px;
   max-width: 120px;
+  -webkit-background-size: cover;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 50%;
 }
 .mui-bar-nav {
   box-shadow: none;
@@ -145,6 +149,12 @@ body {
   right: 0;
   bottom: 10px;
   text-align: right;
+}
+.index-swiper .swiper-slide {
+  -webkit-background-size: cover;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 50%;
 }
 .news-list {
   margin-bottom: 8px;
@@ -822,6 +832,7 @@ body {
   height: 100%;
 }
 .news-graphic .swiper-container .swiper-slide {
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;

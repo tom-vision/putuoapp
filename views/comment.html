@@ -13,7 +13,7 @@
 		<script src="../plugins/vue.min.js"></script>
 	</head>
 
-	<body>
+	<body id="main">
 		<!-- 导航栏 -->
 		<header class="mui-bar mui-bar-nav">
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
@@ -40,10 +40,15 @@
 				</div>
 				<footer v-show="bHaveMore" @click="getComments">更多评论<i class="iconfont icon-jiantou3"></i></footer>
 			</div>
+			
+			<div id="up-refresh">    
+			    <span class="up-refresh-text">上拉有惊喜</span>    
+			</div>  
 		</div>
 	</body>
 
 </html>
+<script src="../plugins/dragloader.js"></script>
 <script src="../js/global.js"></script>
 <script src="../js/a_ref.js"></script>
 <script src="../js/comment.js"></script>

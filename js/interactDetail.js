@@ -40,7 +40,8 @@ function plusReady() {
 			haveComment: false,
 			bHaveMore_comment: false,
 			zan: 0,   //点赞个数
-			like: false    //自己点赞
+			like: false,    //自己点赞
+			cmtCtrl: false  //评论审核
 		},
 		methods: {
 			openGallery: function(imgs, index) {
@@ -77,7 +78,7 @@ function plusReady() {
 				
 				_callAjax({
 					cmd: "fetch",
-					sql: "select u.name, u.img as userImg, c.id, c.content, strftime('%Y-%m-%d %H:%M', c.logtime) as logtime from interactComments c left outer join User u on c.userId = u.id where c.interactId = ? order by c.id desc limit 5",
+					sql: "select u.name, u.img as userImg, c.id, c.content, strftime('%Y-%m-%d %H:%M', c.logtime) as logtime from interactComments c left outer join User u on c.userId = u.id where c.ifValid = 1 and c.interactId = ? order by c.id desc limit 5",
 					vals:_dump([self.interactId])
 				}, function(d) {
 					if(d.success && d.data) {
@@ -100,7 +101,7 @@ function plusReady() {
 				
 				_callAjax({
 					cmd: "fetch",
-					sql: "select u.name, u.img as userImg, c.id, c.content, strftime('%Y-%m-%d %H:%M', c.logtime) as logtime from interactComments c left outer join User u on c.userId = u.id  where c.interactId = ? and c.id<? order by c.id desc limit 5",
+					sql: "select u.name, u.img as userImg, c.id, c.content, strftime('%Y-%m-%d %H:%M', c.logtime) as logtime from interactComments c left outer join User u on c.userId = u.id  where c.ifValid = 1 and c.interactId = ? and c.id<? order by c.id desc limit 5",
 					vals: _dump([self.interactId,f])
 				}, function(d) {
 					if(d.success && d.data) {
@@ -135,14 +136,15 @@ function plusReady() {
 					var word = illegalWords[i].content;
 					self.comment = self.comment.replaceAll(word,'**');
 				}
+				var ifValid = self.cmtCtrl? -1: 1;
 				
 				_callAjax({
 					cmd: "exec",
-					sql: "insert into interactComments(content, replyTo, interactId, userId) values('"+ self.comment.trim() +"',(select userId from interact where id = "+ self.interactId +" ),"+ self.interactId +","+ userInfo.id +")"
-	//				vals: _dump([self.comment.trim(),  self.interactId, userInfo.id])
+					sql: "insert into interactComments(content, replyTo, interactId, userId, ifValid) values('"+ self.comment.trim() +"',(select userId from interact where id = "+ self.interactId +" ),"+ self.interactId +","+ userInfo.id + "," + ifValid + ")"
 				}, function(d) {
 					if(d.success) {
-						mui.toast("评论成功");
+						self.cmtCtrl ? mui.toast('您的评论将在审核后显示') : mui.toast("评论成功");
+
 						self.getComments();
 						//清空输入框
 						self.comment = '';
@@ -202,10 +204,49 @@ function plusReady() {
 						}
 					});
 				}
-				
 			},
 			shareSystem: function(e) {
-				share(e)
+				var btnArray = [{
+					title: "分享到朋友圈",
+				}, {
+					title: "分享给朋友"
+				}];
+				plus.nativeUI.actionSheet({
+					title: "分享",
+					cancel: "取消",
+					buttons: btnArray
+				}, function(e) {
+					var index = e.index;
+					switch(index) {
+						//取消
+						case 0:
+							break;
+						case 1:
+							type = linkerId.rebellion;
+							share('WXSceneTimeline');
+							break;
+						case 2:
+							type = linkerId.photography;
+							share('WXSceneSession');
+							break;
+					}
+				});
+			},
+			
+			//获取评论审核
+			getCmtCtrl: function() {
+				var self = this;
+			
+				//评论审核开关
+				_callAjax({
+					cmd: "fetch",
+					sql: "select cmtctrl from system"
+				}, function(d) {
+					if(d.success && d.data) {
+						_tell(d.data);
+						self.cmtCtrl = d.data[0].cmtctrl == 1 ? true : false;
+					}
+				});
 			}
 		},
 		watch: {
@@ -242,7 +283,7 @@ function plusReady() {
 		interactDetail.comments = [];
 		interactDetail.getComments();
 		interactDetail.getZan();
-		
+		interactDetail.getCmtCtrl();
 		//本人是否点赞
 		if(userInfo != null) {
 			_callAjax({
