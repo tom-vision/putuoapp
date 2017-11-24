@@ -1,3 +1,5 @@
+var swiper;
+var newsGraphic;
 //预加载页面
 mui.init({
 	preloadPages: [{
@@ -9,13 +11,38 @@ mui.init({
 // 扩展API加载完毕，现在可以正常调用扩展API
 function plusReady() {
 	
-	var newsGraphic = new Vue({
+	//获得事件参数
+  	var id = _get('newsId');
+  	
+  	_callAjax({
+		cmd: "fetch",
+		sql: "select id, img, title, brief  from articles where id = " + id
+	}, function(d) {
+		if(d.success && d.data){
+			var r = d.data[0];
+			var imgs = r.img.split(",");
+			r.imgs = imgs;
+			newsGraphic.newsData = r;
+			newsGraphic.activeImg = r.imgs[0];
+			setTimeout(function(){
+				swiper = new Swiper('.swiper-container', {
+					onSlideChangeEnd: function(swiper) {
+						// 为了下载存放的变量
+						newsGraphic.activeImg = newsGraphic.newsData.imgs[swiper.activeIndex];
+						newsGraphic.activeImgIndex = swiper.activeIndex + 1
+					},
+				});
+			}, 500)
+		}
+	});
+	
+	newsGraphic = new Vue({
 		el: '#newsGraphic',
 		data: {
 			newsData: {
 				title:'',
 				content:'',
-				imgs: ['']
+				imgs: []
 			}, 
 			activeImgIndex: 1,
 			activeImg: ''
@@ -43,37 +70,6 @@ function plusReady() {
 			}
 		},
 	})
-	
-	//添加newId自定义事件监听
-	window.addEventListener('newsId',function(event){
-	  	//获得事件参数
-	  	var id = _get('newsId');
-	  	console.log(id)
-	  	//根据id向服务器请求新闻详情
-	  	console.log("newsId="+id);
-	  	
-	  	_callAjax({
-			cmd: "fetch",
-			sql: "select * from articles where id = " + id
-	
-		}, function(d) {
-			if(d.success && d.data){
-				var r = d.data[0];
-				var imgs = r.img.split(",");
-				r.imgs = imgs;
-				newsGraphic.newsData = r;
-				newsGraphic.activeImg = r.imgs[0];
-				setTimeout(function(){
-					var swiper = new Swiper('.swiper-container', {
-						onSlideChangeEnd: function(swiper) {
-							newsGraphic.activeImg = newsGraphic.newsData.imgs[swiper.activeIndex];
-							newsGraphic.activeImgIndex = swiper.activeIndex + 1
-						}
-					});
-				}, 500)
-			}
-		});
-	});
 }
 
 // 判断扩展API是否准备，否则监听'plusready'事件

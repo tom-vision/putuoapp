@@ -9,6 +9,8 @@ mui.init({
 	}, ],
 });
 
+var	userInfo = _load(_get('userInfo'));
+
 // 扩展API加载完毕，现在可以正常调用扩展API
 function plusReady() {
 	pullToRefresh();
@@ -41,7 +43,12 @@ function plusReady() {
 			bHaveMore_photography: true,
 			bHaveMore_food: true,
 			bHaveMore_current: true,
-			currentIndex: 0
+			currentIndex: 0,
+			bFirst_latest: true,
+			bFirst_rebellion: true,
+			bFirst_photography: true,
+			bFirst_food: true,
+			
 		},
 		methods: {
 			openGallery: function(imgs, index) {
@@ -99,7 +106,7 @@ function plusReady() {
 
 				_callAjax({
 					cmd: "fetch",
-					sql: "select F.*, count(c.id) as commentNum from (select u.name, u.img as userImg, a.id, a.content, a.img, strftime('%Y-%m-%d %H:%M', a.logtime) as logtime, count(p.id) as zan from interact a left outer join User u on a.userId = u.id left outer join interact_praises p on p.interactId = a.id where a.ifValid =1 and a.id<? group by a.id order by a.id desc limit 5) F left outer join interactComments c on c.interactId = F.id group by F.id order by F.id desc",
+					sql: "select F.*, count(c.id) as commentNum from (select u.name, u.img as userImg, a.id, a.content, a.img, strftime('%Y-%m-%d %H:%M', a.logtime) as logtime, count(p.id) as zan from interact a left outer join User u on a.userId = u.id left outer join interact_praises p on p.interactId = a.id where a.ifValid =1 and a.id<? group by a.id order by a.id desc limit 5) F left outer join interactComments c on c.interactId = F.id  and c.ifValid = 1 group by F.id order by F.id desc",
 					vals: _dump([f])
 				}, function(d) {
 					if(!d.success || !d.data) {
@@ -113,9 +120,13 @@ function plusReady() {
 							r.imgs = arrImg;
 							r.logtime = _howLongAgo(r.logtime);
 							self.interact_latest.push(r);
+							
+							self.getSelfZan(r.id);
+
 						});
 					}
 					self.goLatest();
+					self.bFirst_latest = false;
 				});
 			},
 			//获取报料信息
@@ -129,7 +140,7 @@ function plusReady() {
 
 				_callAjax({
 					cmd: "fetch",
-					sql: "select F.*, count(c.id) as commentNum from (select u.name, u.img as userImg, a.id, a.content, a.img, strftime('%Y-%m-%d %H:%M', a.logtime) as logtime, count(p.id) as zan from interact a left outer join User u on a.userId = u.id left outer join interact_praises p on p.interactId = a.id where a.ifValid =1 and a.id<? and a.linkerId = ? group by a.id order by a.id desc limit 5) F left outer join interactComments c on c.interactId = F.id group by F.id order by F.id desc",
+					sql: "select F.*, count(c.id) as commentNum from (select u.name, u.img as userImg, a.id, a.content, a.img, strftime('%Y-%m-%d %H:%M', a.logtime) as logtime, count(p.id) as zan from interact a left outer join User u on a.userId = u.id left outer join interact_praises p on p.interactId = a.id where a.ifValid =1 and a.id<? and a.linkerId = ? group by a.id order by a.id desc limit 5) F left outer join interactComments c on c.interactId = F.id and c.ifValid = 1 group by F.id order by F.id desc",
 					vals: _dump([f, linkerId.rebellion])
 				}, function(d) {
 					if(!d.success || !d.data) {
@@ -144,9 +155,13 @@ function plusReady() {
 							r.logtime = _howLongAgo(r.logtime);
 
 							self.interact_rebellion.push(r);
+							self.getSelfZan(r.id);
 						});
 					}
-					self.goRebellion();
+					if(!self.bFirst_rebellion ){
+						self.goRebellion();
+					}
+					self.bFirst_rebellion = false;
 				});
 			},
 			//获取摄影信息
@@ -160,7 +175,7 @@ function plusReady() {
 
 				_callAjax({
 					cmd: "fetch",
-					sql: "select F.*, count(c.id) as commentNum from (select u.name, u.img as userImg, a.id, a.content, a.img, strftime('%Y-%m-%d %H:%M', a.logtime) as logtime, count(p.id) as zan from interact a left outer join User u on a.userId = u.id left outer join interact_praises p on p.interactId = a.id where a.ifValid =1 and a.id<? and a.linkerId = ? group by a.id order by a.id desc limit 5) F left outer join interactComments c on c.interactId = F.id group by F.id order by F.id desc",
+					sql: "select F.*, count(c.id) as commentNum from (select u.name, u.img as userImg, a.id, a.content, a.img, strftime('%Y-%m-%d %H:%M', a.logtime) as logtime, count(p.id) as zan from interact a left outer join User u on a.userId = u.id left outer join interact_praises p on p.interactId = a.id where a.ifValid =1 and a.id<? and a.linkerId = ? group by a.id order by a.id desc limit 5) F left outer join interactComments c on c.interactId = F.id and c.ifValid = 1 group by F.id order by F.id desc",
 					vals: _dump([f, linkerId.photography])
 				}, function(d) {
 					if(!d.success || !d.data) {
@@ -175,9 +190,13 @@ function plusReady() {
 							r.logtime = _howLongAgo(r.logtime);
 
 							self.interact_photography.push(r);
+							self.getSelfZan(r.id);
 						});
 					}
-					self.goPhotography();
+					if(!self.bFirst_photography ){
+						self.goPhotography();
+					}
+					self.bFirst_photography = false;
 				});
 			},
 			//获取美食信息
@@ -191,7 +210,7 @@ function plusReady() {
 
 				_callAjax({
 					cmd: "fetch",
-					sql: "select F.*, count(c.id) as commentNum from (select u.name, u.img as userImg, a.id, a.content, a.img, strftime('%Y-%m-%d %H:%M', a.logtime) as logtime, count(p.id) as zan from interact a left outer join User u on a.userId = u.id left outer join interact_praises p on p.interactId = a.id where a.ifValid =1 and a.id<? and a.linkerId = ? group by a.id order by a.id desc limit 5) F left outer join interactComments c on c.interactId = F.id group by F.id order by F.id desc",
+					sql: "select F.*, count(c.id) as commentNum from (select u.name, u.img as userImg, a.id, a.content, a.img, strftime('%Y-%m-%d %H:%M', a.logtime) as logtime, count(p.id) as zan from interact a left outer join User u on a.userId = u.id left outer join interact_praises p on p.interactId = a.id where a.ifValid =1 and a.id<? and a.linkerId = ? group by a.id order by a.id desc limit 5) F left outer join interactComments c on c.interactId = F.id and c.ifValid = 1 group by F.id order by F.id desc",
 					vals: _dump([f, linkerId.food])
 				}, function(d) {
 					if(!d.success || !d.data) {
@@ -206,10 +225,34 @@ function plusReady() {
 							r.logtime = _howLongAgo(r.logtime);
 
 							self.interact_food.push(r);
+							
+							self.getSelfZan(r.id);
+							
 						});
 					}
-					self.goFood();
+					if(!self.bFirst_food){
+						self.goFood();
+					}
+					self.bFirst_food = false;
 				});
+			},
+			//本人是否点赞
+			getSelfZan: function(r) {
+				var self = this;
+			
+				//本人是否点赞
+				if(userInfo != null) {
+					_callAjax({
+						cmd: "fetch",
+						sql: "select * from interact_praises where interactId = " + r.id + " and userId = " + userInfo.id
+					}, function(d) {
+						if(d.success && d.data) {
+							r.like = true;
+						} else {
+							r.like = false;
+						}
+					});
+				}
 			},
 			//tab切换
 			goLatest: function() {
@@ -236,6 +279,72 @@ function plusReady() {
 				self.bHaveMore_current = self.bHaveMore_food;
 				self.currentIndex = 3;
 			},
+			//点赞
+			clickZan: function(i) {
+				var self = this;
+				userInfo = _load(_get('userInfo'));
+				if(userInfo == '' || userInfo == null) {
+					mui.toast("请先在个人中心登录");
+					openWindow('login.html', 'login');
+					return;
+				}
+				if(!i.like) {
+					//点赞
+					_callAjax({
+						cmd: "exec",
+						sql: "insert into interact_praises(interactId, userId) values(?,?)",
+						vals: _dump([i.id, userInfo.id])
+					}, function(d) {
+						if(d.success) {
+							i.zan ++;
+							i.like = true;
+						} else {
+							i.like = false;
+						}
+					});
+				} else {
+					//取消
+					_callAjax({
+						cmd: "exec",
+						sql: "delete from interact_praises where interactId = ? and userId = ?",
+						vals: _dump([i.id, userInfo.id])
+					}, function(d) {
+						if(d.success) {
+							i.zan --;
+							i.like = false;
+						} else {
+							i.like = true;
+						}
+					});
+				}
+			},
+			shareSystem: function(e) {
+				var btnArray = [{
+					title: "分享到朋友圈",
+				}, {
+					title: "分享给朋友"
+				}];
+				plus.nativeUI.actionSheet({
+					title: "分享",
+					cancel: "取消",
+					buttons: btnArray
+				}, function(e) {
+					var index = e.index;
+					switch(index) {
+						//取消
+						case 0:
+							break;
+						case 1:
+							type = linkerId.rebellion;
+							share('WXSceneTimeline');
+							break;
+						case 2:
+							type = linkerId.photography;
+							share('WXSceneSession');
+							break;
+					}
+				});
+			}
 		},
 		watch: {
 			currentIndex: function() {
@@ -253,10 +362,6 @@ function plusReady() {
 			self.getPhotography();
 			//获取美食信息
 			self.getFood();
-
-			setTimeout(function() {
-				self.goLatest();
-			}, 1500);
 		}
 	})
 

@@ -2,13 +2,9 @@ var comment = '';
 
 //预加载页面
 mui.init({
-//	preloadPages: [{
-//		url: 'login.html',
-//		id: 'login'
-//	}],
 	beforeback: function() {
 		comment.comments = []
-	}
+	},
 });
 
 // 扩展API加载完毕，现在可以正常调用扩展API
@@ -21,7 +17,8 @@ function plusReady() {
 			content: '',
 			comments: [], //评论
 			userInfo: '',
-			bHaveMore: true
+			bHaveMore: true,
+			cmtCtrl: false
 		},
 		created: function() {
 			if(articleId == 0){
@@ -88,15 +85,19 @@ function plusReady() {
 					var word = illegalWords[i].content;
 					self.content = self.content.replaceAll(word,'**');
 				}
-								
+				
+				var ifValid = self.cmtCtrl? -1: 1;
+				
 				_callAjax({
 					cmd: "exec",
-					sql: "insert into comments(content, articleId, userId) values(?,?,?)",
-					vals: _dump([self.content, articleId, self.userInfo.id])
+					sql: "insert into comments(content, articleId, userId, ifValid) values(?,?,?,?)",
+					vals: _dump([self.content, articleId, self.userInfo.id, ifValid])
 				}, function(d) {
 					if(d.success) {
-						mui.toast("发表成功");
-						location.reload();
+						self.cmtCtrl ? mui.toast('您的评论将在审核后显示') : mui.toast("发表成功");
+						setTimeout(function() {
+							location.reload();	
+						}, 500)
 					}
 				});
 			},
@@ -112,6 +113,7 @@ function plusReady() {
 					vals: _dump([articleId, f])
 				}, function(d) {
 					if(!d.success || !d.data) {
+						mui.toast('评论已全部加载完毕');
 						return self.bHaveMore = false;
 					} else {
 						d.data.forEach(function(r) {
@@ -129,11 +131,25 @@ function plusReady() {
 								});
 							}
 							self.comments.push(r);
-							_tell(self.comments)
 						});
 					}
 				});
+			},
+			
+			getCmtCtrl:function(){
+				var self = this;
+				
+				//评论审核开关
+				_callAjax({
+					cmd: "fetch",
+					sql: "select cmtctrl from system"
+				}, function(d) {
+					if(d.success && d.data) {
+						self.cmtCtrl = d.data[0].cmtctrl==1? true: false;
+					}
+				});
 			}
+
 		}
 	})
 	
@@ -143,6 +159,31 @@ function plusReady() {
 		articleId = _get('newsId');
 		comment.userInfo = _load(_get('userInfo'));
 		comment.getComments();
+		comment.getCmtCtrl();
+		
+		var dragger = new DragLoader(document.getElementsByClassName('main')[0], {    
+	        dragDownThreshold:60,/*向下滑动区域*/    
+	        dragUpThreshold:100,/*向上滑动区域*/    
+	        dragDownRegionCls: 'DownRefresh',/*向下滑动样式*/    
+	        dragUpRegionCls: 'UpRefresh',/*向上滑动样式*/    
+	        disableDragDown: true,    
+	  
+	        /*[主要code]向上滑动时的状态显示*/    
+	        dragUpHelper: function(status) {    
+	            if (status == 'default') {    
+	                $('.up-refresh-text').html('<span class="up-refresh-ico"></span>上拉有惊喜');    
+	            } else if (status == 'prepare') {    
+	                $('.up-refresh-text').html('<span class="up-refresh-ico"></span>赶紧松开');    
+	            } else if (status == 'load') {    
+	                $('.up-refresh-text').html('<span class="loading-img"></span>挤挤挤...');    
+	            }    
+	        }
+	    });  
+	    
+        dragger.on('dragUpLoad', function() {
+        	comment.getComments();
+	        dragger.reset();   
+	    }); 
 	})
 }
 

@@ -39,6 +39,10 @@ function plusReady() {
 					if(boot.time == 0) return openWindow('index.html', 'index');
 				}, 1000)
 			})
+<<<<<<< HEAD
+=======
+			
+>>>>>>> eb780179352959f3423142f87ddd218ce0dc28d1
 		}
 	})
 }

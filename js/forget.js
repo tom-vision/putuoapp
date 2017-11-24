@@ -23,7 +23,8 @@ function plusReady() {
 			captcha: '',
 			password: '',
 			captcha_session: '',
-			getSmsState: '获取验证码'
+			getSmsState: '获取验证码',
+			userInfo: _load(_get('userInfo'))
 		},
 		methods: {
 			//获取验证码
@@ -79,7 +80,11 @@ function plusReady() {
 				}, function(d) {
 					if(d.success) {
 						mui.toast("密码重置成功");
-	
+						
+						self.userInfo = _load(_get('userInfo'));
+						self.userInfo.pswd = self.password.trim();
+						_set('userInfo',_dump(self.userInfo));
+						
 						setTimeout(function() {
 							mui.back();
 	
