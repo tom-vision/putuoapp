@@ -15,15 +15,13 @@ function plusReady() {
 	var boot = new Vue({
 		el: '.boot',
 		data: {
-			link: 'http://img.zcool.cn/community/0197b658259955a84a0e282bd081d4.png',
+			link: '',
 			time: 7
 		},
 		methods: {
 			goIndex: function() {
 				openWindow('index.html', 'index');
 			},
-		
-			
 		},
 		created: function() {
 			var self = this;
@@ -34,22 +32,13 @@ function plusReady() {
 			}, function(d) {
 				if(d.success && d.data) {
 					self.link = d.data[0].homepage;
-					console.log("**********");
-					_tell(self.link);
-			
 				}
 				
 				setInterval(function() {
 					boot.time--;
 					if(boot.time == 0) return openWindow('index.html', 'index');
 				}, 1000)
-			
 			})
-			
-			
-			
-			
-			
 		}
 	})
 }
