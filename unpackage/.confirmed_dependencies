@@ -1,324 +1,326 @@
 {
-  "index.html": {
-    "resources": [
-      "plugins/mui.min.js",
-      "css/style.css",
-      "plugins/mui.min.css",
-      "js/index.js",
-      "imgs/ad.jpg",
-      "plugins/iconfont.css",
-      "js/global.js",
-      "views/newsDetail.html",
-      "fonts/mui.ttf",
-      "imgs/uBg.jpg",
-      "js/a_ref.js",
-      "plugins/swiper.min.css",
-      "plugins/jquery.min.js",
-      "plugins/vue.min.js"
-    ],
-    "refer": [
-      "search.html",
-      "views/search.html",
-      "views/news.html",
-      "views/topic.html",
-      "views/newsDetail.html",
-      "views/life.html",
-      "views/vod.html",
-      "views/newsGraphic.html",
-      "views/live.html",
-      "views/suggest.html",
-      "views/login.html",
-      "views/userInfo.html",
-      "views/interact.html",
-      "views/iframe.html",
-      "views/zan.html",
-      "views/cmt.html",
-      "views/topic-list.html",
-      "views/digitalNewspaper.html",
-      "views/myInteract.html"
-    ]
-  },
-  "views/search.html": {
-    "resources": [
-      "plugins/mui.min.js",
-      "css/style.css",
-      "plugins/mui.min.css",
-      "plugins/iconfont.css",
-      "fonts/mui.ttf",
-      "js/search.js",
-      "js/global.js"
-    ],
-    "refer": [
-      "views/search.html"
-    ]
-  },
-  "views/news.html": {
-    "resources": [
-      "fonts/mui.ttf",
-      "plugins/mui.min.js",
-      "css/style.css",
-      "js/global.js",
-      "plugins/mui.min.css",
-      "plugins/iconfont.css",
-      "js/news.js"
-    ],
-    "refer": []
-  },
-  "views/topic.html": {
-    "resources": [
-      "fonts/mui.ttf",
-      "plugins/mui.min.js",
-      "css/style.css",
-      "js/global.js",
-      "plugins/mui.min.css",
-      "plugins/iconfont.css",
-      "js/topic.js"
-    ],
-    "refer": [
-      "views/topic-list.html"
-    ]
-  },
-  "views/topic-list.html": {
-    "resources": [
-      "plugins/mui.min.js",
-      "fonts/mui.ttf",
-      "css/style.css",
-      "js/global.js",
-      "plugins/mui.min.css",
-      "plugins/iconfont.css"
-    ],
-    "refer": []
-  },
-  "views/newsDetail.html": {
-    "resources": [
-      "fonts/mui.ttf",
-      "index.html",
-      "imgs/ad.jpg",
-      "plugins/mui.min.js",
-      "css/style.css",
-      "js/global.js",
-      "plugins/mui.min.css",
-      "js/search.js",
-      "plugins/iconfont.css",
-      "js/newsDetail.js",
-      "js/a_ref.js",
-      "plugins/jquery.min.js",
-      "plugins/vue.min.js"
-    ],
-    "refer": [
-      "index.html",
-      "views/comment.html",
-      "views/iframe.html"
-    ]
-  },
-  "views/comment.html": {
-    "resources": [
-      "plugins/mui.min.js",
-      "fonts/mui.ttf",
-      "css/style.css",
-      "js/global.js",
-      "plugins/mui.min.css",
-      "js/comment.js",
-      "plugins/iconfont.css",
-      "js/a_ref.js",
-      "plugins/jquery.min.js",
-      "plugins/vue.min.js"
-    ],
-    "refer": []
-  },
-  "views/life.html": {
-    "resources": [
-      "fonts/mui.ttf",
-      "plugins/mui.min.js",
-      "css/style.css",
-      "js/global.js",
-      "plugins/mui.min.css",
-      "plugins/iconfont.css"
-    ],
-    "refer": []
-  },
-  "views/vod.html": {
-    "resources": [
-      "fonts/mui.ttf",
-      "plugins/mui.min.js",
-      "css/style.css",
-      "js/global.js",
-      "plugins/mui.min.css",
-      "plugins/iconfont.css"
-    ],
-    "refer": []
-  },
-  "views/newsGraphic.html": {
-    "resources": [
-      "plugins/mui.min.js",
-      "fonts/mui.ttf",
-      "css/style.css",
-      "js/global.js",
-      "plugins/mui.min.css",
-      "plugins/iconfont.css",
-      "js/newsGraphic.js",
-      "js/a_ref.js",
-      "plugins/jquery.min.js",
-      "plugins/vue.min.js",
-      "plugins/swiper.min.css",
-      "plugins/swiper.min.js"
-    ],
-    "refer": [
-      "views/comment.html"
-    ]
-  },
-  "views/live.html": {
-    "resources": [
-      "plugins/mui.min.js",
-      "fonts/mui.ttf",
-      "css/style.css",
-      "js/global.js",
-      "plugins/mui.min.css",
-      "plugins/iconfont.css"
-    ],
-    "refer": []
-  },
-  "views/suggest.html": {
-    "resources": [
-      "fonts/mui.ttf",
-      "plugins/mui.min.js",
-      "css/style.css",
-      "js/global.js",
-      "plugins/mui.min.css",
-      "plugins/iconfont.css"
-    ],
-    "refer": []
-  },
-  "views/login.html": {
-    "resources": [
-      "fonts/mui.ttf",
-      "plugins/mui.min.js",
-      "css/style.css",
-      "js/global.js",
-      "plugins/mui.min.css",
-      "plugins/iconfont.css",
-      "js/login.js"
-    ],
-    "refer": [
-      "views/register.html",
-      "views/forgetPassword.html"
-    ]
-  },
-  "views/register.html": {
-    "resources": [
-      "plugins/mui.min.js",
-      "css/style.css",
-      "js/global.js",
-      "plugins/mui.min.css",
-      "plugins/iconfont.css",
-      "fonts/mui.ttf"
-    ],
-    "refer": []
-  },
-  "views/forgetPassword.html": {
-    "resources": [
-      "plugins/mui.min.js",
-      "fonts/mui.ttf",
-      "css/style.css",
-      "js/global.js",
-      "plugins/mui.min.css",
-      "plugins/iconfont.css"
-    ],
-    "refer": []
-  },
-  "views/userInfo.html": {
-    "resources": [
-      "plugins/mui.min.js",
-      "fonts/mui.ttf",
-      "css/style.css",
-      "js/global.js",
-      "plugins/mui.min.css",
-      "plugins/iconfont.css",
-      "js/userInfo.js"
-    ],
-    "refer": [
-      "views/changePswd.html"
-    ]
-  },
-  "views/interact.html": {
-    "resources": [
-      "fonts/mui.ttf",
-      "plugins/mui.min.js",
-      "css/style.css",
-      "js/global.js",
-      "plugins/mui.min.css",
-      "plugins/iconfont.css",
-      "js/interact.js"
-    ],
-    "refer": [
-      "views/release.html",
-      "views/interact-detail.html"
-    ]
-  },
-  "views/iframe.html": {
-    "resources": [
-      "js/iframe.js",
-      "fonts/mui.ttf"
-    ],
-    "refer": []
-  },
-  "views/zan.html": {
-    "resources": [
-      "plugins/mui.min.js",
-      "css/style.css",
-      "js/global.js",
-      "plugins/mui.min.css",
-      "plugins/iconfont.css",
-      "js/zan.js"
-    ],
-    "refer": [
-      "views/comment.html"
-    ]
-  },
-  "views/release.html": {
-    "resources": [
-      "js/release.js"
-    ],
-    "refer": []
-  },
-  "views/cmt.html": {
-    "resources": [
-      "fonts/mui.ttf",
-      "js/cmt.js"
-    ],
-    "refer": []
-  },
-  "views/myInteract.html": {
-    "refer": [
-      "views/interact-detail.html"
-    ],
-    "resources": [
-      "js/myInteract.js"
-    ]
-  },
-  "views/digitalNewspaper.html": {
-    "resources": [
-      "js/digitalNewspaper.js",
-      "plugins/mui.picker.min.css",
-      "plugins/mui.picker.min.js",
-      "js/a_ref.js",
-      "plugins/swiper.min.js",
-      "plugins/jquery.min.js",
-      "plugins/mui.min.js",
-      "js/global.js",
-      "plugins/mui.min.css",
-      "plugins/vue.min.js",
-      "css/style.css",
-      "plugins/iconfont.css",
-      "plugins/swiper.min.css",
-      "fonts/mui.ttf"
-    ],
-    "refer": []
-  },
-  "boot.html": {
-    "refer": [
-      "index.html"
-    ],
-    "resources": []
-  }
+	"index.html": {
+		"resources": [
+			"plugins/mui.min.js",
+			"css/style.css",
+			"plugins/mui.min.css",
+			"js/index.js",
+			"imgs/ad.jpg",
+			"plugins/iconfont.css",
+			"js/global.js",
+			"views/newsDetail.html",
+			"fonts/mui.ttf",
+			"imgs/uBg.jpg",
+			"js/a_ref.js",
+			"plugins/swiper.min.css",
+			"plugins/jquery.min.js",
+			"plugins/vue.min.js"
+		],
+		"refer": [
+			"search.html",
+			"views/search.html",
+			"views/news.html",
+			"views/topic.html",
+			"views/newsDetail.html",
+			"views/life.html",
+			"views/vod.html",
+			"views/newsGraphic.html",
+			"views/live.html",
+			"views/suggest.html",
+			"views/login.html",
+			"views/userInfo.html",
+			"views/interact.html",
+			"views/iframe.html",
+			"views/zan.html",
+			"views/cmt.html",
+			"views/topic-list.html",
+			"views/digitalNewspaper.html",
+			"views/myInteract.html"
+		]
+	},
+	"views/search.html": {
+		"resources": [
+			"plugins/mui.min.js",
+			"css/style.css",
+			"plugins/mui.min.css",
+			"plugins/iconfont.css",
+			"fonts/mui.ttf",
+			"js/search.js",
+			"js/global.js"
+		],
+		"refer": [
+			"views/search.html"
+		]
+	},
+	"views/news.html": {
+		"resources": [
+			"fonts/mui.ttf",
+			"plugins/mui.min.js",
+			"css/style.css",
+			"js/global.js",
+			"plugins/mui.min.css",
+			"plugins/iconfont.css",
+			"js/news.js"
+		],
+		"refer": []
+	},
+	"views/topic.html": {
+		"resources": [
+			"fonts/mui.ttf",
+			"plugins/mui.min.js",
+			"css/style.css",
+			"js/global.js",
+			"plugins/mui.min.css",
+			"plugins/iconfont.css",
+			"js/topic.js"
+		],
+		"refer": [
+			"views/topic-list.html"
+		]
+	},
+	"views/topic-list.html": {
+		"resources": [
+			"plugins/mui.min.js",
+			"fonts/mui.ttf",
+			"css/style.css",
+			"js/global.js",
+			"plugins/mui.min.css",
+			"plugins/iconfont.css"
+		],
+		"refer": []
+	},
+	"views/newsDetail.html": {
+		"resources": [
+			"fonts/mui.ttf",
+			"index.html",
+			"imgs/ad.jpg",
+			"plugins/mui.min.js",
+			"css/style.css",
+			"js/global.js",
+			"plugins/mui.min.css",
+			"js/search.js",
+			"plugins/iconfont.css",
+			"js/newsDetail.js",
+			"js/a_ref.js",
+			"plugins/jquery.min.js",
+			"plugins/vue.min.js"
+		],
+		"refer": [
+			"index.html",
+			"views/comment.html",
+			"views/iframe.html"
+		]
+	},
+	"views/comment.html": {
+		"resources": [
+			"plugins/mui.min.js",
+			"fonts/mui.ttf",
+			"css/style.css",
+			"js/global.js",
+			"plugins/mui.min.css",
+			"js/comment.js",
+			"plugins/iconfont.css",
+			"js/a_ref.js",
+			"plugins/jquery.min.js",
+			"plugins/vue.min.js"
+		],
+		"refer": []
+	},
+	"views/life.html": {
+		"resources": [
+			"fonts/mui.ttf",
+			"plugins/mui.min.js",
+			"css/style.css",
+			"js/global.js",
+			"plugins/mui.min.css",
+			"plugins/iconfont.css"
+		],
+		"refer": []
+	},
+	"views/vod.html": {
+		"resources": [
+			"fonts/mui.ttf",
+			"plugins/mui.min.js",
+			"css/style.css",
+			"js/global.js",
+			"plugins/mui.min.css",
+			"plugins/iconfont.css"
+		],
+		"refer": []
+	},
+	"views/newsGraphic.html": {
+		"resources": [
+			"plugins/mui.min.js",
+			"fonts/mui.ttf",
+			"css/style.css",
+			"js/global.js",
+			"plugins/mui.min.css",
+			"plugins/iconfont.css",
+			"js/newsGraphic.js",
+			"js/a_ref.js",
+			"plugins/jquery.min.js",
+			"plugins/vue.min.js",
+			"plugins/swiper.min.css",
+			"plugins/swiper.min.js"
+		],
+		"refer": [
+			"views/comment.html"
+		]
+	},
+	"views/live.html": {
+		"resources": [
+			"plugins/mui.min.js",
+			"fonts/mui.ttf",
+			"css/style.css",
+			"js/global.js",
+			"plugins/mui.min.css",
+			"plugins/iconfont.css"
+		],
+		"refer": []
+	},
+	"views/suggest.html": {
+		"resources": [
+			"fonts/mui.ttf",
+			"plugins/mui.min.js",
+			"css/style.css",
+			"js/global.js",
+			"plugins/mui.min.css",
+			"plugins/iconfont.css"
+		],
+		"refer": []
+	},
+	"views/login.html": {
+		"resources": [
+			"fonts/mui.ttf",
+			"plugins/mui.min.js",
+			"css/style.css",
+			"js/global.js",
+			"plugins/mui.min.css",
+			"plugins/iconfont.css",
+			"js/login.js"
+		],
+		"refer": [
+			"views/register.html",
+			"views/forgetPassword.html"
+		]
+	},
+	"views/register.html": {
+		"resources": [
+			"plugins/mui.min.js",
+			"css/style.css",
+			"js/global.js",
+			"plugins/mui.min.css",
+			"plugins/iconfont.css",
+			"fonts/mui.ttf"
+		],
+		"refer": []
+	},
+	"views/forgetPassword.html": {
+		"resources": [
+			"plugins/mui.min.js",
+			"fonts/mui.ttf",
+			"css/style.css",
+			"js/global.js",
+			"plugins/mui.min.css",
+			"plugins/iconfont.css"
+		],
+		"refer": []
+	},
+	"views/userInfo.html": {
+		"resources": [
+			"plugins/mui.min.js",
+			"fonts/mui.ttf",
+			"css/style.css",
+			"js/global.js",
+			"plugins/mui.min.css",
+			"plugins/iconfont.css",
+			"js/userInfo.js"
+		],
+		"refer": [
+			"views/changePswd.html"
+		]
+	},
+	"views/interact.html": {
+		"resources": [
+			"fonts/mui.ttf",
+			"plugins/mui.min.js",
+			"css/style.css",
+			"js/global.js",
+			"plugins/mui.min.css",
+			"plugins/iconfont.css",
+			"js/interact.js"
+		],
+		"refer": [
+			"views/release.html",
+			"views/interact-detail.html"
+		]
+	},
+	"views/iframe.html": {
+		"resources": [
+			"js/iframe.js",
+			"fonts/mui.ttf"
+		],
+		"refer": []
+	},
+	"views/zan.html": {
+		"resources": [
+			"plugins/mui.min.js",
+			"css/style.css",
+			"js/global.js",
+			"plugins/mui.min.css",
+			"plugins/iconfont.css",
+			"js/zan.js"
+		],
+		"refer": [
+			"views/comment.html"
+		]
+	},
+	"views/release.html": {
+		"resources": [
+			"js/release.js"
+		],
+		"refer": []
+	},
+	"views/cmt.html": {
+		"resources": [
+			"fonts/mui.ttf",
+			"js/cmt.js"
+		],
+		"refer": [
+			"views/interact-detail.html"
+		]
+	},
+	"views/myInteract.html": {
+		"refer": [
+			"views/interact-detail.html"
+		],
+		"resources": [
+			"js/myInteract.js"
+		]
+	},
+	"views/digitalNewspaper.html": {
+		"resources": [
+			"js/digitalNewspaper.js",
+			"plugins/mui.picker.min.css",
+			"plugins/mui.picker.min.js",
+			"js/a_ref.js",
+			"plugins/swiper.min.js",
+			"plugins/jquery.min.js",
+			"plugins/mui.min.js",
+			"js/global.js",
+			"plugins/mui.min.css",
+			"plugins/vue.min.js",
+			"css/style.css",
+			"plugins/iconfont.css",
+			"plugins/swiper.min.css",
+			"fonts/mui.ttf"
+		],
+		"refer": []
+	},
+	"boot.html": {
+		"refer": [
+			"index.html"
+		],
+		"resources": []
+	}
 }

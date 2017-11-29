@@ -9,10 +9,12 @@ mui.init({
 	}, ],
 });
 
-var	userInfo = _load(_get('userInfo'));
+
 
 // 扩展API加载完毕，现在可以正常调用扩展API
 function plusReady() {
+	var	userInfo = _load(_get('userInfo'));
+	
 	pullToRefresh();
 	
 	// 相册显示时监听物理返回按键，若已经显示则优先关闭相册

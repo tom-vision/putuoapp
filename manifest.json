@@ -496,7 +496,9 @@
 					"fonts/mui.ttf",
 					"js/cmt.js"
 				],
-				"refer": [],
+				"refer": [
+					"views/interact-detail.html"
+				],
 				"priority": 0
 			},
 			"views/myInteract.html": {

@@ -119,7 +119,7 @@ function plusReady() {
 				news.activeSort = i;
 			},
 			gotoDetail: function(i) {
-				if(i.url != '#'){
+				if(i.url != '#' && i.url.length > 1){
 					mui.openWindow({
 						url: 'views/iframe.html',
 						id: 'iframe',

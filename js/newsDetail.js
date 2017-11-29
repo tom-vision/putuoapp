@@ -140,6 +140,7 @@ function plusReady() {
 	window.addEventListener('newsId', function(event) {
 		//获得事件参数
 		articleId = _get('newsId');
+		alert(articleId)
 		
 		console.log("articleId="+articleId);
 		
