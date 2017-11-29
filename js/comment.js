@@ -161,29 +161,29 @@ function plusReady() {
 		comment.getComments();
 		comment.getCmtCtrl();
 		
-		var dragger = new DragLoader(document.getElementsByClassName('main')[0], {    
-	        dragDownThreshold:60,/*向下滑动区域*/    
-	        dragUpThreshold:100,/*向上滑动区域*/    
-	        dragDownRegionCls: 'DownRefresh',/*向下滑动样式*/    
-	        dragUpRegionCls: 'UpRefresh',/*向上滑动样式*/    
-	        disableDragDown: true,    
-	  
-	        /*[主要code]向上滑动时的状态显示*/    
-	        dragUpHelper: function(status) {    
-	            if (status == 'default') {    
-	                $('.up-refresh-text').html('<span class="up-refresh-ico"></span>上拉有惊喜');    
-	            } else if (status == 'prepare') {    
-	                $('.up-refresh-text').html('<span class="up-refresh-ico"></span>赶紧松开');    
-	            } else if (status == 'load') {    
-	                $('.up-refresh-text').html('<span class="loading-img"></span>挤挤挤...');    
-	            }    
-	        }
-	    });  
-	    
-        dragger.on('dragUpLoad', function() {
-        	comment.getComments();
-	        dragger.reset();   
-	    }); 
+//		var dragger = new DragLoader(document.getElementsByClassName('main')[0], {    
+//	        dragDownThreshold:60,/*向下滑动区域*/    
+//	        dragUpThreshold:100,/*向上滑动区域*/    
+//	        dragDownRegionCls: 'DownRefresh',/*向下滑动样式*/    
+//	        dragUpRegionCls: 'UpRefresh',/*向上滑动样式*/    
+//	        disableDragDown: true,    
+//	  
+//	        /*[主要code]向上滑动时的状态显示*/    
+//	        dragUpHelper: function(status) {    
+//	            if (status == 'default') {    
+//	                $('.up-refresh-text').html('<span class="up-refresh-ico"></span>上拉有惊喜');    
+//	            } else if (status == 'prepare') {    
+//	                $('.up-refresh-text').html('<span class="up-refresh-ico"></span>赶紧松开');    
+//	            } else if (status == 'load') {    
+//	                $('.up-refresh-text').html('<span class="loading-img"></span>挤挤挤...');    
+//	            }    
+//	        }
+//	    });  
+//	    
+//      dragger.on('dragUpLoad', function() {
+//      	comment.getComments();
+//	        dragger.reset();   
+//	    }); 
 	})
 }
 
