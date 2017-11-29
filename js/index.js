@@ -430,19 +430,30 @@ function plusReady() {
 				this.activeSort = i
 			},
 			gotoDetail: function(i) {
-				var detailPage = null;
-				//获得详情页面
-				if(!detailPage) {
-					detailPage = plus.webview.getWebviewById('newsDetail');
+				if(i.url != '#' && i.url.length > 1){
+					mui.openWindow({
+						url: 'views/iframe.html',
+						id: 'iframe',
+						extras: {
+							title: i.title,
+							url: i.url
+						},
+					})
+				}else {
+					var detailPage = null;
+					//获得详情页面
+					if(!detailPage) {
+						detailPage = plus.webview.getWebviewById('newsDetail');
+					}
+					
+					//触发详情页面的newsId事件
+					mui.fire(detailPage, 'newsId', {});
+					_set('newsId', i.id);
+					setTimeout(function() {
+						openWindow('views/newsDetail.html', 'newsDetail');
+					}, 200)
 				}
-	
-				//触发详情页面的newsId事件
-				mui.fire(detailPage, 'newsId', {
-				});
-				_set('newsId', i.id);
-				setTimeout(function(){
-					openWindow('views/newsDetail.html', 'newsDetail');
-				},200)
+				
 			},
 			goNewsGraphic: function(i) {
 				mui.openWindow({

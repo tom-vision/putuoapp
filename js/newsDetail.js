@@ -153,10 +153,10 @@ function plusReady() {
 		}, function(d) {
 			if(d.success && d.data) {
 				newsDetail.newsData = d.data[0];
-				console.log(d.data[0].content)
+
 				//视频加poster
 				var poster = d.data[0].content;
-				poster = poster.replace(/controls=""/, 'poster="' + d.data[0].img + '"');
+				poster = poster.replace(/controls=""/, 'controns="controls" poster="' + d.data[0].img + '"');
 				newsDetail.newsData.content = poster;
 				
 				//文章阅读量+1
