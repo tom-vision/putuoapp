@@ -9,6 +9,7 @@ var linkerId = {
 	rebellion: 115,  //报料
 	photography:116, //摄影
 	food: 117,        //美食
+	topicSort: 118,   //专题分类
 	ad: 119          //广告
 };
 

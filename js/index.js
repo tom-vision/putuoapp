@@ -362,7 +362,7 @@ function plusReady() {
 			//获取专题节目
 			_callAjax({
 				cmd: "fetch",
-				sql: "select * from linkers where linkerType = 'theme'"
+				sql: "select * from linkers where refId = "+linkerId.topicSort
 			}, function(d) {
 				if(d.success && d.data) {
 					self.topicNews = d.data;
