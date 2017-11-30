@@ -9,7 +9,6 @@ mui.init({
 		$('video').each(function() {
 			$(this)[0].pause();
 		})
-		
 	}
 });
 
@@ -90,6 +89,9 @@ function plusReady() {
 		},
 		methods: {
 			gotoFirstAd: function(){
+				$('video').each(function() {
+					$(this)[0].pause();
+				})
 				mui.openWindow({
 					url: 'iframe.html',
 					id: 'iframe',
@@ -124,6 +126,9 @@ function plusReady() {
 		},
 		methods: {
 			goComment: function() {
+				$('video').each(function() {
+					$(this)[0].pause();
+				})
 				var detailPage = null;
 				//获得评论页面
 				if(!detailPage) {
@@ -140,9 +145,6 @@ function plusReady() {
 	window.addEventListener('newsId', function(event) {
 		//获得事件参数
 		articleId = _get('newsId');
-		alert(articleId)
-		
-		console.log("articleId="+articleId);
 		
 		//根据id向服务器请求新闻详情
 		userInfo = _load(_get('userInfo'));
@@ -156,11 +158,14 @@ function plusReady() {
 
 				//视频加poster
 				var poster = d.data[0].content;
-				poster = poster.replace(/controls=""/, 'controns="controls" poster="' + d.data[0].img + '"');
+				poster = poster.replace(/controls=""/,  'controls poster="' + d.data[0].img + '"');
+				console.log(poster)
 				newsDetail.newsData.content = poster;
 				
 				//文章阅读量+1
 				newsDetail.addReadCnt();
+				
+				$('body').animate({scrollTop:0},500)
 			}
 		});
 	

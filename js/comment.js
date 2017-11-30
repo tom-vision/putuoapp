@@ -80,10 +80,12 @@ function plusReady() {
 				if('' == self.content) return mui.toast("请填写评论内容");
 								
 				var illegalWords = _load(_get('illegal'));
-				
-				for (var i=0; i<illegalWords.length; i++) {
-					var word = illegalWords[i].content;
-					self.content = self.content.replaceAll(word,'**');
+				if(!!illegalWords) {
+					console.log(2)
+					for (var i=0; i<illegalWords.length; i++) {
+						var word = illegalWords[i].content;
+						self.content = self.content.replaceAll(word,'**');
+					}
 				}
 				
 				var ifValid = self.cmtCtrl? -1: 1;
