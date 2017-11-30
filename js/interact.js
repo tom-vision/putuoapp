@@ -121,11 +121,13 @@ function plusReady() {
 							var arrImg = r.img.split(';');
 							r.imgs = arrImg;
 							r.logtime = _howLongAgo(r.logtime);
+							r.like = false;
+
 							self.interact_latest.push(r);
-							
-							self.getSelfZan(r.id);
+							self.getSelfZan(r);
 
 						});
+						
 					}
 					self.goLatest();
 					self.bFirst_latest = false;
@@ -155,10 +157,12 @@ function plusReady() {
 							var arrImg = r.img.split(';');
 							r.imgs = arrImg;
 							r.logtime = _howLongAgo(r.logtime);
+							r.like = false;
 
 							self.interact_rebellion.push(r);
-							self.getSelfZan(r.id);
+							self.getSelfZan(r);
 						});
+						
 					}
 					if(!self.bFirst_rebellion ){
 						self.goRebellion();
@@ -190,10 +194,12 @@ function plusReady() {
 							var arrImg = r.img.split(';');
 							r.imgs = arrImg;
 							r.logtime = _howLongAgo(r.logtime);
+							r.like = false;
 
 							self.interact_photography.push(r);
-							self.getSelfZan(r.id);
+							self.getSelfZan(r);
 						});
+						
 					}
 					if(!self.bFirst_photography ){
 						self.goPhotography();
@@ -225,12 +231,13 @@ function plusReady() {
 							var arrImg = r.img.split(';');
 							r.imgs = arrImg;
 							r.logtime = _howLongAgo(r.logtime);
-
+							r.like = false;
 							self.interact_food.push(r);
 							
-							self.getSelfZan(r.id);
+							self.getSelfZan(r);
 							
 						});
+						
 					}
 					if(!self.bFirst_food){
 						self.goFood();
@@ -253,6 +260,7 @@ function plusReady() {
 						} else {
 							r.like = false;
 						}
+						
 					});
 				}
 			},
