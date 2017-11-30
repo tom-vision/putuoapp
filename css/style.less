@@ -894,13 +894,12 @@ body {
 
 .popup {
     position: fixed;
+    height: 100%;
+    width: 100%;
     left: 0;
     top: 0;
-    right: 0;
-    bottom: 0;
     z-index: 9999;
     background-color: #fff;
-    overflow-y: scroll;
 }
 
 #digitalNewspaper {
@@ -925,6 +924,11 @@ body {
 }
 
 .digitalNewspaper-menu-popup {
+    .content {
+        padding-bottom: 44px;
+        overflow-y: scroll;
+        height: 100%;
+    }
     dl {
         dt {
             height: 40px;
@@ -967,7 +971,9 @@ body {
 
 .digitalNewspaper-detail-popup {
     .content {
-        padding: 20px;
+        padding: 20px 20px 44px;
+        overflow-y: scroll;
+        height: 100%;
         h1 {
             font-size: 16px;
             color: #999;
