@@ -24,7 +24,7 @@
 			<header v-cloak>
 				{{newsData.title}}
 				<p>
-					<span v-text="newsData.reporter" v-if="newsData.reporter == ''"></span>
+					<span v-text="newsData.reporter" v-if="newsData.reporter != ''"></span>
 					<span v-text="newsData.newsdate"></span>
 					<span v-show="showread==1">阅读量：{{newsData.readcnt}}</span>
 				</p>
