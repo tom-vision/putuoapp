@@ -240,7 +240,6 @@ function plusReady() {
 					}
 				});
 			},
-	
 			//跳转到服务链接
 			gotoService: function(s) {
 				var self = this;
@@ -488,7 +487,6 @@ function plusReady() {
 					}
 				});
 			},
-	
 			getPutuoNews: function() {
 				var self = this;
 	
@@ -519,7 +517,6 @@ function plusReady() {
 					}
 				});
 			},
-	
 			//获取视频新闻
 			getVideoNews: function() {
 				var self = this;
@@ -629,6 +626,11 @@ function plusReady() {
 				self.userInfo = {};
 				plus.storage.removeItem('userInfo');
 				mui.toast('退出成功');
+			},
+			clearCache: function() {
+				plus.cache.clear(function() {
+					mui.toast('已清理');
+				})
 			},
 			// 检查新版本
 			checkNewVersion: function(){
