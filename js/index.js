@@ -387,10 +387,7 @@ function plusReady() {
 			}, function(d) {
 				
 				if(d.success && d.data) {
-					
 					var illegalWords = d.data;
-					console.log("illegalWords = "+illegalWords);
-					
 					_set('illegal',_dump(illegalWords));
 				}
 			});
@@ -577,7 +574,7 @@ function plusReady() {
 					id: 'iframe',
 					extras: {
 						title: '意见反馈',
-						url: 'http://develop.wifizs.cn/dist/channel/activity/form/views/ptappform.html?formId=16'
+						url: 'http://develop.wifizs.cn/dist/channel/activity/form/views/ptappform.html?formId=22'
 					},
 				})
 			},
@@ -644,6 +641,7 @@ function plusReady() {
 					mui.confirm('发现新版本v' + dicVersion.version + '，是否更新?', '', ['更新', '取消'], function(e) {
 						if(e.index == 0) {
 							mui.toast('请使用浏览器打开');
+							
 							plus.runtime.openURL(dicVersion.downloadUrl, function(){
 								mui.toast('浏览器调用失败，请前往应用中心更新');
 							});
@@ -686,6 +684,7 @@ function plusReady() {
 			}, function(d) {
 				if(d.success && d.data) {
 					var dicVersion = d.data[0];
+					
 					_set('version', _dump(dicVersion));
 					
 					var curVersion = plus.runtime.version;

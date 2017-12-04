@@ -69,19 +69,14 @@ function plusReady() {
 			publish: function() {
 				var self = this;
 				self.userInfo = _load(_get('userInfo'));
-				console.log(_get('userInfo'));
 				if(self.userInfo == '' || self.userInfo == null) {
 					mui.toast("请先在个人中心登录");
-				
-					openWindow('login.html', 'login');
-				
-					return;
+					return openWindow('login.html', 'login');
 				}
 				if('' == self.content) return mui.toast("请填写评论内容");
 								
 				var illegalWords = _load(_get('illegal'));
 				if(!!illegalWords) {
-					console.log(2)
 					for (var i=0; i<illegalWords.length; i++) {
 						var word = illegalWords[i].content;
 						self.content = self.content.replaceAll(word,'**');

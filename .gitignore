@@ -6,3 +6,7 @@ css/less-components/_reset(1).css
 *.db
 *.db-shm
 *.db-wal
+*.apk
+*.apk
+*.ipa
+*.apk

@@ -22,11 +22,9 @@
 
 		<div id="detail" class="have-header news-detail">
 			<header v-cloak>
-				{{newsData.title}}
-				<p>
-					<span v-text="newsData.reporter" v-if="newsData.reporter != ''"></span>
-					<span v-text="newsData.newsdate"></span>
-					<span v-show="showread==1">阅读量：{{newsData.readcnt}}</span>
+				{{newsData.title}} 
+				<p v-cloak>
+					{{newsData.reporter}} &nbsp;&nbsp;&nbsp;&nbsp; {{newsData.newsdate}} &nbsp;&nbsp;&nbsp;&nbsp; <span v-show="showread == 1">阅读量：{{newsData.readcnt}}</span>
 				</p>
 				<div class="desc" v-text="newsData.brief" v-show="newsData.brief!=''"></div>
 			</header>

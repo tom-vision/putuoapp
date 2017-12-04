@@ -49,7 +49,7 @@ var share = function(ext) {
 					pictures: ['../imgs/logo.png'],
 					title: '掌上普陀',
 					content:'我正在使用掌上普陀你也一起来加入吧',
-					href: 'http://ptnews.zjol.com.cn/',
+					href: 'http://develop.wifizs.cn:11001/ptapp/down.html',
 					extra: {
 						scene: ext
 					}

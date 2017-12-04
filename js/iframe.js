@@ -1,5 +1,6 @@
 // 扩展API加载完毕，现在可以正常调用扩展API
 function plusReady() {
+	pullToRefresh();
 	var web = plus.webview.currentWebview();
 	$('.mui-title').text(web.title);
 	$('.full-iframe').attr('src', web.url);

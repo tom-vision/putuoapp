@@ -465,17 +465,6 @@ body {
   margin-bottom: 0;
   margin-top: 6px;
   width: 100%;
-  display: flex;
-}
-.news-detail header p span {
-  flex: 1;
-  text-align: center;
-}
-.news-detail header p span:first-child {
-  text-align: left;
-}
-.news-detail header p span:last-child {
-  text-align: right;
 }
 .news-detail header .desc {
   font-size: 14px;
