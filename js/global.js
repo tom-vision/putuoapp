@@ -43,12 +43,12 @@ var openWindow = function(u, i, s) {
 var share = function(type, id, ext) {
 	
 	var hrefUrl = '';
-	if(type == 'interactList'){
-		hrefUrl = serverAddr + '/ptapp/ptappShare/down.html?id='+id;
-	}else if(type == 'interactDetail'){
-		hrefUrl = serverAddr + '/ptapp/ptappShare/down.html?id='+id;
+	if(type == 'interact'){
+		hrefUrl = serverAddr + 'ptappShare/interact.html?id='+id;
+	}else if(type == 'news'){
+		hrefUrl = serverAddr + 'ptappShare/news.html?id='+id;
 	}else{
-		hrefUrl = serverAddr + '/ptapp/ptappShare/down.html?id='+id;
+		hrefUrl = serverAddr + 'ptappShare/down.html?id='+id;
 	}
 	
 	plus.share.getServices(function(shares) {
@@ -59,7 +59,7 @@ var share = function(type, id, ext) {
 					pictures: ['../imgs/logo.png'],
 					title: '掌上普陀',
 					content:'我正在使用掌上普陀你也一起来加入吧',
-					href: 'http://hyv.wifizs.cn/putuo/ptappShare/down.html',
+					href: hrefUrl, //'http://hyv.wifizs.cn/putuo/ptappShare/down.html',
 					extra: {
 						scene: ext
 					}
