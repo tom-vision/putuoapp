@@ -113,7 +113,6 @@ function plusReady() {
 				}, function(d) {
 					if(!d.success || !d.data) {
 						self.bHaveMore_latest = false;
-						mui.toast("没有更多数据了");
 					} else {
 						self.bHaveMore_latest = true;
 
@@ -149,7 +148,6 @@ function plusReady() {
 				}, function(d) {
 					if(!d.success || !d.data) {
 						self.bHaveMore_rebellion = false;
-						mui.toast("没有更多数据了");
 					} else {
 						self.bHaveMore_rebellion = true;
 
@@ -186,7 +184,6 @@ function plusReady() {
 				}, function(d) {
 					if(!d.success || !d.data) {
 						self.bHaveMore_photography = false;
-						mui.toast("没有更多数据了");
 					} else {
 						self.bHaveMore_photography = true;
 
@@ -223,7 +220,6 @@ function plusReady() {
 				}, function(d) {
 					if(!d.success || !d.data) {
 						self.bHaveMore_food = false;
-						mui.toast("没有更多数据了");
 					} else {
 						self.bHaveMore_food = true;
 
