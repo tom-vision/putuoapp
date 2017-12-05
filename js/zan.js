@@ -39,7 +39,6 @@ function plusReady() {
 						});
 					} else {
 						self.bHaveMore = false;
-						mui.toast("没有更多数据了");
 					}
 				})
 			},

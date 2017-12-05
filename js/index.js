@@ -227,7 +227,6 @@ function plusReady() {
 				}, function(d) {
 					if(!d.success || !d.data) {
 						self.bHaveMore_headvideo = false;
-						mui.toast("没有更多数据了");
 						return;
 					} else {
 						self.bHaveMore_headvideo = true;
@@ -474,7 +473,6 @@ function plusReady() {
 				}, function(d) {
 					if(!d.success || !d.data) {
 						self.bHaveMore_instant = false;
-						mui.toast("没有更多数据了");
 						return;
 					} else {
 						self.bHaveMore_instant = true;
@@ -504,7 +502,6 @@ function plusReady() {
 				}, function(d) {
 					if(!d.success || !d.data) {
 						self.bHaveMore_putuo = false;
-						mui.toast("没有更多数据了");
 						return;
 					} else {
 						self.bHaveMore_putuo = true;
@@ -534,7 +531,6 @@ function plusReady() {
 				}, function(d) {
 					if(!d.success || !d.data) {
 						self.bHaveMore_video = false;
-						mui.toast("没有更多数据了");
 						return;
 					} else {
 						self.bHaveMore_video = true;

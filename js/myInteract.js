@@ -31,7 +31,6 @@ function plusReady() {
 				}, function(d) {
 					if(!d.success || !d.data) {
 						self.bHaveMore = false;
-						mui.toast("没有更多数据了");
 						return;
 					} else {
 						d.data.forEach(function(r) {
