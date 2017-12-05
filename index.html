@@ -312,12 +312,12 @@
 						<i class="iconfont icon-fill108"></i>退出登录
 					</a>
 				</li>
-				<li class="mui-table-view-cell" @click="clearCache">
+				<li class="mui-table-view-cell" @click="clearCache" v-if="androidUpdate">
 					<a class="mui-navigate-right">
 						<i class="iconfont icon-Clear"></i>清除缓存
 					</a>
 				</li>
-				<li class="mui-table-view-cell" @click="checkNewVersion">
+				<li class="mui-table-view-cell" @click="checkNewVersion" v-if="androidUpdate">
 					<a class="mui-navigate-right">
 						<i class="iconfont icon-shengji"></i>检查新版本
 					</a>

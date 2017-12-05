@@ -563,6 +563,7 @@ function plusReady() {
 			userInfo: {},
 			isLogin: false,
 			isNew: false,
+			androidUpdate: false
 		},
 		methods: {
 			goSuggest: function(i) {
@@ -702,6 +703,7 @@ function plusReady() {
 	})
 	
 	if ('Android' == plus.os.name) {
+		ucenter.androidUpdate = true;
 		var first = null;
 		mui.back = function() {
 			if (!first) {
