@@ -59,7 +59,7 @@ var share = function(type, id, ext) {
 					pictures: ['../imgs/logo.png'],
 					title: '掌上普陀',
 					content:'我正在使用掌上普陀你也一起来加入吧',
-					href: hrefUrl,
+					href: 'http://hyv.wifizs.cn/putuo/ptappShare/down.html',
 					extra: {
 						scene: ext
 					}
