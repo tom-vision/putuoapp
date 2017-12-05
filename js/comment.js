@@ -24,6 +24,7 @@ function plusReady() {
 			if(articleId == 0){
 				articleId = _get('newsId');
 				this.getComments();
+				this.getCmtCtrl();
 			}
 		},
 		methods: {
@@ -110,7 +111,7 @@ function plusReady() {
 					vals: _dump([articleId, f])
 				}, function(d) {
 					if(!d.success || !d.data) {
-						mui.toast('评论已全部加载完毕');
+//						mui.toast('评论已全部加载完毕');
 						return self.bHaveMore = false;
 					} else {
 						d.data.forEach(function(r) {

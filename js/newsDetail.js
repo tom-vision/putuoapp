@@ -76,8 +76,8 @@ function plusReady() {
 					}
 				}
 			},
-			shareSystem: function(e) {
-				share(e)
+			shareSystem: function(type, id, e) {
+				share(type, id, e)
 			}
 		},
 	})

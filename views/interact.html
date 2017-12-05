@@ -56,7 +56,7 @@
 						<div class="mu-footer" v-cloak>
 							<span :class="{ active : i.like }" @click.stop="clickZan(i)"><i class="iconfont icon-zan"></i> {{i.zan}}</span>
 							<span><i class="iconfont icon-icon-test"></i> {{i.commentNum}}</span>
-							<span @click.stop="shareSystem"><i class="iconfont icon-fenxiang"></i></span>
+							<span @click.stop="shareSystem('interactList', i.id)"><i class="iconfont icon-fenxiang"></i></span>
 						</div>
 					</div>
 				</div>

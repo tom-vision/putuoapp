@@ -40,7 +40,17 @@ var openWindow = function(u, i, s) {
 	})
 }
 
-var share = function(ext) {
+var share = function(type, id, ext) {
+	
+	var hrefUrl = '';
+	if(type == 'interactList'){
+		hrefUrl = serverAddr + '/ptapp/ptappShare/down.html?id='+id;
+	}else if(type == 'interactDetail'){
+		hrefUrl = serverAddr + '/ptapp/ptappShare/down.html?id='+id;
+	}else{
+		hrefUrl = serverAddr + '/ptapp/ptappShare/down.html?id='+id;
+	}
+	
 	plus.share.getServices(function(shares) {
 		shares.forEach(function(s) {
 			if(s.id == 'weixin' && s.authenticated) {
@@ -49,7 +59,7 @@ var share = function(ext) {
 					pictures: ['../imgs/logo.png'],
 					title: '掌上普陀',
 					content:'我正在使用掌上普陀你也一起来加入吧',
-					href: 'http://develop.wifizs.cn:11001/ptapp/down.html',
+					href: hrefUrl,
 					extra: {
 						scene: ext
 					}
