@@ -41,14 +41,15 @@ var openWindow = function(u, i, s) {
 }
 
 var share = function(type, id, ext) {
+	console.log("type="+type);
 	
 	var hrefUrl = '';
 	if(type == 'interact'){
-		hrefUrl = serverAddr + 'ptappShare/interact.html?id='+id;
+		hrefUrl = serverAddr + '/ptappShare/interact.html?id='+id;
 	}else if(type == 'news'){
-		hrefUrl = serverAddr + 'ptappShare/news.html?id='+id;
+		hrefUrl = serverAddr + '/ptappShare/news.html?id='+id;
 	}else{
-		hrefUrl = serverAddr + 'ptappShare/down.html?id='+id;
+		hrefUrl = serverAddr + '/ptappShare/down.html?id='+id;
 	}
 	
 	plus.share.getServices(function(shares) {
