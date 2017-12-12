@@ -494,7 +494,9 @@ function plusReady() {
 			videoNews: [],
 			bHaveMore_instant: true,
 			bHaveMore_putuo: true,
-			bHaveMore_video: true
+			bHaveMore_video: true,
+			instantTopNews: [], //即时新闻置顶
+			putuoTopNews: [], //普陀新闻置顶
 		},
 		beforeCreate: function() {},
 		methods: {
@@ -534,6 +536,26 @@ function plusReady() {
 				})
 				_set('newsId', i.id);
 			},
+			//获取置顶的即时新闻
+			getInstantTopNews: function(){
+				var self = this;
+				_callAjax({
+					cmd: "fetch",
+					sql: "select * from articles where ifValid =1 and linkerId = ? and reference like '%2%' order by id desc limit 1",
+					vals: _dump([linkerId.instantNews])
+				}, function(d) {					
+					if(d.success && d.data) {
+						d.data.forEach(function(r) {
+							var arrImg = r.img.split(',');
+							r.imgs = arrImg;
+							self.instantTopNews.push(r);
+						});
+					}
+					
+					self.getInstantNews();
+				});
+				
+			},
 			//获取即时新闻
 			getInstantNews: function() {
 				var self = this;
@@ -542,11 +564,14 @@ function plusReady() {
 				if(self.instantNews.length) {
 					f = _at(self.instantNews, -1).id;
 				}
+				
+				var topId = self.instantTopNews? self.instantTopNews[0].id : 0;
+
 				//获取即时新闻
 				_callAjax({
 					cmd: "fetch",
-					sql: "select * from articles where ifValid =1 and id<? and linkerId = ? order by id desc limit 10",
-					vals: _dump([f, linkerId.instantNews])
+					sql: "select * from articles where ifValid =1 and id<? and linkerId = ? and id <> ? order by id desc limit 10",
+					vals: _dump([f, linkerId.instantNews, topId])
 				}, function(d) {
 					if(!d.success || !d.data) {
 						self.bHaveMore_instant = false;
@@ -562,19 +587,41 @@ function plusReady() {
 					}
 				});
 			},
+			//获取置顶的普陀新闻
+			getPutuoTopNews: function(){
+				var self = this;
+					_callAjax({
+						cmd: "fetch",
+						sql: "select * from articles where ifValid =1 and linkerId = ? and reference like '%2%' order by id desc limit 1",
+						vals: _dump([linkerId.putuoNews])
+					}, function(d) {					
+						if(d.success && d.data) {
+							d.data.forEach(function(r) {
+								var arrImg = r.img.split(',');
+								r.imgs = arrImg;
+								self.putuoTopNews.push(r);
+							});
+						}
+						
+						self.getPutuoNews();
+					});
+			},
+			//获取普陀新闻
 			getPutuoNews: function() {
 				var self = this;
-	
+			
 				var f = 10e5;
 				if(self.putuoNews.length) {
 					f = _at(self.putuoNews, -1).id;
 				}
-	
+				
+				var topId = self.putuoTopNews? self.putuoTopNews[0].id : 0;
+				
 				//获取普陀新闻
 				_callAjax({
 					cmd: "fetch",
-					sql: "select * from articles where ifValid =1 and id<? and linkerId = ? order by id desc limit 10",
-					vals: _dump([f, linkerId.putuoNews])
+					sql: "select * from articles where ifValid =1 and id<? and linkerId = ? and id <> ? order by id desc limit 10",
+					vals: _dump([f, linkerId.putuoNews, topId])
 	
 				}, function(d) {
 					if(!d.success || !d.data) {
@@ -623,8 +670,8 @@ function plusReady() {
 		},
 		mounted: function() {
 			var self = this;
-			self.getInstantNews();
-			self.getPutuoNews();
+			self.getInstantTopNews();
+			self.getPutuoTopNews();
 			self.getVideoNews();
 		}
 	})

@@ -17,17 +17,6 @@ function plusReady() {
 	
 	pullToRefresh();
 	
-	// 相册显示时监听物理返回按键，若已经显示则优先关闭相册
-	var oldback = mui.back;
-	mui.back = function() {
-	    if(interactGraphic.show) {
-	    	interactGraphic.show = false;
-	    	$('body').removeClass('no-scroll');
-	    	return false;
-	    }
-	    oldback();
-	}
-	
 	window.addEventListener('releaseBack', function(event) {
 		location.reload();
 	})
@@ -54,13 +43,8 @@ function plusReady() {
 		},
 		methods: {
 			openGallery: function(imgs, index) {
-				interactGraphic.show = true;
-				interactGraphic.imgs = imgs;
-				$('body').addClass('no-scroll');
-				setTimeout(function(){
-					var swiper = new Swiper('.swiper-container');
-					swiper.slideTo(index, 500, false);
-				}, 800)
+				//使用原生多图预览
+				plus.nativeUI.previewImage(imgs,{'current': index, 'loop': true})
 			},
 			openInteractDetail: function(i) {
 				mui.fire(plus.webview.getWebviewById('interact-detail'), 'interactId', {
@@ -371,21 +355,6 @@ function plusReady() {
 			//获取美食信息
 			self.getFood();
 		}
-	})
-
-	var interactGraphic = new Vue({
-		el: '#interactGraphic',
-		data: {
-			show: false,
-			imgs: [],
-			index: 0
-		},
-		methods: {
-			close: function() {
-				this.show = false;
-				$('body').removeClass('no-scroll');
-			}
-		},
 	})
 
 	$('.icon-xiangji').on('click', function() {

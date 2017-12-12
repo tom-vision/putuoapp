@@ -90,16 +90,13 @@
 					<header @click="goNews(0)">即时新闻</header>
 					<ul class="mui-table-view">
 						<!--置顶-->
-						<li v-for="i in instantTopNews" :class="{'multiple-media mui-content' : i.imgs.length >= 3, 'mui-table-view-cell mui-media' : i.imgs.length <= 1}">
+						<li v-for="i in instantTopNews" :class="{'multiple-media mui-content' : i.imgs.length >= 3, 'mui-table-view-cell mui-media' : i.imgs.length <= 1}" class="top-news">
 							<a @click="gotoDetail(i)" v-if="i.imgs.length <= 1">
 								<div class="mui-media-object mui-pull-left" :style="{backgroundImage: 'url('+ i.imgs[0] +')'}"></div>
 								<div class="mui-media-body" v-text="i.title"></div>
 							</a>
-							<div class="multiple-imgs mui-row" v-if="i.imgs.length >= 3" @click="goNewsGraphic(i)">
-								<div class="mui-col-xs-4 mui-col-sm-4" v-for="item in i.imgs.slice(0,3)" :style="{backgroundImage: 'url(' + item + ')'}"></div>
-							</div>
-							<p v-text="i.title" v-if="i.imgs.length >= 3"></p>
 						</li>
+						<!--非置顶-->
 						<li v-for="i in instantNews" :class="{'multiple-media mui-content' : i.imgs.length >= 3, 'mui-table-view-cell mui-media' : i.imgs.length <= 1}">
 							<a @click="gotoDetail(i)" v-if="i.imgs.length <= 1">
 								<div class="mui-media-object mui-pull-left" :style="{backgroundImage: 'url('+ i.imgs[0] +')'}"></div>
@@ -121,16 +118,13 @@
 					<header @click="goNews(1)">普陀新闻</header>
 					<ul class="mui-table-view">
 						<!--置顶-->
-						<li v-for="i in putuoTopNews" :class="{'multiple-media mui-content' : i.imgs.length >= 3, 'mui-table-view-cell mui-media' : i.imgs.length <= 1}">
+						<li v-for="i in putuoTopNews" :class="{'multiple-media mui-content' : i.imgs.length >= 3, 'mui-table-view-cell mui-media' : i.imgs.length <= 1}" class="top-news">
 							<a @click="gotoDetail(i)" v-if="i.imgs.length <= 1">
 								<div class="mui-media-object mui-pull-left" :style="{backgroundImage: 'url('+ i.imgs[0] +')'}"></div>
 								<div class="mui-media-body" v-text="i.title"></div>
 							</a>
-							<div class="multiple-imgs mui-row" v-if="i.imgs.length >= 3" @click="goNewsGraphic(i)">
-								<div class="mui-col-xs-4 mui-col-sm-4" v-for="item in i.imgs.slice(0,3)" :style="{backgroundImage: 'url(' + item + ')'}"></div>
-							</div>
-							<p v-text="i.title" v-if="i.imgs.length >= 3"></p>
 						</li>
+						<!--非置顶-->
 						<li v-for="i in putuoNews" :class="{'multiple-media mui-content' : i.imgs.length >= 3, 'mui-table-view-cell mui-media' : i.imgs.length <= 1}">
 							<a @click="gotoDetail(i)" v-if="i.imgs.length <= 1">
 								<div class="mui-media-object mui-pull-left" :style="{backgroundImage: 'url('+ i.imgs[0] +')'}"></div>
@@ -243,26 +237,40 @@
 			<div class="tab-content tab-content-width-fixed-sub-bar" v-show="activeSort == 0">
 				<div class="news-list">
 					<ul class="mui-table-view">
-						<li v-for="i in instantNews" class="mui-table-view-cell mui-media" v-if="i.imgs.length <=1">
-							<a @click="gotoDetail(i)">
+						<!--置顶-->
+						<li v-for="i in instantTopNews" :class="{'multiple-media mui-content' : i.imgs.length >= 3, 'mui-table-view-cell mui-media' : i.imgs.length <= 1}" class="top-news">
+							<a @click="gotoDetail(i)" v-if="i.imgs.length <= 1">
 								<div class="mui-media-object mui-pull-left" :style="{backgroundImage: 'url('+ i.imgs[0] +')'}"></div>
 								<div class="mui-media-body" v-text="i.title"></div>
 							</a>
 						</li>
-						<li class="multiple-media mui-content" @click="goNewsGraphic(i)" v-else>
-							<div class="multiple-imgs mui-row">
-								<div class="mui-col-xs-4 mui-col-sm-4" v-for="item in i.imgs" :style="{backgroundImage: 'url(' + item + ')'}"></div>
+						<!--非置顶-->
+						<li v-for="i in instantNews" :class="{'multiple-media mui-content' : i.imgs.length >= 3, 'mui-table-view-cell mui-media' : i.imgs.length <= 1}">
+							<a @click="gotoDetail(i)" v-if="i.imgs.length <= 1">
+								<div class="mui-media-object mui-pull-left" :style="{backgroundImage: 'url('+ i.imgs[0] +')'}"></div>
+								<div class="mui-media-body" v-text="i.title"></div>
+							</a>
+							<div class="multiple-imgs mui-row" v-if="i.imgs.length >= 3" @click="goNewsGraphic(i)">
+								<div class="mui-col-xs-4 mui-col-sm-4" v-for="item in i.imgs.slice(0,3)" :style="{backgroundImage: 'url(' + item + ')'}"></div>
 							</div>
-							<p v-text="i.title"></p>
+							<p v-text="i.title" v-if="i.imgs.length >= 3"></p>
 						</li>
 					</ul>
 				</div>
-				<a class="load-more" @click="getInstantNews" v-show="bHaveMore_instant">点击加载更多</a>
+				<a class="load-more" @click="getInstantNews()" v-show="bHaveMore_instant">点击加载更多</a>
 			</div>
 
 			<div class="tab-content tab-content-width-fixed-sub-bar" v-show="activeSort == 1">
 				<div class="news-list">
 					<ul class="mui-table-view">
+						<!--置顶-->
+						<li v-for="i in putuoTopNews" :class="{'multiple-media mui-content' : i.imgs.length >= 3, 'mui-table-view-cell mui-media' : i.imgs.length <= 1}" class="top-news">
+							<a @click="gotoDetail(i)" v-if="i.imgs.length <= 1">
+								<div class="mui-media-object mui-pull-left" :style="{backgroundImage: 'url('+ i.imgs[0] +')'}"></div>
+								<div class="mui-media-body" v-text="i.title"></div>
+							</a>
+						</li>
+						<!--非置顶-->
 						<li v-for="i in putuoNews" :class="{'multiple-media mui-content' : i.imgs.length >= 3, 'mui-table-view-cell mui-media' : i.imgs.length <= 1}">
 							<a @click="gotoDetail(i)" v-if="i.imgs.length <= 1">
 								<div class="mui-media-object mui-pull-left" :style="{backgroundImage: 'url('+ i.imgs[0] +')'}"></div>
@@ -276,7 +284,7 @@
 					</ul>
 				</div>
 				
-				<a class="load-more" @click="getPutuoNews" v-show="bHaveMore_putuo">点击加载更多</a>
+				<a class="load-more" @click="getPutuoNews()" v-show="bHaveMore_putuo">点击加载更多</a>
 			</div>
 			<!--新闻tab 视频新闻-->
 			<div class="tab-content tab-content-width-fixed-sub-bar" v-show="activeSort == 2">

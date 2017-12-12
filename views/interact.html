@@ -9,7 +9,6 @@
 		<link href="../plugins/mui.min.css" rel="stylesheet" />
 		<link rel="stylesheet" href="../plugins/iconfont.css" />
 		<link rel="stylesheet" href="../css/style.css" />
-		<link href="../plugins/swiper.min.css" rel="stylesheet" />
 		<script src="../plugins/jquery.min.js"></script>
 		<script src="../plugins/vue.min.js"></script>
 	</head>
@@ -63,25 +62,9 @@
 			</div>
 			<a class="load-more" @click="getCurrent" v-show="bHaveMore_current && interact_current.length != 0">点击加载更多</a>
 		</div>
-		
-		<div id="interactGraphic" class="news-graphic interact-graphic" v-show="show" v-cloak>
-			<header class="mui-bar mui-bar-nav">
-				<a class="mui-icon mui-icon-left-nav mui-pull-left" @click="close"></a>
-			</header>
-			<div id="slider">
-				<div class="swiper-container">
-					<div class="swiper-wrapper">
-						<div class="swiper-slide"  v-for="i in imgs">
-							<img :src="i" width="100%"/>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
 	</body>
 
 </html>
 <script src="../js/global.js"></script>
-<script src="../plugins/swiper.min.js"></script>
 <script src="../js/a_ref.js"></script>
 <script src="../js/interact.js"></script>
