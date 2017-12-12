@@ -74,7 +74,14 @@ var _genCallAjax = function(url) {
 				cb(d);
 			},
 			error: function(xhr, type, errorThrown) {
-				console.log(xhr + type + errorThrown);
+				if(type == 'timeout') {
+					mui.toast("请求超时：请检查网络");
+				} else {
+					mui.toast('请求失败');
+				}
+			},
+			complete: function() {
+				plus.nativeUI.closeWaiting();
 			}
 		});
 

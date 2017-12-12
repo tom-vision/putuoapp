@@ -9,6 +9,7 @@ mui.init({
 		$('video').each(function() {
 			$(this)[0].pause();
 		})
+		$('body').animate({scrollTop:0})
 	}
 });
 
@@ -76,8 +77,8 @@ function plusReady() {
 					}
 				}
 			},
-			shareSystem: function(type, id, e) {
-				share(type, id, e)
+			shareSystem: function(type, i, e) {
+				share(type, i.id, i.title, e)
 			}
 		},
 	})
@@ -164,8 +165,6 @@ function plusReady() {
 				
 				//文章阅读量+1
 				newsDetail.addReadCnt();
-				
-				$('body').animate({scrollTop:0},500)
 			}
 		});
 	

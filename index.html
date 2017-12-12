@@ -89,6 +89,17 @@
 				<div class="news-list">
 					<header @click="goNews(0)">即时新闻</header>
 					<ul class="mui-table-view">
+						<!--置顶-->
+						<li v-for="i in instantTopNews" :class="{'multiple-media mui-content' : i.imgs.length >= 3, 'mui-table-view-cell mui-media' : i.imgs.length <= 1}">
+							<a @click="gotoDetail(i)" v-if="i.imgs.length <= 1">
+								<div class="mui-media-object mui-pull-left" :style="{backgroundImage: 'url('+ i.imgs[0] +')'}"></div>
+								<div class="mui-media-body" v-text="i.title"></div>
+							</a>
+							<div class="multiple-imgs mui-row" v-if="i.imgs.length >= 3" @click="goNewsGraphic(i)">
+								<div class="mui-col-xs-4 mui-col-sm-4" v-for="item in i.imgs.slice(0,3)" :style="{backgroundImage: 'url(' + item + ')'}"></div>
+							</div>
+							<p v-text="i.title" v-if="i.imgs.length >= 3"></p>
+						</li>
 						<li v-for="i in instantNews" :class="{'multiple-media mui-content' : i.imgs.length >= 3, 'mui-table-view-cell mui-media' : i.imgs.length <= 1}">
 							<a @click="gotoDetail(i)" v-if="i.imgs.length <= 1">
 								<div class="mui-media-object mui-pull-left" :style="{backgroundImage: 'url('+ i.imgs[0] +')'}"></div>
@@ -109,6 +120,17 @@
 				<div class="news-list">
 					<header @click="goNews(1)">普陀新闻</header>
 					<ul class="mui-table-view">
+						<!--置顶-->
+						<li v-for="i in putuoTopNews" :class="{'multiple-media mui-content' : i.imgs.length >= 3, 'mui-table-view-cell mui-media' : i.imgs.length <= 1}">
+							<a @click="gotoDetail(i)" v-if="i.imgs.length <= 1">
+								<div class="mui-media-object mui-pull-left" :style="{backgroundImage: 'url('+ i.imgs[0] +')'}"></div>
+								<div class="mui-media-body" v-text="i.title"></div>
+							</a>
+							<div class="multiple-imgs mui-row" v-if="i.imgs.length >= 3" @click="goNewsGraphic(i)">
+								<div class="mui-col-xs-4 mui-col-sm-4" v-for="item in i.imgs.slice(0,3)" :style="{backgroundImage: 'url(' + item + ')'}"></div>
+							</div>
+							<p v-text="i.title" v-if="i.imgs.length >= 3"></p>
+						</li>
 						<li v-for="i in putuoNews" :class="{'multiple-media mui-content' : i.imgs.length >= 3, 'mui-table-view-cell mui-media' : i.imgs.length <= 1}">
 							<a @click="gotoDetail(i)" v-if="i.imgs.length <= 1">
 								<div class="mui-media-object mui-pull-left" :style="{backgroundImage: 'url('+ i.imgs[0] +')'}"></div>

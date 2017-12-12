@@ -104,7 +104,9 @@ function plusReady() {
 			services: [], //服务
 			zhiboUrl: 'http://app.zsputuo.com/zb/',
 			firstAd: {},  //首页广告
-			secondAd: {} 
+			secondAd: {},
+			instantTopNews: [], //即时新闻置顶
+			putuoTopNews: [], //普陀新闻置顶
 		},
 		created: function() {
 			this.frameHeight = window.outerHeight - 150 + 'px';
@@ -242,15 +244,36 @@ function plusReady() {
 			//跳转到服务链接
 			gotoService: function(s) {
 				var self = this;
-				
-				mui.openWindow({
-					url: 'views/iframe.html',
-					id: 'iframe',
-					extras: {
-						title: s.name,
-						url: s.url
+//				plus.webview.close('iframe');
+//				mui.openWindow({
+//					url: 'views/iframe.html',
+//					id: 'iframe',
+//					extras: {
+//						title: s.name,
+//						url: s.url
+//					},
+//				})
+
+				plus.webview.open(s.url, 'iframe', {
+					'titleNView': {
+						'backgroundColor': '#009cff',
+						'titleText': '' + s.name + '',
+						'titleColor': '#fff',
+						autoBackButton: false,
+						progress: {
+							color: '#F40'
+						},
+						buttons: [{
+							text: '返回',
+							float: 'left',
+							onclick: function() {
+								var wb = plus.webview.getWebviewById('iframe');
+								wb.close();
+							}
+						}]
 					},
-				})
+					backButtonAutoControl: 'hide'
+				});
 			}
 		},
 	
@@ -284,6 +307,68 @@ function plusReady() {
 					});
 				}
 			});
+			
+			//获取置顶的即时新闻
+			_callAjax({
+				cmd: "fetch",
+				sql: "select id, title, img, content, linkerId, brief, reporter, url, readcnt, newsdate, subtitle, strftime('%Y-%m-%d %H:%M', logtime) as logtime from articles where ifValid =1 and linkerId = " + linkerId.instantNews + " and reference like '%2%'" + " order by id desc limit 1"
+			}, function(d) {
+				var sqlInstant = '';
+				if(d.success && d.data) {
+					d.data.forEach(function(r) {
+						var arrImg = r.img.split(',');
+						r.imgs = arrImg;
+						self.instantTopNews.push(r);
+					});	
+					
+					sqlInstant = "select id, title, img, content, linkerId, brief, reporter, url, readcnt, newsdate, subtitle, strftime('%Y-%m-%d %H:%M', logtime) as logtime from articles where ifValid =1 and id <> " + d.data[0].id + " and linkerId = " + linkerId.instantNews + " order by id desc limit 4";
+				}else {
+					sqlInstant = "select id, title, img, content, linkerId, brief, reporter, url, readcnt, newsdate, subtitle, strftime('%Y-%m-%d %H:%M', logtime) as logtime from articles where ifValid =1 and linkerId = " + linkerId.instantNews + " order by id desc limit 5";
+				}
+				
+				//获取除置顶外的即时新闻
+				_callAjax({
+					cmd: "fetch",
+					sql: sqlInstant
+				}, function(d) {
+					d.data.forEach(function(r) {
+						var arrImg = r.img.split(',');
+						r.imgs = arrImg;
+						self.instantNews.push(r);
+					});
+				});
+			});
+			
+			//获取置顶的普陀新闻
+			_callAjax({
+				cmd: "fetch",
+				sql: "select id, title, img, content, linkerId, brief, reporter, url, readcnt, newsdate, subtitle, strftime('%Y-%m-%d %H:%M', logtime) as logtime from articles where ifValid =1 and linkerId = " + linkerId.putuoNews + " and reference like '%2%'" + " order by id desc limit 1"
+			}, function(d) {
+				var sqlPutuo = '';
+				if(d.success && d.data) {
+					d.data.forEach(function(r) {
+						var arrImg = r.img.split(',');
+						r.imgs = arrImg;
+						self.putuoTopNews.push(r);
+					});	
+					
+					sqlPutuo = "select id, title, img, content, linkerId, brief, reporter, url, readcnt, newsdate, subtitle, strftime('%Y-%m-%d %H:%M', logtime) as logtime from articles where ifValid =1 and id <> " + d.data[0].id + " and linkerId = " + linkerId.putuoNews + " order by id desc limit 4";
+				}else {
+					sqlPutuo = "select id, title, img, content, linkerId, brief, reporter, url, readcnt, newsdate, subtitle, strftime('%Y-%m-%d %H:%M', logtime) as logtime from articles where ifValid =1 and linkerId = " + linkerId.putuoNews + " order by id desc limit 5";
+				}
+				
+				//获取除置顶外的即时新闻
+				_callAjax({
+					cmd: "fetch",
+					sql: sqlPutuo
+				}, function(d) {
+					d.data.forEach(function(r) {
+						var arrImg = r.img.split(',');
+						r.imgs = arrImg;
+						self.putuoNews.push(r);
+					});
+				});
+			});
 	
 			//获取新闻  reference包含0：滚动 1：头条
 			_callAjax({
@@ -295,14 +380,6 @@ function plusReady() {
 					{
 						key: "headNews",
 						sql: "select id, title, img, content, linkerId, brief, reporter, url, readcnt, newsdate, subtitle, strftime('%Y-%m-%d %H:%M', logtime) as logtime from articles where ifValid =1 and linkerId = " + linkerId.putuoNews + " and reference like '%1%'" + " order by id desc limit 1"
-					},
-					{
-						key: "instantNews",
-						sql: "select id, title, img, content, linkerId, brief, reporter, url, readcnt, newsdate, subtitle, strftime('%Y-%m-%d %H:%M', logtime) as logtime from articles where ifValid =1 and linkerId = " + linkerId.instantNews + " order by id desc limit 5"
-					},
-					{
-						key: "putuoNews",
-						sql: "select id, title, img, content, linkerId, brief, reporter, url, readcnt, newsdate, subtitle, strftime('%Y-%m-%d %H:%M', logtime) as logtime from articles where ifValid =1 and linkerId = " + linkerId.putuoNews + " order by id desc limit 5"
 					},
 					{
 						key: "videoNews",
@@ -334,20 +411,20 @@ function plusReady() {
 						self.headNews.push(r);
 					});
 				}
-				if(d.success && d.data && d.data.instantNews) {
-					d.data.instantNews.forEach(function(r) {
-						var arrImg = r.img.split(',');
-						r.imgs = arrImg;
-						self.instantNews.push(r);
-					});
-				}
-				if(d.success && d.data && d.data.putuoNews) {
-					d.data.putuoNews.forEach(function(r) {
-						var arrImg = r.img.split(',');
-						r.imgs = arrImg;
-						self.putuoNews.push(r);
-					});
-				}
+//				if(d.success && d.data && d.data.instantNews) {
+//					d.data.instantNews.forEach(function(r) {
+//						var arrImg = r.img.split(',');
+//						r.imgs = arrImg;
+//						self.instantNews.push(r);
+//					});
+//				}
+//				if(d.success && d.data && d.data.putuoNews) {
+//					d.data.putuoNews.forEach(function(r) {
+//						var arrImg = r.img.split(',');
+//						r.imgs = arrImg;
+//						self.putuoNews.push(r);
+//					});
+//				}
 				if(d.success && d.data && d.data.videoNews) {
 					d.data.videoNews.forEach(function(r) {
 						var arrImg = r.img.split(',');

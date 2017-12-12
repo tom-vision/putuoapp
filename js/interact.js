@@ -324,7 +324,7 @@ function plusReady() {
 					});
 				}
 			},
-			shareSystem: function(shareType, id, e) {
+			shareSystem: function(shareType, i, e) {
 				
 				var btnArray = [{
 					title: "分享到朋友圈",
@@ -343,11 +343,12 @@ function plusReady() {
 							break;
 						case 1:
 							type = linkerId.rebellion;
-							share(shareType, id, 'WXSceneTimeline');
+							
+							share(shareType, i.id, i.name+'发布的互动', 'WXSceneTimeline');
 							break;
 						case 2:
 							type = linkerId.photography;
-							share(shareType, id, 'WXSceneSession');
+							share(shareType, i.id, i.name+'发布的互动', 'WXSceneSession');
 							break;
 					}
 				});

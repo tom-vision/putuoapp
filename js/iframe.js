@@ -9,6 +9,7 @@ function plusReady() {
 		var ws = plus.webview.currentWebview();
 		plus.webview.close(ws);
 	})
+	
 }
 
 // 判断扩展API是否准备，否则监听'plusready'事件
