@@ -33,7 +33,7 @@
 			<div class="detail">
 				<h1 v-text="newsData.title"></h1>
 				<p v-text="newsData.brief"></p>
-				<span><strong v-text="activeImgIndex"></strong>/{{newsData.imgs.length}}</span>
+				<span v-cloak><strong v-text="activeImgIndex"></strong>/{{newsData.imgs.length}}</span>
 			</div>
 			
 			<div class="toolbar newspaper-toolbar">

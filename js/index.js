@@ -122,14 +122,7 @@ function plusReady() {
 			},
 			gotoDetail: function(i) {
 				if(i.url != '#' && i.url.length > 1){
-					mui.openWindow({
-						url: 'views/iframe.html',
-						id: 'iframe',
-						extras: {
-							title: i.title,
-							url: i.url
-						},
-					})
+					openOutlink(i.url, i.title);
 				}else {
 					var detailPage = null;
 					//获得详情页面
@@ -155,24 +148,10 @@ function plusReady() {
 			},
 			//跳转到广告页面
 			gotoFirstAd: function(){
-				mui.openWindow({
-					url: 'views/iframe.html',
-					id: 'iframe',
-					extras: {
-						title: this.firstAd.title,
-						url: this.firstAd.url
-					},
-				})
+				openOutlink(this.firstAd.url, this.firstAd.title);
 			},
 			gotoSecondAd: function() {
-				mui.openWindow({
-					url: 'views/iframe.html',
-					id: 'iframe',
-					extras: {
-						title: this.secondAd.title,
-						url: this.secondAd.url
-					},
-				})
+				openOutlink(this.secondAd.url, this.secondAd.title);
 			},
 			goNewsGraphic: function(i) {
 				var detailPage = null;
@@ -244,36 +223,8 @@ function plusReady() {
 			//跳转到服务链接
 			gotoService: function(s) {
 				var self = this;
-//				plus.webview.close('iframe');
-//				mui.openWindow({
-//					url: 'views/iframe.html',
-//					id: 'iframe',
-//					extras: {
-//						title: s.name,
-//						url: s.url
-//					},
-//				})
-
-				plus.webview.open(s.url, 'iframe', {
-					'titleNView': {
-						'backgroundColor': '#009cff',
-						'titleText': '' + s.name + '',
-						'titleColor': '#fff',
-						autoBackButton: false,
-						progress: {
-							color: '#F40'
-						},
-						buttons: [{
-							text: '返回',
-							float: 'left',
-							onclick: function() {
-								var wb = plus.webview.getWebviewById('iframe');
-								wb.close();
-							}
-						}]
-					},
-					backButtonAutoControl: 'hide'
-				});
+				
+				openOutlink(s.url, s.name);
 			}
 		},
 	
@@ -505,14 +456,7 @@ function plusReady() {
 			},
 			gotoDetail: function(i) {
 				if(i.url != '#' && i.url.length > 1){
-					mui.openWindow({
-						url: 'views/iframe.html',
-						id: 'iframe',
-						extras: {
-							title: i.title,
-							url: i.url
-						},
-					})
+					openOutlink(i.url, i.title)
 				}else {
 					var detailPage = null;
 					//获得详情页面
@@ -687,14 +631,7 @@ function plusReady() {
 		},
 		methods: {
 			goSuggest: function(i) {
-				mui.openWindow({
-					url: 'views/iframe.html',
-					id: 'iframe',
-					extras: {
-						title: '意见反馈',
-						url: 'http://develop.wifizs.cn/dist/channel/activity/form/views/ptappform.html?formId=22'
-					},
-				})
+				openOutlink('http://develop.wifizs.cn/dist/channel/activity/form/views/ptappform.html?formId=22' ,'意见反馈');
 			},
 			goLogin: function() {
 				// 判断是否已登录

@@ -93,14 +93,8 @@ function plusReady() {
 				$('video').each(function() {
 					$(this)[0].pause();
 				})
-				mui.openWindow({
-					url: 'iframe.html',
-					id: 'iframe',
-					extras: {
-						title: this.firstAd.title,
-						url: this.firstAd.url
-					},
-				})
+				
+				openOutlink(this.firstAd.url, this.firstAd.title);
 			}
 		},
 		created: function (){

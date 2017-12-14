@@ -40,6 +40,30 @@ var openWindow = function(u, i, s) {
 	})
 }
 
+var openOutlink = function(url, title) {
+	plus.webview.open(url, 'iframe', {
+		'titleNView': {
+			'backgroundColor': '#009cff',
+			'titleText': '' + title + '',
+			'titleColor': '#fff',
+			autoBackButton: false,
+			progress: {
+				color: '#F40'
+			},
+			buttons: [{
+				text: '关闭',
+				fontSize: '16px',
+				float: 'left',
+				onclick: function() {
+					var wb = plus.webview.getWebviewById('iframe');
+					wb.close();
+				}
+			}]
+		},
+		backButtonAutoControl: 'hide'
+	});
+}
+
 var share = function(type, id, content, ext) {
 	console.log("type="+type);
 	

@@ -90,7 +90,7 @@
 					<header @click="goNews(0)">即时新闻</header>
 					<ul class="mui-table-view">
 						<!--置顶-->
-						<li v-for="i in instantTopNews" :class="{'multiple-media mui-content' : i.imgs.length >= 3, 'mui-table-view-cell mui-media' : i.imgs.length <= 1}" class="top-news">
+						<li v-for="i in instantTopNews" :class="{'multiple-media mui-content' : i.imgs.length >= 3, 'mui-table-view-cell mui-media' : i.imgs.length <= 1}" class="top-news" v-cloak>
 							<a @click="gotoDetail(i)" v-if="i.imgs.length <= 1">
 								<div class="mui-media-object mui-pull-left" :style="{backgroundImage: 'url('+ i.imgs[0] +')'}"></div>
 								<div class="mui-media-body" v-text="i.title"></div>
@@ -118,7 +118,7 @@
 					<header @click="goNews(1)">普陀新闻</header>
 					<ul class="mui-table-view">
 						<!--置顶-->
-						<li v-for="i in putuoTopNews" :class="{'multiple-media mui-content' : i.imgs.length >= 3, 'mui-table-view-cell mui-media' : i.imgs.length <= 1}" class="top-news">
+						<li v-for="i in putuoTopNews" :class="{'multiple-media mui-content' : i.imgs.length >= 3, 'mui-table-view-cell mui-media' : i.imgs.length <= 1}" class="top-news" v-cloak>
 							<a @click="gotoDetail(i)" v-if="i.imgs.length <= 1">
 								<div class="mui-media-object mui-pull-left" :style="{backgroundImage: 'url('+ i.imgs[0] +')'}"></div>
 								<div class="mui-media-body" v-text="i.title"></div>

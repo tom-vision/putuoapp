@@ -70,7 +70,6 @@ function plusReady() {
 	var web = plus.webview.currentWebview();
 	topicTitle.title = web.title;
 	topicId = web.i;
-	console.log(topicId);
 	topic.topics = [];
 	topic.getTopic();
 }
