@@ -156,7 +156,7 @@ function plusReady() {
 				poster = poster.replace(/controls=""/,  'controls poster="' + d.data[0].img + '"');
 				console.log(poster)
 				newsDetail.newsData.content = poster;
-				
+
 				//文章阅读量+1
 				newsDetail.addReadCnt();
 			}
