@@ -27,33 +27,6 @@ var _tell = function(d) {
 	console.log(JSON.stringify(d));
 }
 
-//var _genCallAjax = function(url) {
-//	return function(data, cb, notLoading) {
-//		if(!notLoading) _loading();
-//		cb = cb ? cb : function() {};
-//		$.ajax({
-//			type: "GET",
-//			async: true,
-//			url: url,
-//			dataType: "jsonp",
-//			jsonp: "callback",
-//			data: $.extend(data, {
-//				token: 'Jh2044695'
-//			}),
-//			contentType: "multipart/form-data; charset=UTF-8",
-//			success: function(d) {
-//				_tell(d);
-//				cb(d);
-//				_stopLoading();
-//			},
-//			error: function(e) {
-//				// console.log(JSON.stringify(e));
-//				// _popup("服务器连接失败，请重试！");
-//				_stopLoading();
-//			}
-//		});
-//	};
-//};
 var _genCallAjax = function(url) {
 	return function(data, cb, notLoading) {
 //		if (!notLoading) _loading();
@@ -150,9 +123,6 @@ var _uploadMulityImageVueChange = function(modulename, fileList, obj, url, cb, l
 
 //时间格式化
 var _howLongAgo = function(d) {
-    // _tell((new Date()));
-    // _tell(d);
-    // _tell((new Date()).getTime() + ' - ' + Date.parse(d.replace(' ', 'T')));
     var span = (new Date()).getTime() - Date.parse(d.replace(' ', 'T')) + (8 * 3600 * 1000);
     if (span < 60 * 1000) {
         return "刚刚";
