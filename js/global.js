@@ -65,10 +65,11 @@ var openOutlink = function(url, title) {
 	});
 }
 
-var share = function(type, id, content, ext) {
-	console.log("type="+type);
-	
+var share = function(type, id, content, img, ext) {
 	var hrefUrl = '';
+	var title = '掌上普陀';
+	var imgs = ['../imgs/logo.png'];
+	
 	if(type == 'interact'){
 		hrefUrl = serverAddr + '/ptappShare/interact.html?id='+id;
 	}else if(type == 'news'){
@@ -77,15 +78,17 @@ var share = function(type, id, content, ext) {
 		hrefUrl = serverAddr + '/ptappShare/down.html?id='+id;
 	}
 	
+	if(img != '') imgs = [img];
+	if(ext == 'WXSceneTimeline') title = content;
+
 	plus.share.getServices(function(shares) {
 		shares.forEach(function(s) {
 			if(s.id == 'weixin' && s.authenticated) {
 				s.send(	{
-					thumbs: ['../imgs/logo.png'],
-					pictures: ['../imgs/logo.png'],
-					title: '掌上普陀',
-					content: content,//'我正在使用掌上普陀你也一起来加入吧',
-					href: hrefUrl, //'http://hyv.wifizs.cn/putuo/ptappShare/down.html',
+					thumbs: imgs,
+					title: title,
+					content: content,
+					href: hrefUrl,
 					extra: {
 						scene: ext
 					}
@@ -99,4 +102,50 @@ var share = function(type, id, content, ext) {
 	}, function(e) {
 	    mui.toast("获取分享服务列表失败：" + e.message);
 	});
+}
+
+if(window.plus) {
+	plusReady();
+} else {
+	document.addEventListener('plusready', plusReady, false);
+}
+
+function plusReady() {
+	// 监听点击消息事件
+	plus.push.addEventListener( "click", function( msg ) {
+        // 判断是从本地创建还是离线推送的消息
+        switch( msg.payload ) {
+            case "LocalMSG":
+                alert( "点击本地创建消息启动：" + JSON.stringify(msg));
+            break;
+            default:
+            	var newsId = msg.payload.split('newsId=')[1];
+            	
+            	if(newsId == '' || typeof(newsId) == 'undefined') return mui.toast('非法参数');
+            	
+                var detailPage = null;
+				//获得详情页面
+				if(!detailPage) {
+					detailPage = plus.webview.getWebviewById('newsDetail');
+				}
+
+				//触发详情页面的newsId事件
+				mui.fire(detailPage, 'newsId', {});
+				
+				_set('newsId', newsId);
+				
+				setTimeout(function() {
+					openWindow('views/newsDetail.html', 'newsDetail');
+				}, 200)
+            break;
+        }
+    }, false );
+    // 监听在线消息事件
+    plus.push.addEventListener( "receive", function( msg ) {
+        if ( msg.aps ) {  // Apple APNS message
+            console.log( "接收到在线APNS消息：" + JSON.stringify(msg));
+        } else {
+            console.log( "接收到在线透传消息：" + JSON.stringify(msg));
+        }
+    }, false );
 }

@@ -327,12 +327,11 @@ function plusReady() {
 							break;
 						case 1:
 							type = linkerId.rebellion;
-							
-							share(shareType, i.id, i.name+'发布的互动', 'WXSceneTimeline');
+							share(shareType, i.id, i.name+'发布的互动', '', 'WXSceneTimeline');
 							break;
 						case 2:
 							type = linkerId.photography;
-							share(shareType, i.id, i.name+'发布的互动', 'WXSceneSession');
+							share(shareType, i.id, i.name+'发布的互动', '', 'WXSceneSession');
 							break;
 					}
 				});

@@ -49,7 +49,6 @@ $('.go-ucenter').on('click', function() {
 // 扩展API加载完毕，现在可以正常调用扩展API 
 function plusReady() {
 	pullToRefresh();
-	
 	//预加载页面
 	mui.init({
 		preloadPages: [{
@@ -702,7 +701,7 @@ function plusReady() {
 						if(e.index == 0) {
 							mui.toast('请使用浏览器打开');
 							
-							plus.runtime.openURL(dicVersion.downloadUrl, function(){
+							plus.runtime.openURL('http://a.app.qq.com/o/simple.jsp?pkgname=com.xinlan.PTtele', function(){
 								mui.toast('浏览器调用失败，请前往应用中心更新');
 							});
 						}

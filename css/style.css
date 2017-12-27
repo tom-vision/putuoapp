@@ -511,6 +511,9 @@ body {
 .news-detail article video {
   width: 100%;
 }
+.news-detail article iframe {
+  width: 100%!important;
+}
 .news-detail .like {
   transition: all 0.2s ease-in;
   padding: 8px;

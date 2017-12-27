@@ -1,3 +1,4 @@
+var newsDetail;
 //预加载页面
 mui.init({
 	preloadPages: [{
@@ -10,6 +11,7 @@ mui.init({
 			$(this)[0].pause();
 		})
 		$('body').animate({scrollTop:0})
+		newsDetail.newsData = {}
 	}
 });
 
@@ -18,7 +20,7 @@ function plusReady() {
 	var articleId = 0;
 	var userInfo = _load(_get('userInfo'));
 	
-	var newsDetail = new Vue({
+	newsDetail = new Vue({
 		el: '#detail',
 		data: {
 			newsData: {}, //内容
@@ -78,7 +80,7 @@ function plusReady() {
 				}
 			},
 			shareSystem: function(type, i, e) {
-				share(type, i.id, i.title, e)
+				share(type, i.id, i.title, i.img , e)
 			}
 		},
 	})
@@ -148,13 +150,17 @@ function plusReady() {
 			cmd: "fetch",
 			sql: "select id, title, content, img, url, linkerId, reporter, newsdate, brief, readcnt from articles where ifValid = 1 and id = " + articleId
 		}, function(d) {
+				alert(1)
 			if(d.success && d.data) {
+				alert(2)
+				if(d.data.length == 0) return mui.back();
+				alert(3)
 				newsDetail.newsData = d.data[0];
 
 				//视频加poster
 				var poster = d.data[0].content;
 				poster = poster.replace(/controls=""/,  'controls poster="' + d.data[0].img + '"');
-				console.log(poster)
+
 				newsDetail.newsData.content = poster;
 
 				//文章阅读量+1
