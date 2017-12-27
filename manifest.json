@@ -559,7 +559,8 @@
 			"boot.html": {
 				"resources": [],
 				"refer": [
-					"index.html"
+					"index.html",
+					"views/newsDetail.html"
 				],
 				"priority": 0
 			}

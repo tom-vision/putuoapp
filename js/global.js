@@ -122,16 +122,14 @@ function plusReady() {
             	
             	if(newsId == '' || typeof(newsId) == 'undefined') return mui.toast('非法参数');
             	
+				_set('newsId', newsId);
+            	
                 var detailPage = null;
 				//获得详情页面
-				if(!detailPage) {
-					detailPage = plus.webview.getWebviewById('newsDetail');
-				}
-
+				if(!detailPage && !!plus.webview.getWebviewById('newsDetail')) detailPage = plus.webview.getWebviewById('newsDetail');
+				
 				//触发详情页面的newsId事件
 				mui.fire(detailPage, 'newsId', {});
-				
-				_set('newsId', newsId);
 				
 				setTimeout(function() {
 					openWindow('views/newsDetail.html', 'newsDetail');

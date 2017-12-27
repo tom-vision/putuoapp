@@ -42,6 +42,7 @@ ul {
 .mui-table-view .mui-media-object {
   height: 80px;
   line-height: 80px;
+  min-height: 80px;
   width: 120px;
   max-width: 120px;
   -webkit-background-size: cover;
@@ -201,6 +202,7 @@ body {
 .news-list li.multiple-media .multiple-imgs {
   display: flex;
   height: 80px;
+  min-height: 80px;
   overflow: hidden;
 }
 .news-list li.multiple-media .multiple-imgs div {
@@ -304,10 +306,14 @@ body {
   display: block;
   margin-bottom: 15px;
 }
+.video-list .video-item img {
+  min-height: 100px;
+}
 .video-list .video-item div {
   position: relative;
   margin-bottom: 10px;
   height: 118px;
+  min-height: 118px;
   -webkit-background-size: cover;
   background-size: cover;
   background-position: 50% 50%;
@@ -367,6 +373,9 @@ body {
   color: #ddd;
   transform: translateY(-50%);
   -webkit-transform: translateY(-50%);
+}
+.topic-list .mui-media-body p {
+  line-height: 24px;
 }
 #topic-list .desc {
   white-space: nowrap;

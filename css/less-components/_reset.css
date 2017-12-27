@@ -47,8 +47,13 @@ ul {
 .mui-table-view .mui-media-object {
   height: 80px;
   line-height: 80px;
+  min-height: 80px;
   width: 120px;
   max-width: 120px;
+  -webkit-background-size: cover;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 50%;
 }
 .mui-bar-nav {
   box-shadow: none;

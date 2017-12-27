@@ -131,6 +131,7 @@ body {
             .multiple-imgs {
                 display: flex;
                 height: 80px;
+                min-height: 80px;
                 overflow: hidden;
                 div {
                     height: 80px;
@@ -237,10 +238,14 @@ body {
     .video-item {
         display: block;
         margin-bottom: 15px;
+        img {
+            min-height: 100px;
+        }
         div {
             position: relative;
             margin-bottom: 10px;
             height: 118px;
+            min-height: 118px;
             -webkit-background-size: cover;
             background-size: cover;
             background-position: 50% 50%;
@@ -297,6 +302,9 @@ body {
             color: #ddd;
             transform: translateY(-50%);
             -webkit-transform: translateY(-50%);
+        }
+        p {
+            line-height: 24px;
         }
     }
 }

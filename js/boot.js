@@ -12,6 +12,7 @@ function plusReady() {
 			id: 'index'
 		},]
 	})
+	
 	var boot = new Vue({
 		el: '.boot',
 		data: {

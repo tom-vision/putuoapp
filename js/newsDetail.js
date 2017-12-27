@@ -138,8 +138,7 @@ function plusReady() {
 		}
 	})
 	
-	//添加newId自定义事件监听
-	window.addEventListener('newsId', function(event) {
+	var getInfo = function() {
 		//获得事件参数
 		articleId = _get('newsId');
 		
@@ -150,11 +149,8 @@ function plusReady() {
 			cmd: "fetch",
 			sql: "select id, title, content, img, url, linkerId, reporter, newsdate, brief, readcnt from articles where ifValid = 1 and id = " + articleId
 		}, function(d) {
-				alert(1)
 			if(d.success && d.data) {
-				alert(2)
 				if(d.data.length == 0) return mui.back();
-				alert(3)
 				newsDetail.newsData = d.data[0];
 
 				//视频加poster
@@ -229,8 +225,15 @@ function plusReady() {
 			}
 		});
 		
-		
+	}
+	
+	//添加newId自定义事件监听
+	window.addEventListener('newsId', function(event) {
+		getInfo();
 	});
+	
+	var cw = plus.webview.currentWebview();
+	if(!cw.preload) return getInfo();
 }
 
 // 判断扩展API是否准备，否则监听'plusready'事件
