@@ -3,6 +3,7 @@ var linkerId = {
 	headNews: 101,
 	instantNews: 102,
 	putuoNews: 103,
+	putuonetNews: 106, //普陀报新闻
 	videoNews: 104,
 	services: 107,   //服务
 	interact: 114,   //互动
