@@ -85,7 +85,7 @@ var share = function(type, id, content, img, ext) {
 		shares.forEach(function(s) {
 			if(s.id == 'weixin' && s.authenticated) {
 				s.send(	{
-					thumbs: imgs,
+					pictures: imgs,
 					title: title,
 					content: content,
 					href: hrefUrl,
