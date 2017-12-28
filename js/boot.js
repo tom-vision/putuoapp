@@ -20,9 +20,20 @@ function plusReady() {
 			time: 7
 		},
 		methods: {
-			goIndex: function() {
-				openWindow('index.html', 'index');
-			},
+			openIndex: function() {
+				var indexPage = null;
+                
+				//获得详情页面
+				if(!indexPage && !!plus.webview.getWebviewById('index')) indexPage = plus.webview.getWebviewById('index');
+				
+				if(push) {
+					mui.fire(indexPage, 'pushOpenDetail', {});
+				}
+				
+				setTimeout(function() {
+					openWindow('index.html', 'index');
+				}, 200)
+			}
 		},
 		created: function() {
 			var self = this;
@@ -37,7 +48,9 @@ function plusReady() {
 				
 				setInterval(function() {
 					boot.time--;
-					if(boot.time == 0) return openWindow('index.html', 'index');
+					if(boot.time == 0) {
+						self.openIndex();
+					};
 				}, 1000)
 			})
 		}

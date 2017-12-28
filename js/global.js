@@ -121,11 +121,13 @@ function plusReady() {
             default:
             	var newsId = msg.payload.split('newsId=')[1];
             	
-            	if(newsId == '' || typeof(newsId) == 'undefined') return mui.toast('非法参数');
+            	_set('newsId', newsId);
             	
-				_set('newsId', newsId);
+            	if(newsId == '' || typeof(newsId) == 'undefined') return mui.toast('非法参数');
+            	if(plus.webview.currentWebview().getTitle() == '启动页') return push = true;
             	
                 var detailPage = null;
+                
 				//获得详情页面
 				if(!detailPage && !!plus.webview.getWebviewById('newsDetail')) detailPage = plus.webview.getWebviewById('newsDetail');
 				
@@ -141,9 +143,9 @@ function plusReady() {
     // 监听在线消息事件
     plus.push.addEventListener( "receive", function( msg ) {
         if ( msg.aps ) {  // Apple APNS message
-            console.log( "接收到在线APNS消息：" + JSON.stringify(msg));
+            alert( "接收到在线APNS消息：" + JSON.stringify(msg));
         } else {
-            console.log( "接收到在线透传消息：" + JSON.stringify(msg));
+            alert( "接收到在线透传消息：" + JSON.stringify(msg));
         }
     }, false );
 }

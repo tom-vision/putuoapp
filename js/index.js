@@ -758,6 +758,18 @@ function plusReady() {
 		}
 	})
 	
+	window.addEventListener('pushOpenDetail', function(event) {
+		var detailPage = null;
+		//获得详情页面
+		if(!detailPage && !!plus.webview.getWebviewById('newsDetail')) detailPage = plus.webview.getWebviewById('newsDetail');
+		//触发详情页面的newsId事件
+		mui.fire(detailPage, 'newsId', {});
+		
+		setTimeout(function() {
+			openWindow('views/newsDetail.html', 'newsDetail');
+		}, 200)
+	});
+	
 	if ('Android' == plus.os.name) {
 		ucenter.androidUpdate = true;
 		var first = null;

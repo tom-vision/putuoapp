@@ -346,8 +346,9 @@ body {
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
-  overflow: hidden;
   white-space: normal;
+  max-height: 40px;
+  overflow: hidden;
 }
 .video-list .video-item p.desc {
   height: 20px;

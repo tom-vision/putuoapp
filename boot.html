@@ -4,7 +4,7 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-		<title></title>
+		<title>启动页</title>
 		<script src="plugins/jquery.min.js"></script>
 		<script src="plugins/vue.min.js"></script>
 		<script src="plugins/mui.min.js"></script>
@@ -14,10 +14,11 @@
 
 	<body>
 		<div class="boot" :style="{backgroundImage:'url('+link+')'}">
-			<span @click="goIndex">{{time}} 秒后关闭</span>
+			<span @click="openIndex">{{time}} 秒后关闭</span>
 		</div>
 	</body>
 </html>
+<script>var push = false;</script>
 <script src="js/global.js"></script>
 <script src="js/a_ref.js"></script>
 <script src="js/boot.js"></script>
