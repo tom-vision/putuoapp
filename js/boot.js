@@ -6,13 +6,6 @@ if(window.plus) {
 }
 
 function plusReady() {
-	mui.init({
-		preloadPages: [{
-			url: 'index.html',
-			id: 'index'
-		},]
-	})
-	
 	var boot = new Vue({
 		el: '.boot',
 		data: {
@@ -26,13 +19,7 @@ function plusReady() {
 				//获得详情页面
 				if(!indexPage && !!plus.webview.getWebviewById('index')) indexPage = plus.webview.getWebviewById('index');
 				
-				if(push) {
-					mui.fire(indexPage, 'pushOpenDetail', {});
-				}
-				
-				setTimeout(function() {
-					openWindow('index.html', 'index');
-				}, 200)
+				openWindow('index.html', 'index');
 			}
 		},
 		created: function() {
@@ -46,13 +33,26 @@ function plusReady() {
 					self.link = d.data[0].homepage;
 				}
 				
-				setInterval(function() {
+				var ck = setInterval(function() {
 					boot.time--;
 					if(boot.time == 0) {
+						clearInterval(ck)
 						self.openIndex();
 					};
 				}, 1000)
 			})
 		}
 	})
+	
+	// 监听在线消息事件
+    plus.push.addEventListener( "receive", function( msg ) {
+    	if(plus.os.name != "iOS") return;
+        if ( msg.aps ) {  // Apple APNS message
+            console.log( "接收到在线APNS消息：" + JSON.stringify(msg));
+        } else {
+			plus.push.createMessage(msg.content, msg.payload);
+        }
+    }, false );
+    
+    
 }

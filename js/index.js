@@ -757,8 +757,8 @@ function plusReady() {
 			});
 		}
 	})
-	
-	window.addEventListener('pushOpenDetail', function(event) {
+
+	if(_get('push') == 'true'){
 		var detailPage = null;
 		//获得详情页面
 		if(!detailPage && !!plus.webview.getWebviewById('newsDetail')) detailPage = plus.webview.getWebviewById('newsDetail');
@@ -768,7 +768,7 @@ function plusReady() {
 		setTimeout(function() {
 			openWindow('views/newsDetail.html', 'newsDetail');
 		}, 200)
-	});
+	};
 	
 	if ('Android' == plus.os.name) {
 		ucenter.androidUpdate = true;

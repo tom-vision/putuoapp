@@ -111,6 +111,8 @@ if(window.plus) {
 }
 
 function plusReady() {
+	//锁定竖屏
+	plus.screen.lockOrientation("portrait-primary");
 	// 监听点击消息事件
 	plus.push.addEventListener( "click", function( msg ) {
         // 判断是从本地创建还是离线推送的消息
@@ -120,11 +122,8 @@ function plusReady() {
             break;
             default:
             	var newsId = msg.payload.split('newsId=')[1];
-            	
             	_set('newsId', newsId);
-            	
             	if(newsId == '' || typeof(newsId) == 'undefined') return mui.toast('非法参数');
-            	if(plus.webview.currentWebview().getTitle() == '启动页') return push = true;
             	
                 var detailPage = null;
                 
@@ -138,14 +137,6 @@ function plusReady() {
 					openWindow('views/newsDetail.html', 'newsDetail');
 				}, 200)
             break;
-        }
-    }, false );
-    // 监听在线消息事件
-    plus.push.addEventListener( "receive", function( msg ) {
-        if ( msg.aps ) {  // Apple APNS message
-            alert( "接收到在线APNS消息：" + JSON.stringify(msg));
-        } else {
-            alert( "接收到在线透传消息：" + JSON.stringify(msg));
         }
     }, false );
 }
