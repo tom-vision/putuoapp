@@ -174,7 +174,7 @@ function plusReady() {
 				changeIndexTab('index-tab-2', $('.go-live'));
 			},
 			goPaper: function() {
-				openWindow('views/digitalNewsPaper.html', 'digitalNewsPaper')
+				openWindow('views/digitalNewspaper.html', 'digitalNewspaper')
 			},
 			//查看更多即时新闻
 			gotoInstantNews: function() {
@@ -757,18 +757,31 @@ function plusReady() {
 			});
 		}
 	})
-
-	if(_get('push') == 'true'){
-		var detailPage = null;
-		//获得详情页面
-		if(!detailPage && !!plus.webview.getWebviewById('newsDetail')) detailPage = plus.webview.getWebviewById('newsDetail');
-		//触发详情页面的newsId事件
-		mui.fire(detailPage, 'newsId', {});
+	
+	// 监听在线消息事件
+    plus.push.addEventListener( "receive", function( msg ) {
+    	if(plus.os.name != "iOS") return;
+        if ( msg.aps ) { 
+            alert( "接收到在线APNS消息：" + JSON.stringify(msg));
+        } else {
+        	if(!msg.payload || typeof(msg.payload) == "string") return false;
+        	mui.toast('有新消息，请在通知中心查看');
+			plus.push.createMessage(msg.payload.content, msg.payload.payload);
+        }
+    }, false );
+    
+    
+    window.addEventListener('pushOpenDetail', function(event) {
+    	var detailPage = null;
+    	//获得详情页面
+    	if(!detailPage && !!plus.webview.getWebviewById('newsDetail')) detailPage = plus.webview.getWebviewById('newsDetail');
+    	//触发详情页面的newsId事件
+    	mui.fire(detailPage, 'newsId', {});
 		
-		setTimeout(function() {
-			openWindow('views/newsDetail.html', 'newsDetail');
-		}, 200)
-	};
+    	setTimeout(function() {
+    		openWindow('views/newsDetail.html', 'newsDetail');
+    	}, 200)
+	});
 	
 	if ('Android' == plus.os.name) {
 		ucenter.androidUpdate = true;

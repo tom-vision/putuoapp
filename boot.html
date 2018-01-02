@@ -11,20 +11,6 @@
 		<script src="js/a_ref.js"></script>
 		<link href="plugins/mui.min.css" rel="stylesheet" />
 		<link rel="stylesheet" href="css/style.css" />
-		<!--通过点击推送消息启动app时 取消global中的push click事件-->
-		<script>
-			if(window.plus) {
-				plusReady();
-			} else {
-				document.addEventListener('plusready', plusReady, false);
-			}
-			function plusReady() {
-				plus.push.addEventListener( "click", function( msg ) {
-					_set('push', 'true')
-					return false;
-				})
-			}
-		</script>
 	</head>
 
 	<body>

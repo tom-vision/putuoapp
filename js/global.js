@@ -113,7 +113,7 @@ if(window.plus) {
 function plusReady() {
 	//锁定竖屏
 	plus.screen.lockOrientation("portrait-primary");
-	// 监听点击消息事件
+	  // 监听点击消息事件
 	plus.push.addEventListener( "click", function( msg ) {
         // 判断是从本地创建还是离线推送的消息
         switch( msg.payload ) {
@@ -124,6 +124,8 @@ function plusReady() {
             	var newsId = msg.payload.split('newsId=')[1];
             	_set('newsId', newsId);
             	if(newsId == '' || typeof(newsId) == 'undefined') return mui.toast('非法参数');
+            	
+            	if(plus.webview.currentWebview() == plus.webview.getLaunchWebview()) return push = true;
             	
                 var detailPage = null;
                 

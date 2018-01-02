@@ -139,8 +139,10 @@ function plusReady() {
 	})
 	
 	var getInfo = function() {
+		alert(2)
 		//获得事件参数
 		articleId = _get('newsId');
+		alert(articleId)
 		
 		//根据id向服务器请求新闻详情
 		userInfo = _load(_get('userInfo'));
@@ -150,6 +152,7 @@ function plusReady() {
 			sql: "select id, title, content, img, url, linkerId, reporter, newsdate, brief, readcnt from articles where ifValid = 1 and id = " + articleId
 		}, function(d) {
 			if(d.success && d.data) {
+				alert(1)
 				if(d.data.length == 0) return mui.back();
 				newsDetail.newsData = d.data[0];
 
@@ -229,6 +232,7 @@ function plusReady() {
 	
 	//添加newId自定义事件监听
 	window.addEventListener('newsId', function(event) {
+		alert(1)
 		getInfo();
 	});
 	

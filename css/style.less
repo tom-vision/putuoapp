@@ -279,8 +279,8 @@ body {
             max-height: 40px;
             overflow: hidden;
             &.desc {
-                height: 20px;
-                .ell;
+                height: 40px;
+                .line-clamp(2);
             }
         }
     }
@@ -441,6 +441,10 @@ body {
             margin: 10px;
             border: 1px solid #C8C7CC;
             padding: 10px;
+            display: none;
+            &.active {
+                display: block;
+            }
             &:before {
                 content:'摘 要：'
             }
