@@ -351,12 +351,9 @@ body {
   overflow: hidden;
 }
 .video-list .video-item p.desc {
-  height: 40px;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  white-space: normal;
+  color: #666;
+  font-size: 14px;
+  min-height: 40px;
 }
 .topic-list .mui-media-body {
   display: flex;
@@ -379,13 +376,6 @@ body {
 }
 .topic-list .mui-media-body p {
   line-height: 24px;
-}
-#topic-list .desc {
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  font-size: 14px;
-  color: #666;
 }
 .have-header {
   margin-top: 44px;

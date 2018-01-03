@@ -35,7 +35,7 @@ function plusReady() {
 				_set('newsId', i.id);
 				
 				setTimeout(function(){
-					openWindow('views/newsDetail.html', 'newsDetail');
+					openWindow('newsDetail.html', 'newsDetail');
 				}, 200)
 			}
 		}

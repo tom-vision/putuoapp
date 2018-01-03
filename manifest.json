@@ -262,7 +262,8 @@
 					"js/global.js"
 				],
 				"refer": [
-					"views/search.html"
+					"views/search.html",
+					"views/newsDetail.html"
 				],
 				"priority": 0
 			},
@@ -303,7 +304,9 @@
 					"plugins/mui.min.css",
 					"plugins/iconfont.css"
 				],
-				"refer": [],
+				"refer": [
+					"views/newsDetail.html"
+				],
 				"priority": 0
 			},
 			"views/newsDetail.html": {
@@ -501,7 +504,8 @@
 					"js/zan.js"
 				],
 				"refer": [
-					"views/comment.html"
+					"views/comment.html",
+					"views/newsDetail.html"
 				],
 				"priority": 0
 			},
