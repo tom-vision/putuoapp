@@ -43,9 +43,13 @@ function plusReady() {
 	
 	var head = new Vue({
 		el: '#header',
-		data: {},
+		data: {
+			interactCtrl: false,  //互动审核开关
+		},
 		methods: {
 			diliver: function() {
+				var self = this;
+				
 				userInfo = _load(_get('userInfo'));
 				if(userInfo == null || userInfo == ''){
 					mui.toast("请先在个人中心登录");
@@ -65,13 +69,16 @@ function plusReady() {
 					}
 				});
 	
+				var ifValid = self.interactCtrl ? -1 : 1;
+				console.log("ifValid="+ifValid);
+				
 				_callAjax({
 					cmd: "exec",
-					sql: "insert into interact(userId, content, img, linkerId) values(?,?,?,?)",
-					vals: _dump([userInfo.id, release.content, img, release.releaseType])
+					sql: "insert into interact(userId, content, img, linkerId, ifValid) values(?,?,?,?,?)",
+					vals: _dump([userInfo.id, release.content, img, release.releaseType, ifValid])
 				}, function(d) {
 					if(d.success) {
-						mui.toast("发布成功");
+						self.interactCtrl ? mui.toast('您的互动将在审核后显示') : mui.toast("发布成功");
 						//清空数据
 						release.imgs = [];
 						release.content = '';
@@ -82,7 +89,29 @@ function plusReady() {
 						}, 500);
 					}
 				});
+			},
+			//获取互动审核开关
+			getInteractCtrl: function() {
+				var self = this;
+				console.log("1111");
+				
+				//互动审核开关
+				_callAjax({
+					cmd: "fetch",
+					sql: "select interactCtrl from system"
+				}, function(d) {
+					if(d.success && d.data) {
+						_tell(d.data);
+						self.interactCtrl = d.data[0].interactCtrl == 1 ? true : false;
+						console.log("22222="+self.interactCtrl);
+					}
+				});
 			}
+		},
+		mounted: function(){
+			var self = this;
+			
+			self.getInteractCtrl();
 		}
 	
 	})
@@ -109,6 +138,7 @@ function plusReady() {
 		userInfo = _load(_get('userInfo'));
 		//获得事件参数
 		release.releaseType = event.detail.type;
+		head.getInteractCtrl();
 	})
 }
 

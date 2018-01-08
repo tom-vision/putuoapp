@@ -39,7 +39,6 @@ function plusReady() {
 			bFirst_rebellion: true,
 			bFirst_photography: true,
 			bFirst_food: true,
-			
 		},
 		methods: {
 			openGallery: function(imgs, index) {
@@ -335,7 +334,8 @@ function plusReady() {
 							break;
 					}
 				});
-			}
+			},
+			
 		},
 		watch: {
 			currentIndex: function() {
@@ -353,6 +353,7 @@ function plusReady() {
 			self.getPhotography();
 			//获取美食信息
 			self.getFood();
+			
 		}
 	})
 
