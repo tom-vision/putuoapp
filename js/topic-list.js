@@ -1,7 +1,7 @@
 //预加载页面
 mui.init({
 	preloadPages: [{
-		url: 'views/newsDetail.html',
+		url: 'newsDetail.html',
 		id: 'newsDetail'
 	}],
 });
@@ -37,7 +37,7 @@ function plusReady() {
 				_set('newsId',i.id);
 				
 				setTimeout(function(){
-					openWindow('views/newsDetail.html', 'newsDetail');
+					openWindow('newsDetail.html', 'newsDetail');
 				},200)
 			},
 			getTopic: function() {

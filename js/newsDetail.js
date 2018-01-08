@@ -234,6 +234,8 @@ function plusReady() {
 	
 	var cw = plus.webview.currentWebview();
 	if(!cw.preload) return getInfo();
+	
+	getInfo();
 }
 
 // 判断扩展API是否准备，否则监听'plusready'事件

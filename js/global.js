@@ -14,6 +14,8 @@ var linkerId = {
 	ad: 119          //广告
 };
 
+var push = false;
+
 //版本号
 //var curVersion = "0.0.5";
 
@@ -113,30 +115,31 @@ if(window.plus) {
 function plusReady() {
 	//锁定竖屏
 	plus.screen.lockOrientation("portrait-primary");
-	// 监听点击消息事件
+	  // 监听点击消息事件
 	plus.push.addEventListener( "click", function( msg ) {
-        // 判断是从本地创建还是离线推送的消息
-        switch( msg.payload ) {
-            case "LocalMSG":
-                alert( "点击本地创建消息启动：" + JSON.stringify(msg));
-            break;
-            default:
-            	var newsId = msg.payload.split('newsId=')[1];
-            	_set('newsId', newsId);
-            	if(newsId == '' || typeof(newsId) == 'undefined') return mui.toast('非法参数');
-            	
-                var detailPage = null;
-                
-				//获得详情页面
-				if(!detailPage && !!plus.webview.getWebviewById('newsDetail')) detailPage = plus.webview.getWebviewById('newsDetail');
-				
-				//触发详情页面的newsId事件
-				mui.fire(detailPage, 'newsId', {});
-				
-				setTimeout(function() {
-					openWindow('views/newsDetail.html', 'newsDetail');
-				}, 200)
-            break;
-        }
-    }, false );
+    	var newsId;
+    	if(typeof(msg.payload) == 'object') {
+    		//获取 apns 推送中的newsId
+    		newsId = msg.payload.payload.split('newsId=')[1];
+    	} else {
+    		newsId = msg.payload.split('newsId=')[1];
+    	}
+    	_set('newsId', newsId);
+    	if(newsId == '' || typeof(newsId) == 'undefined') return mui.toast('非法参数');
+    	
+    	if(plus.webview.currentWebview() == plus.webview.getLaunchWebview()) return push = true;
+    	
+        var detailPage = null;
+        
+		//获得详情页面
+		if(!detailPage && !!plus.webview.getWebviewById('newsDetail')) detailPage = plus.webview.getWebviewById('newsDetail');
+		
+		//触发详情页面的newsId事件
+		mui.fire(detailPage, 'newsId', {});
+		
+		setTimeout(function() {
+			if(plus.webview.currentWebview().id == 'index') return openWindow('views/newsDetail.html', 'newsDetail');
+			openWindow('newsDetail.html', 'newsDetail');
+		}, 200)
+	})
 }

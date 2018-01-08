@@ -62,6 +62,7 @@ var pic = new Vue({
 				sql: 'select div from Dad where date = ?',
 				vals: _dump([self.date])
 			}, function(d) {
+				console.log(JSON.stringify(d))
 				if(d.data && d.success) {
 					self.Pics = d.data;
 					setTimeout(function(){
@@ -204,7 +205,6 @@ var menu = new Vue({
 								twoclass = d.data[1].class;
 								self.menu_class3 = d.data[2].class;
 								threeclass = d.data[2].class;
-//								self.true4 = false;
 								self.true5=true;
 								self.true6=true;
 								self.true7=true;
@@ -213,16 +213,11 @@ var menu = new Vue({
 								oneclass = d.data[0].class;
 								self.menu_class2 = d.data[1].class;
 								twoclass = d.data[1].class;
-//								self.true3 = false;
-//								self.true4 = false;
 								self.true5=true;
 								self.true6=true;
 							}else{
 								self.menu_class1 = d.data[0].class;
 								oneclass = d.data[0].class;
-//								self.true2 = false;
-//								self.true3 = false;
-//								self.true4 = false;
 								self.true5=true;
 							}
 						}
@@ -433,9 +428,6 @@ var tab = new Vue({
 				var id = _self.attr('id');
 				_self.picker = new mui.DtPicker(options);
 				_self.picker.show(function(rs) {
-					//销毁swiper前回到第一页
-					swiper.slideTo(0,1,false);
-					swiper.destroy();
 					/*
 					 * rs.value 拼合后的 value
 					 * rs.text 拼合后的 text
@@ -449,6 +441,9 @@ var tab = new Vue({
 						vals: _dump([rs.text, ])
 					}, function(d) {
 						if(d.data && d.success) {
+							//销毁swiper前回到第一页
+							swiper.slideTo(0, 1, false);
+							swiper.destroy();
 							tab.date = rs.text;
 							var arys1 = new Array();
 							arys1 = rs.text.split('-');
@@ -579,6 +574,7 @@ var tab = new Vue({
 								}
 							});
 						} else {
+							mui.toast('此日期无报纸信息');
 						}
 					});
 					/* 
