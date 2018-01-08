@@ -20,7 +20,7 @@ var pic = new Vue({
 	created: function() {
 		var self = this;
 		self.date = self.getNowFormatDate();
-		self.getpartOne();
+		self.getLatestOne();
 	},
 	methods: {
 		//获取最近的报纸
