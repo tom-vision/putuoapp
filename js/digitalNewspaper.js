@@ -23,6 +23,38 @@ var pic = new Vue({
 		self.getpartOne();
 	},
 	methods: {
+		//获取最近的报纸
+		getLatestOne: function(){
+			var self = this;
+			_callAjax({
+				cmd: 'fetch',
+				sql: 'select div from Dad order by date desc limit 1'
+			}, function(d) {
+				if(d.data && d.success) {
+					self.Pics = d.data;
+					setTimeout(function() {
+						swiper = new Swiper('.swiper-container', {
+							onSlideChangeEnd: function(swiper) {
+								if(swiper.activeIndex == 0) {
+									tab.pageTitle = oneclass.split("：")[1];
+									activepage = 1;
+								} else if(swiper.activeIndex == 1) {
+									tab.pageTitle = twoclass.split("：")[1];
+									activepage = 2;
+								} else if(swiper.activeIndex == 2) {
+									tab.pageTitle = threeclass.split("：")[1];
+									activepage = 3;
+								} else {
+									tab.pageTitle = fourclass.split("：")[1];
+									activepage = 4;
+								}
+							}
+						});
+					}, 500)
+			
+				} else {}
+			});
+		},
 		getpartOne: function() {
 			var self = this;
 			_callAjax({
