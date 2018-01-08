@@ -7,6 +7,8 @@ if(window.plus) {
 
 function plusReady() {
 	var ck;
+	//清除角标
+	plus.runtime.setBadgeNumber(0)
 	//预加载页面
 	mui.init({
 		preloadPages: [{
