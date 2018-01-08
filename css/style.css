@@ -1604,3 +1604,20 @@ body {
   z-index: 2;
   font-size: 12px;
 }
+#theme {
+  background-color: #fff;
+}
+.theme-cover {
+  display: block;
+}
+.theme-desc {
+  position: relative;
+  margin: 20px;
+  background-color: #f1f1f1;
+  font-size: 14px;
+  color: #333;
+  padding: 20px;
+}
+.theme-desc:before {
+  content: '简介：';
+}

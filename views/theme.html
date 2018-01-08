@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<script src="../plugins/mui.min.js"></script>
+		<link href="../plugins/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../plugins/iconfont.css" />
+		<link rel="stylesheet" href="../css/style.css" />
+		<script src="../plugins/jquery.min.js"></script>
+		<script src="../plugins/vue.min.js"></script>
+	</head>
+
+	<body>
+		<!-- 导航栏 -->
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">专题标题</h1>
+		</header>
+		
+		<div id="theme" class="have-header">
+			<img :src="cover" width="100%" class="theme-cover" />
+			
+			<div class="theme-desc" v-text="desc"></div>
+			
+			<div class="news-list" v-for="n in allNews">
+				<header v-text="n.title"></header>
+				<ul class="mui-table-view">
+					<li class="mui-table-view-cell mui-media" v-for="i in n.news">
+						<a @click="gotoDetail(i)">
+							<div class="mui-media-object mui-pull-left" :style="{backgroundImage: 'url('+ i.imgs[0] +')'}"></div>
+							<div class="mui-media-body" v-text="i.title"></div>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</body>
+
+</html>
+<script src="../js/a_ref.js"></script>
+<script src="../js/global.js"></script>
+<script src="../js/theme.js"></script>
