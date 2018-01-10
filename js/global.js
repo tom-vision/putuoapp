@@ -106,6 +106,24 @@ var share = function(type, id, content, img, ext) {
 	});
 }
 
+var adFun = function(self) {
+	if(self.type == 2) {
+		//专题
+		mui.fire(plus.webview.getWebviewById('theme'), 'adTopicId', {
+		});
+		_set('adTopicId', self.url);
+		
+		if(plus.webview.currentWebview().id == 'index') return openWindow('views/theme.html', 'theme');
+		openWindow('theme.html', 'theme');
+	} else if(self.type == 1) {
+		//链接
+		openOutlink(self.url, self.title);
+	} else {
+		//图片
+		return;
+	}
+}
+
 if(window.plus) {
 	plusReady();
 } else {

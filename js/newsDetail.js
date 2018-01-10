@@ -96,7 +96,7 @@ function plusReady() {
 					$(this)[0].pause();
 				})
 				
-				openOutlink(this.firstAd.url, this.firstAd.title);
+				adFun(this.firstAd);
 			}
 		},
 		created: function (){
@@ -105,7 +105,7 @@ function plusReady() {
 			//获取广告
 			_callAjax({
 				cmd: "fetch",
-				sql: "select id, title, img, url, ifValid from articles where linkerId = 119 order by id desc limit 3"
+				sql: "select id, title, img, url, reference as type, ifValid from articles where linkerId = 119 order by id desc limit 3"
 			}, function(d) {
 				if(d.success && d.data) {
 					self.firstAd = d.data[d.data.length-1];

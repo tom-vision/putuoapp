@@ -135,10 +135,10 @@ function plusReady() {
 			},
 			//跳转到广告页面
 			gotoFirstAd: function(){
-				openOutlink(this.firstAd.url, this.firstAd.title);
+				adFun(this.firstAd);
 			},
 			gotoSecondAd: function() {
-				openOutlink(this.secondAd.url, this.secondAd.title);
+				adFun(this.secondAd);
 			},
 			goNewsGraphic: function(i) {
 				var detailPage = null;
@@ -385,7 +385,7 @@ function plusReady() {
 			//获取广告
 			_callAjax({
 				cmd: "fetch",
-				sql: "select id, title, img, url, ifValid from articles where linkerId = 119 order by id desc limit 2"
+				sql: "select id, title, img, url, reference as type, ifValid from articles where linkerId = 119 order by id desc limit 2"
 			}, function(d) {
 				if(d.success && d.data) {
 					self.firstAd = d.data[0];
