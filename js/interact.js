@@ -1,9 +1,6 @@
 //预加载页面
 mui.init({
 	preloadPages: [{
-		url: 'release.html',
-		id: 'release',
-	}, {
 		url: 'interact-detail.html',
 		id: 'interact-detail',
 	}, ],
@@ -390,10 +387,13 @@ function plusReady() {
 					break;
 			}
 			if(index != 0) {
-				mui.fire(plus.webview.getWebviewById('release'), 'releaseType', {
-					type: type
-				});
-				openWindow('release.html', 'release');
+				mui.openWindow({
+					url: 'release.html',
+					id: 'release',
+					extras: {
+						type: type
+					}
+				})
 			}
 
 		});

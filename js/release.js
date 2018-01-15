@@ -38,6 +38,21 @@ function plusReady() {
 					this.showAdd = true;
 				}
 			}
+		},
+		mounted: function() {
+			var self = this;
+			var cameraEnable = _get('camera');
+
+			if(cameraEnable != 1){
+				mui.confirm('是否授权使用相机，用以互动上传照片', '', ['确定', '取消'], function(e) {
+					if(e.index == 0) {
+						_set('camera', '1');
+					} else {
+						_set('camera', '0');
+						mui.back();
+					}
+				})
+			}			
 		}
 	});
 	
@@ -133,13 +148,10 @@ function plusReady() {
 		});
 	}
 	
-	//添加releaseType自定义事件监听
-	window.addEventListener('releaseType', function(event) {
-		userInfo = _load(_get('userInfo'));
-		//获得事件参数
-		release.releaseType = event.detail.type;
-		head.getInteractCtrl();
-	})
+	userInfo = _load(_get('userInfo'));
+	//获得事件参数
+	release.releaseType = plus.webview.currentWebview().type;
+	head.getInteractCtrl();
 }
 
 // 判断扩展API是否准备，否则监听'plusready'事件
