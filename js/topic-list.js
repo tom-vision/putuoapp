@@ -41,26 +41,24 @@ function plusReady() {
 				},200)
 			},
 			getTopic: function() {
-				var f = 10e5;
+				var f = '2030-01-01';
 				if(topic.topics.length) {
-					f = _at(topic.topics, -1).id;
+					f = _at(topic.topics, -1).logtime;
 				}
-			
+
 				_callAjax({
 					cmd: "fetch",
-					sql: "select id, title, img, subtitle from articles where ifValid=1 and linkerId = ? and id<? order by id desc limit 10",
+					sql: "select id, title, img, subtitle, newsdate as logtime from articles where ifValid=1 and linkerId = ? and newsdate < ? order by logtime desc limit 10",
 					vals: _dump([topicId, f])
 				}, function(d) {
 					if(!d.success || !d.data) {
 						topic.bHaveMore = false;
 						return;
 					} else {
-						topic.bHaveMore = true;
-						
 						d.data.forEach(function(r) {
 							topic.topics.push(r);
 						})
-						
+						topic.bHaveMore = true;
 					}
 				});
 			}

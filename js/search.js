@@ -11,11 +11,12 @@ function plusReady() {
 				var self = this;
 
 				if(self.keyWord == '') return mui.toast("请输入关键字搜索");
-				
+				plus.nativeUI.showWaiting();
 				_callAjax({
 					cmd: "fetch",
 					sql: "select * from articles where ifValid=1 and title like '%"+ self.keyWord +"%'"
 				}, function(d) {
+					plus.nativeUI.closeWaiting()
 					if(!d.success || !d.data){
 						mui.toast("抱歉，没有找到相关新闻");
 					}else{

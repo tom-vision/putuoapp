@@ -62,7 +62,9 @@
 				<!-- 滚动图 -->
 				<div class="swiper-container index-swiper">
 					<div class="swiper-wrapper">
-						<div class="swiper-slide" v-for="i in scrollNews" @click="gotoDetail(i)" :style="{backgroundImage: 'url('+ i.imgs[0] +')'}">
+						<!--<div class="swiper-slide" v-for="i in scrollNews" @click="gotoDetail(i)" :style="{backgroundImage: 'url('+ i.imgs[0] +')'}">-->
+						<div class="swiper-slide" v-for="i in scrollNews" @click="gotoDetail(i)">
+							<img :src="i.imgs[0]" width="100%" height="100%"/>
 						</div>
 					</div>
 					<div class="swiper-pagination"></div>
@@ -286,7 +288,7 @@
 				
 				<a class="load-more" @click="getPutuoNews()" v-show="bHaveMore_putuo">点击加载更多</a>
 			</div>
-			<!--新闻tab 视频新闻-->
+
 			<div class="tab-content tab-content-width-fixed-sub-bar" v-show="activeSort == 2">
 				<div class="video-list news-list">
 					<ul class="clearfix">
@@ -295,7 +297,7 @@
 								<div :style="'background-image:url('+i.imgs[0]+')'">
 									<i class="iconfont icon-shipin"></i>
 								</div>
-								<p v-text="i.title"></p>
+								<p v-text="i.title" class="mh"></p>
 							</a>							
 						</li>
 					</ul>

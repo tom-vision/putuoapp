@@ -41,18 +41,18 @@ function plusReady() {
 		},
 		mounted: function() {
 			var self = this;
-			var cameraEnable = _get('camera');
-
-			if(cameraEnable != 1){
-				mui.confirm('是否授权使用相机，用以互动上传照片', '', ['确定', '取消'], function(e) {
-					if(e.index == 0) {
-						_set('camera', '1');
-					} else {
-						_set('camera', '0');
-						mui.back();
-					}
-				})
-			}			
+//			var cameraEnable = _get('camera');
+//
+//			if(cameraEnable != 1){
+//				mui.confirm('是否授权使用相机，用以互动上传照片', '', ['确定', '取消'], function(e) {
+//					if(e.index == 0) {
+//						_set('camera', '1');
+//					} else {
+//						_set('camera', '0');
+//						mui.back();
+//					}
+//				})
+//			}			
 		}
 	});
 	

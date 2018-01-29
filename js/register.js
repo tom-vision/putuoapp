@@ -35,9 +35,12 @@ function plusReady() {
 						}
 						window.sessionStorage.setItem(self.phone.trim(), captcha_session);
 						// 发送验证码
+						console.log(captcha_session)
 						_smsAjax({
 							cmd: "raw",
-							text: "【新蓝广科】您的验证码" + captcha_session + " ，请及时查收。",
+//							text: "【新蓝广科】您的验证码" + captcha_session + " ，请及时查收。",
+							text: "【掌上普陀】您的验证码是" + captcha_session + "。如非本人操作，请忽略本短信",
+							from: 'pt',
 							phone: self.phone.trim()
 						}, function(d) {
 							mui.toast('发送成功');

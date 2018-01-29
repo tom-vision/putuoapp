@@ -116,6 +116,7 @@ var adFun = function(self) {
 		if(plus.webview.currentWebview().id == 'index') return openWindow('views/theme.html', 'theme');
 		openWindow('theme.html', 'theme');
 	} else if(self.type == 1) {
+		console.log(self.url)
 		//链接
 		openOutlink(self.url, self.title);
 	} else {

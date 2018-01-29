@@ -20,12 +20,13 @@
 			<h1 id="topicTitle" class="mui-title" v-text="title"></h1>
 		</header>
 
-		<div id="topic-list" class="have-header">
+		<div id="topic-list" class="have-header" v-cloak>
 			<div class="video-list">
-				<ul class="clearfix">
+				<p class="tips" v-if="topics.length == 0">暂未添加任何节目</p>
+				<ul class="clearfix" v-if="topics.length != 0">
 					<li v-for="i in topics" @click="gotoDetail(i)">
 						<a class="video-item">
-							<img :src="i.img" width="100%" />
+							<div class="video-thumb" :style="{backgroundImage: 'url('+ i.img +')'}"></div>
 							<p class="title" v-text="i.title"></p>
 							<p class="desc" v-text="i.subtitle"></p>
 						</a>
