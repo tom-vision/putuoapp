@@ -183,14 +183,14 @@ function plusReady() {
 			getVideoNews: function() {
 				var self = this;
 	
-				var f = 10e5;
+				var f = 10e10;
 				if(self.videoNews.length) {
-					f = _at(self.videoNews, -1).id;
+					f = _at(self.videoNews, -1).newsdate;
 				}
 				
 				_callAjax({
 					cmd: "fetch",
-					sql: "select * from articles where ifValid =1 and id<? and linkerId = ? order by id desc limit 5",
+					sql: "select * from articles where ifValid =1 and newsdate<? and linkerId = ? order by newsdate desc limit 5",
 					vals: _dump([f, linkerId.videoNews])
 				}, function(d) {
 					if(!d.success || !d.data) {
@@ -249,7 +249,7 @@ function plusReady() {
 			//获取置顶的即时新闻
 			_callAjax({
 				cmd: "fetch",
-				sql: "select id, title, img, content, linkerId, brief, reporter, url, readcnt, newsdate, subtitle, strftime('%Y-%m-%d %H:%M', logtime) as logtime from articles where ifValid =1 and linkerId = " + linkerId.instantNews + " and reference like '%2%'" + " order by id desc limit 1"
+				sql: "select id, title, img, content, linkerId, brief, reporter, url, readcnt, newsdate, subtitle, strftime('%Y-%m-%d %H:%M', logtime) as logtime from articles where ifValid =1 and linkerId = " + linkerId.instantNews + " and reference like '%2%'" + " order by newsdate desc limit 1"
 			}, function(d) {
 				var sqlInstant = '';
 				if(d.success && d.data) {
@@ -259,9 +259,9 @@ function plusReady() {
 						self.instantTopNews.push(r);
 					});	
 					
-					sqlInstant = "select id, title, img, content, linkerId, brief, reporter, url, readcnt, newsdate, subtitle, strftime('%Y-%m-%d %H:%M', logtime) as logtime from articles where ifValid =1 and id <> " + d.data[0].id + " and linkerId = " + linkerId.instantNews + " order by id desc limit 4";
+					sqlInstant = "select id, title, img, content, linkerId, brief, reporter, url, readcnt, newsdate, subtitle, strftime('%Y-%m-%d %H:%M', logtime) as logtime from articles where ifValid =1 and id <> " + d.data[0].id + " and linkerId = " + linkerId.instantNews + " order by newsdate desc limit 4";
 				}else {
-					sqlInstant = "select id, title, img, content, linkerId, brief, reporter, url, readcnt, newsdate, subtitle, strftime('%Y-%m-%d %H:%M', logtime) as logtime from articles where ifValid =1 and linkerId = " + linkerId.instantNews + " order by id desc limit 5";
+					sqlInstant = "select id, title, img, content, linkerId, brief, reporter, url, readcnt, newsdate, subtitle, strftime('%Y-%m-%d %H:%M', logtime) as logtime from articles where ifValid =1 and linkerId = " + linkerId.instantNews + " order by newsdate desc limit 5";
 				}
 				
 				//获取除置顶外的即时新闻
@@ -280,7 +280,7 @@ function plusReady() {
 			//获取置顶的普陀新闻
 			_callAjax({
 				cmd: "fetch",
-				sql: "select id, title, img, content, linkerId, brief, reporter, url, readcnt, newsdate, subtitle, strftime('%Y-%m-%d %H:%M', logtime) as logtime from articles where ifValid =1 and linkerId in( " + linkerId.putuoNews + "," + linkerId.putuonetNews + " ) and reference like '%2%'" + " order by id desc limit 1"
+				sql: "select id, title, img, content, linkerId, brief, reporter, url, readcnt, newsdate, subtitle, strftime('%Y-%m-%d %H:%M', logtime) as logtime from articles where ifValid =1 and linkerId in( " + linkerId.putuoNews + "," + linkerId.putuonetNews + " ) and reference like '%2%'" + " order by newsdate desc limit 1"
 			}, function(d) {
 				var sqlPutuo = '';
 				if(d.success && d.data) {
@@ -290,9 +290,9 @@ function plusReady() {
 						self.putuoTopNews.push(r);
 					});	
 					
-					sqlPutuo = "select id, title, img, content, linkerId, brief, reporter, url, readcnt, newsdate, subtitle, strftime('%Y-%m-%d %H:%M', logtime) as logtime from articles where ifValid =1 and id <> " + d.data[0].id + " and linkerId in( " + linkerId.putuoNews + "," + linkerId.putuonetNews + " ) order by id desc limit 4";
+					sqlPutuo = "select id, title, img, content, linkerId, brief, reporter, url, readcnt, newsdate, subtitle, strftime('%Y-%m-%d %H:%M', logtime) as logtime from articles where ifValid =1 and id <> " + d.data[0].id + " and linkerId in( " + linkerId.putuoNews + "," + linkerId.putuonetNews + " ) order by newsdate desc limit 4";
 				}else {
-					sqlPutuo = "select id, title, img, content, linkerId, brief, reporter, url, readcnt, newsdate, subtitle, strftime('%Y-%m-%d %H:%M', logtime) as logtime from articles where ifValid =1 and linkerId in( " + linkerId.putuoNews + "," + linkerId.putuonetNews + " ) order by id desc limit 5";
+					sqlPutuo = "select id, title, img, content, linkerId, brief, reporter, url, readcnt, newsdate, subtitle, strftime('%Y-%m-%d %H:%M', logtime) as logtime from articles where ifValid =1 and linkerId in( " + linkerId.putuoNews + "," + linkerId.putuonetNews + " ) order by newsdate desc limit 5";
 				}
 				
 				//获取除置顶外的即时新闻
@@ -313,15 +313,15 @@ function plusReady() {
 				cmd: "multiFetch",
 				multi: _dump([{
 						key: "scrollNews",
-						sql: "select id, title, img, content, linkerId, brief, reporter, url, readcnt, newsdate, subtitle, strftime('%Y-%m-%d %H:%M', logtime) as logtime from articles where ifValid =1 and linkerId = " + linkerId.putuoNews + " and reference like '%0%'" + " order by id desc limit 5"
+						sql: "select id, title, img, content, linkerId, brief, reporter, url, readcnt, newsdate, subtitle, strftime('%Y-%m-%d %H:%M', logtime) as logtime from articles where ifValid =1 and linkerId = " + linkerId.putuoNews + " and reference like '%0%'" + " order by newsdate desc limit 5"
 					},
 					{
 						key: "headNews",
-						sql: "select id, title, img, content, linkerId, brief, reporter, url, readcnt, newsdate, subtitle, strftime('%Y-%m-%d %H:%M', logtime) as logtime from articles where ifValid =1 and linkerId = " + linkerId.putuoNews + " and reference like '%1%'" + " order by id desc limit 1"
+						sql: "select id, title, img, content, linkerId, brief, reporter, url, readcnt, newsdate, subtitle, strftime('%Y-%m-%d %H:%M', logtime) as logtime from articles where ifValid =1 and linkerId = " + linkerId.putuoNews + " and reference like '%1%'" + " order by newsdate desc limit 1"
 					},
 					{
 						key: "videoNews",
-						sql: "select id, title, img, content, linkerId, brief, reporter, url, readcnt, newsdate, subtitle, strftime('%Y-%m-%d %H:%M', logtime) as logtime from articles where ifValid =1 and linkerId = " + linkerId.videoNews + " order by id desc limit 10"
+						sql: "select id, title, img, content, linkerId, brief, reporter, url, readcnt, newsdate, subtitle, strftime('%Y-%m-%d %H:%M', logtime) as logtime from articles where ifValid =1 and linkerId = " + linkerId.videoNews + " order by newsdate desc limit 10"
 					}
 				])
 			}, function(d) {
@@ -465,7 +465,7 @@ function plusReady() {
 				var self = this;
 				_callAjax({
 					cmd: "fetch",
-					sql: "select id, title, img, content, linkerId, brief, reporter, url, readcnt, newsdate, subtitle, strftime('%Y-%m-%d %H:%M', logtime) as logtime from articles where ifValid =1 and linkerId = ? and reference like '%2%' order by id desc limit 1",
+					sql: "select id, title, img, content, linkerId, brief, reporter, url, readcnt, newsdate, subtitle, strftime('%Y-%m-%d %H:%M', logtime) as logtime from articles where ifValid =1 and linkerId = ? and reference like '%2%' order by newsdate desc limit 1",
 					vals: _dump([linkerId.instantNews])
 				}, function(d) {					
 					if(d.success && d.data) {
@@ -484,9 +484,9 @@ function plusReady() {
 			getInstantNews: function() {
 				var self = this;
 	
-				var f = 10e5;
+				var f = 10e10;
 				if(self.instantNews.length) {
-					f = _at(self.instantNews, -1).id;
+					f = _at(self.instantNews, -1).newsdate;
 				}
 
 				var topId = self.instantTopNews.length > 0 ? self.instantTopNews[0].id : 0;
@@ -494,7 +494,7 @@ function plusReady() {
 				//获取即时新闻
 				_callAjax({
 					cmd: "fetch",
-					sql: "select id, title, img, content, linkerId, brief, reporter, url, readcnt, newsdate, subtitle, strftime('%Y-%m-%d %H:%M', logtime) as logtime from articles where ifValid =1 and id < ? and linkerId = ? and id <> ? order by id desc limit 10",
+					sql: "select id, title, img, content, linkerId, brief, reporter, url, readcnt, newsdate, subtitle, strftime('%Y-%m-%d %H:%M', logtime) as logtime from articles where ifValid =1 and newsdate < ? and linkerId = ? and id <> ? order by newsdate desc limit 10",
 					vals: _dump([f, linkerId.instantNews, topId])
 				}, function(d) {
 					if(!d.success || !d.data) {
@@ -516,7 +516,7 @@ function plusReady() {
 				var self = this;
 					_callAjax({
 						cmd: "fetch",
-						sql: "select id, title, img, content, linkerId, brief, reporter, url, readcnt, newsdate, subtitle, strftime('%Y-%m-%d %H:%M', logtime) as logtime from articles where ifValid =1 and linkerId in(?,?) and reference like '%2%' order by id desc limit 1",
+						sql: "select id, title, img, content, linkerId, brief, reporter, url, readcnt, newsdate, subtitle, strftime('%Y-%m-%d %H:%M', logtime) as logtime from articles where ifValid =1 and linkerId in(?,?) and reference like '%2%' order by newsdate desc limit 1",
 						vals: _dump([linkerId.putuoNews, linkerId.putuonetNews])
 					}, function(d) {					
 						if(d.success && d.data) {
@@ -534,9 +534,9 @@ function plusReady() {
 			getPutuoNews: function() {
 				var self = this;
 			
-				var f = 10e5;
+				var f = 10e10;
 				if(self.putuoNews.length) {
-					f = _at(self.putuoNews, -1).id;
+					f = _at(self.putuoNews, -1).newsdate;
 				}
 				
 				var topId = self.putuoTopNews.length>0? self.putuoTopNews[0].id : 0;
@@ -544,7 +544,7 @@ function plusReady() {
 				//获取普陀新闻
 				_callAjax({
 					cmd: "fetch",
-					sql: "select id, title, img, content, linkerId, brief, reporter, url, readcnt, newsdate, subtitle, strftime('%Y-%m-%d %H:%M', logtime) as logtime from articles where ifValid =1 and id<? and linkerId in (?,?) and id <> ? order by id desc limit 10",
+					sql: "select id, title, img, content, linkerId, brief, reporter, url, readcnt, newsdate, subtitle, strftime('%Y-%m-%d %H:%M', logtime) as logtime from articles where ifValid =1 and newsdate<? and linkerId in (?,?) and id <> ? order by newsdate desc limit 10",
 					vals: _dump([f, linkerId.putuoNews, linkerId.putuonetNews, topId])
 	
 				}, function(d) {
@@ -566,14 +566,14 @@ function plusReady() {
 			getVideoNews: function() {
 				var self = this;
 	
-				var f = 10e5;
+				var f = 10e10;
 				if(self.videoNews.length) {
-					f = _at(self.videoNews, -1).id;
+					f = _at(self.videoNews, -1).newsdate;
 				}
 	
 				_callAjax({
 					cmd: "fetch",
-					sql: "select * from articles where ifValid =1 and id<? and linkerId = ? order by id desc limit 10",
+					sql: "select * from articles where ifValid =1 and newsdate<? and linkerId = ? order by newsdate desc limit 10",
 					vals: _dump([f, linkerId.videoNews])
 	
 				}, function(d) {
