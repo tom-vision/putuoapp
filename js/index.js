@@ -32,7 +32,7 @@ $('.go-index').on('click', function() {
 //跳转至新闻tab
 $('.go-news').on('click', function() {
 	changeTab('news', $(this));
-//	$('body').animate({scrollTop: '0'}, 500);
+	$('body').animate({scrollTop: '0'}, 500);
 })
 
 //跳转至互动

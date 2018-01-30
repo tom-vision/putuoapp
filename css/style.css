@@ -457,6 +457,8 @@ body {
 .search input {
   margin: 0;
   flex: 1;
+  font-size: 14px;
+  height: 34px;
 }
 .search span {
   width: 60px;
