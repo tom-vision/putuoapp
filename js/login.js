@@ -1,3 +1,4 @@
+var login;
 //预加载页面
 mui.init({
 	preloadPages: [{
@@ -7,13 +8,16 @@ mui.init({
 		url: 'register.html',
 		id: 'register',
 	}],
-
+	beforeback: function() {
+		login.phone = '';
+		login.password = '';
+	}
 	
 });
 
 // 扩展API加载完毕，现在可以正常调用扩展API
 function plusReady() {
-	var login = new Vue({
+	login = new Vue({
 		el: '#login',
 		data: {
 			phone: '',

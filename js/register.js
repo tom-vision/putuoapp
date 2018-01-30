@@ -1,6 +1,8 @@
 
 // 扩展API加载完毕，现在可以正常调用扩展API
 function plusReady() {
+	var bInserting = false;
+	
 	var register = new Vue({
 		el: '#register',
 		data: {
@@ -8,7 +10,7 @@ function plusReady() {
 			captcha: '',
 			password: '',
 			captcha_session: '',
-			getSmsState: '获取验证码'
+			getSmsState: '获取验证码',
 		},
 		methods: {
 			//获取验证码
@@ -60,6 +62,8 @@ function plusReady() {
 			insertUserData: function() {
 				var self = this;
 				var name = self.phone.trim().replace(/(\d{3})\d{4}(\d{4})/, '$1****$2');
+				
+				
 				//注册成功插入数据
 				_callAjax({
 					cmd: "exec",
@@ -85,21 +89,30 @@ function plusReady() {
 									webview.show();
 								}, 2000);
 							}
+							
 						});
 					} else {
 						mui.toast("注册失败");
+						
 					}
+					bInserting = false;
+					
 				});
 			},
 			//注册
 			register: function() {
 				var self = this;
+				if(bInserting) return;  //避免重复插入
+				bInserting = true;
+				
 				var captcha_session = window.sessionStorage.getItem(self.phone.trim());
 	
 				if('' == self.phone.trim() || !(/^1(3|4|5|7|8)\d{9}$/.test(self.phone.trim()))) return mui.toast("请输入正确的手机号");
 				if('' == self.password.trim() || !(/^[a-zA-Z0-9]\w{5,11}$/.test(self.password.trim()))) return mui.toast("请输入6-12位密码");
 				if('' == self.captcha.trim() || !(/^\d{6}$/.test(self.captcha.trim())) || captcha_session != self.captcha) return mui.toast("验证码错误");
+				
 				self.insertUserData();
+				
 			},
 		}
 	})
