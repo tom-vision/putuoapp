@@ -3,6 +3,7 @@
 function plusReady() {
 	var bInserting = false;
 	
+	
 	var register = new Vue({
 		el: '#register',
 		data: {
