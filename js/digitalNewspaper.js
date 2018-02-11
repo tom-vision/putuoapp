@@ -267,9 +267,11 @@ var tab = new Vue({
 	},
 	created: function() {
 		var self = this;
-		self.date = menu.getNowFormatDate();
-		self.getweek();
-		self.getpageTitle();
+		setTimeout(function() {
+			self.date = pic.date
+			self.getweek();
+			self.getpageTitle();
+		},1000)
 	},
 	methods: {
 		//更换版面
@@ -375,6 +377,7 @@ var tab = new Vue({
 							swiper.slideTo(0, 1, false);
 							swiper.destroy();
 							tab.date = rs.text;
+							tab.pageTitle = d.data[0].class.split('：')[1];
 							var arys1 = new Array();
 							arys1 = rs.text.split('-');
 							var ssdate = new Date(arys1[0], parseInt(arys1[1] - 1), arys1[2]);
