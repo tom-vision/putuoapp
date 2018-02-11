@@ -26,11 +26,14 @@ var pic = new Vue({
 			var self = this;
 			_callAjax({
 				cmd: 'fetch',
-//				sql: 'select div from Dad where date = (select date from Dad order by date desc limit 1)'
-				sql: 'select div from Dad where date = (select date from Dad order by date desc limit 1)'
+				sql: 'select div, date from Dad where date = (select date from Dad order by date desc limit 1)'
 			}, function(d) {
 				if(d.data && d.success) {
-					self.Pics = d.data;
+					d.data.forEach(function(p,i) {
+						self.Pics.push({"div":p.div})
+					})
+					self.date = d.data[0].date;
+					menu.date = d.data[0].date;
 					setTimeout(function() {
 						swiper = new Swiper('.swiper-container', {
 							onSlideChangeEnd: function(swiper) {
@@ -77,10 +80,19 @@ var menu = new Vue({
 	},
 	created: function() {
 		var self = this;
-		this.date = self.getNowFormatDate();
-		pic.date = self.getNowFormatDate();
-		self.getpartTwo();
-		self.getpartThree();
+		
+		_callAjax({
+			cmd: 'fetch',
+			sql: 'select date from Dad order by date desc limit 1'
+		}, function(d) {
+			if(d.data && d.success) {
+				self.date = d.data[0].date;
+			}
+		
+			self.getpartTwo();
+			self.getpartThree();
+		})
+		
 	},
 	methods: {
 		getNowFormatDate: function() {
@@ -521,7 +533,6 @@ setTimeout(function() {
 				detail.show = true;
 				var piece = parseInt(_areas[i].getAttribute('data-id'));
 				var page = activepage;
-				
 				_callAjax({
 					cmd: 'fetch',
 					sql: 'select beginTit,class,title,text from Son where date = ? and page = ? and piece = ? ',
