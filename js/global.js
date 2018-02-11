@@ -77,7 +77,8 @@ var share = function(type, id, content, img, ext) {
 	}else if(type == 'news'){
 		hrefUrl = serverAddr + '/ptappShare/news.html?id='+id;
 	}else{
-		hrefUrl = serverAddr + '/ptappShare/down.html?id='+id;
+//		hrefUrl = serverAddr + '/ptappShare/down.html?id='+id;
+		hrefUrl = 'http://a.app.qq.com/o/simple.jsp?pkgname=com.xinlan.PTtele'
 	}
 	
 	if(img != '') imgs = [img];

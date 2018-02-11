@@ -112,6 +112,10 @@ function plusReady() {
 					console.log("广告"+_dump(self.firstAd));
 				}
 			});
+			
+			$('video').each(function() {
+				$(this)[0].pause();
+			})
 		}
 	})
 	

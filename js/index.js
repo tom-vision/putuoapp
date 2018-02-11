@@ -554,7 +554,6 @@ function plusReady() {
 					lastId = _at(self.videoNews, -1).id;
 				}
 	
-				console.log(lastId);
 				_callAjax({
 					cmd: "fetch",
 					sql: "select id, title, img, content, linkerId, brief, reporter, url, readcnt, newsdate, subtitle, strftime('%Y-%m-%d %H:%M', logtime) as logtime from articles where ifValid =1 and (newsdate < ? or (newsdate = ? and id < ?)) and linkerId = ? order by newsdate desc, id desc limit 10",

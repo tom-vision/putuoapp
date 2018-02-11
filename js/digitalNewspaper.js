@@ -14,13 +14,11 @@ var swiper = '';
 var pic = new Vue({
 	el: '#digitalNewspaper',
 	data: {
-		date: '',
 		Pics: [],
+		date: ''
 	},
 	created: function() {
-		var self = this;
-		self.date = self.getNowFormatDate();
-		self.getLatestOne();
+		this.getLatestOne();
 	},
 	methods: {
 		//获取最近的报纸
@@ -28,7 +26,8 @@ var pic = new Vue({
 			var self = this;
 			_callAjax({
 				cmd: 'fetch',
-				sql: 'select div from Dad order by date desc limit 1'
+//				sql: 'select div from Dad where date = (select date from Dad order by date desc limit 1)'
+				sql: 'select div from Dad where date = (select date from Dad order by date desc limit 1)'
 			}, function(d) {
 				if(d.data && d.success) {
 					self.Pics = d.data;
@@ -51,59 +50,8 @@ var pic = new Vue({
 							}
 						});
 					}, 500)
-			
-				} else {}
-			});
-		},
-		getpartOne: function() {
-			var self = this;
-			_callAjax({
-				cmd: 'fetch',
-				sql: 'select div from Dad where date = ?',
-				vals: _dump([self.date])
-			}, function(d) {
-				console.log(JSON.stringify(d))
-				if(d.data && d.success) {
-					self.Pics = d.data;
-					setTimeout(function(){
-						swiper = new Swiper('.swiper-container', {
-							onSlideChangeEnd: function(swiper) {
-								if(swiper.activeIndex == 0) {
-									tab.pageTitle = oneclass.split("：")[1];
-									activepage = 1;
-								} else if(swiper.activeIndex == 1) {
-									tab.pageTitle = twoclass.split("：")[1];
-									activepage = 2;
-								} else if(swiper.activeIndex == 2) {
-									tab.pageTitle = threeclass.split("：")[1];
-									activepage = 3;
-								} else {
-									tab.pageTitle = fourclass.split("：")[1];
-									activepage = 4;
-								}
-							}
-						});
-					}, 500)
-
-				} else {
 				}
 			});
-		},
-		getNowFormatDate: function() {
-			var self = this;
-			var date = new Date();
-			var seperator1 = "-";
-			var year = date.getFullYear();
-			var month = date.getMonth() + 1;
-			var strDate = date.getDate();
-			if(month >= 1 && month <= 9) {
-				month = "0" + month;
-			}
-			if(strDate >= 0 && strDate <= 9) {
-				strDate = "0" + strDate;
-			}
-			var currentdate = year + seperator1 + month + seperator1 + strDate;
-			return currentdate;
 		},
 	}
 })
@@ -130,6 +78,7 @@ var menu = new Vue({
 	created: function() {
 		var self = this;
 		this.date = self.getNowFormatDate();
+		pic.date = self.getNowFormatDate();
 		self.getpartTwo();
 		self.getpartThree();
 	},
@@ -306,27 +255,11 @@ var tab = new Vue({
 	},
 	created: function() {
 		var self = this;
-		self.date = self.getNowFormatDate();
+		self.date = menu.getNowFormatDate();
 		self.getweek();
 		self.getpageTitle();
 	},
 	methods: {
-		getNowFormatDate: function() {
-			var self = this;
-			var date = new Date();
-			var seperator1 = "-";
-			var year = date.getFullYear();
-			var month = date.getMonth() + 1;
-			var strDate = date.getDate();
-			if(month >= 1 && month <= 9) {
-				month = "0" + month;
-			}
-			if(strDate >= 0 && strDate <= 9) {
-				strDate = "0" + strDate;
-			}
-			var currentdate = year + seperator1 + month + seperator1 + strDate;
-			return currentdate;
-		},
 		//更换版面
 		morePage: function() {
 			var picker = new mui.PopPicker();
@@ -391,21 +324,6 @@ var tab = new Vue({
 		},
 		openMenu: function() {
 			menu.show = true;
-		},
-		getNowFormatDate: function() {
-			var date = new Date();
-			var seperator1 = "-";
-			var year = date.getFullYear();
-			var month = date.getMonth() + 1;
-			var strDate = date.getDate();
-			if(month >= 1 && month <= 9) {
-				month = "0" + month;
-			}
-			if(strDate >= 0 && strDate <= 9) {
-				strDate = "0" + strDate;
-			}
-			var currentdate = year + seperator1 + month + seperator1 + strDate;
-			return currentdate;
 		},
 		//更换日期后重新获取数据
 		chooseDate: function() {
@@ -511,8 +429,8 @@ var tab = new Vue({
 									(function(i) {
 										_areas[i].onclick = function() {
 											detail.show = true;
-
 											var piece = parseInt(_areas[i].getAttribute('data-id'));
+
 											_callAjax({
 												cmd: 'fetch',
 												sql: 'select beginTit,class,title,text from Son where date = ? and page = ? and piece = ? ',
@@ -603,11 +521,13 @@ setTimeout(function() {
 				detail.show = true;
 				var piece = parseInt(_areas[i].getAttribute('data-id'));
 				var page = activepage;
+				
 				_callAjax({
 					cmd: 'fetch',
 					sql: 'select beginTit,class,title,text from Son where date = ? and page = ? and piece = ? ',
-					vals: _dump([pic.date, page, piece, ])
+					vals: _dump([pic.date, page, piece])
 				}, function(d) {
+					_tell(d)
 					if(d.data && d.success) {
 						detail.detail_class = d.data[0].class;
 						detail.detail_begintitle = d.data[0].beginTit;
