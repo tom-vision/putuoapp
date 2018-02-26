@@ -287,11 +287,11 @@ function plusReady() {
 				cmd: "multiFetch",
 				multi: _dump([{
 						key: "scrollNews",
-						sql: "select id, title, img, content, linkerId, brief, reporter, url, readcnt, newsdate, subtitle, strftime('%Y-%m-%d %H:%M', logtime) as logtime from articles where ifValid =1 and linkerId = " + linkerId.putuoNews + " and reference like '%0%'" + " order by newsdate desc, id desc limit 5"
+						sql: "select id, title, img, content, linkerId, brief, reporter, url, readcnt, newsdate, subtitle, strftime('%Y-%m-%d %H:%M', logtime) as logtime from articles where ifValid =1 and (linkerId = " + linkerId.putuoNews + " or linkerId = " + linkerId.videoNews + ") and reference like '%0%'" + " order by newsdate desc, id desc limit 5"
 					},
 					{
 						key: "headNews",
-						sql: "select id, title, img, content, linkerId, brief, reporter, url, readcnt, newsdate, subtitle, strftime('%Y-%m-%d %H:%M', logtime) as logtime from articles where ifValid =1 and linkerId = " + linkerId.putuoNews + " and reference like '%1%'" + " order by newsdate desc, id desc limit 1"
+						sql: "select id, title, img, content, linkerId, brief, reporter, url, readcnt, newsdate, subtitle, strftime('%Y-%m-%d %H:%M', logtime) as logtime from articles where ifValid =1 and (linkerId = " + linkerId.putuoNews + " or linkerId = " + linkerId.videoNews + ") and reference like '%1%'" + " order by newsdate desc, id desc limit 1"
 					},
 					{
 						key: "videoNews",

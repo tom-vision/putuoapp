@@ -1001,28 +1001,29 @@ body {
   overflow-y: scroll;
   height: 100%;
 }
-.digitalNewspaper-menu-popup dl dt {
+.digitalNewspaper-menu-popup .content header {
   height: 40px;
   line-height: 40px;
   background-color: #f7f7f7;
   font-size: 16px;
   text-indent: 2em;
 }
-.digitalNewspaper-menu-popup dl dd ul li {
+.digitalNewspaper-menu-popup .content span {
   height: 40px;
   line-height: 40px;
   font-size: 16px;
   text-indent: 2em;
   color: #009cff;
   position: relative;
+  display: block;
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
 }
-.digitalNewspaper-menu-popup dl dd ul li:last-child:after {
+.digitalNewspaper-menu-popup .content span:last-child:after {
   height: 0;
 }
-.digitalNewspaper-menu-popup dl dd ul li:after {
+.digitalNewspaper-menu-popup .content span:after {
   content: '';
   display: block;
   left: 0;
@@ -1040,7 +1041,8 @@ body {
   overflow-y: scroll;
   height: 100%;
 }
-.digitalNewspaper-detail-popup .content h1 {
+.digitalNewspaper-detail-popup .content h1,
+.digitalNewspaper-detail-popup .content h3 {
   font-size: 16px;
   color: #999;
   font-weight: normal;
@@ -1052,9 +1054,11 @@ body {
   color: #000;
   text-align: center;
   padding: 20px 0;
+}
+.digitalNewspaper-detail-popup .content h3 {
   position: relative;
 }
-.digitalNewspaper-detail-popup .content h2:after {
+.digitalNewspaper-detail-popup .content h3:after {
   content: '';
   display: block;
   left: 0;

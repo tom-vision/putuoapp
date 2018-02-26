@@ -27,7 +27,7 @@
 				<img v-for="i in imgs" :src="i" @click="removeImg" width='100px' height="100px">
 				<div class="add-img" v-show="showAdd">
 					<i class="iconfont icon-iconfont7"></i>
-					<input id="rcpic" type="file" accept="image/*" multiple="multiple" capture="camera" @change="addImg($event)"/>
+					<input id="rcpic" type="file" accept="image/*" multiple="multiple" @change="addImg($event)"/>
 				</div>
 			</div>
 		</div>

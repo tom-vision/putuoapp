@@ -972,42 +972,37 @@ body {
         padding-bottom: 44px;
         overflow-y: scroll;
         height: 100%;
-    }
-    dl {
-        dt {
+        header {
             height: 40px;
             line-height: 40px;
             background-color: #f7f7f7;
             font-size: 16px;
             text-indent: 2em;
         }
-        dd {
-            ul {
-                li {
-                    height: 40px;
-                    line-height: 40px;
-                    font-size: 16px;
-                    text-indent: 2em;
-                    color: @base;
-                    position: relative;
-                    .ell;
-                    &:last-child:after {
-                        height: 0;
-                    }
-                    &:after {
-                        content: '';
-                        display: block;
-                        left: 0;
-                        right: 0;
-                        bottom: 0;
-                        width: 100%;
-                        position: absolute;
-                        height: 1px;
-                        background-color: #C8C7CC;
-                        transform: scaleY(.5);
-                        -webkit-transform: scaleY(.5);
-                    }
-                }
+        span {
+            height: 40px;
+            line-height: 40px;
+            font-size: 16px;
+            text-indent: 2em;
+            color: @base;
+            position: relative;
+            display: block;
+            .ell;
+            &:last-child:after {
+                height: 0;
+            }
+            &:after {
+                content: '';
+                display: block;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                width: 100%;
+                position: absolute;
+                height: 1px;
+                background-color: #C8C7CC;
+                transform: scaleY(.5);
+                -webkit-transform: scaleY(.5);
             }
         }
     }
@@ -1018,7 +1013,7 @@ body {
         padding: 20px 20px 44px;
         overflow-y: scroll;
         height: 100%;
-        h1 {
+        h1, h3 {
             font-size: 16px;
             color: #999;
             font-weight: normal;
@@ -1030,6 +1025,8 @@ body {
             color: #000;
             text-align: center;
             padding: 20px 0;
+        }
+        h3 {
             position: relative;
             &:after {
                 content: '';

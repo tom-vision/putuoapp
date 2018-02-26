@@ -23,77 +23,58 @@
 			<h1 class="mui-title">报纸</h1>
 		</header>
 		
-		<footer class="footer-tab" id="tab">
-			<a class="active" style="justify-content: center;">
-				<p style="margin: 0;" v-text="week"></p>
-				<p style="margin: 0;" v-text="date"></p>
-			</a>
-			<a @click="morePage">
-				<i class="iconfont icon-mulu" style="font-size: 16px;"></i> {{ pageTitle }}
-			</a>
-			<a @click="openMenu">
-				<i class="iconfont icon-mulu1"></i> 目录
-			</a>
-			<a class="date-btn" @click="chooseDate">
-				<i class="iconfont icon-wangqihuigu"></i> 往期
-			</a>
-		</footer>
-
-		<div id="digitalNewspaper" class="news-graphic have-header have-footer">
-			<div class="swiper-container paper">
-				<div class="swiper-wrapper">
-					<div class="swiper-slide" v-for="Pic in Pics" v-html="Pic.div">
+		<div id="digitalNewspaper">
+			<footer class="footer-tab">
+				<a class="active" style="justify-content: center;">
+					<p style="margin: 0;" v-text="curWeek"></p>
+					<p style="margin: 0;" v-text="curDate"></p>
+				</a>
+				<a @click="morePage">
+					<i class="iconfont icon-mulu" style="font-size: 16px;"></i> {{ curPage }}
+				</a>
+				<a @click="menuShow = true">
+					<i class="iconfont icon-mulu1"></i> 目录
+				</a>
+				<a class="date-btn" @click="chooseDate">
+					<i class="iconfont icon-wangqihuigu"></i> 往期
+				</a>
+			</footer>
+	
+			<div class="news-graphic have-header have-footer">
+				<div class="swiper-container paper">
+					<div class="swiper-wrapper">
+						<div class="swiper-slide" v-for="p in pages" v-html="p">
+						</div>
 					</div>
 				</div>
 			</div>
+			
+			<div class="popup digitalNewspaper-menu-popup" v-show="menuShow">
+				<header class="mui-bar mui-bar-nav">
+					<a class="mui-icon mui-icon-left-nav mui-pull-left" @click="menuShow = false"></a>
+					<h1 class="mui-title">目录</h1>
+				</header>
+				<div class="content have-header">
+					<div v-for="c in menus">
+						<header v-text="c.title"></header>
+						<span v-for="m in c.menu" v-text="m.title" @click="openDetail(m.id)"></span>
+					</div>
+				</div>
+			</div>
+			
+			<div class="popup digitalNewspaper-detail-popup" v-show="detailShow">
+				<header class="mui-bar mui-bar-nav">
+					<a class="mui-icon mui-icon-left-nav mui-pull-left" @click="closeDetail"></a>
+					<h1 class="mui-title" v-text="curArticle.title"></h1>
+				</header>
+				<div class="content have-header">
+					<h1 v-text="curArticle.mainTitle" v-show="curArticle.mainTitle != ''"></h1>
+					<h2 v-text="curArticle.title"></h2>
+					<h1 v-text="curArticle.subTitle" v-show="curArticle.subTitle != ''"></h2>
+					<article v-html="curArticle.article"></article>
+				<div>
+			</div>
 		</div>
-		
-		<div class="popup digitalNewspaper-menu-popup" v-show="show">
-			<header class="mui-bar mui-bar-nav">
-				<a class="mui-icon mui-icon-left-nav mui-pull-left" @click="closeMenu"></a>
-				<h1 class="mui-title">目录</h1>
-			</header>
-			<dl class="content have-header">
-				<dt v-text="menu_class1" v-if="true1"></dt>
-				<dd>
-					<ul>
-						<li v-for="menu_item0 in menu_items0" v-text="menu_item0.title" @click="openDetail(menu_item0)"></li>
-					</ul>
-				</dd>
-				<dt v-text="menu_class2" v-if="true2"></dt>
-				<dd>
-					<ul>
-						<li v-for="menu_item1 in menu_items1" v-text="menu_item1.title" @click="openDetail(menu_item1)"></li>
-					</ul>
-				</dd>
-				<dt v-text="menu_class3" v-if="true3"></dt>
-				<dd>
-					<ul>
-						<li v-for="menu_item2 in menu_items2" v-text="menu_item2.title" @click="openDetail(menu_item2)"></li>
-					</ul>
-				</dd>
-				<dt v-text="menu_class4" v-if="true4"></dt>
-				<dd>
-					<ul>
-						<li v-for="menu_item3 in menu_items3" v-text="menu_item3.title" @click="openDetail(menu_item3)"></li>
-					</ul>
-				</dd>
-				
-			</dl>
-		</div>
-		
-		<div class="popup digitalNewspaper-detail-popup" v-show="show">
-			<header class="mui-bar mui-bar-nav">
-				<a class="mui-icon mui-icon-left-nav mui-pull-left" @click="closeDetail"></a>
-				<h1 class="mui-title" v-text="detail_class"></h1>
-			</header>
-			<div class="content have-header">
-				<h1 v-text="detail_begintitle"></h1>
-				<h2 v-text="detail_title"></h2>
-				<article v-html="detail_message"></article>
-			<div>
-		</div>
-
 	</body>
 
 </html>
