@@ -52,6 +52,9 @@
 					<li @click="goVod" class="go-vod">
 						<a>视频</a>
 					</li>
+					<li @click="goStudy" class="go-study">
+						<a>学习</a>
+					</li>
 					<li @click="goLife" class="go-life">
 						<a>服务</a>
 					</li>
@@ -212,7 +215,22 @@
 					</ul>
 				</div>
 			</div>
-
+			
+			<div id="study" class="have-sub-header index-tab index-tab-5">
+				<div class="video-list news-list">
+					<ul class="clearfix">
+						<li v-for="i in studies" @click="gotoDetail(i)">
+							<a class="video-item">
+								<div :style="'background-image:url('+i.imgs[0]+')'">
+									<i class="iconfont icon-shipin"></i>
+								</div>
+								<p v-text="i.title" class="mh"></p>
+							</a>							
+						</li>
+					</ul>
+				</div>
+				<a class="load-more" @click="getStudy" v-show="bHaveMore_study">点击加载更多</a>
+			</div>
 		</div>
 
 		<div id="news" class="have-footer main">
@@ -325,6 +343,11 @@
 				<li class="mui-table-view-cell" @click="goSuggest">
 					<a class="mui-navigate-right">
 						<i class="iconfont icon-yijianfankui"></i>意见反馈
+					</a>
+				</li>
+				<li class="mui-table-view-cell" @click="shareToFriend">
+					<a class="mui-navigate-right">
+						<i class="iconfont icon-zan"></i>推荐给朋友
 					</a>
 				</li>
 				<li class="mui-table-view-cell" v-show="isLogin" @click="logout">

@@ -158,6 +158,7 @@ var dns = new Vue({
 				sql: 'select class, title, beginTit, behindTit, text from Son where id = ?',
 				vals: _dump([d])
 			}, function(d) {
+				_tell(d.data[0].text)
 				if(d.success && d.data) {
 					self.curArticle.title = d.data[0].title;
 					self.curArticle.mainTitle = d.data[0].beginTit;

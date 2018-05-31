@@ -5,6 +5,7 @@ var linkerId = {
 	putuoNews: 103,
 	putuonetNews: 106, //普陀报新闻
 	videoNews: 104,
+	study: 152,
 	services: 107,   //服务
 	interact: 114,   //互动
 	rebellion: 115,  //报料
@@ -70,25 +71,30 @@ var openOutlink = function(url, title) {
 var share = function(type, id, content, img, ext) {
 	var hrefUrl = '';
 	var title = '掌上普陀';
-	var imgs = ['../imgs/logo.png'];
+	var imgs = ["_www/logo.png"];
+	
+	if(img != '') imgs = [img];
+	
+	if(ext == 'WXSceneTimeline') title = content;
 	
 	if(type == 'interact'){
 		hrefUrl = serverAddr + '/ptappShare/interact.html?id='+id;
 	}else if(type == 'news'){
 		hrefUrl = serverAddr + '/ptappShare/news.html?id='+id;
+	}else if(type == 'shareToFriend') {
+		hrefUrl = 'http://app.zsputuo.com/zb/share.html';
+		content = '嗨，我是“掌上普陀”，认识你很高兴~';
 	}else{
 //		hrefUrl = serverAddr + '/ptappShare/down.html?id='+id;
 		hrefUrl = 'http://a.app.qq.com/o/simple.jsp?pkgname=com.xinlan.PTtele'
 	}
 	
-	if(img != '') imgs = [img];
-	if(ext == 'WXSceneTimeline') title = content;
-
 	plus.share.getServices(function(shares) {
 		shares.forEach(function(s) {
 			if(s.id == 'weixin' && s.authenticated) {
 				s.send(	{
 					pictures: imgs,
+					thumbs: imgs,
 					title: title,
 					content: content,
 					href: hrefUrl,
@@ -98,7 +104,8 @@ var share = function(type, id, content, img, ext) {
 				}, function() {
 					mui.toast("分享到\"" + s.description + "\"成功！ ");
 				}, function(e) {
-					mui.toast("分享到\"" + s.description + "\"失败: " + e.code);
+					_tell(e)
+					mui.toast("分享到\"" + s.description + "\"失败: " + e.code + e.message);
 				});
 			}
 		})
@@ -135,7 +142,7 @@ if(window.plus) {
 function plusReady() {
 	//锁定竖屏
 	plus.screen.lockOrientation("portrait-primary");
-	  // 监听点击消息事件
+	// 监听点击消息事件
 	plus.push.addEventListener( "click", function( msg ) {
     	var newsId;
     	if(typeof(msg.payload) == 'object') {
@@ -145,6 +152,7 @@ function plusReady() {
     		newsId = msg.payload.split('newsId=')[1];
     	}
     	_set('newsId', newsId);
+    	
     	if(newsId == '' || typeof(newsId) == 'undefined') return mui.toast('非法参数');
     	
     	if(plus.webview.currentWebview() == plus.webview.getLaunchWebview()) return push = true;

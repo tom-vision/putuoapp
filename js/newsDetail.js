@@ -80,7 +80,7 @@ function plusReady() {
 				}
 			},
 			shareSystem: function(type, i, e) {
-				share(type, i.id, i.title, i.img , e)
+				share(type, i.id, i.title, i.thumbnail, e)
 			}
 		},
 	})
@@ -151,11 +151,12 @@ function plusReady() {
 		
 		_callAjax({
 			cmd: "fetch",
-			sql: "select id, title, content, img, url, linkerId, reporter, newsdate, brief, readcnt from articles where ifValid = 1 and id = " + articleId
+			sql: "select id, title, content, img, thumbnail, url, linkerId, reporter, newsdate, brief, readcnt from articles where ifValid = 1 and id = " + articleId
 		}, function(d) {
 			if(d.success && d.data) {
 				if(d.data.length == 0) return mui.back();
 				newsDetail.newsData = d.data[0];
+				_tell(d.data[0].id)
 
 				//视频加poster
 				var poster = d.data[0].content;

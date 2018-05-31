@@ -98,12 +98,14 @@ function plusReady() {
 			videoNews: [], //视频新闻
 			topicNews: [], //专题节目
 			bHaveMore_headvideo: true, //顶部tab视频加载更多
+			bHaveMore_study: true,
 			services: [], //服务
 			zhiboUrl: 'http://app.zsputuo.com/zb/',
 			firstAd: {},  //首页广告
 			secondAd: {},
 			instantTopNews: [], //即时新闻置顶
 			putuoTopNews: [], //普陀新闻置顶
+			studies: []
 		},
 		created: function() {
 			this.frameHeight = window.outerHeight - 150 + 'px';
@@ -133,6 +135,9 @@ function plusReady() {
 			},
 			goVod: function() {
 				changeIndexTab('index-tab-4', $('.go-vod'));
+			},
+			goStudy: function() {
+				changeIndexTab('index-tab-5', $('.go-study'));
 			},
 			//跳转到广告页面
 			gotoFirstAd: function(){
@@ -180,12 +185,44 @@ function plusReady() {
 					},
 				})
 			},
-			
 			//跳转到服务链接
 			gotoService: function(s) {
 				var self = this;
 				
 				openOutlink(s.url, s.name);
+			},
+			getStudy: function() {
+				var self = this;
+			
+				var f = '9999-01-01';
+				var lastId = 10e5;
+				
+				if(self.studies.length) {
+					f = _at(self.studies, -1).newsdate;
+					lastId = _at(self.studies, -1).id;
+				}
+				
+				var topId = self.studies.length>0? self.studies[0].id : 0;
+				
+				//获取普陀新闻
+				_callAjax({
+					cmd: "fetch",
+					sql: "select id, title, img, content, linkerId, brief, reporter, url, readcnt, newsdate, subtitle, strftime('%Y-%m-%d %H:%M', logtime) as logtime from articles where ifValid =1 and (newsdate < ? or (newsdate = ? and id < ?)) and linkerId = ? and id <> ? order by newsdate desc, id desc limit 10",
+					vals: _dump([f, f, lastId, linkerId.study, topId])
+				}, function(d) {
+					if(!d.success || !d.data) {
+						self.bHaveMore_study = false;
+						return;
+					} else {
+						self.bHaveMore_study = true;
+	
+						d.data.forEach(function(r) {
+							var arrImg = r.img.split(',');
+							r.imgs = arrImg;
+							self.studies.push(r);
+						});
+					}
+				});
 			}
 		},
 	
@@ -356,6 +393,9 @@ function plusReady() {
 				}
 			});
 			
+			//获取学习内容
+			self.getStudy();
+			
 			//获取广告
 			_callAjax({
 				cmd: "fetch",
@@ -492,21 +532,21 @@ function plusReady() {
 			//获取置顶的普陀新闻
 			getPutuoTopNews: function(){
 				var self = this;
-					_callAjax({
-						cmd: "fetch",
-						sql: "select id, title, img, content, linkerId, brief, reporter, url, readcnt, newsdate, subtitle, strftime('%Y-%m-%d %H:%M', logtime) as logtime from articles where ifValid =1 and linkerId in(?,?) and reference like '%2%' order by newsdate desc, id desc limit 1",
-						vals: _dump([linkerId.putuoNews, linkerId.putuonetNews])
-					}, function(d) {
-						if(d.success && d.data) {
-							d.data.forEach(function(r) {
-								var arrImg = r.img.split(',');
-								r.imgs = arrImg;
-								self.putuoTopNews.push(r);
-							});
-						}
-						
-						self.getPutuoNews();
-					});
+				_callAjax({
+					cmd: "fetch",
+					sql: "select id, title, img, content, linkerId, brief, reporter, url, readcnt, newsdate, subtitle, strftime('%Y-%m-%d %H:%M', logtime) as logtime from articles where ifValid =1 and linkerId in(?,?) and reference like '%2%' order by newsdate desc, id desc limit 1",
+					vals: _dump([linkerId.putuoNews, linkerId.putuonetNews])
+				}, function(d) {
+					if(d.success && d.data) {
+						d.data.forEach(function(r) {
+							var arrImg = r.img.split(',');
+							r.imgs = arrImg;
+							self.putuoTopNews.push(r);
+						});
+					}
+					
+					self.getPutuoNews();
+				});
 			},
 			//获取普陀新闻
 			getPutuoNews: function() {
@@ -573,7 +613,7 @@ function plusReady() {
 						});
 					}
 				});
-			}
+			},
 		},
 		mounted: function() {
 			var self = this;
@@ -673,6 +713,33 @@ function plusReady() {
 				}else{
 					mui.toast("已是最新版本");
 				}
+			},
+			shareToFriend: function(e) {
+				var btnArray = [{
+					title: "分享到朋友圈",
+				}, {
+					title: "分享给朋友"
+				}];
+				plus.nativeUI.actionSheet({
+					title: "分享",
+					cancel: "取消",
+					buttons: btnArray
+				}, function(e) {
+					var index = e.index;
+					switch(index) {
+						//取消
+						case 0:
+							break;
+						case 1:
+							type = linkerId.rebellion;
+							share('shareToFriend', 0, '掌上普陀', '', 'WXSceneTimeline');
+							break;
+						case 2:
+							type = linkerId.photography;
+							share('shareToFriend', 0, '掌上普陀', '', 'WXSceneSession');
+							break;
+					}
+				});
 			}
 		},
 		mounted: function() {
@@ -714,6 +781,15 @@ function plusReady() {
 					
 					if(curVersion < dicVersion.version) {
 						self.isNew = true;
+						mui.confirm('发现新版本v' + dicVersion.version + '，是否更新?', '', ['更新', '取消'], function(e) {
+							if(e.index == 0) {
+								mui.toast('请使用浏览器打开');
+								
+								plus.runtime.openURL('http://a.app.qq.com/o/simple.jsp?pkgname=com.xinlan.PTtele', function(){
+									mui.toast('浏览器调用失败，请前往应用中心更新');
+								});
+							}
+						})
 					}else{
 						self.isNew = false;
 					}
@@ -740,6 +816,33 @@ function plusReady() {
     		openWindow('views/newsDetail.html', 'newsDetail');
     	}, 200)
 	});
+	
+	
+	var checkArguments = function() {
+		var args= plus.runtime.arguments;
+	    if(args){
+	        var newsId = args.split('://')[1];
+	    	_set('newsId', args.split('://')[1]);
+	    	if(newsId == '' || typeof(newsId) == 'undefined') return false;
+	    	
+	        var detailPage = null;
+	        
+			//获得详情页面
+			if(!detailPage && !!plus.webview.getWebviewById('newsDetail')) detailPage = plus.webview.getWebviewById('newsDetail');
+			
+			//触发详情页面的newsId事件
+			mui.fire(detailPage, 'newsId', {});
+			
+			setTimeout(function() {
+				if(plus.webview.currentWebview().id == 'index') return openWindow('views/newsDetail.html', 'newsDetail');
+				openWindow('newsDetail.html', 'newsDetail');
+			}, 200)
+	    }
+	}
+	document.addEventListener('newintent',function(){
+	    checkArguments();
+	},false);
+	checkArguments();
 	
 	if ('Android' == plus.os.name) {
 		ucenter.androidUpdate = true;
