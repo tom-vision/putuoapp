@@ -188,8 +188,8 @@
 				"ios": {
 					"iphone": {
 						"default": "", /*iPhone3启动图片选，分辨率：320x480*/
-						"retina35": "C:/Users/tangq/Desktop/启动图/普陀台/640.960.png",/*3.5英寸设备(iPhone4)启动图片，分辨率：640x960*/
-						"retina40": "C:/Users/tangq/Desktop/启动图/普陀台/640.1136.png","retina55":"C:/Users/tangq/Desktop/启动图/普陀台/1242.2208.png","retina47":"C:/Users/tangq/Desktop/启动图/普陀台/750.1334.png","iphonex":"C:/Users/tangq/Desktop/启动图/普陀台/1125.2436.png"
+						"retina35": "unpackage/640.960.png",/*3.5英寸设备(iPhone4)启动图片，分辨率：640x960*/
+						"retina40": "unpackage/640.1136.png","retina55":"unpackage/1242.2208.png","retina47":"unpackage/750.1334.png","iphonex":"unpackage/1125.2436.png"
 					},
 					"ipad": {
 						"portrait": "", /*iPad竖屏启动图片，分辨率：768x1004*/
@@ -205,9 +205,9 @@
 				"android": {
 					"mdpi": "", /*普通屏启动图片，分辨率：240x282*/
 					"ldpi": "", /*大屏启动图片，分辨率：320x442*/
-					"hdpi": "C:/Users/tangq/Desktop/启动图/普陀台/480.762.png", /*高分屏启动图片，分辨率：480x762*/
-					"xhdpi": "C:/Users/tangq/Desktop/启动图/普陀台/720.1242.png", /*720P高分屏启动图片，分辨率：720x1242*/
-					"xxhdpi": "C:/Users/tangq/Desktop/启动图/普陀台/1080.1882.png"
+					"hdpi": "unpackage/480.762.png", /*高分屏启动图片，分辨率：480x762*/
+					"xhdpi": "unpackage/720.1242.png", /*720P高分屏启动图片，分辨率：720x1242*/
+					"xxhdpi": "unpackage/1080.1882.png"
 				}
 			}
 		},"ads":{"rp":false,"splash":false,"push":false,"spot":false},"adid":""
