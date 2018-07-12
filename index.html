@@ -92,7 +92,7 @@
 				</div>
 
 				<div class="news-list">
-					<header @click="goNews(0)">即时新闻</header>
+					<header @click="goNews(0)">即时新闻<span>更多</span></header>
 					<ul class="mui-table-view">
 						<!--置顶-->
 						<li v-for="i in instantTopNews" :class="{'multiple-media mui-content' : i.imgs.length >= 3, 'mui-table-view-cell mui-media' : i.imgs.length <= 1}" class="top-news" v-cloak>
@@ -120,7 +120,7 @@
 				</div>
 
 				<div class="news-list">
-					<header @click="goNews(1)">普陀新闻</header>
+					<header @click="goNews(1)">普陀新闻<span>更多</span></header>
 					<ul class="mui-table-view">
 						<!--置顶-->
 						<li v-for="i in putuoTopNews" :class="{'multiple-media mui-content' : i.imgs.length >= 3, 'mui-table-view-cell mui-media' : i.imgs.length <= 1}" class="top-news" v-cloak>
@@ -148,7 +148,7 @@
 				</div>
 
 				<div class="video-list news-list">
-					<header @click="goNews(2)">视频新闻</header>
+					<header @click="goNews(2)">视频新闻<span>更多</span></header>
 					<ul class="clearfix">
 						<li v-for="i in videoNews.slice(0,4)">
 							<a class="video-item" @click="gotoDetail(i)">
@@ -162,7 +162,7 @@
 				</div>
 
 				<div class="news-list topic-list">
-					<header @click="goTopic">专题节目</header>
+					<header @click="goTopic">专题节目<span>更多</span></header>
 					<ul class="mui-table-view">
 						<li class="mui-table-view-cell mui-media" v-for="i in topicNews">
 							<a @click="gotoTopicList(i)">
@@ -217,15 +217,11 @@
 			</div>
 			
 			<div id="study" class="have-sub-header index-tab index-tab-5">
-				<div class="video-list news-list">
+				<div class="vnews-list study-list">
 					<ul class="clearfix">
 						<li v-for="i in studies" @click="gotoDetail(i)">
-							<a class="video-item">
-								<div :style="'background-image:url('+i.imgs[0]+')'">
-									<i class="iconfont icon-shipin"></i>
-								</div>
-								<p v-text="i.title" class="mh"></p>
-							</a>							
+							<p v-text="i.title" class="mh"></p>
+							<div :style="'background-image:url('+i.imgs[0]+')'"></div>
 						</li>
 					</ul>
 				</div>

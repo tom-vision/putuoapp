@@ -166,6 +166,8 @@ body {
   padding: 10px 25px;
   position: relative;
   font-weight: 700;
+  display: flex;
+  justify-content: space-between;
 }
 .news-list header:after {
   content: '';
@@ -176,6 +178,10 @@ body {
   display: block;
   width: 2px;
   background-color: #009cff;
+}
+.news-list header span {
+  font-weight: normal;
+  font-size: 14px;
 }
 .news-list .mui-media-body {
   height: 80px;
@@ -1659,4 +1665,35 @@ body {
 }
 .theme-desc:before {
   content: '简介：';
+}
+.study-list {
+  background-color: #fff;
+}
+.study-list li {
+  position: relative;
+  padding: 15px;
+}
+.study-list li p {
+  font-size: 16px;
+  margin-bottom: 10px;
+  color: #333;
+}
+.study-list li div {
+  -webkit-background-size: cover;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 100%;
+  height: 120px;
+}
+.study-list li:after {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  content: '';
+  background-color: #c8c7cc;
+  transform: scaleY(0.5);
+  -webkit-transform: scaleY(0.5);
+  bottom: 0;
 }

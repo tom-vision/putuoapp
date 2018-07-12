@@ -97,6 +97,8 @@ body {
         padding: 10px 25px;
         position: relative;
         font-weight: 700;
+        display: flex;
+        justify-content: space-between;
         &:after {
             content: '';
             position: absolute;
@@ -106,6 +108,10 @@ body {
             display: block;
             width: 2px;
             background-color: @base;
+        }
+        span {
+            font-weight: normal;
+            font-size: 14px;
         }
     }
     .mui-media-body {
@@ -1661,5 +1667,37 @@ body {
     padding: 20px;
     &:before {
         content: '简介：';
+    }
+}
+
+.study-list {
+    background-color: #fff;
+    li {
+        position: relative;
+        padding: 15px;
+        p {
+            font-size: 16px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        div {
+            -webkit-background-size: cover;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            width: 100%;
+            height: 120px;
+        }
+        &:after {
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 1px;
+            content: '';
+            background-color: #c8c7cc;
+            transform: scaleY(.5);
+            -webkit-transform: scaleY(.5);
+            bottom: 0;
+        }
     }
 }
