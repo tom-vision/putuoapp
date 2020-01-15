@@ -696,10 +696,9 @@ function plusReady() {
 			// 检查新版本
 			checkNewVersion: function(){
 				var self = this;
-				
 				var dicVersion = _load(_get('version'));
 				var curVersion = plus.runtime.version;
-
+				console.log(dicVersion);
 				if(curVersion < dicVersion.version){
 					mui.confirm('发现新版本v' + dicVersion.version + '，是否更新?', '', ['更新', '取消'], function(e) {
 						if(e.index == 0) {
@@ -774,7 +773,6 @@ function plusReady() {
 			}, function(d) {
 				if(d.success && d.data) {
 					var dicVersion = d.data[0];
-					
 					_set('version', _dump(dicVersion));
 					
 					var curVersion = plus.runtime.version;
@@ -799,34 +797,33 @@ function plusReady() {
 	})
 	
 	// 监听在线消息事件
-    plus.push.addEventListener( "receive", function( msg ) {
-    	if(plus.os.name != "iOS") return;
-        if ( msg.aps ) { 
-            alert( "接收到在线APNS消息：" + JSON.stringify(msg));
-        } else {
-        	if(!msg.payload || typeof(msg.payload) == "string") return false;
-        	mui.toast('有新消息，请在通知中心查看');
-			plus.push.createMessage(msg.payload.content, msg.payload.payload);
-        }
-    }, false );
-    
+//  plus.push.addEventListener( "receive", function( msg ) {
+//  	if(plus.os.name != "iOS") return;
+//      if ( msg.aps ) { 
+//          alert( "接收到在线APNS消息：" + JSON.stringify(msg));
+//      } else {
+//      	if(!msg.payload || typeof(msg.payload) == "string") return false;
+//      	mui.toast('有新消息，请在通知中心查看');
+//			plus.push.createMessage(msg.payload.content, msg.payload.payload);
+//      }
+//  }, false );
+//  
     
     window.addEventListener('pushOpenDetail', function(event) {
     	setTimeout(function() {
     		openWindow('views/newsDetail.html', 'newsDetail');
     	}, 200)
 	});
-	
+
 	
 	var checkArguments = function() {
 		var args= plus.runtime.arguments;
-	    if(args){
-	        var newsId = args.split('://')[1];
-	    	_set('newsId', args.split('://')[1]);
-	    	if(newsId == '' || typeof(newsId) == 'undefined') return false;
-	    	
+	    if(!!args && args != 'null' && args.length <= 5){
+//	        var newsId = args.split('://')[1];
+	    	_set('newsId', args);
+//	    	if(newsId == '' || typeof(newsId) == 'undefined') return false;
 	        var detailPage = null;
-	        
+
 			//获得详情页面
 			if(!detailPage && !!plus.webview.getWebviewById('newsDetail')) detailPage = plus.webview.getWebviewById('newsDetail');
 			

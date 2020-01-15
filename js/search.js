@@ -4,12 +4,15 @@ function plusReady() {
 		el: '#search',
 		data: {
 			keyWord: '',
-			searchResult: []
+			searchResult: [],
+			illegal: []
 		},
 		methods: {
 			search: function() {
 				var self = this;
-
+				
+				const check = self.illegal.some(k => self.keyWord.indexOf(k) >= 0)
+				if(check) return mui.toast("关键词含非法字符");
 				if(self.keyWord == '') return mui.toast("请输入关键字搜索");
 				plus.nativeUI.showWaiting();
 				_callAjax({
@@ -39,6 +42,9 @@ function plusReady() {
 					openWindow('newsDetail.html', 'newsDetail');
 				}, 200)
 			}
+		},
+		created: function() {
+			this.illegal = JSON.parse(_get('illegal')).map(i => i.content)
 		}
 	});
 }

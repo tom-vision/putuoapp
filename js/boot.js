@@ -10,17 +10,17 @@ function plusReady() {
 	//清除角标
 	plus.runtime.setBadgeNumber(0)
 	//预加载页面
-	mui.init({
-		preloadPages: [{
-			url: 'index.html',
-			id: 'index'
-		},],
-	});
+//	mui.init({
+//		preloadPages: [{
+//			url: 'index.html',
+//			id: 'index'
+//		},],
+//	});
 	var boot = new Vue({
 		el: '.boot',
 		data: {
 			link: '',
-			time: 7
+			time: 9
 		},
 		methods: {
 			openIndex: function() {
@@ -29,10 +29,10 @@ function plusReady() {
                 
 				//获得详情页面
 				if(!indexPage && !!plus.webview.getWebviewById('index')) indexPage = plus.webview.getWebviewById('index');
-				
-				if(push) {
-					mui.fire(indexPage, 'pushOpenDetail', {});
-				}
+
+//				if(push) {
+//					mui.fire(indexPage, 'pushOpenDetail', {});
+//				}
 				
 				setTimeout(function() {
 					openWindow('index.html', 'index');

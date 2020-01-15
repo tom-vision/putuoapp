@@ -32,8 +32,7 @@ function plusReady() {
 					detailPage = plus.webview.getWebviewById('newsDetail');
 				}
 				//触发详情页面的newsId事件
-				mui.fire(detailPage, 'newsId', {
-				});
+				mui.fire(detailPage, 'newsId', {});
 				_set('newsId',i.id);
 				
 				setTimeout(function(){

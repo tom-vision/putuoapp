@@ -25,10 +25,11 @@
 				{{newsData.title}} 
 				<p v-cloak>
 					<span v-show="newsData.reporter != ''">{{newsData.reporter}} &nbsp;&nbsp;&nbsp;&nbsp; </span>
-					<span>{{newsData.newsdate}} &nbsp;&nbsp;&nbsp;&nbsp; </span>
+					<span v-show="!isVideoColumn">{{newsData.newsdate}} &nbsp;&nbsp;&nbsp;&nbsp; </span>
 					<span v-show="showread == 1">阅读量：{{newsData.readcnt}}</span>
 				</p>
-				<div class="desc" v-text="newsData.brief" v-show="newsData.brief!=''" v-cloak></div>
+				<div class="subTitle" v-text="newsData.subtitle" v-show="isVideoColumn"></div>
+				<div class="desc" v-text="newsData.brief" v-show="newsData.brief != ''"></div>
 			</header>
 			<article>
 				<p id="content" v-html="newsData.content"></p>      

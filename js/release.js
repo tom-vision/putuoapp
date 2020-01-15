@@ -118,7 +118,6 @@ function plusReady() {
 					if(d.success && d.data) {
 						_tell(d.data);
 						self.interactCtrl = d.data[0].interactCtrl == 1 ? true : false;
-						console.log("22222="+self.interactCtrl);
 					}
 				});
 			}

@@ -527,13 +527,16 @@ body {
   margin: 10px;
   border: 1px solid #C8C7CC;
   padding: 10px;
-  display: none;
 }
 .news-detail header .desc.active {
   display: block;
 }
 .news-detail header .desc:before {
   content: '摘 要：';
+}
+.news-detail header .subTitle {
+  font-size: 14px;
+  color: #666;
 }
 .news-detail article {
   padding: 15px;

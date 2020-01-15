@@ -72,10 +72,11 @@ var share = function(type, id, content, img, ext) {
 	var hrefUrl = '';
 	var title = '掌上普陀';
 	var imgs = ["_www/logo.png"];
-	
+
 	if(img != '') imgs = [img];
 	
-	if(ext == 'WXSceneTimeline') title = content;
+//	if(ext == 'WXSceneTimeline') title = content;
+	title = content
 	
 	if(type == 'interact'){
 		hrefUrl = serverAddr + '/ptappShare/interact.html?id='+id;
@@ -104,8 +105,8 @@ var share = function(type, id, content, img, ext) {
 				}, function() {
 					mui.toast("分享到\"" + s.description + "\"成功！ ");
 				}, function(e) {
-					_tell(e)
-					mui.toast("分享到\"" + s.description + "\"失败: " + e.code + e.message);
+					// _tell(e)
+					// mui.toast("分享到\"" + s.description + "\"失败: " + e.code + e.message);
 				});
 			}
 		})
@@ -143,31 +144,31 @@ function plusReady() {
 	//锁定竖屏
 	plus.screen.lockOrientation("portrait-primary");
 	// 监听点击消息事件
-	plus.push.addEventListener( "click", function( msg ) {
-    	var newsId;
-    	if(typeof(msg.payload) == 'object') {
-    		//获取 apns 推送中的newsId
-    		newsId = msg.payload.payload.split('newsId=')[1];
-    	} else {
-    		newsId = msg.payload.split('newsId=')[1];
-    	}
-    	_set('newsId', newsId);
-    	
-    	if(newsId == '' || typeof(newsId) == 'undefined') return mui.toast('非法参数');
-    	
-    	if(plus.webview.currentWebview() == plus.webview.getLaunchWebview()) return push = true;
-    	
-        var detailPage = null;
-        
-		//获得详情页面
-		if(!detailPage && !!plus.webview.getWebviewById('newsDetail')) detailPage = plus.webview.getWebviewById('newsDetail');
-		
-		//触发详情页面的newsId事件
-		mui.fire(detailPage, 'newsId', {});
-		
-		setTimeout(function() {
-			if(plus.webview.currentWebview().id == 'index') return openWindow('views/newsDetail.html', 'newsDetail');
-			openWindow('newsDetail.html', 'newsDetail');
-		}, 200)
-	})
+//	plus.push.addEventListener( "click", function( msg ) {
+//  	var newsId;
+//  	if(typeof(msg.payload) == 'object') {
+//  		//获取 apns 推送中的newsId
+//  		newsId = msg.payload.payload.split('newsId=')[1];
+//  	} else {
+//  		newsId = msg.payload.split('newsId=')[1];
+//  	}
+//  	_set('newsId', newsId);
+//  	
+//  	if(newsId == '' || typeof(newsId) == 'undefined') return mui.toast('非法参数');
+//  	
+//  	if(plus.webview.currentWebview() == plus.webview.getLaunchWebview()) return push = true;
+//  	
+//      var detailPage = null;
+//      
+//		//获得详情页面
+//		if(!detailPage && !!plus.webview.getWebviewById('newsDetail')) detailPage = plus.webview.getWebviewById('newsDetail');
+//		
+//		//触发详情页面的newsId事件
+//		mui.fire(detailPage, 'newsId', {});
+//		
+//		setTimeout(function() {
+//			if(plus.webview.currentWebview().id == 'index') return openWindow('views/newsDetail.html', 'newsDetail');
+//			openWindow('newsDetail.html', 'newsDetail');
+//		}, 200)
+//	})
 }

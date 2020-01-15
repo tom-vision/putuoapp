@@ -26,16 +26,15 @@ function plusReady() {
 			newsData: {}, //内容
 			like: false,
 			likeNum: 0, //点赞数
-			showread: 0
+			showread: 0,
+			isVideoColumn: false,
 		},
 		methods: {
 			//阅读量+1
 			addReadCnt: function(){
 				var self = this;
-				
 				var count = parseInt(self.newsData.readcnt) + 1;
-				console.log(self.newsData.readcnt);
-				console.log("count="+count);
+				
 				_callAjax({
 					cmd: "exec",
 					sql: "update articles set readcnt = ? where id = ?",
@@ -80,6 +79,8 @@ function plusReady() {
 				}
 			},
 			shareSystem: function(type, i, e) {
+				console.log(JSON.stringify(i))
+				
 				share(type, i.id, i.title, i.thumbnail, e)
 			}
 		},
@@ -109,7 +110,6 @@ function plusReady() {
 			}, function(d) {
 				if(d.success && d.data) {
 					self.firstAd = d.data[d.data.length-1];
-					console.log("广告"+_dump(self.firstAd));
 				}
 			});
 			
@@ -151,17 +151,18 @@ function plusReady() {
 		
 		_callAjax({
 			cmd: "fetch",
-			sql: "select id, title, content, img, thumbnail, url, linkerId, reporter, newsdate, brief, readcnt from articles where ifValid = 1 and id = " + articleId
+			sql: "select id, title, subtitle, content, img, thumbnail, url, linkerId, reporter, newsdate, brief, readcnt from articles where ifValid = 1 and id = " + articleId
 		}, function(d) {
 			if(d.success && d.data) {
 				if(d.data.length == 0) return mui.back();
 				newsDetail.newsData = d.data[0];
-				_tell(d.data[0].id)
+				
+				if(d.data[0].linkerId == 134 || d.data[0].linkerId == 135 || d.data[0].linkerId == 136 || d.data[0].linkerId == 137 || d.data[0].linkerId == 139) newsDetail.isVideoColumn = true;
 
 				//视频加poster
 				var poster = d.data[0].content;
 				poster = poster.replace(/controls=""/,  'controls poster="' + d.data[0].img + '"');
-
+				
 				newsDetail.newsData.content = poster;
 
 				//文章阅读量+1
